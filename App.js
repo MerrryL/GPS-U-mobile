@@ -1,29 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Sanctum, withSanctum } from "react-sanctum";
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {SafeAreaView, Text, TouchableHighlight, TextInput, Button} from 'react-native';
+import GPSUNavigation from './src/navigations'
+
+const sanctumConfig = {
+  api_url: 'http://127.0.0.1:8000',
+  csrf_cookie_route: "sanctum/csrf-cookie",
+  signin_route: "login",
+  signout_route: "logout",
+  user_object_route: "user",
+};
 
 export default function App() {
-
-  const Stack = createStackNavigator();
   return (
-    <NavigationContainer>
-      <View style={styles.container}>
-        <Text>Test Open up App.js to start working on your app!</Text>
-        <StatusBar style="auto" />
-      </View>
-    </NavigationContainer>
-    
+    <Sanctum config={sanctumConfig}>
+      <Text>Hello</Text>
+      <GPSUNavigation/>
+    </Sanctum>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
