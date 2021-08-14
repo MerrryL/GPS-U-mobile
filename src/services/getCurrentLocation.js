@@ -1,4 +1,5 @@
 import * as Location from "expo-location";
+import apiClient from "./api";
 
 export default async function getCurrentLocation() {
   let { status } = await Location.requestForegroundPermissionsAsync();
@@ -6,71 +7,36 @@ export default async function getCurrentLocation() {
     //setErrorMsg("Permission to access location was denied");
     return;
   } else {
+    // let location = {
+    //   coords: {
+    //     latitude: null,
+    //     longitude: null,
+    //     altitude: null,
+    //     accuracy: null,
+    //     altitudeAccuracy: null,
+    //     heading: null,
+    //     speed: null
+    //   },
+    //   timestamp: null,
+    //   address: {
+    //     lat: null,
+    //     lng: null,
+    //     accuracy: null,
+    //     formatted_address: null,
+    //     viewport: {},
+    //     address_components: [],
+    //     place_id: null
+    //   }
+    // };
     let location = await Location.getCurrentPositionAsync({});
-    location["address"] = {
-      address_components: [
-        {
-          long_name: "277",
-          short_name: "277",
-          types: ["street_number"]
-        },
-        {
-          long_name: "Bedford Avenue",
-          short_name: "Bedford Ave",
-          types: ["route"]
-        },
-        {
-          long_name: "Williamsburg",
-          short_name: "Williamsburg",
-          types: ["neighborhood", "political"]
-        },
-        {
-          long_name: "Brooklyn",
-          short_name: "Brooklyn",
-          types: ["sublocality", "political"]
-        },
-        {
-          long_name: "Kings",
-          short_name: "Kings",
-          types: ["administrative_area_level_2", "political"]
-        },
-        {
-          long_name: "New York",
-          short_name: "NY",
-          types: ["administrative_area_level_1", "political"]
-        },
-        {
-          long_name: "United States",
-          short_name: "US",
-          types: ["country", "political"]
-        },
-        {
-          long_name: "11211",
-          short_name: "11211",
-          types: ["postal_code"]
-        }
-      ],
-      formatted_address: "277 Bedford Avenue, Brooklyn, NY 11211, USA",
-      geometry: {
-        location: {
-          lat: 40.714232,
-          lng: -73.9612889
-        },
-        location_type: "ROOFTOP",
-        viewport: {
-          northeast: {
-            lat: 40.7155809802915,
-            lng: -73.9599399197085
-          },
-          southwest: {
-            lat: 40.7128830197085,
-            lng: -73.96263788029151
-          }
-        }
-      },
-      place_id: "ChIJd8BlQ2BZwokRAFUEcm_qrcA",
-      types: ["street_address"]
-    };
+
+    let address = await apiClient.post("/AdressFromCoordinates", {
+      lat: "50.509345",
+      lng: "3.591042"
+    });
+
+    location["address"] = address.data;
+
     console.log("locationmodded", location);
 
     return location;

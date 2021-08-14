@@ -7,10 +7,7 @@ export async function getConstatations() {
 }
 
 export async function createConstatation(location) {
-  console.log("locationcreate", location);
-
   const newConstat = await apiClient.post("constatations", { location });
-  console.log("nc", newConstat);
   return newConstat;
 }
 
@@ -20,4 +17,23 @@ export async function editConstatation() {
 
 export async function deleteConstatation() {
   return apiClient.get("constatations");
+}
+
+export async function importOptions() {
+  return apiClient.get("options");
+}
+
+export async function uploadImage(result) {
+  console.log("before upload", result);
+
+  let data = {
+    name: "image",
+    height: result.height,
+    width: result.width,
+    type: "image/jpeg",
+    uri: result.uri,
+    base64: result.base64
+  };
+
+  return apiClient.post("images", { image: data });
 }

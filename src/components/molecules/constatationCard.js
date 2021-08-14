@@ -3,20 +3,58 @@ import React from "react";
 import { Card, Button, Icon, ThemeProvider, Text } from "react-native-elements";
 
 export default function ConstatationCard({ constatation, navigation }) {
-  //console.log("in card");
-  //console.log(constatation);
+  console.log("in card");
+  console.log(constatation);
+
+  function thumbUrl() {
+    const extension = constatation?.images[0]?.media[0]?.file_name.substr(
+      constatation?.images[0]?.media[0].name?.length
+    );
+
+    const path =
+      "http://127.0.0.1:8000/images/" +
+      constatation?.images[0]?.id +
+      "/conversions/" +
+      constatation?.images[0]?.media[0]?.name +
+      "-thumb" +
+      extension;
+
+    return path;
+  }
 
   return (
     <ThemeProvider>
       <Card>
         <Card.Title>Constatation n°{constatation.id}</Card.Title>
+        <Card.FeaturedTitle>
+          Addresse:{constatation?.localization?.address?.formatted_address}
+        </Card.FeaturedTitle>
+        <Card.FeaturedSubtitle>
+          Date: {constatation.created_at}
+        </Card.FeaturedSubtitle>
+        <Text style={{ marginBottom: 10 }}>
+          Validation:{constatation.isValidated}
+        </Text>
         <Card.Divider />
         <Card.Image
-          source="https://picsum.photos/200/300"
+          source={{ uri: thumbUrl() }}
           resizeMode="cover"
-          style={{ width: 200, height: 200 }}
+          style={{
+            width: 150,
+            height: 150,
+            borderRadius: 20,
+            overflow: "hidden",
+            borderWidth: 3,
+            borderColor: "black"
+          }}
         />
         <Text style={{ marginBottom: 10 }}>{constatation.comment}</Text>
+        <Text style={{ marginBottom: 10 }}>
+          +{constatation?.images.length - 1} photo(s)
+        </Text>
+        <Text style={{ marginBottom: 10 }}>Par: {constatation.comment}</Text>
+        <Text style={{ marginBottom: 10 }}>Champs:{constatation.comment}</Text>
+
         <Button
           icon={<Icon name="code" color="#ffffff" />}
           buttonStyle={{

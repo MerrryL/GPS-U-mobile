@@ -2,7 +2,8 @@ import React from "react";
 
 import { ScrollView } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Text } from "react-native-elements";
+
+import { Text, SearchBar } from "react-native-elements";
 
 import { useQuery } from "react-query";
 
@@ -32,9 +33,15 @@ function ConstatationListViewer() {
 
     return (
       <>
+        <SearchBar
+          placeholder="Type Here..."
+          // onChangeText={this.updateSearch}
+          // value={search}
+        />
         <ScrollView>
           <ConstatationList constatationList={data} navigation={navigation} />
         </ScrollView>
+
         <AddConstatation />
       </>
     );
