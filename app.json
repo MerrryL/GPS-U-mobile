@@ -1,5 +1,6 @@
 {
   "expo": {
+    "entryPoint": "./src/App.tsx",
     "name": "GPS-U-MOBILE",
     "slug": "GPS-U-MOBILE",
     "version": "1.0.0",

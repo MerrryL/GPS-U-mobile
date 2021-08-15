@@ -1,8 +1,8 @@
-import HomeScreen from "../scenes/home";
-import UserScreen from "../scenes/user";
-import ConstatationsScreen from "../scenes/constatationListViewer";
-import ParametersScreen from "../scenes/parameters";
-import AboutScreen from "../scenes/about";
+import HomeScreen from "../features/home";
+import UserScreen from "../features/user";
+import ConstatationsScreen from "../features/constatations";
+import ParametersScreen from "../features/parameters";
+import AboutScreen from "../features/about";
 //import NotFound from '../scenes/notFound';
 
 const routes = [
