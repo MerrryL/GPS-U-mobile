@@ -1,10 +1,7 @@
-import BottomNavigator from "@/components/Layout/BottomNavigator";
+import AppNavigator from "@/components/Layout/AppNavigator";
 
 import React from "react";
 
-
 export const ProtectedRoutes = () => {
-  return (
-      <BottomNavigator/>
-  );
+  return <AppNavigator />;
 };

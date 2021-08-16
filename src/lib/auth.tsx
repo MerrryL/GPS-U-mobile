@@ -1,7 +1,6 @@
-import { initReactQueryAuth } from 'react-query-auth';
+import { initReactQueryAuth } from "react-query-auth";
 import { ActivityIndicator, View } from "react-native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import {
   loginWithEmailAndPassword,
@@ -11,15 +10,15 @@ import {
   LoginCredentials,
   RegisterCredentials,
   AuthUser,
-} from '@/features/auth';
-import React from 'react';
-import { axios } from '@/lib/axios';
+} from "@/features/auth";
+import React from "react";
+import { axios } from "@/lib/axios";
 
 async function handleUserResponse(data: UserResponse) {
   const { token, user } = data;
   try {
     await AsyncStorage.setItem("token", JSON.stringify(token));
-  } catch(e) {
+  } catch (e) {
     // remove error
   }
   axios.defaults.headers["Authorization"] = "Bearer " + JSON.stringify(token);
@@ -27,7 +26,7 @@ async function handleUserResponse(data: UserResponse) {
 }
 
 async function loadUser() {
-  if (await AsyncStorage.getItem('token')) {
+  if (await AsyncStorage.getItem("token")) {
     const data = await getUserProfile();
     return data;
   }
@@ -40,7 +39,7 @@ async function loginFn(data: LoginCredentials) {
   return user;
 }
 
-async function inscribeFn(data: RegisterCredentials) {
+async function registerFn(data: RegisterCredentials) {
   const response = await registerWithEmailAndPassword(data);
   const user = await handleUserResponse(response);
   return user;
@@ -48,8 +47,8 @@ async function inscribeFn(data: RegisterCredentials) {
 
 async function logoutFn() {
   try {
-    await AsyncStorage.removeItem('token');
-  } catch(e) {
+    await AsyncStorage.removeItem("token");
+  } catch (e) {
     // remove error
   }
 }
@@ -57,7 +56,7 @@ async function logoutFn() {
 const authConfig = {
   loadUser,
   loginFn,
-  inscribeFn,
+  registerFn,
   logoutFn,
   LoaderComponent() {
     return (

@@ -5,11 +5,11 @@ import { Button, FAB, Text, ButtonGroup } from "react-native-elements";
 
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
-import { createConstatation, importOptions } from "../../api/constatations";
+import { createConstatation, importModels, importCopies } from "../api";
 
-import getCurrentLocation from "../../utils/getCurrentLocation";
+import getCurrentLocation from "../utils/getCurrentLocation";
 
-export default function AddConstatation() {
+export function AddConstatation() {
   const [location, setLocation] = useState({
     coords: {
       latitude: null,
@@ -18,7 +18,7 @@ export default function AddConstatation() {
       accuracy: null,
       altitudeAccuracy: null,
       heading: null,
-      speed: null
+      speed: null,
     },
     timestamp: null,
     address: {
@@ -28,8 +28,8 @@ export default function AddConstatation() {
       formatted_address: null,
       viewport: {},
       address_components: [],
-      place_id: null
-    }
+      place_id: null,
+    },
   });
   const [isVisible, setVisible] = useState(false);
   const toggleVisibility = () => {
@@ -58,7 +58,7 @@ export default function AddConstatation() {
         // Invalidate and refetch
         console.log("here");
         queryClient.invalidateQueries("constatations");
-      }
+      },
     }
   );
 

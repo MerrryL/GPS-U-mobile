@@ -9,7 +9,8 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "prettier",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -33,7 +34,13 @@
         "allowIndentationTabs": true
       }
     ],
-    "no-use-before-define": "off"
+    "no-use-before-define": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
   },
 
   "settings": {

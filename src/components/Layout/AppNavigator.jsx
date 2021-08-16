@@ -5,13 +5,13 @@ import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 
 import HomeScreen from "@/features/home";
-import ConstatationsScreen from "@/features/constatations";
+import { ConstatationStackScreen } from "@/features/constatations";
 import { ParametersScreen } from "@/features/parameters";
 import AboutScreen from "@/features/about";
 
 const Tab = createMaterialBottomTabNavigator();
 
-function BottomNavigator() {
+function AppNavigator() {
   return (
     <Tab.Navigator
       initialRouteName="Feed"
@@ -21,7 +21,7 @@ function BottomNavigator() {
     >
       <Tab.Screen
         name="Constatations"
-        component={ConstatationsScreen}
+        component={ConstatationStackScreen}
         options={{
           tabBarLabel: "Constatations",
           tabBarIcon: ({ color, size }) => (
@@ -74,4 +74,4 @@ function BottomNavigator() {
   );
 }
 
-export default BottomNavigator;
+export default AppNavigator;

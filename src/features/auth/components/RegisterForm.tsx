@@ -1,21 +1,20 @@
-import * as React from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
+import * as React from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import Icon from "react-native-vector-icons/FontAwesome";
 import { View, ActivityIndicator } from "react-native";
 import { Button, Text, Input } from "react-native-elements";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 
-import { useAuth } from '@/lib/auth';
+import { useAuth } from "@/lib/auth";
 
-const schema = z
-  .object({
-    email: z.string().min(1, 'Required'),
-    firstName: z.string().min(1, 'Required'),
-    lastName: z.string().min(1, 'Required'),
-    password: z.string().min(1, 'Required'),
-  })
+const schema = yup.object().shape({
+  email: yup.string().email().required(),
+  firstName: yup.string().required(),
+  lastName: yup.string().required(),
+  password: yup.string().required(),
+});
 
 type RegisterValues = {
   firstName: string;
@@ -29,40 +28,101 @@ type RegisterFormProps = {
 };
 
 export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
-  const { inscribe, isRegistering } = useAuth();
+  const { register, isRegistering } = useAuth();
 
-  const { register, handleSubmit, formState:{ errors } } = useForm<RegisterValues>({
-    resolver: zodResolver(schema)
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterValues>({
+    resolver: yupResolver(schema),
   });
 
-
-
   const onSubmit = async (values) => {
-    await inscribe(values);
+    await register(values);
     onSuccess();
-  }
-
+  };
 
   return (
     <View>
-       <Input {...register("firstName")} leftIcon={<Icon name="user" size={24} color="black" />}
-            placeholder="Prénom" />
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <Input
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+            leftIcon={<Icon name="lock" size={24} color="black" />}
+            placeholder="Prénom"
+          />
+        )}
+        name="firstName"
+        defaultValue=""
+      />
       <Text>{errors.firstName?.message}</Text>
 
-       <Input {...register("lastName")} leftIcon={<Icon name="user" size={24} color="black" />}
-            placeholder="Nom de famille" />
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <Input
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+            leftIcon={<Icon name="lock" size={24} color="black" />}
+            placeholder="Nom"
+          />
+        )}
+        name="lastName"
+        defaultValue=""
+      />
       <Text>{errors.lastName?.message}</Text>
 
-      <Input {...register("email")} leftIcon={<Icon name="user" size={24} color="black" />}
-            placeholder="Adresse e-mail" />
-      <Text>{errors.email?.message}</Text>
-        
-      <Input {...register("password")} leftIcon={<Icon name="lock" size={24} color="black" />}
-            placeholder="Mot de passe" />
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <Input
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+            leftIcon={<Icon name="lock" size={24} color="black" />}
+            placeholder="Adresse e-mail"
+          />
+        )}
+        name="email"
+        defaultValue=""
+      />
+      <Text>{errors.password?.message}</Text>
+
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <Input
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+            leftIcon={<Icon name="lock" size={24} color="black" />}
+            placeholder="Mot de passe"
+          />
+        )}
+        name="password"
+        defaultValue=""
+      />
       <Text>{errors.password?.message}</Text>
 
       {isRegistering && <ActivityIndicator size="small" />}
-      <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+      <Button title="S'inscrire" onPress={handleSubmit(onSubmit)} />
     </View>
   );
 };

@@ -5,7 +5,7 @@ import { Button } from "react-native-elements";
 import * as ImagePicker from "expo-image-picker";
 //import * as ImageManipulator from "expo-image-manipulator";
 //import { useMutation } from "react-query";
-import { uploadImage } from "../constatations/api/constatations";
+import { uploadImage } from "../constatations/api";
 //import { useForm, Controller } from "react-hook-form";
 
 function Home({ navigation }) {
@@ -29,7 +29,7 @@ function Home({ navigation }) {
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
-      base64: true
+      base64: true,
     });
 
     console.log(result);
