@@ -1,11 +1,19 @@
 import React from "react";
 
-import { Constatation, Image } from "../types";
+import { Constatation } from "../../types";
 import { useNavigation } from "@react-navigation/native";
 
-import { Card, Button, Icon, ThemeProvider, Text } from "react-native-elements";
+import {
+  Card,
+  Image,
+  Button,
+  Icon,
+  Divider,
+  Text,
+} from "react-native-elements";
 
-import thumbURL from "../utils/ThumbURL";
+import thumbURL from "../../utils/ThumbURL";
+import { View } from "react-native";
 
 type constatationCardProps = {
   constatation: Constatation;
@@ -16,7 +24,34 @@ export function ConstatationCard({ constatation }: constatationCardProps) {
 
   return (
     <Card>
-      <Card.Title>Constatation n°{constatation.id}</Card.Title>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "flex-end",
+        }}
+      >
+        <Button title="Super Edit" style={{ marginRight: 10 }} />
+        <Button
+          title="Edit"
+          style={{ marginRight: 10 }}
+          onPress={() =>
+            navigation.navigate("Edition", { constatationId: constatation.id })
+          }
+        />
+        <Button
+          title="Détails"
+          style={{ marginRight: 10 }}
+          onPress={() =>
+            navigation.navigate("Details", { constatationId: constatation.id })
+          }
+        />
+      </View>
+      <Card.Title style={{ alignSelf: "flex-start" }}>
+        Constatation n°{constatation.id}
+      </Card.Title>
+
+      <Card.Divider />
       <Card.FeaturedTitle>
         Addresse:{constatation?.localization?.address?.formatted_address}
       </Card.FeaturedTitle>
@@ -27,7 +62,7 @@ export function ConstatationCard({ constatation }: constatationCardProps) {
         Validation:{constatation.isValidated}
       </Text>
       <Card.Divider />
-      <Card.Image
+      <Image
         source={{ uri: thumbURL({ image: constatation?.images[0] }) }}
         resizeMode="cover"
         style={{
@@ -45,20 +80,6 @@ export function ConstatationCard({ constatation }: constatationCardProps) {
       <Text style={{ marginBottom: 10 }}>{constatation.comment}</Text>
       <Text style={{ marginBottom: 10 }}>Par: {constatation.comment}</Text>
       <Text style={{ marginBottom: 10 }}>Champs:{constatation.comment}</Text>
-
-      <Button
-        icon={<Icon name="code" color="#ffffff" />}
-        buttonStyle={{
-          borderRadius: 0,
-          marginLeft: 0,
-          marginRight: 0,
-          marginBottom: 0,
-        }}
-        title=" Voir en détail"
-        onPress={() =>
-          navigation.navigate("Details", { constatationId: constatation.id })
-        }
-      />
     </Card>
   );
 }

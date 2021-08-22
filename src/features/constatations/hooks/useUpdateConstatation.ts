@@ -18,17 +18,17 @@ export const useUpdateConstatation = ({
   return useMutation({
     onMutate: async (updatingConstatation: any) => {
       await queryClient.cancelQueries([
-        "constatation",
+        "constatations",
         updatingConstatation?.constatationId,
       ]);
 
       const previousConstatation = queryClient.getQueryData<Constatation>([
-        "constatation",
+        "constatations",
         updatingConstatation?.constatationId,
       ]);
 
       queryClient.setQueryData(
-        ["constatation", updatingConstatation?.constatationId],
+        ["constatations", updatingConstatation?.constatationId],
         {
           ...previousConstatation,
           ...updatingConstatation.data,
@@ -41,13 +41,13 @@ export const useUpdateConstatation = ({
     onError: (_, __, context: any) => {
       if (context?.previousConstatation) {
         queryClient.setQueryData(
-          ["constatation", context.previousConstatation.id],
+          ["constatations", context.previousConstatation.id],
           context.previousConstatation
         );
       }
     },
     onSuccess: (data) => {
-      queryClient.refetchQueries(["constatation", data.id]);
+      queryClient.refetchQueries(["constatations", data.id]);
       addNotification({
         type: "success",
         title: "Constatation Updated",

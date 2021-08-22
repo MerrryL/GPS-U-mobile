@@ -15,7 +15,7 @@ export const useConstatation = ({
 }: UseConstatationOptions) => {
   return useQuery({
     ...config,
-    queryKey: ["constatation", constatationId],
+    queryKey: ["constatations", constatationId],
     queryFn: () => getConstatation({ constatationId }),
   });
 };

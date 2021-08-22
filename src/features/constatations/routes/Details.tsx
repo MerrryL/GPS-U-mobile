@@ -8,7 +8,7 @@ import thumbURL from "../utils/ThumbURL";
 
 import { useConstatation } from "../hooks/useConstatation";
 
-import { FieldGroup } from "../components/Details/FieldGroup";
+import { FieldGroup } from "../components/Edit/FieldGroup";
 
 type Params = {
   constatationId: string;

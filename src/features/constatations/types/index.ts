@@ -1,7 +1,7 @@
 import { BaseEntity } from "@/types";
 
 export type Constatation = {
-  id: number;
+  id: string;
   comment: string;
   modelType: null;
   isValidated: string;
@@ -35,7 +35,7 @@ export type ImageToSend = {
 } & BaseEntity;
 
 export type Action = {
-  id: number;
+  id: string;
   name: string;
   created_at: string;
   updated_at: string;
@@ -48,7 +48,7 @@ export type ActionPivot = {
 } & BaseEntity;
 
 export type Dossier = {
-  id: number;
+  id: string;
   name: string;
   isCurrent: string;
   created_at: string;
@@ -62,7 +62,7 @@ export type DossierPivot = {
 } & BaseEntity;
 
 export type FieldGroup = {
-  id: number;
+  id: string;
   constatation_id: string;
   name: string;
   type: string;
@@ -73,7 +73,7 @@ export type FieldGroup = {
 } & BaseEntity;
 
 export type FieldType = {
-  id: number;
+  id: string;
   name: string;
   type: string;
   isDefault: string;
@@ -84,7 +84,7 @@ export type FieldType = {
 } & BaseEntity;
 
 export type ConstatationFieldValue = {
-  id: number;
+  id: string;
   field_type_id: string;
   orderedUuid: string;
   value: string;
@@ -93,7 +93,7 @@ export type ConstatationFieldValue = {
 } & BaseEntity;
 
 export type Image = {
-  id: number;
+  id: string;
   constatation_id: string;
   name: ImageName;
   created_at: string;
@@ -102,7 +102,7 @@ export type Image = {
 } & BaseEntity;
 
 export type Media = {
-  id: number;
+  id: string;
   model_type: ModelType;
   model_id: string;
   uuid: string;
@@ -138,7 +138,7 @@ export enum ImageName {
 }
 
 export interface Localization {
-  id: number;
+  id: string;
   name: LocalizationName;
   constatation_id: string;
   created_at: string;
@@ -148,7 +148,7 @@ export interface Localization {
 }
 
 export interface Address {
-  id: number;
+  id: string;
   formatted_address: FormattedAddress;
   geometry: null;
   place_id: PlaceID;
@@ -183,7 +183,7 @@ export enum LocalizationName {
 }
 
 export interface Observer {
-  id: number;
+  id: string;
   created_at: string;
   updated_at: string;
   pivot: ObserverPivot;
