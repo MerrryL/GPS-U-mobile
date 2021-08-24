@@ -104,6 +104,14 @@ export const createImage = ({
   return axios.post("/images/", { name, constatationId });
 };
 
+type DeleteImageOptions = {
+  imageId: string;
+  constatationId: string;
+};
+
+export const deleteImage = ({ imageId, constatationId }: DeleteImageOptions) => {
+  return axios.delete(`images/${imageId}`);
+};
 
 type UploadImageOptions = {
   imageId: string;

@@ -2,27 +2,29 @@ import React, { useState } from "react";
 import { StyleSheet, ScrollView, View, SafeAreaView, Dimensions } from 'react-native';
 
 import { Card, Button, Tile, Text, Input } from "react-native-elements";
-
+import { useImages } from "../../hooks/parts/images/useImages";
 import { ImagesPartAdd } from "../PartAdd/ImagesPartAdd";
 import { ImagesPartView } from "../PartsView/ImagesPartView";
 
 import imageURL from "../../utils/ImageURL";
-import { Image } from "../../types";
 
 type ImagesPartProps = {
-  images: Image[];
   constatationId: string;
-}
+};
 
-export function ImagesPart( {images, constatationId}: ImagesPartProps) {
-  // const [activeIndex, setActiveIndex] = useState({
-  //   activeIndex:0
-  // });
+export function ImagesPart({ constatationId = null }:ImagesPartProps) {
+  const [activeIndex, setActiveIndex] = useState({
+    activeIndex:0
+  });
+
+  const ImagesQuery = useImages({
+    constatationId: constatationId,
+  });
 
   let ImagesWithMedia = [];
   let ImagesWithoutMedia = [];
 
-  images?.map(image => {
+  ImagesQuery?.data?.map(image => {
     if (image?.media?.length>0) {
       ImagesWithMedia.push(image)
     }

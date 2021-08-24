@@ -7,8 +7,8 @@ import * as yup from "yup";
 import { View } from "react-native";
 import thumbURL from "../../utils/ThumbURL";
 import { useNavigation } from "@react-navigation/native";
+import { useConstatation } from "../../hooks/useConstatation";
 import { useUpdateConstatation } from "../../hooks/useUpdateConstatation";
-import { Constatation } from "../../types";
 
 type ConstatationValues = {
   comment: string;
@@ -18,7 +18,10 @@ const schema = yup.object().shape({
   comment: yup.string().required(),
 });
 
-export function CardHeader( constatation: Constatation) {
+export function CardHeader({ constatationId }) {
+  const constatationQuery = useConstatation({
+    constatationId: constatationId,
+  });
 
   const updateConstatationMutation = useUpdateConstatation();
 
@@ -35,14 +38,14 @@ export function CardHeader( constatation: Constatation) {
   const onSubmit = async (values) => {
     await updateConstatationMutation.mutateAsync({
       data: values,
-      constatationId: constatation.id,
+      constatationId: constatationId,
     });
     navigation.goBack();
     //onSuccess();
   };
   return (
     <>
-      <Card.Title>Constatation n°{constatation?.id}</Card.Title>
+      <Card.Title>Constatation n°{constatationQuery?.data?.id}</Card.Title>
       <Card.Divider />
       <View
         style={{
@@ -54,11 +57,11 @@ export function CardHeader( constatation: Constatation) {
           padding: 10,
         }}
       >
-        {constatation?.isValidated ? (
-          constatation?.requiresValidation ? (
+        {constatationQuery?.data?.isValidated ? (
+          constatationQuery?.data?.requiresValidation ? (
             <Text style={{ flex: 1, height: "auto", marginBottom: 10 }}>
               Validation possible depuis le
-              {constatation?.requiresValidationDate}
+              {constatationQuery?.data?.requiresValidationDate}
             </Text>
           ) : (
             <Text style={{ flex: 1, height: "auto", marginBottom: 10 }}>
@@ -67,7 +70,7 @@ export function CardHeader( constatation: Constatation) {
           )
         ) : (
           <Text style={{ flex: 1, height: "auto", marginBottom: 10 }}>
-            Date de validation: {constatation?.validationDate}
+            Date de validation: {constatationQuery?.data?.validationDate}
           </Text>
         )}
       </View>
@@ -78,10 +81,10 @@ export function CardHeader( constatation: Constatation) {
         }}
       >
         <Text style={{ flex: 1, marginBottom: 10 }}>
-          Création: {constatation?.created_at}
+          Création: {constatationQuery?.data?.created_at}
         </Text>
         <Text style={{ flex: 1, marginBottom: 10 }}>
-          Dernière mise à jour: {constatation?.updated_at}
+          Dernière mise à jour: {constatationQuery?.data?.updated_at}
         </Text>
       </View>
       <Card.Divider />
@@ -95,7 +98,7 @@ export function CardHeader( constatation: Constatation) {
       >
         <Card.Image
           source={{
-            uri: thumbURL({ image: constatation?.images[0] }),
+            uri: thumbURL({ image: constatationQuery?.data?.images[0] }),
           }}
           resizeMode="cover"
           style={{ width: 200, height: 200 }}
@@ -122,7 +125,7 @@ export function CardHeader( constatation: Constatation) {
               />
             )}
             name="comment"
-            defaultValue={constatation?.comment}
+            defaultValue={constatationQuery?.data?.comment}
           />
           <Text>{errors.comment?.message}</Text>
           <Button title="Submit" onPress={handleSubmit(onSubmit)} />

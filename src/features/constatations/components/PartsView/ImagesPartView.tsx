@@ -4,6 +4,7 @@ import { useImage } from "../../hooks/parts/images/useImage";
 import { Image, View, Platform } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useUploadImage } from "../../hooks/parts/images/useUploadImage";
+import { useDeleteImage } from "../../hooks/parts/images/useDeleteImage";
 
 type ImagesPartViewProps = {
     imageId: string;
@@ -16,7 +17,8 @@ export function ImagesPartView({ imageId }:ImagesPartViewProps) {
       imageId: imageId,
   });
 
-  const imageUploadMutation = useUploadImage({ image: image, imageId: imageId })
+  const imageUploadMutation = useUploadImage({ image: image, imageId: imageId });
+  const imageDeleteMutation = useDeleteImage({imageId: imageId, constatationId: imageQuery?.data?.constatation_id});
 
   useEffect(() => {
     (async () => {
@@ -48,32 +50,41 @@ export function ImagesPartView({ imageId }:ImagesPartViewProps) {
 
   
   const onSubmit = async () => {
-    console.log('imageToSend', image);
+    //todo: pause
     await imageUploadMutation.mutateAsync({
         image: image,
+        imageId: imageId,
+    });
+    setImage(null);
+  };
+  const onDeleteSubmit = async () => {
+    //todo: pause
+    await imageDeleteMutation.mutateAsync({
+        constatationId: imageQuery?.data?.constatation_id,
         imageId: imageId,
     });
     setImage(null);
   };  
 
   return(
-  <>
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text h1> {imageQuery?.data?.name}</Text>
-      <Button title="Prends une photo" onPress={pickImage} />
+  <View>
+    <Text h1>{imageQuery?.data?.name}</Text>
+    <Button title="Supprimer l'image" onPress={onDeleteSubmit} />
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>  
       {image && (
         <Image
           source={{ uri: image.uri }}
-          style={{ width: 200, height: 200 }}
+          style={{ width: 300, height: 300 }}
         />
       )}
     </View>
 
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Button title="Upload là" onPress={onSubmit} />
+    <Button title="Prends une photo" onPress={pickImage} />
+    <Button title="Upload là" onPress={onSubmit} />
     </View>
 
-  </>
+  </View>
 
   )
 }

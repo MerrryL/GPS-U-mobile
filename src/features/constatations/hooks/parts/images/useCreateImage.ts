@@ -19,13 +19,21 @@ export const useCreateImage = ({
   const { addNotification } = useNotificationStore();
   return useMutation({
       onSuccess: async (data) => {
-        await queryClient.cancelQueries(["constatations"]);
+        await queryClient.cancelQueries(["images"]);
+
+        const previousImages =
+          queryClient.getQueryData<Image[]>(["images"]);
+
+        queryClient.setQueryData(["images"], [
+          ...(previousImages || []),
+          data,
+        ]);
 
         const previousConstatations =
           queryClient.getQueryData<Constatation[]>(["constatations"]);
           
         //console.log(queryClient.getQueryData<Constatation[]>(["constatations", 100]));
-        let index = previousConstatations.findIndex((obj => obj.id == constatationId))
+        let index = previousConstatations.findIndex((obj => obj.id == data.constatation_id))
 
         previousConstatations[index].images.push(data);
 

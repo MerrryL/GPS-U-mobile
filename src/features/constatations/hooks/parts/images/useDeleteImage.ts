@@ -3,21 +3,21 @@ import { useMutation } from "react-query";
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
 
-import { uploadImage } from "../../../api";
+import { deleteImage } from "../../../api";
 
 import { Constatation, Image, ImageToSend } from "../../../types";
 
-type UseUploadImageOptions = {
+type UseDeleteImageOptions = {
   imageId: string;
-  image: ImageToSend;
-  config?: MutationConfig<typeof uploadImage>;
+  constatationId: string;
+  config?: MutationConfig<typeof deleteImage>;
 };
 
-export const useUploadImage = ({
+export const useDeleteImage = ({
   imageId,
-  image,
+  constatationId,
   config,
-}: UseUploadImageOptions) => {
+}: UseDeleteImageOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {
@@ -26,9 +26,9 @@ export const useUploadImage = ({
       const previousImages =
         queryClient.getQueryData<Image[]>(["images"]);
 
-      let imageIndex = previousImages.findIndex((obj => obj.id == data.id))
+      let imageIndex = previousImages.findIndex((obj => obj.id == imageId))
 
-      previousImages[imageIndex]= data;
+      previousImages.splice(imageIndex, 1);
 
       queryClient.setQueryData(["images"], [
         ...previousImages
@@ -38,11 +38,12 @@ export const useUploadImage = ({
         queryClient.getQueryData<Constatation[]>(["constatations"]);
         
       //console.log(queryClient.getQueryData<Constatation[]>(["constatations", 100]));
-      let index = previousConstatations.findIndex((obj => obj.id == data.constatation_id))
+      let index = previousConstatations.findIndex((obj => obj.id == constatationId))
 
-      let imageIndex2 = previousConstatations[index].images.findIndex((obj => obj.id == data.id));
+      console.log(previousConstatations, previousConstatations[index], index);
+      let imageIndex2 = previousConstatations[index].images.findIndex((obj => obj.id == imageId));
 
-      previousConstatations[index].images[imageIndex2]= data;
+      previousConstatations[index].images.splice(imageIndex2, 1);
 
       queryClient.setQueryData(["constatations"], [
         ...previousConstatations,
@@ -50,10 +51,10 @@ export const useUploadImage = ({
 
       addNotification({
         type: "success",
-        title: "Image Uploaded",
+        title: "Image Deleteed",
       });
     },
     ...config,
-    mutationFn: uploadImage,
+    mutationFn: deleteImage,
   });
 };
