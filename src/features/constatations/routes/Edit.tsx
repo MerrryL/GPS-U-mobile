@@ -4,6 +4,8 @@ import { Button, Text, Input } from "react-native-elements";
 
 import { FlatList, View } from "react-native";
 import { Card } from "react-native-elements";
+import { useNavigation } from "@react-navigation/native";
+import { useConstatation } from "../hooks/useConstatation";
 
 //import { FieldGroup } from "../components/Edit/FieldGroup";
 import { CardHeader } from "../components/Edit/CardHeader";
@@ -23,11 +25,18 @@ type Route = {
 };
 
 export function Edit({ route }: EditProps) {
+  const constatationQuery = useConstatation({
+    constatationId: route.params.constatationId,
+  });
+
+
+  console.log("constat", constatationQuery?.data);
+  
   return (
     <Card>
-      {/* <CardHeader constatationId={route.params.constatationId} /> */}
+      {/* <CardHeader constatation={constatationQuery?.data} /> */}
       <Card.Divider />
-      <ImagesPart constatationId={route.params.constatationId} />
+      <ImagesPart images={constatationQuery?.data?.images} constatationId={route.params.constatationId}/>
       <Card.Divider />
       <LocationPart constatationId={route.params.constatationId} />
 
