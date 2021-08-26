@@ -19,8 +19,6 @@ export const useCreateImage = ({
   const { addNotification } = useNotificationStore();
   return useMutation({
       onSuccess: async (data) => {
-        console.log("new Image", data);
-
         await queryClient.cancelQueries(["images"]);
 
         const previousImages =

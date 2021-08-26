@@ -27,7 +27,11 @@ export function Edit({ route }: EditProps) {
     <Card>
       {/* <CardHeader constatationId={route.params.constatationId} /> */}
       <Card.Divider />
+<<<<<<< HEAD
       {/* <ImagesPart constatationId={route.params.constatationId} /> */}
+=======
+      <ImagesPart constatationId={route.params.constatationId} />
+>>>>>>> ba2eafa75f8d6794619496d6b4b587a224df979b
       <Card.Divider />
       <LocalizationPart constatationId={route.params.constatationId} />
 
