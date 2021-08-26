@@ -2,7 +2,7 @@ import React from "react";
 
 import { Button, Text, Input } from "react-native-elements";
 
-import { FlatList, ScrollView, View } from "react-native";
+import { ActionSheetIOS, FlatList, ScrollView, View } from "react-native";
 import { Card } from "react-native-elements";
 
 //import { FieldGroup } from "../components/Edit/FieldGroup";
@@ -27,20 +27,18 @@ export function Edit({ route }: EditProps) {
   return (
     <ScrollView>
       <Card>
-        {/* <CardHeader constatationId={route.params.constatationId} /> */}
+        <CardHeader constatationId={route.params.constatationId} />
         <Card.Divider />
+        {/* Actions, dossier, constatateurs */}
         {/* <ImagesPart constatationId={route.params.constatationId} /> */}
         <Card.Divider />
         {/* <LocalizationPart constatationId={route.params.constatationId} /> */}
-
-
         <Card.Divider />
-        <FieldGroupPart constatationId={route.params.constatationId} />
-        {/* <FlatList
-          data={constatationQuery?.data?.field_groups}
-          renderItem={(field_group) => <FieldGroup field_group={field_group} />}
-          keyExtractor={(field_group) => field_group?.id.toString()}
-        /> */}
+        {/* <FieldGroupPart constatationId={route.params.constatationId} /> */}
+        <Card.Divider />
+        {/* Suivis */}
+
+
       </Card>
     </ScrollView>
   );

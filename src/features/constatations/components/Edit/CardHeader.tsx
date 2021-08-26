@@ -27,6 +27,8 @@ export function CardHeader({ constatationId }) {
 
   const navigation = useNavigation();
 
+  console.log(constatationQuery?.data);
+
   const {
     control,
     handleSubmit,
