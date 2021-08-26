@@ -12,14 +12,15 @@ import { FieldsAdd } from "./FieldAdd";
 import { useDeleteField } from "../hooks/useDeleteField";
 // import { useUpdateField } from "../hooks/useUpdateField";
 
-export function FieldPart({ field, fieldGroupId, constatationId }) {
+export function FieldPart({ fields, fieldGroupId, constatationId }) {
   const FieldsQuery = useFields({
     fieldGroupId: fieldGroupId
   });
 
+  
   return (
     <>
-      { FieldsQuery?.data?.map( (field) => <FieldCard field={field} fieldGroupId={fieldGroupId} constatationId={constatationId} key={field.id}/>)}
+      <FieldCard field={field} fieldGroupId={fieldGroupId} constatationId={constatationId} />
     </>
   )
 }

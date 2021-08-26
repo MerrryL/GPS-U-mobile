@@ -12,7 +12,7 @@ type UseFieldsOptions = {
 export const useFields = ({ config, fieldGroupId = null }: UseFieldsOptions) => {
   return useQuery({
     ...config,
-    queryKey: ["field_groups"],
+    queryKey: ["fields"],
     queryFn: () => getFields({fieldGroupId}),
   });
 };

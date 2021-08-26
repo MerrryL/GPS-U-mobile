@@ -26,7 +26,7 @@ type FieldGroupAddProps= {
 }
 
 export function FieldGroupsAdd({ constatationId }: FieldGroupAddProps) {
-    const field_groupCreateMutation = useCreateFieldGroup(constatationId)
+    const field_groupCreateMutation = useCreateFieldGroup({constatationId})
 
     const {
         control,
