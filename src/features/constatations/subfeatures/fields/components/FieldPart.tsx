@@ -9,20 +9,17 @@ import * as yup from "yup";
 import { useFields } from "../hooks/useFields";
 import { FieldCard } from "./FieldCard";
 import { FieldsAdd } from "./FieldAdd";
+import { useDeleteField } from "../hooks/useDeleteField";
 // import { useUpdateField } from "../hooks/useUpdateField";
 
 export function FieldPart({ field, fieldGroupId, constatationId }) {
   const FieldsQuery = useFields({
-    constatationId: constatationId
+    fieldGroupId: fieldGroupId
   });
-  
-
-  console.log("FieldsData",FieldsQuery?.data);
 
   return (
     <>
-      <FieldsAdd constatationId={constatationId} fieldGroupId={fieldGroupId}/>
-      { FieldsQuery?.data?.map( (field) => <FieldCard field={field} constatationId={constatationId} key={field.id}/>)}
+      { FieldsQuery?.data?.map( (field) => <FieldCard field={field} fieldGroupId={fieldGroupId} constatationId={constatationId} key={field.id}/>)}
     </>
   )
 }

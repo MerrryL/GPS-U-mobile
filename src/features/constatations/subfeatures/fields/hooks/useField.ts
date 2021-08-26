@@ -7,17 +7,17 @@ import { getField } from "../api";
 import { Field } from "../types";
 
 type UseFieldOptions = {
-  fieldGroupId?: string;
+  fieldId?: string;
   config?: QueryConfig<typeof getField>;
 };
 
 export const useField = ({
-  fieldGroupId,
+  fieldId,
   config,
 }: UseFieldOptions) => {
   return useQuery({
     ...config,
-    queryKey: ["field_groups", fieldGroupId],
-    queryFn: () => getField({ fieldGroupId }),
+    queryKey: ["fields", fieldId],
+    queryFn: () => getField({ fieldId }),
   });
 };

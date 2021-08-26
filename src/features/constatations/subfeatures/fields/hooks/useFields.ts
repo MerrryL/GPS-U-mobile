@@ -5,14 +5,14 @@ import { QueryConfig } from "@/lib/react-query";
 import { getFields } from "../api";
 
 type UseFieldsOptions = {
-  constatationId?: string;
+  fieldGroupId?: string;
   config?: QueryConfig<typeof getFields>;
 };
 
-export const useFields = ({ config, constatationId = null }: UseFieldsOptions) => {
+export const useFields = ({ config, fieldGroupId = null }: UseFieldsOptions) => {
   return useQuery({
     ...config,
     queryKey: ["field_groups"],
-    queryFn: () => getFields({constatationId}),
+    queryFn: () => getFields({fieldGroupId}),
   });
 };

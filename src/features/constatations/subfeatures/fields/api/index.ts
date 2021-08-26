@@ -5,16 +5,16 @@ import { Field } from "../types";
 //FieldsPart
 
 type GetFieldsOptions = {
-  constatationId?: string;
+  fieldGroupId?: string;
 };
 
 //TODO: this points to Index on the api instead of a "show"
 export const getFields = ({
-  constatationId = null,
+  fieldGroupId = null,
 }: GetFieldsOptions): Promise<Field[]> => {
   let filter = "";
-  if (constatationId) {
-    filter+="?filter[constatation_id]="+constatationId;
+  if (fieldGroupId) {
+    filter+="?filter[field_group_id]="+fieldGroupId;
   }
   return axios.get('/fields' + filter);
 };
@@ -34,7 +34,8 @@ type CreateFieldOptions = {
   fieldGroupId: string;
   name: string;
   type: string;
-  logical_operator: string;
+  isDefault: boolean;
+  value: string;
 };
 
 export const createField = ({
@@ -42,16 +43,18 @@ export const createField = ({
   fieldGroupId,
   name,
   type,
-  logical_operator,
+  isDefault,
+  value,
 }: CreateFieldOptions): Promise<Field> => {
-  return axios.post("/fields/", { name, type, logical_operator, fieldGroupId, constatationId });
+  return axios.post("/fields/", { name, type, isDefault, value, fieldGroupId, constatationId });
 };
 
 type DeleteFieldOptions = {
+  fieldId: string;
   fieldGroupId: string;
   constatationId: string;
 };
 
-export const deleteField = ({ fieldGroupId, constatationId }: DeleteFieldOptions) => {
-  return axios.delete(`fields/${fieldGroupId}`);
+export const deleteField = ({ fieldId, fieldGroupId, constatationId }: DeleteFieldOptions) => {
+  return axios.delete(`fields/${fieldId}`);
 };

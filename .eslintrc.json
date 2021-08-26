@@ -19,7 +19,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "react-native", "prettier"],
+  "plugins": ["prettier/prettier", "react", "react-native"],
   "rules": {
     "import/no-unresolved": 0,
     "react/jsx-filename-extension": [

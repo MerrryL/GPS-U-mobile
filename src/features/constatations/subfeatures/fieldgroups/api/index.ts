@@ -27,7 +27,7 @@ type GetFieldGroupOptions = {
 export const getFieldGroup = ({
   fieldGroupId,
 }: GetFieldGroupOptions): Promise<FieldGroup> => {
-  return axios.get(`/fieldGroups/${fieldGroupId}`);
+  return axios.get(`/field_groups/${fieldGroupId}`);
 };
 
 type CreateFieldGroupOptions = {

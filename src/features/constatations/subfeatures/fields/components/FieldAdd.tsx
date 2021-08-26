@@ -5,7 +5,7 @@ import * as yup from "yup";
 
 import { View, Platform } from "react-native";
 
-import { Card, Button, Icon, Text, Input } from "react-native-elements";
+import { Card, Button, Icon, Text, Input, Switch} from "react-native-elements";
 import { useCreateField } from "../hooks/useCreateField";
 
 
@@ -19,7 +19,8 @@ type FieldsValues = {
 const schema = yup.object().shape({
     name: yup.string().required(),
     type: yup.string().required(),
-    logical_operator: yup.string().required(),
+    isDefault: yup.boolean().required(),
+    value: yup.string().required(),
 });
 
 type FieldsAddProps = {
@@ -28,110 +29,106 @@ type FieldsAddProps = {
 }
 
 export function FieldsAdd({ fieldGroupId, constatationId }: FieldsAddProps) {
-    const field_groupCreateMutation = useCreateField(constatationId, fieldGroupId )
+  const fieldCreateMutation = useCreateField({constatationId, fieldGroupId});
 
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-      } = useForm<FieldsValues>({
-        resolver: yupResolver(schema),
-      });
+  const {
+      control,
+      handleSubmit,
+      formState: { errors },
+    } = useForm<FieldsValues>({
+      resolver: yupResolver(schema),
+    });
+  
+  const onSubmit = async (values) => {
     
-    const onSubmit = async (values) => {
-      
-      console.log("values", values);
-      await field_groupCreateMutation.mutateAsync({
-        name: values.name,
-        type: values.type,
-        logical_operator: values.logical_operator,
-        constatationId: constatationId,
-        fieldGroupId: fieldGroupId
-      });
-      
-      //onSuccess();
-    };
+    console.log("values", values);
+    await fieldCreateMutation.mutateAsync({
+      name: values.name,
+      type: values.type,
+      value: values.value,
+      isDefault: values.isDefault,
+      constatationId: constatationId,
+      fieldGroupId: fieldGroupId
+    });
     
-    return(
-        <View
-          style={{
-            flex: 1, alignItems: "center", justifyContent: "center", margin:"10px" }}>
-        
-        <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Input
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-                placeholder="Nom"
-              />
-            )}
-            name="name"
-            defaultValue=""
+    //onSuccess();
+  };
+  
+  return(
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center", margin:"10px" }}>
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <Input
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+            placeholder="Nom"
           />
-          <Text>{errors.name?.message}</Text>
+        )}
+        name="name"
+        defaultValue=""
+      />
+      <Text>{errors.name?.message}</Text>
 
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Input
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-                placeholder="Type"
-              />
-            )}
-            name="type"
-            defaultValue=""
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <Input
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+            placeholder="Type"
           />
-          <Text>{errors.type?.message}</Text>
+        )}
+        name="type"
+        defaultValue=""
+      />
+      <Text>{errors.type?.message}</Text>
 
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Input
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-                placeholder="Valeur"
-              />
-            )}
-            name="value"
-            defaultValue=""
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <Input
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+            placeholder="Valeur"
           />
-          <Text>{errors.value?.message}</Text>
+        )}
+        name="value"
+        defaultValue=""
+      />
+      <Text>{errors.value?.message}</Text>
 
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Input
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-                placeholder="isDefault"
-              />
-            )}
-            name="isDefault"
-            defaultValue=""
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <Switch
+            onValueChange={onChange}
+            value={value}
+            // placeholder="isDefault"
           />
-          <Text>{errors.isDefault?.message}</Text>
+        )}
+        name="isDefault"
+        // defaultValue=""
+      />
+      <Text>{errors.isDefault?.message}</Text>
 
 
-          <Button title="Nouveau Champ" onPress={handleSubmit(onSubmit)} />
-        </View>
-
-    )
+      <Button title="Nouveau Champ" onPress={handleSubmit(onSubmit)} />
+    </View>
+  )
 }

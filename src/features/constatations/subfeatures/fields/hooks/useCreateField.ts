@@ -5,14 +5,10 @@ import { MutationConfig, queryClient } from "@/lib/react-query";
 
 import { createField } from "../api";
 
-import { Constatation, Field } from "../types";
+import { Constatation, Field, FieldGroup } from "../types";
 
 type UseCreateFieldOptions = {
   fieldGroupId: string;
-  name: string;
-  type: string;
-  isDefault: boolean;
-  value:string;
   constatationId: string;
   config?: MutationConfig<typeof createField>;
 };
@@ -25,23 +21,37 @@ export const useCreateField = ({
   const { addNotification } = useNotificationStore();
   return useMutation({
       onSuccess: async (data) => {
-        await queryClient.cancelQueries(["field_groups"]);
+        await queryClient.cancelQueries(["fields"]);
 
         const previousFields =
-          queryClient.getQueryData<Field[]>(["field_groups"]);
+          queryClient.getQueryData<Field[]>(["fields"]);
 
-        queryClient.setQueryData(["field_groups"], [
+        queryClient.setQueryData(["fields"], [
           ...(previousFields || []),
           data,
+        ]);
+
+        const previousFieldGroups =
+          queryClient.getQueryData<FieldGroup[]>(["field_groups"]);
+          
+        //console.log(queryClient.getQueryData<Constatation[]>(["constatations", 100]));
+        let index = previousFieldGroups.findIndex((obj => obj.id.toString() == fieldGroupId))
+
+        previousFieldGroups[index].fields.push(data);
+
+        queryClient.setQueryData(["constatations"], [
+          ...previousFieldGroups,
         ]);
 
         const previousConstatations =
           queryClient.getQueryData<Constatation[]>(["constatations"]);
           
         //console.log(queryClient.getQueryData<Constatation[]>(["constatations", 100]));
-        let index = previousConstatations.findIndex((obj => obj.id.toString() == constatationId))
+        let index2 = previousConstatations.findIndex((obj => obj.id.toString() == constatationId))
 
-        previousConstatations[index].field_groups.push(data);
+        let index3 = previousConstatations[index2].field_groups.findIndex((obj => obj.id.toString() == fieldGroupId))
+
+        previousConstatations[index2].field_groups[index3].fields.push(data);
 
 
         queryClient.setQueryData(["constatations"], [

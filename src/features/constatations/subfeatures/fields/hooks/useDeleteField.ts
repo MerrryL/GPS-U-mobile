@@ -5,15 +5,17 @@ import { MutationConfig, queryClient } from "@/lib/react-query";
 
 import { deleteField } from "../api";
 
-import { Constatation, Field } from "../types";
+import { Constatation, FieldGroup, Field } from "../types";
 
 type UseDeleteFieldOptions = {
+  fieldId:string;
   fieldGroupId: string;
   constatationId: string;
   config?: MutationConfig<typeof deleteField>;
 };
 
 export const useDeleteField = ({
+  fieldId,
   fieldGroupId,
   constatationId,
   config,
@@ -21,36 +23,33 @@ export const useDeleteField = ({
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {
-      await queryClient.cancelQueries(["field_groups"]);
+      await queryClient.cancelQueries(["fields"]);
 
-      const previousfieldGroups = queryClient.getQueryData<Field[]>(["field_groups"]);
+      const previousfields = queryClient.getQueryData<Field[]>(["fields"]);
+      let fieldIndex = previousfields.findIndex((obj) => obj.id == fieldId);
+      previousfields.splice(fieldIndex, 1);
 
-      let fieldGroupIndex = previousfieldGroups.findIndex((obj) => obj.id == fieldGroupId);
+      queryClient.setQueryData(["fields"], [...previousfields]);
 
-      previousfieldGroups.splice(fieldGroupIndex, 1);
+      const previousFieldGroups = queryClient.getQueryData<FieldGroup[]>(["field_groups"]);
+      let fieldGroupIndex = previousFieldGroups.findIndex((obj) => obj.id == fieldGroupId);
+      let fieldGroupIndex2 = previousFieldGroups[fieldGroupIndex].fields.findIndex((obj => obj.id == fieldId));
+      previousFieldGroups[fieldGroupIndex].fields.splice(fieldGroupIndex2, 1);
 
-      queryClient.setQueryData(["field_groups"], [...previousfieldGroups]);
+      queryClient.setQueryData(["field_groups"], [...previousFieldGroups]);
 
-      const previousConstatations = queryClient.getQueryData<Constatation[]>([
-        "constatations",
-      ]);
+      const previousConstatations = queryClient.getQueryData<Constatation[]>(["constatations"]);
 
-      //console.log(queryClient.getQueryData<Constatation[]>(["constatations", 100]));
-      let index = previousConstatations.findIndex(
-        (obj) => obj.id == constatationId
-      );
-
-      console.log(previousConstatations, previousConstatations[index], index);
-
-      let index2 = previousConstatations[index].field_groups.findIndex((obj => obj.id == fieldGroupId));
-
-      previousConstatations[index].field_groups.splice(index2, 1);
+      let constatationIndex = previousConstatations.findIndex((obj) => obj.id == constatationId);
+      let constatationIndex2 = previousConstatations[constatationIndex].field_groups.findIndex((obj => obj.id == fieldGroupId));
+      let constatationIndex3 = previousConstatations[constatationIndex].field_groups[constatationIndex2].fields.findIndex((obj => obj.id == fieldId));
+      previousConstatations[constatationIndex].field_groups[constatationIndex2].fields.splice(constatationIndex3, 1);
 
       queryClient.setQueryData(["constatations"], [...previousConstatations]);
 
       addNotification({
         type: "success",
-        title: "fieldGroup Deleted",
+        title: "field Deleted",
       });
     },
     ...config,

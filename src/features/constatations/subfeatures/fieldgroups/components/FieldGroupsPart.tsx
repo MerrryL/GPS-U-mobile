@@ -17,7 +17,7 @@ export function FieldGroupPart({ constatationId = null }) {
   });
   
 
-  console.log("FieldGroupsData",FieldGroupsQuery?.data);
+  console.log("fieldGroups",FieldGroupsQuery?.data);
 
   return (
     <>
