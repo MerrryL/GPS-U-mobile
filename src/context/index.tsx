@@ -3,22 +3,25 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 
 import Constants from "expo-constants";
 
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, DevSettings, View } from "react-native";
 import { Button, Text } from "react-native-elements";
 import { AuthProvider } from '@/lib/auth';
 import { queryClient } from '@/lib/react-query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const ErrorFallback = (props: { error: Error, resetError: Function }) => {
+  // const navigation= useNavigation();
   return (
     <View>
     <Text h1>Il y a eu un accident!</Text>
     <Text h3>{props.error.toString()}</Text>
+    
     <Button onPress={() => props.resetError} title={'Réessayons'} />
+    {/* <Button onPress={() => navigation.navigate('Constatations')} title={'Réessayons'} /> */}
   </View>
 
   )
