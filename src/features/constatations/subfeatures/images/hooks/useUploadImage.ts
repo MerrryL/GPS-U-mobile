@@ -3,7 +3,7 @@ import { useMutation } from "react-query";
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
 
-import { uploadImage } from "../../../api";
+import { uploadImage } from "../api";
 
 import { Constatation, Image, ImageToSend } from "../../../types";
 
@@ -21,7 +21,18 @@ export const useUploadImage = ({
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {
-      await queryClient.cancelQueries(["constatations"]);
+      await queryClient.cancelQueries(["images"]);
+
+      const previousImages =
+        queryClient.getQueryData<Image[]>(["images"]);
+
+      let imageIndex = previousImages.findIndex((obj => obj.id == imageId))
+
+      previousImages[imageIndex]= data;
+
+      queryClient.setQueryData(["images"], [
+        ...previousImages
+      ]);
 
       const previousConstatations =
         queryClient.getQueryData<Constatation[]>(["constatations"]);
@@ -29,9 +40,9 @@ export const useUploadImage = ({
       //console.log(queryClient.getQueryData<Constatation[]>(["constatations", 100]));
       let index = previousConstatations.findIndex((obj => obj.id == data.constatation_id))
 
-      let imageIndex = previousConstatations[index].images.findIndex((obj => obj.id == imageId));
+      let imageIndex2 = previousConstatations[index].images.findIndex((obj => obj.id == data.id));
 
-      previousConstatations[index].images[imageIndex]= data;
+      previousConstatations[index].images[imageIndex2]= data;
 
       queryClient.setQueryData(["constatations"], [
         ...previousConstatations,

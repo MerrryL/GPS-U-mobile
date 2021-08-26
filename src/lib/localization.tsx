@@ -26,3 +26,10 @@ export async function getCurrentLocation() {
     return location;
   }
 }
+
+export async function getAddressFromCoords(latitude, longitude) {
+  return await axios.post("/AdressFromCoordinates", {
+    lat: latitude,
+    lng: longitude,
+  });
+}

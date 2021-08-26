@@ -7,7 +7,7 @@ import { Image, View, Platform } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 import { Card, Button, Icon, Text, Input } from "react-native-elements";
-import { useCreateImage } from "../../hooks/parts/images/useCreateImage";
+import { useCreateImage } from "../hooks/useCreateImage";
 
 
 type ImagesValues = {
@@ -30,24 +30,22 @@ export function ImagesPartAdd({ constatationId }) {
         resolver: yupResolver(schema),
       });
     
-      const onSubmit = async (values) => {
-        
-        console.log("values", values);
-        await imageCreateMutation.mutateAsync({
-          name: values.name,
-          constatationId: constatationId,
-        });
-        
-        //onSuccess();
-      };
+    const onSubmit = async (values) => {
+      
+      console.log("values", values);
+      await imageCreateMutation.mutateAsync({
+        name: values.name,
+        constatationId: constatationId,
+      });
+      
+      //onSuccess();
+    };
     
     return(
         <View
           style={{
-            flex: 1,
-            width: "60%",
-          }}
-        >
+            flex: 1, alignItems: "center", justifyContent: "center", margin:"10px" }}>
+        
           <Controller
             control={control}
             rules={{
@@ -68,7 +66,6 @@ export function ImagesPartAdd({ constatationId }) {
           />
           <Text>{errors.name?.message}</Text>
           <Button title="Nouvelle image" onPress={handleSubmit(onSubmit)} />
-        
         </View>
 
     )

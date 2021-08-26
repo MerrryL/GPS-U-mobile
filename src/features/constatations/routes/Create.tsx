@@ -1,9 +1,9 @@
 import React from "react";
 
 import { Card } from "react-native-elements/dist/card/Card";
-import { ImagesPart } from "../components/Edit/ImagesPart";
+import { ImagesPart } from "../subfeatures/images/components/ImagesPart";
 
-import { LocationPart } from "../components/Edit/LocationPart";
+import { LocationPart } from "../subfeatures/location/components/LocalizationForm";
 import { useCreateConstatation } from "../hooks/useCreateConstatation";
 
 export function Create() {

@@ -2,9 +2,9 @@ import { useQuery } from "react-query";
 
 import { QueryConfig } from "@/lib/react-query";
 
-import { getImage } from "../../../api";
+import { getImage } from "../api";
 
-import { Image } from "../../../types";
+import { Image } from "../types";
 
 type UseImageOptions = {
   imageId: string;

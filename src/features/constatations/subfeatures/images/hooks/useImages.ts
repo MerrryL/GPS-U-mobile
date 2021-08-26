@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 
 import { QueryConfig } from "@/lib/react-query";
 
-import { getImages } from "../../../api";
+import { getImages } from "../api";
 
 type UseImagesOptions = {
   constatationId?: string;
