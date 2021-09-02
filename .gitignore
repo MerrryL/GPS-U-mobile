@@ -1,5 +1,6 @@
 secrets.js
 .env
+app.json
 
 node_modules/**/*
 .expo/*
@@ -11,6 +12,8 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+web/
+
 
 # macOS
 .DS_Store

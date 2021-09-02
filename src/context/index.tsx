@@ -21,7 +21,6 @@ const ErrorFallback = (props: { error: Error, resetError: Function }) => {
     <Text h3>{props.error.toString()}</Text>
     
     <Button onPress={() => props.resetError} title={'Réessayons'} />
-    {/* <Button onPress={() => navigation.navigate('Constatations')} title={'Réessayons'} /> */}
   </View>
 
   )

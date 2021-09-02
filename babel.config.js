@@ -9,6 +9,8 @@ module.exports = function (api) {
           root: ["./src"],
           alias: {
             "@": "./src",
+            "react-native": "react-native-web",
+            "react-native-maps": "react-native-web-maps",
           },
         },
       ],

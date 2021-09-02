@@ -5,7 +5,7 @@ import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 
 import HomeScreen from "@/features/home";
-import { ConstatationStackScreen } from "@/features/constatations";
+import ConstatationStackScreen from "@/features/constatations/routes/index";
 import { ParametersScreen } from "@/features/parameters";
 import AboutScreen from "@/features/about";
 

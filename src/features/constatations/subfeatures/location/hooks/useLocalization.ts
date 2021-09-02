@@ -5,6 +5,7 @@ import { QueryConfig } from "@/lib/react-query";
 import { getLocalization } from "../api";
 
 import { Localization } from "../types";
+import { Callback } from "yup/lib/types";
 
 type UseLocalizationOptions = {
   constatationId?: string;

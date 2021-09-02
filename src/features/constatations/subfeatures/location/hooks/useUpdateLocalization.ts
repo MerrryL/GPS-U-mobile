@@ -8,14 +8,12 @@ import { updateLocalization } from "../api";
 import { Constatation, Localization } from "../types";
 
 type UseUpdateLocalizationOptions = {
-  constatationId: string;
   config?: MutationConfig<typeof updateLocalization>;
 };
 
 export const useUpdateLocalization = ({
-  constatationId,
   config,
-}: UseUpdateLocalizationOptions) => {
+}: UseUpdateLocalizationOptions = {}) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
       onSuccess: async (data) => {

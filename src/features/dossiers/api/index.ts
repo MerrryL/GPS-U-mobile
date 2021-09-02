@@ -5,18 +5,12 @@ import { Dossier } from "../types";
 //DossiersPart
 
 type GetDossiersOptions = {
-  constatationId?: string;
+
 };
 
 //TODO: this points to Index on the api instead of a "show"
-export const getDossiers = ({
-  constatationId = null,
-}: GetDossiersOptions): Promise<Dossier[]> => {
-  let filter = "";
-  if (constatationId) {
-    filter+="?filter[dossier_group_id]="+constatationId;
-  }
-  return axios.get('/dossiers' + filter);
+export const getDossiers = ({ }: GetDossiersOptions): Promise<Dossier[]> => {
+    return axios.get('/dossiers');
 };
 
 type GetDossierOptions = {
@@ -52,6 +46,6 @@ type DeleteDossierOptions = {
   constatationId: string;
 };
 
-export const deleteDossier = ({ dossierId, constatationId }: DeleteDossierOptions) => {
+export const deleteDossier = ({ dossierId }: DeleteDossierOptions) => {
   return axios.delete(`dossiers/${dossierId}`);
 };

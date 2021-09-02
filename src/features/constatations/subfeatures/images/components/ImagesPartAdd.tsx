@@ -53,8 +53,8 @@ export function ImagesPartAdd({ constatationId }) {
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                onBlur={onBlur}
-                onChangeText={onChange}
+                onBlur={onBlur }
+                onChangeText={onChange }
                 value={value}
                 placeholder="Nom"
                 multiline

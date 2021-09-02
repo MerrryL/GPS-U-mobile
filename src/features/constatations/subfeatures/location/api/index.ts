@@ -12,7 +12,7 @@ type GetLocalizationOptions = {
 //TODO: this points to Index on the api instead of a "show"
 export const getLocalization = ({
   constatationId = null,
-}: GetLocalizationOptions): Promise<Localization[]> => {
+}: GetLocalizationOptions): Promise<Localization> => {
   let filter = "";
   if (constatationId) {
     filter+="?filter[constatation_id]="+constatationId;
@@ -46,6 +46,19 @@ type DeleteLocalizationOptions = {
   localizationId: string;
   constatationId: string;
 };
+
+type UpdateLocalizationOptions = {
+  localization: Localization;
+  constatationId:string;
+}
+
+export const updateLocalization = ({
+  localization,
+  constatationId
+}: UpdateLocalizationOptions): Promise<Localization> => {
+  console.log('loc', localization);
+  return axios.patch(`localizations/${localization.id}`, localization);
+}
 
 export const deleteLocalization = ({ localizationId, constatationId }: DeleteLocalizationOptions) => {
   return axios.delete(`localizations/${localizationId}`);

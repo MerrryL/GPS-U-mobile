@@ -9,13 +9,11 @@ import { Constatation, Dossier } from "../types";
 
 type UseDeleteDossierOptions = {
   dossierId:string;
-  constatationId: string;
   config?: MutationConfig<typeof deleteDossier>;
 };
 
 export const useDeleteDossier = ({
   dossierId,
-  constatationId,
   config,
 }: UseDeleteDossierOptions) => {
   const { addNotification } = useNotificationStore();
@@ -30,12 +28,12 @@ export const useDeleteDossier = ({
       queryClient.setQueryData(["dossiers"], [...previousdossiers]);
 
 
-      await queryClient.cancelQueries(["constatations"]);
-      const previousConstatations = queryClient.getQueryData<Constatation[]>(["constatations"]);
-      let constatationIndex = previousConstatations.findIndex((obj) => obj.id == constatationId);
-      let constatationIndex2 = previousConstatations[constatationIndex].dossiers.findIndex((obj => obj.id == dossierId));
-      previousConstatations[constatationIndex].dossiers.splice(constatationIndex2, 1);
-      queryClient.setQueryData(["constatations"], [...previousConstatations]);
+      // await queryClient.cancelQueries(["constatations"]);
+      // const previousConstatations = queryClient.getQueryData<Constatation[]>(["constatations"]);
+      // let constatationIndex = previousConstatations.findIndex((obj) => obj.id == constatationId);
+      // let constatationIndex2 = previousConstatations[constatationIndex].dossiers.findIndex((obj => obj.id == dossierId));
+      // previousConstatations[constatationIndex].dossiers.splice(constatationIndex2, 1);
+      // queryClient.setQueryData(["constatations"], [...previousConstatations]);
 
       addNotification({
         type: "success",

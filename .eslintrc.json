@@ -9,8 +9,7 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "prettier",
-    "plugin:prettier/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:prettier/recommended"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -19,7 +18,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["prettier/prettier", "react", "react-native"],
+  "plugins": ["prettier", "react", "react-native"],
   "rules": {
     "import/no-unresolved": 0,
     "react/jsx-filename-extension": [

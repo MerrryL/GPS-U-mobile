@@ -136,51 +136,25 @@ export enum ImageName {
   Sample = "sample",
   Test = "test",
 }
-
 export interface Localization {
   id: string;
-  name: LocalizationName;
   constatation_id: string;
-  created_at: string;
-  updated_at: string;
-  coordinate: Coordinate;
-  address: Address;
+  accuracy?: any;
+  address_components?: any;
+  altitude?: any;
+  altitudeAccuracy?: any;
+  formatted_address?: any;
+  given_name: string;
+  heading?: any;
+  latitude?: any;
+  longitude?: any;
+  place_id?: any;
+  speed?: any;
+  viewport?: any;
+  created_at: Date;
+  updated_at: Date;
 }
 
-export interface Address {
-  id: string;
-  formatted_address: FormattedAddress;
-  geometry: null;
-  place_id: PlaceID;
-  localization_id: string;
-  created_at: string;
-  updated_at: string;
-}
-
-export enum FormattedAddress {
-  OcéanIndien = "Océan Indien",
-}
-
-export enum PlaceID {
-  ChIJH2PCRJNFxgRN5ApY1C1OO = "ChIJH2p_crJNFxgRN5apY1C_1Oo",
-}
-
-export interface Coordinate {
-  longitude: string;
-  latitude: string;
-  altitude: null;
-  accuracy: null;
-  altitudeAccuracy: null;
-  heading: null;
-  speed: null;
-  localization_id: string;
-  created_at: string;
-  updated_at: string;
-}
-
-export enum LocalizationName {
-  AtCreation = "at_creation",
-}
 
 export interface Observer {
   id: string;

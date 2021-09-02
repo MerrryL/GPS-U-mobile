@@ -1,4 +1,5 @@
 import { rest } from 'msw';
+import 'react-native-get-random-values';
 import { nanoid } from 'nanoid';
 
 import { API_URL } from '@/config';

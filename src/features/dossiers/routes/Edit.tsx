@@ -27,12 +27,12 @@ export default function Edit({ route }: EditProps) {
   return (
     <ScrollView>
       <Card>
-        {/* <CardHeader constatationId={route.params.constatationId} /> */}
+        <CardHeader constatationId={route.params.constatationId} />
         <Card.Divider />
         {/* Actions, dossier, constatateurs */}
         {/* <ImagesPart constatationId={route.params.constatationId} /> */}
         <Card.Divider />
-        <LocalizationPart constatationId={route.params.constatationId} />
+        {/* <LocalizationPart constatationId={route.params.constatationId} /> */}
         <Card.Divider />
         {/* <FieldGroupPart constatationId={route.params.constatationId} /> */}
         <Card.Divider />
