@@ -14,6 +14,7 @@ import {
 
 import thumbURL from "../../utils/ThumbURL";
 import { View } from "react-native";
+import imageURL from "../../utils/ImageURL";
 
 type constatationCardProps = {
   constatation: Constatation;
@@ -63,7 +64,7 @@ export function ConstatationCard({ constatation }: constatationCardProps) {
       </Text>
       <Card.Divider />
       <Image
-        source={{ uri: thumbURL({ image: constatation?.images[0] }) }}
+        source={{ uri: imageURL({ image: constatation }) }}
         resizeMode="cover"
         style={{
           width: 150,

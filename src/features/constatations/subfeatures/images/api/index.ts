@@ -1,3 +1,4 @@
+import { Constatation } from "@/features/constatations/types";
 import { axios } from "@/lib/axios";
 import { LocationActivityType } from "expo-location";
 
@@ -62,3 +63,15 @@ export const uploadImage = ({
 }: UploadImageOptions): Promise<Image> => {
   return axios.post(`/images/upload/${imageId}`, { image });
 };
+
+type DefineAThumbOptions = {
+  imageId: string;
+  constatationId: string;
+};
+
+export const defineAThumb = ({
+  constatationId,
+  imageId
+}: DefineAThumbOptions): Promise<Constatation> => {
+  return axios.post(`/constatations/${constatationId}/defineAThumb`, {imageId: imageId})
+}

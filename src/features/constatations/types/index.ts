@@ -16,6 +16,7 @@ export type Constatation = {
   actions: Action[];
   images: Image[];
   observers: Observer[];
+  media: Media[];
 } & BaseEntity;
 
 export type Location = {

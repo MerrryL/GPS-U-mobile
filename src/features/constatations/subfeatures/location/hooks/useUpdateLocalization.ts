@@ -33,7 +33,7 @@ export const useUpdateLocalization = ({
           queryClient.getQueryData<Constatation[]>(["constatations"]);
           
         //console.log(queryClient.getQueryData<Constatation[]>(["constatations", 100]));
-        let index = previousConstatations.findIndex((obj => obj.id.toString() == constatationId))
+        let index = previousConstatations.findIndex((obj => obj.id.toString() == data.constatation_id.toString()))
 
         previousConstatations[index].localization = data;
 

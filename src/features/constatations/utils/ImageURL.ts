@@ -1,12 +1,13 @@
 import React from "react";
 import Constants from "expo-constants";
-import { Image } from "../types/";
+import { Constatation, Image } from "../types/";
 
 type ImageURLProps = {
-  image: Image;
+  image: Image | Constatation;
 };
 
 export default function imageURL({ image }: ImageURLProps) {
+  
   //Todo: fix this bad thing
   if (!image?.media  || !image?.media[0]?.file_name) {
     return "http://127.0.0.1:8000/images/53/conversions/sgriM5lGVx0-thumb.jpg";

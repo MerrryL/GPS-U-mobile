@@ -9,6 +9,7 @@ import thumbURL from "../utils/ThumbURL";
 import { useConstatation } from "../hooks/useConstatation";
 
 import { FieldGroup } from "../components/Edit/FieldGroup";
+import imageURL from "@/features/constatations/utils/ImageURL";
 
 type Params = {
   constatationId: string;
@@ -50,7 +51,7 @@ export default function Details({ route }: DetailsProps) {
       <Card.Divider />
       <Card.Image
         source={{
-          uri: thumbURL({ image: constatationQuery?.data?.images[0] }),
+          uri: imageURL({ image: constatationQuery?.data }),
         }}
         resizeMode="cover"
         style={{ width: 200, height: 200 }}

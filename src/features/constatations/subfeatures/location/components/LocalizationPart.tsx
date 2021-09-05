@@ -11,8 +11,6 @@ export function LocalizationPart({ constatationId = null }) {
     constatationId: constatationId,
   });
 
-  console.log(LocalizationQuery?.data);
-
   return (
     <>
       <LocalizationPicker

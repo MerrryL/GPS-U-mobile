@@ -1,23 +1,5 @@
 import { BaseEntity } from "@/types";
 
-export type Constatation = {
-  id: string;
-  comment: string;
-  modelType: null;
-  isValidated: string;
-  validationDate: string;
-  requiresValidation: string;
-  requiresValidationDate: string;
-  created_at: string;
-  updated_at: string;
-  field_groups: FieldGroup[];
-  localization: Localization;
-  dossiers: Dossier[];
-  actions: Action[];
-  images: Image[];
-  observers: Observer[];
-} & BaseEntity;
-
 export type Location = {
   id: string;
   title: string;

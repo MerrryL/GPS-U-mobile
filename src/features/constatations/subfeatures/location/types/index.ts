@@ -140,18 +140,18 @@ export enum ImageName {
 export interface Localization {
   id: string;
   constatation_id: string;
-  accuracy?: any;
-  address_components?: any;
-  altitude?: any;
-  altitudeAccuracy?: any;
-  formatted_address?: any;
+  accuracy: any;
+  address_components: any;
+  altitude: any;
+  altitudeAccuracy: any;
+  formatted_address: any;
   given_name: string;
-  heading?: any;
-  latitude?: any;
-  longitude?: any;
-  place_id?: any;
-  speed?: any;
-  viewport?: any;
+  heading: any;
+  latitude: number;
+  longitude: number;
+  place_id: any;
+  speed: any;
+  viewport: any;
   created_at: Date;
   updated_at: Date;
 }

@@ -33,6 +33,8 @@ export const useUploadImage = ({
       queryClient.setQueryData(["images"], [
         ...previousImages
       ]);
+      
+      await queryClient.cancelQueries(["constatations"]);
 
       const previousConstatations =
         queryClient.getQueryData<Constatation[]>(["constatations"]);

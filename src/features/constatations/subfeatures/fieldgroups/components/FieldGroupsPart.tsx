@@ -13,16 +13,19 @@ import { FieldGroupsAdd } from "./FieldGroupAdd";
 
 export function FieldGroupPart({ constatationId = null }) {
   const FieldGroupsQuery = useFieldGroups({
-    constatationId: constatationId
+    constatationId: constatationId,
   });
-  
-
-  console.log("fieldGroups",FieldGroupsQuery?.data, "constat", constatationId);
 
   return (
     <>
-      <FieldGroupsAdd constatationId={constatationId}/>
-      { FieldGroupsQuery?.data?.map( (fieldGroup) => <FieldGroupCard fieldGroup={fieldGroup} constatationId={constatationId} key={fieldGroup.id}/>)}
+      <FieldGroupsAdd constatationId={constatationId} />
+      {FieldGroupsQuery?.data?.map((fieldGroup) => (
+        <FieldGroupCard
+          fieldGroup={fieldGroup}
+          constatationId={constatationId}
+          key={fieldGroup.id}
+        />
+      ))}
     </>
-  )
+  );
 }
