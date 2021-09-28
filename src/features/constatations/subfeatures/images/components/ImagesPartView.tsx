@@ -12,7 +12,7 @@ type ImagesPartViewProps = {
     key: number;
 };
 
-export function ImagesPartView({ imageId }:ImagesPartViewProps) {
+export default function ImagesPartView({ imageId }:ImagesPartViewProps) {
   const [image, setImage] = useState(null);
   const imageQuery = useImage({
       imageId: imageId,

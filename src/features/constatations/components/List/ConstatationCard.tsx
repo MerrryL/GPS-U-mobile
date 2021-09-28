@@ -12,7 +12,6 @@ import {
   Text,
 } from "react-native-elements";
 
-import thumbURL from "../../utils/ThumbURL";
 import { View } from "react-native";
 import imageURL from "../../utils/ImageURL";
 
@@ -23,6 +22,7 @@ type constatationCardProps = {
 export function ConstatationCard({ constatation }: constatationCardProps) {
   const navigation = useNavigation();
 
+  //console.log(constatation);
   return (
     <Card>
       <View
@@ -32,7 +32,6 @@ export function ConstatationCard({ constatation }: constatationCardProps) {
           justifyContent: "flex-end",
         }}
       >
-        <Button title="Super Edit" style={{ marginRight: 10 }} />
         <Button
           title="Edit"
           style={{ marginRight: 10 }}
@@ -64,7 +63,7 @@ export function ConstatationCard({ constatation }: constatationCardProps) {
       </Text>
       <Card.Divider />
       <Image
-        source={{ uri: imageURL({ image: constatation }) }}
+        source={imageURL({ image: constatation }) }
         resizeMode="cover"
         style={{
           width: 150,
@@ -78,7 +77,7 @@ export function ConstatationCard({ constatation }: constatationCardProps) {
       <Text style={{ marginBottom: 10 }}>
         +{constatation?.images.length - 1} photo(s)
       </Text>
-      <Text style={{ marginBottom: 10 }}>{constatation.comment}</Text>
+      <Text style={{ marginBottom: 10 }}>{constatation.description}</Text>
       <Text style={{ marginBottom: 10 }}>Par: {constatation.comment}</Text>
       <Text style={{ marginBottom: 10 }}>Champs:{constatation.comment}</Text>
     </Card>

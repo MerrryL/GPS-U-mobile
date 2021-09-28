@@ -44,8 +44,37 @@ export const updateConstatation = ({
   data,
   constatationId,
 }: UpdateConstatationOptions): Promise<Constatation> => {
-  console.log("updating");
   return axios.patch(`constatations/${constatationId}`, data);
+};
+
+type RequireValidationOptions = {
+  constatationId: string;
+}
+
+export const requireValidation = ({
+  constatationId,
+}: RequireValidationOptions): Promise<Constatation> => {
+  return axios.post(`constatations/require_validation/${constatationId}`);
+};
+
+type UnRequireValidationOptions = {
+  constatationId: string;
+}
+
+export const unRequireValidation = ({
+  constatationId,
+}: UnRequireValidationOptions): Promise<Constatation> => {
+  return axios.post(`constatations/unrequire_validation/${constatationId}`);
+};
+
+type ValidateConstatationOptions = {
+  constatationId: string;
+}
+
+export const validateConstatation = ({
+  constatationId,
+}: ValidateConstatationOptions): Promise<Constatation> => {
+  return axios.post(`constatations/validate_constatation/${constatationId}`);
 };
 
 type DeleteConstatationOptions = {

@@ -12,6 +12,7 @@ import { LocalizationPart } from "../subfeatures/location/components/Localizatio
 import { FieldGroupPart } from "../subfeatures/fieldgroups/components/FieldGroupsPart";
 
 import Accordion from 'react-native-collapsible/Accordion';
+import { ObserverPart } from "../subfeatures/observers/components/ObserverPart";
 
 type Params = {
   constatationId: string;
@@ -48,6 +49,11 @@ export default function Edit({ route }: EditProps) {
       position: 3,
       title: 'Champs',
       content: <FieldGroupPart constatationId={route.params.constatationId} />
+    },
+    {
+      position: 4,
+      title: 'Agents constatants',
+      content: <ObserverPart constatationId={route.params.constatationId} />
     },
   ]
   
@@ -95,7 +101,7 @@ export default function Edit({ route }: EditProps) {
           onChange={_updateSections}
         />
         
-        {/* Actions, dossier, constatateurs */}
+        {/* Actions, dossier */}
         {/* Suivis */}
 
 

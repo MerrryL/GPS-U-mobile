@@ -1,2 +1,2 @@
-export * from "./routes";
+export * from "./routes/Index";
 export * from "./types";

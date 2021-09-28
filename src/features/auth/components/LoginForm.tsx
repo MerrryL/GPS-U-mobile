@@ -50,6 +50,9 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
+            autoCompleteType="email"
+            keyboardType="default"
+            textContentType="emailAddress"
             leftIcon={<Icon name="user" size={24} color="black" />}
             placeholder="Adresse e-mail"
           />
@@ -69,6 +72,10 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
+            autoCompleteType="password"
+            keyboardType="email-address"
+            textContentType="password"
+            secureTextEntry={true}
             leftIcon={<Icon name="lock" size={24} color="black" />}
             placeholder="Mot de passe"
           />

@@ -8,6 +8,7 @@ import Register from "./Register";
 
 const Tab = createMaterialBottomTabNavigator();
 
+//TODO: register
 export const AuthRoutes = () => {
   return (
     <>

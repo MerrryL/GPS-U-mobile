@@ -10,7 +10,10 @@ import { useNavigation } from "@react-navigation/native";
 import { useConstatation } from "../../hooks/useConstatation";
 import { useUpdateConstatation } from "../../hooks/useUpdateConstatation";
 import imageURL from "../../utils/ImageURL";
-import { AntDesign, FontAwesome, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
+import { AntDesign, Entypo, FontAwesome, FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { useUnRequireValidationConstatation } from "../../hooks/useUnRequireValidationConstatation";
+import { useRequireValidationConstatation } from "../../hooks/useRequireValidationConstatation";
+import { useValidateConstatation } from "../../hooks/useValidateConstatation";
 
 type ConstatationValues = {
   description: string;
@@ -25,12 +28,26 @@ export function CardHeader({ constatationId }) {
     constatationId: constatationId,
   });
 
+
   const  [constatation, setConstatation] = useState({description: constatationQuery?.data?.description})
 
   const updateConstatationMutation = useUpdateConstatation();
 
+  const requireValidationMutation = useRequireValidationConstatation();
+  const validateMutation = useValidateConstatation();
+  const unRequireValidationMutation = useUnRequireValidationConstatation;
 
 
+  const onValidationSubmit = async () => {
+    await validateMutation.mutateAsync({
+      constatationId: constatationId,
+    });
+  }
+  const onRequireValidationSubmit = async () => {
+    await requireValidationMutation.mutateAsync({
+      constatationId: constatationId,
+    });
+  }
 
   const {
     control,
@@ -60,9 +77,7 @@ export function CardHeader({ constatationId }) {
         }}
       >
         <Card.Image
-          source={{
-            uri: imageURL({image: constatationQuery?.data})
-          }}
+          source={imageURL({image: constatationQuery?.data})}
           resizeMode="cover"
           style={{ width: 200, height: 200 }}
         />
@@ -76,22 +91,31 @@ export function CardHeader({ constatationId }) {
           width: "60%",
         }}
         >
-          {constatationQuery?.data?.isValidated ? (
-            constatationQuery?.data?.requiresValidation ? (
-              <Text style={{ flex: 0.5, height: "auto", marginBottom: 10 }}>
-                Validation possible depuis le
-                {constatationQuery?.data?.requiresValidationDate}
-              </Text>
-              
-            ) : (
-              <Text style={{ flex: 0.5, height: "auto", marginBottom: 10 }}>
-                Non soumis à approbation
-              </Text>
-            )
-          ) : (
+          {constatationQuery?.data?.isValidated == 1 ? (
+            
             <Text style={{ flex: 0.5, height: "auto", marginBottom: 10 }}>
               Date de validation: {constatationQuery?.data?.validationDate}
             </Text>
+            ) : (
+            constatationQuery?.data?.requiresValidation ? (
+              <>
+                <Text style={{ flex: 0.5, height: "auto", marginBottom: 10 }}>
+                  Validation possible depuis le
+                  {constatationQuery?.data?.requiresValidationDate}
+                </Text>
+                <Button title="Valider " onPress={() => onValidationSubmit()} icon={<Ionicons name="checkmark-done" size={24} color="white" />} iconRight={true}  />
+
+              </>
+              
+              
+            ) : (
+              <>
+                <Text style={{ flex: 0.5, height: "auto", marginBottom: 10 }}>
+                  Non soumis à approbation
+                </Text>
+                <Button title="Demander à valider " onPress={() => onRequireValidationSubmit()} icon={<Entypo name="check" size={24} color="white" />} iconRight={true}  />
+              </>
+            )
           )}
         </View>
       </View>

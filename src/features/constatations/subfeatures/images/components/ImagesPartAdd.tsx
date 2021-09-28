@@ -19,7 +19,7 @@ const schema = yup.object().shape({
 });
 
 
-export function ImagesPartAdd({ constatationId }) {
+export default function ImagesPartAdd({ constatationId }) {
     const imageCreateMutation = useCreateImage({ constatationId })
 
     const {

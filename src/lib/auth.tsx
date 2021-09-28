@@ -15,9 +15,15 @@ import React from "react";
 import { axios } from "@/lib/axios";
 
 async function handleUserResponse(data: UserResponse) {
+  console.log("test", data);
   const { token, user } = data;
   try {
     await AsyncStorage.setItem("token", JSON.stringify(token));
+  } catch (e) {
+    // remove error
+  }
+  try {
+    await AsyncStorage.setItem("user", JSON.stringify(user));
   } catch (e) {
     // remove error
   }
@@ -25,6 +31,7 @@ async function handleUserResponse(data: UserResponse) {
   return user;
 }
 
+//TODO: user is already set in previous method
 async function loadUser() {
   if (await AsyncStorage.getItem("token")) {
     const data = await getUserProfile();

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { StyleSheet, ScrollView, View, SafeAreaView, Dimensions } from 'react-native';
 
-import { Card, Button, Tile, Text, Input } from "react-native-elements";
+import { Button, Card, Chip, Input, ListItem, Text, Tile } from "react-native-elements";
 
 import imageURL from "../../../utils/ImageURL";
-import { ImagesPartAdd } from "./ImagesPartAdd";
-import { ImagesPartView } from "./ImagesPartView";
+import ImagesPartAdd from "./ImagesPartAdd";
+import ImagesPartView from "./ImagesPartView";
 import { useImages } from "../hooks/useImages";
 import { useDefineAThumb } from "../hooks/useDefineAThumb";
 
@@ -51,26 +51,50 @@ export function ImagesPart({ constatationId = null }:ImagesPartProps) {
       </View>
 
       <Text>{ImagesWithoutMedia?.length ?? '0'} photo(s) demandent d'être prises</Text>
-        {ImagesWithoutMedia.map((image, index) => (
-          <ImagesPartView imageId={image?.id?.toString()} key={index}/>
-        ))}
+
+      {ImagesWithoutMedia.map((image, index) => (
+        <ImagesPartView imageId={image?.id?.toString()} key={index}/>
+      ))}
+
+      <Text>{ImagesWithMedia?.length ?? '0'} photo(s) déjà prises</Text>
+
 
       <ScrollView>
-        <Text>{ImagesWithMedia?.length ?? '0'} photo(s) déjà prises</Text>
-          {ImagesWithMedia.map((image, index) => (
-              <>
-              <Tile
-              imageSrc={{ uri: imageURL({image}) }}
+        {ImagesWithMedia.map((image, index) => (
+          <View key={index}>
+            <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
+              <Chip
+                title="Définir comme image par défaut"
+                onPress={() => defineAThumb(image.id, image.constatation_id)}
+                icon={{
+                name: "file-image-o",
+                type: "font-awesome",
+                size: 20,
+                color: "white",
+                }}
+                iconRight
+              />
+              <Chip
+                title="Supprimer cette image"
+                icon={{
+                name: "close",
+                type: "font-awesome",
+                size: 20,
+                color: "white",
+                }}
+                iconRight
+              />
+            </View>
+            <Tile
+              imageSrc={imageURL({image})}
               title={image.name}
               caption={image.text}
-              key={index}
             />
-            <Button onPress={() => defineAThumb(image.id, image.constatation_id)} title="Thumb"/>
-              </>
-              
-          ))
-          }
+          </View>  
+        ))
+        }
       </ScrollView>
+
     </View>
     
   );

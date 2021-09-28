@@ -2,11 +2,11 @@ import { BaseEntity } from "@/types";
 
 export type Constatation = {
   id: string;
-  description: string;
+  comment: string;
   modelType: null;
-  isValidated: number;
+  isValidated: string;
   validationDate: string;
-  requiresValidation: number;
+  requiresValidation: string;
   requiresValidationDate: string;
   created_at: string;
   updated_at: string;
@@ -16,7 +16,6 @@ export type Constatation = {
   actions: Action[];
   images: Image[];
   observers: Observer[];
-  media: Media[];
 } & BaseEntity;
 
 export type Location = {
@@ -70,25 +69,17 @@ export type FieldGroup = {
   logical_operator: string;
   created_at: string;
   updated_at: string;
-  field_types: FieldType[];
+  fields: Field[];
 } & BaseEntity;
 
-export type FieldType = {
+export type Field = {
   id: string;
   name: string;
   type: string;
-  isDefault: string;
-  field_group_id: string;
-  created_at: string;
-  updated_at: string;
-  constatation_field_value: ConstatationFieldValue;
-} & BaseEntity;
-
-export type ConstatationFieldValue = {
-  id: string;
-  field_type_id: string;
   orderedUuid: string;
   value: string;
+  isDefault: string;
+  field_group_id: string;
   created_at: string;
   updated_at: string;
 } & BaseEntity;
@@ -155,17 +146,4 @@ export interface Localization {
   viewport?: any;
   created_at: Date;
   updated_at: Date;
-}
-
-
-export interface Observer {
-  id: string;
-  created_at: string;
-  updated_at: string;
-  pivot: ObserverPivot;
-}
-
-export interface ObserverPivot {
-  constatation_id: string;
-  observer_id: string;
 }
