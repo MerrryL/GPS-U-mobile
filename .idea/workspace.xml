@@ -4,53 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="be209951-2021-4225-869f-979d1c8a5827" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/features/dossiers/routes/Create.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/features/dossiers/routes/Details.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/features/dossiers/routes/Edit.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/features/dossiers/routes/List.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/features/dossiers/routes/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Layout/AppNavigator.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Layout/AppNavigator.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/context/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/routes/Create.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/constatations/routes/Create.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/routes/Details.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/constatations/routes/Details.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/routes/Edit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/constatations/routes/Edit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/routes/List.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/constatations/routes/List.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/routes/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/constatations/routes/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/subfeatures/dossiers/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/dossiers/api/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/subfeatures/dossiers/components/DossierAdd.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/dossiers/components/DossierAdd.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/subfeatures/dossiers/components/DossierCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/dossiers/components/DossierCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/subfeatures/dossiers/components/DossierPart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/dossiers/components/DossierPart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/subfeatures/dossiers/hooks/useCreateDossier.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/dossiers/hooks/useCreateDossier.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/subfeatures/dossiers/hooks/useDeleteDossier.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/dossiers/hooks/useDeleteDossier.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/subfeatures/dossiers/hooks/useDossier.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/dossiers/hooks/useDossier.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/subfeatures/dossiers/hooks/useDossiers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/dossiers/hooks/useDossiers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/subfeatures/dossiers/hooks/useUpdateDossier.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/dossiers/hooks/useUpdateDossier.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/subfeatures/dossiers/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/dossiers/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/subfeatures/dossiers/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/dossiers/types/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/subfeatures/fieldgroups/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/constatations/subfeatures/fieldgroups/types/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/subfeatures/fields/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/constatations/subfeatures/fields/types/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/subfeatures/images/components/ImagesPartAdd.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/constatations/subfeatures/images/components/ImagesPartAdd.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/subfeatures/images/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/constatations/subfeatures/images/types/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/subfeatures/location/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/constatations/subfeatures/location/api/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/subfeatures/location/components/LocalizationPart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/constatations/subfeatures/location/components/LocalizationPart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/subfeatures/location/hooks/useLocalization.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/constatations/subfeatures/location/hooks/useLocalization.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/subfeatures/location/hooks/useUpdateLocalization.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/constatations/subfeatures/location/hooks/useUpdateLocalization.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/subfeatures/location/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/constatations/subfeatures/location/types/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/constatations/types/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/constatations/types/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/parameters/routes/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/parameters/routes/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useNotificationStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useNotificationStore.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/localization.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/localization.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/server/handlers/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/server/handlers/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/server/handlers/comments.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/server/handlers/comments.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/server/handlers/discussions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/server/handlers/discussions.ts" afterDir="false" />
-    </list>
+    <list default="true" id="be209951-2021-4225-869f-979d1c8a5827" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
