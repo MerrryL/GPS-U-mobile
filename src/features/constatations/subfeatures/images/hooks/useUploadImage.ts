@@ -5,7 +5,16 @@ import { MutationConfig, queryClient } from "@/lib/react-query";
 
 import { uploadImage } from "../api";
 
-import { Constatation, Image, ImageToSend } from "../../../types";
+import { Constatation, Image } from "@/types";
+
+type ImageToSend = {
+  name: string;
+  height: number;
+  width: number;
+  type: string;
+  uri: string;
+  base64: string;
+};
 
 type UseUploadImageOptions = {
   imageId: string;

@@ -1,10 +1,4 @@
-import React, { useState } from "react";
-import { FAB, Text, Button, Input } from "react-native-elements";
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-
-//import { Field } from "../types";
+import React from "react";
 
 import { useFields } from "../hooks/useFields";
 import { FieldCard } from "./FieldCard";
@@ -14,13 +8,16 @@ import { useDeleteField } from "../hooks/useDeleteField";
 
 export function FieldPart({ fields, fieldGroupId, constatationId }) {
   const FieldsQuery = useFields({
-    fieldGroupId: fieldGroupId
+    fieldGroupId: fieldGroupId,
   });
 
-  
   return (
     <>
-      <FieldCard field={field} fieldGroupId={fieldGroupId} constatationId={constatationId} />
+      <FieldCard
+        field={field}
+        fieldGroupId={fieldGroupId}
+        constatationId={constatationId}
+      />
     </>
-  )
+  );
 }

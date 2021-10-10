@@ -8,8 +8,6 @@ import { View } from "react-native";
 export const Notifications = () => {
   const { notifications, dismissNotification } = useNotificationStore();
 
-  console.log("notifications", notifications);
-
   {
     if (notifications.length === 0) {
       return <></>;

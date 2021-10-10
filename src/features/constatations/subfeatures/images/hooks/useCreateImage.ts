@@ -4,8 +4,7 @@ import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
 
 import { createImage } from "../api";
-
-import { Constatation, Image } from "../types";
+import { Constatation, Image } from "@/types";
 
 type UseCreateImageOptions = {
   constatationId: string;

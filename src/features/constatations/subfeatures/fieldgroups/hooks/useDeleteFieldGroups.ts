@@ -5,7 +5,7 @@ import { MutationConfig, queryClient } from "@/lib/react-query";
 
 import { deleteFieldGroup } from "../api";
 
-import { Constatation, FieldGroup } from "../types";
+import { Constatation, FieldGroup } from "@/types";
 
 type UseDeleteFieldGroupOptions = {
   fieldGroupId: string;

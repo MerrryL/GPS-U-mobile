@@ -11,7 +11,6 @@ import { AntDesign, FontAwesome, FontAwesome5, MaterialCommunityIcons } from '@e
 
 import { StyleSheet, View, Dimensions, Linking, TouchableOpacity } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import { Localization } from "../types";
 
 import { useLocalization } from "../hooks/useLocalization";
 import { useUpdateLocalization } from "../hooks/useUpdateLocalization";

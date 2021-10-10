@@ -1,7 +1,7 @@
 import { axios } from "@/lib/axios";
 import { LocationActivityType } from "expo-location";
 
-import { User } from "../types";
+import { User } from "@/types";
 
 //UsersPart
 

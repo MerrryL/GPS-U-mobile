@@ -32,11 +32,21 @@ axios.interceptors.response.use(
   },
   (error) => {
     const message = error.response?.data?.message || error.message;
+    const errors = error.response?.data?.errors || error.errors;
+
     useNotificationStore.getState().addNotification({
       type: 'error',
       title: 'Error',
       message,
-    });
+    })
+
+    for (const [key, value] of Object.entries(errors)) {
+      useNotificationStore.getState().addNotification({
+        type: 'error',
+        title: 'Error '+ key.toString(),
+        message: value.toString(),
+      })
+    };
 
     return Promise.reject(error);
   }

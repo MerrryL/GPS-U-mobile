@@ -5,7 +5,7 @@ import { MutationConfig, queryClient } from "@/lib/react-query";
 
 import { deleteField } from "../api";
 
-import { Constatation, FieldGroup, Field } from "../types";
+import { Constatation, FieldGroup, Field } from "@/types";
 
 type UseDeleteFieldOptions = {
   fieldId:string;

@@ -6,12 +6,12 @@ import {
 //TODO:later replace addressinput
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import React, { useState, useEffect } from "react";
-import { FAB, Text, Button, Input } from "react-native-elements";
+import { Text, Button, Input } from "react-native-elements";
 import { AntDesign, FontAwesome, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { StyleSheet, View, Dimensions, Linking, TouchableOpacity } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import { Localization } from "../types";
+import { Localization } from "@/types";
 
 import { useLocalization } from "../hooks/useLocalization";
 import { useUpdateLocalization } from "../hooks/useUpdateLocalization";

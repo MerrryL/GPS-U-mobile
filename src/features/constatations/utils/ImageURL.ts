@@ -1,6 +1,5 @@
-import React from "react";
 import Constants from "expo-constants";
-import { Constatation, Image } from "../types/";
+import { Constatation, Image } from "@/types/";
 
 type ImageURLProps = {
   image: Image | Constatation;

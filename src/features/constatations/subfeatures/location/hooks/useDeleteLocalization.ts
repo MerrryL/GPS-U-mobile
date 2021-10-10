@@ -5,7 +5,7 @@ import { MutationConfig, queryClient } from "@/lib/react-query";
 
 import { deleteLocalization } from "../api";
 
-import { Constatation, Localization, LocalizationToSend } from "../types";
+import { Constatation, Localization } from "@/types";
 
 type UseDeleteLocalizationOptions = {
   localizationId: string;

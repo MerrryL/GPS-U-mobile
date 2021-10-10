@@ -4,7 +4,7 @@ import { useNotificationStore } from '@/hooks/useNotificationStore';
 import { MutationConfig, queryClient } from '@/lib/react-query';
 
 import { deleteUser } from '../api';
-import { User } from '../types';
+import { User } from '@/types';
 
 type UseDeleteUserOptions = {
   config?: MutationConfig<typeof deleteUser>;

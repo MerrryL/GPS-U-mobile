@@ -4,8 +4,6 @@ import { QueryConfig } from "@/lib/react-query";
 
 import { getImage } from "../api";
 
-import { Image } from "../types";
-
 type UseImageOptions = {
   imageId: string;
   config?: QueryConfig<typeof getImage>;

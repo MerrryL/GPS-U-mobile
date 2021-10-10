@@ -4,7 +4,7 @@ import { QueryConfig } from "@/lib/react-query";
 
 import { getDossier } from "../api";
 
-import { Dossier } from "../types";
+import { Dossier } from "@/types";
 
 type UseDossierOptions = {
   dossierId?: string;

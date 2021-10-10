@@ -1,7 +1,7 @@
 import { axios } from "@/lib/axios";
 import { LocationActivityType } from "expo-location";
 
-import { FieldGroup } from "../types";
+import { FieldGroup } from "@/types";
 
 //FieldGroupsPart
 

@@ -25,7 +25,6 @@ export const Notification = ({
   notification: { id, type, title, message },
   onDismiss,
 }: NotificationProps) => {
-  console.log("dismiss", onDismiss)
   return (
     <>
     <View>

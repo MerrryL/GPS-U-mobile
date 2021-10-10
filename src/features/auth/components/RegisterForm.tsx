@@ -55,8 +55,9 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
-            leftIcon={<Icon name="lock" size={24} color="black" />}
+            leftIcon={<Icon name="user" size={24} color="black" />}
             placeholder="Prénom"
+            textContentType="givenName"
           />
         )}
         name="firstName"
@@ -74,8 +75,9 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
-            leftIcon={<Icon name="lock" size={24} color="black" />}
+            leftIcon={<Icon name="user" size={24} color="black" />}
             placeholder="Nom"
+            textContentType="familyName"
           />
         )}
         name="lastName"
@@ -93,14 +95,17 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
-            leftIcon={<Icon name="lock" size={24} color="black" />}
+            leftIcon={<Icon name="at" size={24} color="black" />}
             placeholder="Adresse e-mail"
+            autoCompleteType="email"
+            keyboardType="email-address"
+            textContentType="emailAddress"
           />
         )}
         name="email"
         defaultValue=""
       />
-      <Text>{errors.password?.message}</Text>
+      <Text>{errors.email?.message}</Text>
 
       <Controller
         control={control}
@@ -114,6 +119,8 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
             value={value}
             leftIcon={<Icon name="lock" size={24} color="black" />}
             placeholder="Mot de passe"
+            secureTextEntry={true}
+            textContentType="newPassword"
           />
         )}
         name="password"

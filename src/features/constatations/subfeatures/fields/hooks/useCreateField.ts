@@ -5,7 +5,7 @@ import { MutationConfig, queryClient } from "@/lib/react-query";
 
 import { createField } from "../api";
 
-import { Constatation, Field, FieldGroup } from "../types";
+import { Constatation, Field, FieldGroup } from "@/types";
 
 type UseCreateFieldOptions = {
   fieldGroupId: string;

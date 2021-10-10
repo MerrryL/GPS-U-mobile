@@ -1,10 +1,16 @@
-import { Constatation } from "@/features/constatations/types";
 import { axios } from "@/lib/axios";
 import { LocationActivityType } from "expo-location";
 
-import { ImageToSend, Image } from "../types";
+import { Constatation, Image } from "@/types";
 
-//ImagesPart
+type ImageToSend = {
+  name: string;
+  height: number;
+  width: number;
+  type: string;
+  uri: string;
+  base64: string;
+};
 
 type GetImagesOptions = {
   constatationId?: string;

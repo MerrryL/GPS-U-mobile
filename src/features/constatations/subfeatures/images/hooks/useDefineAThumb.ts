@@ -5,8 +5,7 @@ import { MutationConfig, queryClient } from "@/lib/react-query";
 
 import { defineAThumb } from "../api";
 
-import { Image } from "../types";
-import { Constatation } from "@/features/constatations/types";
+import { Constatation, Image } from "@/types";
 
 type UseDefineAThumbOptions = {
   constatationId?: string;
@@ -20,6 +19,8 @@ export const useDefineAThumb = ({
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (updatingConstatation : Constatation) => {
+
+      //TODO: come back
       // await queryClient.cancelQueries(["images"]);
 
       // const previousImages =

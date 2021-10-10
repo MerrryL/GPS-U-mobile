@@ -1,10 +1,4 @@
-import React, { useState } from "react";
-import { FAB, Text, Button, Input } from "react-native-elements";
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-
-//import { FieldGroup } from "../types";
+import React from "react";
 
 import { useFieldGroups } from "../hooks/useFieldGroups";
 import { FieldGroupCard } from "./FieldGroupCard";

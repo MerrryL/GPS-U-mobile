@@ -53,7 +53,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
             autoCompleteType="email"
             keyboardType="default"
             textContentType="emailAddress"
-            leftIcon={<Icon name="user" size={24} color="black" />}
+            leftIcon={<Icon name="at" size={24} color="black" />}
             placeholder="Adresse e-mail"
           />
         )}

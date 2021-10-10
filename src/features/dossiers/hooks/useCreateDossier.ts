@@ -5,7 +5,7 @@ import { MutationConfig, queryClient } from "@/lib/react-query";
 
 import { createDossier } from "../api";
 
-import { Constatation, Dossier } from "../types";
+import { Constatation, Dossier } from "@/types";
 
 type UseCreateDossierOptions = {
   constatationId: string;

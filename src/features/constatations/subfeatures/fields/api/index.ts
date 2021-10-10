@@ -1,8 +1,5 @@
 import { axios } from "@/lib/axios";
-
-import { Field } from "../types";
-
-//FieldsPart
+import { Field } from "@/types";
 
 type GetFieldsOptions = {
   fieldGroupId?: string;

@@ -1,6 +1,6 @@
 import { axios } from "@/lib/axios";
 
-import { Dossier } from "../types";
+import { Dossier } from "@/types";
 
 //DossiersPart
 

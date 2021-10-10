@@ -1,3 +1,5 @@
+//TODO: implement or delete
+
 // import { useMutation } from "react-query";
 
 // import { useNotificationStore } from "@/hooks/useNotificationStore";
@@ -5,7 +7,7 @@
 
 // import { updateDossier } from "../api";
 
-// import { Constatation, Dossier } from "../types";
+// import { Constatation, Dossier } from "@/types";
 
 // type UseUpdateDossierOptions = {
 //   constatationId: string;
@@ -33,17 +35,15 @@
 
 //         const previousConstatations =
 //           queryClient.getQueryData<Constatation[]>(["constatations"]);
-          
+
 //         //console.log(queryClient.getQueryData<Constatation[]>(["constatations", 100]));
 //         let index = previousConstatations.findIndex((obj => obj.id.toString() == constatationId))
 
 //         previousConstatations[index].Dossier = data;
 
-
 //         queryClient.setQueryData(["constatations"], [
 //           ...previousConstatations,
 //         ]);
-        
 
 //         addNotification({
 //           type: "success",

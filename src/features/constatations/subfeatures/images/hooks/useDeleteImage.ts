@@ -5,7 +5,7 @@ import { MutationConfig, queryClient } from "@/lib/react-query";
 
 import { deleteImage } from "../api";
 
-import { Constatation, Image, ImageToSend } from "../../../types";
+import { Constatation, Image} from "@/types";
 
 type UseDeleteImageOptions = {
   imageId: string;

@@ -1,7 +1,7 @@
 import { axios } from "@/lib/axios";
 import { LocationActivityType } from "expo-location";
 
-import { Constatation, Localization, ImageToSend, Image } from "../types";
+import { Constatation } from "@/types";
 
 
 //Constatations part

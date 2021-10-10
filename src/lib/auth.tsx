@@ -15,7 +15,6 @@ import React from "react";
 import { axios } from "@/lib/axios";
 
 async function handleUserResponse(data: UserResponse) {
-  console.log("test", data);
   const { token, user } = data;
   try {
     await AsyncStorage.setItem("token", JSON.stringify(token));

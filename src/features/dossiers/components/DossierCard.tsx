@@ -2,7 +2,7 @@ import React from 'react';
 import { FAB, Card, Text, Button, Input } from "react-native-elements";
 import { View } from 'react-native';
 import { useDeleteDossier } from '../hooks/useDeleteDossier';
-import { Dossier } from '../types';
+import { Dossier } from '@/types';
 import { useDossier } from '../hooks/useDossier';
 
 type DossierCardProps = {

@@ -5,7 +5,7 @@ import { MutationConfig, queryClient } from "@/lib/react-query";
 
 import { updateLocalization } from "../api";
 
-import { Constatation, Localization } from "../types";
+import { Constatation, Localization } from "@/types";
 
 type UseUpdateLocalizationOptions = {
   config?: MutationConfig<typeof updateLocalization>;

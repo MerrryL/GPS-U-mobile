@@ -4,7 +4,7 @@ import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
 
 import { requireValidation } from "../api";
-import { Constatation } from "../types";
+import { Constatation } from "@/types";
 
 type UseRequireValidationConstatationOptions = {
   config?: MutationConfig<typeof requireValidation>;

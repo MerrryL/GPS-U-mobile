@@ -1,9 +1,7 @@
 import { axios } from "@/lib/axios";
 import { LocationActivityType } from "expo-location";
 
-import { Localization } from "../types";
-
-//LocalizationsPart
+import { Localization } from "@/types";
 
 type GetLocalizationOptions = {
   constatationId?: string;

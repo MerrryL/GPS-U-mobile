@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Platform } from "react-native";
-
-//import { Localization } from "../types";
 
 import { useLocalization } from "../hooks/useLocalization";
 import LocalizationPicker from "./LocalizationPicker";

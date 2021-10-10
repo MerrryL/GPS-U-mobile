@@ -2,7 +2,7 @@ import React from 'react';
 import { FAB, Card, Text, Button, Input } from "react-native-elements";
 import { View } from 'react-native';
 import { useDeleteField } from '../hooks/useDeleteField';
-import { Field } from '../types';
+import { Field } from '@/types';
 import { useField } from '../hooks/useField';
 
 type FieldCardProps= {

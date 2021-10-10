@@ -1,3 +1,5 @@
+//TODO: is it needed?
+
 // import { useMutation } from "react-query";
 
 // import { useNotificationStore } from "@/hooks/useNotificationStore";
@@ -5,7 +7,7 @@
 
 // import { updateFieldGroup } from "../api";
 
-// import { Constatation, FieldGroup } from "../types";
+// import { Constatation, FieldGroup } from "@/types";
 
 // type UseUpdateFieldGroupOptions = {
 //   constatationId: string;
@@ -33,17 +35,15 @@
 
 //         const previousConstatations =
 //           queryClient.getQueryData<Constatation[]>(["constatations"]);
-          
+
 //         //console.log(queryClient.getQueryData<Constatation[]>(["constatations", 100]));
 //         let index = previousConstatations.findIndex((obj => obj.id.toString() == constatationId))
 
 //         previousConstatations[index].FieldGroup = data;
 
-
 //         queryClient.setQueryData(["constatations"], [
 //           ...previousConstatations,
 //         ]);
-        
 
 //         addNotification({
 //           type: "success",

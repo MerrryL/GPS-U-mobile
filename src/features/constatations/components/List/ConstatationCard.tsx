@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Constatation } from "../../types";
+import { Constatation } from "@/types";
 import { useNavigation } from "@react-navigation/native";
 
 import {
@@ -75,7 +75,7 @@ export function ConstatationCard({ constatation }: constatationCardProps) {
         }}
       />
       <Text style={{ marginBottom: 10 }}>
-      {constatation?.images.length > 1 ? constatation?.images.length +" photos" : constatation?.images.length > 0 ? "Une photo" : "Pas de photo"}
+        +{constatation?.images.length - 1} photo(s)
       </Text>
       <Text style={{ marginBottom: 10 }}>{constatation.description}</Text>
       <Text style={{ marginBottom: 10 }}>Par: {constatation.comment}</Text>

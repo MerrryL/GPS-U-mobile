@@ -1,7 +1,7 @@
 import React from 'react';
 import { FAB, Card, Text, Button, Input } from "react-native-elements";
 import { View } from 'react-native';
-import { FieldGroup } from '../types';
+import { FieldGroup } from '@/types';
 import { useFieldGroup } from '../hooks/useFieldGroup';
 import { FieldsAdd } from '../../fields/components/FieldAdd';
 import { FieldCard } from '../../fields/components/FieldCard';
