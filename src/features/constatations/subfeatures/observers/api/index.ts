@@ -42,13 +42,13 @@ type CreateUserOptions = {
   logical_operator: string;
 };
 
-export const createUser = ({
+export const updateObserver = ({
   constatationId,
   name,
   type,
   logical_operator,
 }: CreateUserOptions): Promise<User> => {
-  return axios.post("/users/", { name, type, logical_operator, constatationId });
+  return axios.post("/observers/", { name, type, logical_operator, constatationId });
 };
 
 type DeleteUserOptions = {

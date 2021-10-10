@@ -12,11 +12,11 @@ type LayoutProps = {
 export const Layout = ({ children, title }: LayoutProps) => {
   return (
     <>
-    <Header
-  leftComponent={{ icon: 'menu', color: '#fff', iconStyle: { color: '#fff' } }}
-  centerComponent={{ text: {title}, style: { color: '#fff' } }}
-  rightComponent={{ icon: 'home', color: '#fff' }}
-/>
+      <Header
+        leftComponent={{ icon: 'menu', color: '#fff', iconStyle: { color: '#fff' } }}
+        centerComponent={{ text: title, style: { color: '#fff' } }}
+        rightComponent={{ icon: 'home', color: '#fff' }}
+      />
      <View>{children}</View>
     </>
   );

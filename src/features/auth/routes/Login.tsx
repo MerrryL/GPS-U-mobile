@@ -5,7 +5,7 @@ import React from "react";
 
 export default function Login({ navigation }) {
   return (
-    <Layout title="Log in to your account">
+    <Layout title="Connexion">
       <Button
         title={"Pas encore inscrit?"}
         onPress={() => navigation.navigate("S'inscrire")}

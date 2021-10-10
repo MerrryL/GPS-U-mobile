@@ -5,7 +5,7 @@ import React from "react";
 
 export default function Register({ navigation }) {
   return (
-    <Layout title="Register your account">
+    <Layout title="Nouvel utilisateur">
       <Button
         title={"Déjà inscrit?"}
         onPress={() => navigation.navigate("Se connecter")}
