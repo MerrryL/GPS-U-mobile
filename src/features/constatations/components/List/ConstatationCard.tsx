@@ -75,7 +75,7 @@ export function ConstatationCard({ constatation }: constatationCardProps) {
         }}
       />
       <Text style={{ marginBottom: 10 }}>
-        +{constatation?.images.length - 1} photo(s)
+      {constatation?.images.length > 1 ? constatation?.images.length +" photos" : constatation?.images.length > 0 ? "Une photo" : "Pas de photo"}
       </Text>
       <Text style={{ marginBottom: 10 }}>{constatation.description}</Text>
       <Text style={{ marginBottom: 10 }}>Par: {constatation.comment}</Text>

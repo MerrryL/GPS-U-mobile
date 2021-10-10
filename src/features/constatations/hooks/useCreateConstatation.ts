@@ -15,7 +15,7 @@ export const useCreateConstatation = ({
 }: UseCreateConstatationOptions = {}) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
-    onMutate: async (newConstatation) => {
+    onSuccess: async (newConstatation) => {
       await queryClient.cancelQueries(["constatations"]);
 
       const previousConstatations =
@@ -23,25 +23,14 @@ export const useCreateConstatation = ({
 
       queryClient.setQueryData(["constatations"], [
         ...(previousConstatations || []),
-        newConstatation.data,
+        newConstatation,
       ]);
 
-      return { previousConstatations };
-    },
-    onError: (_, __, context: any) => {
-      if (context?.previousConstatations) {
-        queryClient.setQueryData(
-          ["constatations"],
-          context.previousConstatations
-        );
-      }
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(["constatations"]);
       addNotification({
         type: "success",
         title: "Constatation Created",
       });
+      return { previousConstatations };
     },
     ...config,
     mutationFn: createConstatation,

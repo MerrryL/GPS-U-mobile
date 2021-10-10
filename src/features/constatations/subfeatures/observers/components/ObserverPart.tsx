@@ -17,8 +17,19 @@ export function ObserverPart({  constatationId }: ObserverPartProps) {
 
     const options = ObserversQuery?.data?.map( observer => ({item: observer?.lastName?.toUpperCase() + " " + observer?.firstName, id: observer.id}));
 
-    console.log("options", options);
+    console.log("selectedValues", selectedObservers);
     
+
+    const onSubmit = async () => {
+      
+        console.log("values", selectedObservers);
+        // await imageCreateMutation.mutateAsync({
+        //   name: values.name,
+        //   constatationId: constatationId,
+        // });
+        
+        //onSuccess();
+      };
 
     return (
         <View style={{margin: 10}}>
@@ -33,6 +44,7 @@ export function ObserverPart({  constatationId }: ObserverPartProps) {
                 isMulti
             />
             </Card>
+            <Button onPress={() => onSubmit}/>
         </View>
     )
 

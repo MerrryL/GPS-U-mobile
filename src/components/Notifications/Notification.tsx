@@ -1,3 +1,4 @@
+import React from "react";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { Text, View } from 'react-native'
 import { Button, Badge } from 'react-native-elements'
@@ -24,10 +25,12 @@ export const Notification = ({
   notification: { id, type, title, message },
   onDismiss,
 }: NotificationProps) => {
+  console.log("dismiss", onDismiss)
   return (
     <>
     <View>
-      <Badge status={type}>
+      <Badge status={type} value ={title}>
+      </Badge>
       <Text h1>
         {title}
         </Text>
@@ -35,8 +38,8 @@ export const Notification = ({
         <Text h3>
         {message}
         </Text>
-        </Badge>
-        <Button onPress={ () => onDismiss}/>
+
+        <Button title="X" onPress={ () => onDismiss(id)}/>
 
     </View>
     </>

@@ -7,10 +7,24 @@ import { ConstatationCard } from "../components/List/ConstatationCard";
 import { SearchBar } from "../components/SearchBar";
 import { useConstatations } from "../hooks/useConstatations";
 import { useNavigation } from "@react-navigation/native";
+import { useCreateConstatation } from "../hooks/useCreateConstatation";
 
 export default function List() {
   const constatationsQuery = useConstatations();
   const navigation = useNavigation();
+
+  const createConstatationMutation = useCreateConstatation();
+
+  const handleCreation = async (values) => {
+    let newConstatation = await createConstatationMutation.mutateAsync({
+      data: null,
+    });
+
+    navigation.navigate("Edition", {
+      constatationId: newConstatation?.id,
+    });
+    //onSuccess();
+  };
 
   if (constatationsQuery.isLoading) {
     return (
@@ -32,7 +46,8 @@ export default function List() {
         title="+"
         placement="right"
         size="large"
-        onPress={() => navigation.navigate("Nouvelle")}
+        // onPress={() => navigation.navigate("Nouvelle")}
+        onPress={() => handleCreation(null)}
       />
     </>
   );
