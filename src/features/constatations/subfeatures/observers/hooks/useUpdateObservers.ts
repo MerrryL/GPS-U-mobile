@@ -7,13 +7,20 @@ import { updateObserver } from "../api";
 
 import { Constatation, Observer } from "@/types";
 
+type ObserverToSend = {
+  id: string;
+  item: string;
+}
+
 type UseUpdateObserverOptions = {
   constatationId: string;
+  observers: ObserverToSend[];
   config?: MutationConfig<typeof updateObserver>;
 };
 
 export const useUpdateObserver = ({
   constatationId,
+  observers,
   config,
 }: UseUpdateObserverOptions) => {
   const { addNotification } = useNotificationStore();

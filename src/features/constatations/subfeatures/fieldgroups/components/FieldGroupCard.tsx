@@ -37,8 +37,8 @@ export function FieldGroupCard({ fieldGroup, constatationId }: FieldGroupCardPro
             <Card>
                 <Button title="Supprimer le groupe" onPress={onDeleteSubmit} />
                 <Card.Title>Groupe: {fieldGroup.name}</Card.Title>
-                <Text>{fieldGroup.type}</Text>
-                <Text>{fieldGroup.logical_operator}</Text>
+                <Text h4>Type: {fieldGroup.type}</Text>
+                <Text>Opérateur logique: {fieldGroup.logical_operator}</Text>
                 <FieldsAdd constatationId={constatationId} fieldGroupId={fieldGroup.id}/>
                 {FieldQuery?.data?.map( (field) => <FieldCard field={field} constatationId={constatationId} fieldGroupId={fieldGroup.id} key={field.id}/>)}
             </Card>

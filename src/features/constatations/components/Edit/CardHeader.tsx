@@ -6,7 +6,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import { View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { useConstatation } from "../../hooks/useConstatation";
 import { useUpdateConstatation } from "../../hooks/useUpdateConstatation";
 import imageURL from "../../utils/ImageURL";

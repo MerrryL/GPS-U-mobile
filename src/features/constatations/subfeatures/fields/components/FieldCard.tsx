@@ -27,7 +27,8 @@ export function FieldCard({ field, fieldGroupId, constatationId }: FieldCardProp
         <View style={{margin: 10}}>
             <Card>
                 <Card.Title>{FieldQuery?.data?.name}</Card.Title>
-                <Text>{FieldQuery?.data?.type}</Text>
+                <Text h4>Type: {FieldQuery?.data?.type}</Text>
+                <Text>Valeur: {FieldQuery?.data?.value}</Text>
                 <Button title="Supprimer le champ" onPress={onDeleteSubmit} />
                 
             </Card>

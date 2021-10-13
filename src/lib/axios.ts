@@ -40,13 +40,17 @@ axios.interceptors.response.use(
       message,
     })
 
-    for (const [key, value] of Object.entries(errors)) {
-      useNotificationStore.getState().addNotification({
-        type: 'error',
-        title: 'Error '+ key.toString(),
-        message: value.toString(),
-      })
-    };
+    if(errors) {
+      for (const [key, value] of Object.entries(errors)) {
+        useNotificationStore.getState().addNotification({
+          type: 'error',
+          title: 'Error '+ key.toString(),
+          message: value.toString(),
+        })
+      };
+    }
+
+
 
     return Promise.reject(error);
   }

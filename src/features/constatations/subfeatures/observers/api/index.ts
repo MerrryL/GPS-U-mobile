@@ -1,5 +1,4 @@
 import { axios } from "@/lib/axios";
-import { LocationActivityType } from "expo-location";
 
 import { User } from "@/types";
 
@@ -35,20 +34,20 @@ export const getUser = ({
   return axios.get(`/users/${userId}`);
 };
 
+type ObserverToSend = {
+  id: string;
+}
+
 type CreateUserOptions = {
   constatationId: string;
-  name: string;
-  type: string;
-  logical_operator: string;
+  observers: ObserverToSend[];
 };
 
 export const updateObserver = ({
   constatationId,
-  name,
-  type,
-  logical_operator,
+  observers = [],
 }: CreateUserOptions): Promise<User> => {
-  return axios.post("/observers/", { name, type, logical_operator, constatationId });
+  return axios.post(`constatations/${constatationId}/observers/`, { observers });
 };
 
 type DeleteUserOptions = {
