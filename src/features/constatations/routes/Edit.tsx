@@ -13,6 +13,9 @@ import { FieldGroupPart } from "../subfeatures/fieldgroups/components/FieldGroup
 
 import Accordion from 'react-native-collapsible/Accordion';
 import { ObserverPart } from "../subfeatures/observers/components/ObserverPart";
+import { useConstatation } from "../hooks/useConstatation";
+import { useObservers } from "../subfeatures/observers/hooks/useObservers";
+import { FollowupPart } from "../../followups/components/FollowupPart";
 
 type Params = {
   constatationId: string;
@@ -27,34 +30,47 @@ type Route = {
 };
 
 export default function Edit({ route }: EditProps) {
+  const constatationId = route.params.constatationId;
   const [activeSections, setActiveSections] = useState([0]);
+
+  const allObserversQuery= useObservers();
+  const options = allObserversQuery?.data?.map( observer => ({item: observer?.lastName?.toUpperCase() + " " + observer?.firstName, id: observer.id}));
+  //console.log("options", allObserversQuery?.data );
+  const observersQuery = useConstatation({constatationId});
+  const initialObservers = observersQuery?.data?.observers?.map( observer => ({item: observer?.lastName?.toUpperCase() + " " + observer?.firstName, id: observer.id}));
+
 
   const sections= [
     {
       position: 0,
       title: 'Corps',
-      content: <CardHeader constatationId={route.params.constatationId} />
+      content: <CardHeader constatationId={constatationId} />
     },
     {
       position: 1,
       title: 'Images',
-      content: <ImagesPart constatationId={route.params.constatationId} />
+      content: <ImagesPart constatationId={constatationId} />
     },
     {
       position: 2,
       title: 'Localisation',
-      content: <LocalizationPart constatationId={route.params.constatationId} />
+      content: <LocalizationPart constatationId={constatationId} />
     },
     {
       position: 3,
       title: 'Champs',
-      content: <FieldGroupPart constatationId={route.params.constatationId} />
+      content: <FieldGroupPart constatationId={constatationId} />
     },
     {
       position: 4,
       title: 'Agents constatants',
-      content: <ObserverPart constatationId={route.params.constatationId} />
+      content: <ObserverPart constatationId={constatationId} initialObservers={initialObservers} options={options}/>
     },
+    {
+      position: 5,
+      title: 'Suivis',
+      content: <FollowupPart constatationId={constatationId}/>
+    }
   ]
   
   const _renderSectionTitle = (section) => {
@@ -89,7 +105,7 @@ export default function Edit({ route }: EditProps) {
   return (
     <ScrollView>
       <Card>
-        <Card.Title h1>Constatation n°{route.params.constatationId}</Card.Title>
+        <Card.Title h1>Constatation n°{constatationId}</Card.Title>
         <Card.Divider/>
 
         <Accordion
