@@ -21,14 +21,14 @@ export function ObserverPart({  constatationId, initialObservers, options }: Obs
 
     useEffect(() => {
         //TODO:there musts be some bugs here due to bad initialization of options and initialObservers
-        console.log("options",options);
-        console.log("initialObservers", initialObservers);
+        // console.log("options",options);
+        // console.log("initialObservers", initialObservers);
         setSelectedObservers(initialObservers);
         setOptions(options);
     }, [options]);
 
     
-    console.log("init observers", initialObservers, options);
+    //console.log("init observers", initialObservers, options);
 
     const onSubmit = async () => {
         let selectedObserversId = selectedObservers.map(function(item) { return item["id"]; }) ?? [];

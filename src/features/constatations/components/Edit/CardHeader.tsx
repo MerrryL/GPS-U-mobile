@@ -128,7 +128,7 @@ export function CardHeader({ constatationId }) {
             <Input
               onBlur={onBlur}
               onChangeText={onChange}
-              value={constatation?.description}
+              value={constatation?.description ?? ""}
               placeholder="Description"
               multiline
               numberOfLines={4}
@@ -137,7 +137,7 @@ export function CardHeader({ constatationId }) {
           name="description"
           //defaultValue={}
         />
-        <Text>{errors.comment?.message}</Text>
+        <Text>{errors.description?.message}</Text>
         <Button title="Enregistrer " onPress={() => handleSubmit(onSubmit)} icon={<AntDesign name="cloudupload" size={24} color="white" />} iconRight={true}  />
 
       </View>

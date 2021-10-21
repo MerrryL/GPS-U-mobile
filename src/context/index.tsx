@@ -14,6 +14,7 @@ import { queryClient } from '@/lib/react-query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Notifications } from '@/components/Notifications';
 
+
 const ErrorFallback = (props: { error: Error, resetError: Function }) => {
   // const navigation= useNavigation();
   return (

@@ -28,8 +28,8 @@ export default function LocalizationPickerWeb({ localization, constatationId }: 
   };
   
   const initialRegion = {
-    latitude: localization?.latitude ?? defaultCoords.latitude,
-    longitude: localization?.longitude ?? defaultCoords.longitude,
+    latitude: parseFloat(localization?.latitude ?? defaultCoords.latitude),
+    longitude: parseFloat(localization?.longitude ?? defaultCoords.longitude),
     latitudeDelta: 0.002,
     longitudeDelta: 0.001,
   };
