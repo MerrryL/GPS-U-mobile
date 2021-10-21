@@ -1,36 +1,36 @@
 import { axios } from "@/lib/axios";
 
-import { User } from "@/types";
+import { Observer } from "@/types";
 
-//UsersPart
+//ObserversPart
 
-type GetUsersOptions = {
+type GetObserversOptions = {
   constatationId?: string;
 };
 
-//TODO: this points to Index on the api instead of a "show"
-export const getUsers = ({
-  constatationId = null,
-}: GetUsersOptions): Promise<User[]> => {
-  let filter = "";
-  if (constatationId) {
-    filter+="?filter[constatation_id]="+constatationId;
-  }
-  return axios.get('/users' + filter);
-};
+// //TODO: this points to Index on the api instead of a "show"
+// export const getObservers = ({
+//   constatationId = null,
+// }: GetObserversOptions): Promise<Observer[]> => {
+//   let filter = "";
+//   if (constatationId) {
+//     filter+="?filter[constatation_id]="+constatationId;
+//   }
+//   return axios.get('/users' + filter);
+// };
 
 
-export const getObservers = (): Promise<User[]> => {
+export const getObservers = (): Promise<Observer[]> => {
   return axios.get('/observers');
 };
 
-type GetUserOptions = {
+type GetObserverOptions = {
   userId: string;
 };
 
-export const getUser = ({
+export const getObserver = ({
   userId,
-}: GetUserOptions): Promise<User> => {
+}: GetObserverOptions): Promise<Observer> => {
   return axios.get(`/users/${userId}`);
 };
 
@@ -38,7 +38,7 @@ type ObserverToSend = {
   id: string;
 }
 
-type CreateUserOptions = {
+type CreateObserverOptions = {
   constatationId: string;
   observers: ObserverToSend[];
 };
@@ -46,15 +46,15 @@ type CreateUserOptions = {
 export const updateObserver = ({
   constatationId,
   observers = [],
-}: CreateUserOptions): Promise<User> => {
+}: CreateObserverOptions): Promise<Observer[]> => {
   return axios.post(`constatations/${constatationId}/observers/`, { observers });
 };
 
-type DeleteUserOptions = {
+type DeleteObserverOptions = {
   userId: string;
   constatationId: string;
 };
 
-export const deleteUser = ({ userId, constatationId }: DeleteUserOptions) => {
+export const deleteObserver = ({ userId, constatationId }: DeleteObserverOptions) => {
   return axios.delete(`users/${userId}`);
 };

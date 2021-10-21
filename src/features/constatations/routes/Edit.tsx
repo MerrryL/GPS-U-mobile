@@ -35,7 +35,6 @@ export default function Edit({ route }: EditProps) {
 
   const allObserversQuery= useObservers();
   const options = allObserversQuery?.data?.map( observer => ({item: observer?.lastName?.toUpperCase() + " " + observer?.firstName, id: observer.id}));
-  //console.log("options", allObserversQuery?.data );
   const observersQuery = useConstatation({constatationId});
   const initialObservers = observersQuery?.data?.observers?.map( observer => ({item: observer?.lastName?.toUpperCase() + " " + observer?.firstName, id: observer.id}));
 
@@ -66,11 +65,16 @@ export default function Edit({ route }: EditProps) {
       title: 'Agents constatants',
       content: <ObserverPart constatationId={constatationId} initialObservers={initialObservers} options={options}/>
     },
-    {
-      position: 5,
-      title: 'Suivis',
-      content: <FollowupPart constatationId={constatationId}/>
-    }
+    // {
+    //   position: 5,
+    //   title: 'Observations',
+    //   content: <ObservationPart constatationId={constatationId} initialObservers={initialObservers} options={options}/>
+    // },
+    // {
+    //   position: 6,
+    //   title: 'Suivis',
+    //   content: <FollowupPart constatationId={constatationId}/>
+    // }
   ]
   
   const _renderSectionTitle = (section) => {

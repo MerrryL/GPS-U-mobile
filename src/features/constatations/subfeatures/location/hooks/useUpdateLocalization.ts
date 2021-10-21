@@ -17,8 +17,6 @@ export const useUpdateLocalization = ({
   const { addNotification } = useNotificationStore();
   return useMutation({
       onSuccess: async (data) => {
-        console.log("new Localization", data);
-
         await queryClient.cancelQueries(["localizations"]);
 
         const previousLocalizations =

@@ -1,10 +1,10 @@
 export type BaseEntity = {
+  id ?: string | number | null;
   created_at: string;
   updated_at: string;
 };
 
 export type Constatation = {
-  id: string;
   description: string;
   modelType: null;
   isValidated: number;
@@ -17,12 +17,11 @@ export type Constatation = {
   dossiers: Dossier[];
   actions: Action[];
   images: Image[];
-  observers: Observer[];
+  observers: User[];
   media: Media[];
 } & BaseEntity;
 
 export type Location = {
-  id: string;
   title: string;
   body: string;
   teamId: string;
@@ -38,7 +37,6 @@ export type ImageToSend = {
 } & BaseEntity;
 
 export type Action = {
-  id: string;
   name: string;
   pivot: ActionPivot;
 } & BaseEntity;
@@ -49,7 +47,6 @@ export type ActionPivot = {
 } & BaseEntity;
 
 export type Dossier = {
-  id: string;
   name: string;
   isCurrent: string;
   pivot: DossierPivot;
@@ -61,7 +58,6 @@ export type DossierPivot = {
 } & BaseEntity;
 
 export type FieldGroup = {
-  id: string;
   constatation_id: string;
   name: string;
   type: string;
@@ -70,7 +66,6 @@ export type FieldGroup = {
 } & BaseEntity;
 
 export type Field = {
-  id: string;
   name: string;
   type: string;
   orderedUuid: string;
@@ -80,14 +75,12 @@ export type Field = {
 } & BaseEntity;
 
 export type Image = {
-  id: string;
   constatation_id: string;
   name: string;
   media: Media[];
 } & BaseEntity;
 
 export type Media = {
-  id: string;
   model_type: string;
   model_id: string;
   uuid: string;
@@ -106,7 +99,6 @@ export interface GeneratedConversions {
   thumb: boolean;
 }
 export type Localization {
-  id: string;
   constatation_id: string;
   accuracy: any;
   address_components: any;
@@ -123,7 +115,6 @@ export type Localization {
 } & BaseEntity;
 
 export type User = {
-  id: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -132,13 +123,5 @@ export type User = {
   bio: string;
 } & BaseEntity;
 
-
-export type Observer {
-  id: string;
-  pivot: ObserverPivot;
-} & BaseEntity;
-
-export interface ObserverPivot {
-  constatation_id: string;
-  observer_id: string;
-}
+//TODO: Find out what is the best pattern
+export type Observer = User;

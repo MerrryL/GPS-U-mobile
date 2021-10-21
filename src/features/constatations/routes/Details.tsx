@@ -7,7 +7,6 @@ import { Card, Button, Icon, Text, Input } from "react-native-elements";
 
 import { useConstatation } from "../hooks/useConstatation";
 
-import { FieldGroup } from "../components/Edit/FieldGroup";
 import imageURL from "../utils/ImageURL";
 
 type Params = {
@@ -81,11 +80,7 @@ export default function Details({ route }: DetailsProps) {
 
       <Card.Divider />
 
-      <FlatList
-        data={constatationQuery?.data?.field_groups}
-        renderItem={(field_group) => <FieldGroup field_group={field_group} />}
-        keyExtractor={(field_group) => field_group.id.toString()}
-      />
+
     </Card>
   );
 }

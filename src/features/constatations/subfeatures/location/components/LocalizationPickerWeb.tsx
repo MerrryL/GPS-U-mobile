@@ -12,7 +12,7 @@ import { AntDesign, FontAwesome, FontAwesome5, MaterialCommunityIcons } from '@e
 import { StyleSheet, View, Dimensions, Linking, TouchableOpacity } from "react-native";
 import MapView, { Marker } from "react-native-web-maps";
 
-import { useLocalization } from "../hooks/useLocalization";
+import { Localization } from "@/types";
 import { useUpdateLocalization } from "../hooks/useUpdateLocalization";
 
 type LocalizationPickerProps = {
@@ -21,15 +21,20 @@ type LocalizationPickerProps = {
 }
 
 export default function LocalizationPickerWeb({ localization, constatationId }: LocalizationPickerProps) {
-  const initialRegion = {
+  //TODO:the initialRegion should adapt the latitude/long Delta?
+  const defaultCoords = {
     latitude: 50.509317,
     longitude: 3.590973,
+  };
+  
+  const initialRegion = {
+    latitude: localization?.latitude ?? defaultCoords.latitude,
+    longitude: localization?.longitude ?? defaultCoords.longitude,
     latitudeDelta: 0.002,
     longitudeDelta: 0.001,
   };
 
-   // console.table( localization);
-  const [coords, setCoords] = useState({
+  const [coords, setCoords] = useState<Localization| undefined>({
     id: localization?.id ?? null,
     accuracy: localization?.accuracy ?? null,
     address_components: localization?.address_components ?? [],
@@ -47,6 +52,7 @@ export default function LocalizationPickerWeb({ localization, constatationId }: 
     created_at: localization?.created_at ?? null,
     updated_at: localization?.updated_at ?? null,
   });
+
 
   useEffect(() => setCoords(localization), [localization]);
 
@@ -207,25 +213,28 @@ export default function LocalizationPickerWeb({ localization, constatationId }: 
 
       <View style={styles.container}>
         <MapView style={styles.map} initialRegion={initialRegion}>
-          <MapView.Marker
-            coordinate={{
-              latitude: coords?.latitude != null ? parseFloat(coords?.latitude?.toString()) : initialRegion.latitude,
-              longitude: coords?.longitude != null ? parseFloat(coords?.longitude?.toString()) : initialRegion.longitude,
-            }}
-            draggable
-            onDragEnd={(e) =>
-              setCoords((prevCoords) => ({
-                ...prevCoords,
-                latitude: e.latLng.lat() as number,
-                longitude: e.latLng.lng() as number,
-              }))
-            }
-            title="Ici"
-            description="Vous êtes ici"
-          />
+          {
+            typeof coords?.latitude != "undefined"  &&
+              <MapView.Marker
+              coordinate={{
+                latitude: coords?.latitude != null ? parseFloat(coords?.latitude?.toString()) : initialRegion.latitude,
+                longitude: coords?.longitude != null ? parseFloat(coords?.longitude?.toString()) : initialRegion.longitude,
+              }}
+              draggable
+              onDragEnd={(e) =>
+                setCoords((prevCoords) => ({
+                  ...prevCoords,
+                  latitude: e.latLng.lat() as number,
+                  longitude: e.latLng.lng() as number,
+                }))
+              }
+              title="Ici"
+              description="Vous êtes ici"
+            />
+          }
         </MapView>
       </View>
-      {/* <Button title="Génerer par l'appareil " onPress={() => updateCoordsFromSensors()} icon={<MaterialCommunityIcons name="cog-refresh" size={24} color="white" />} iconRight={true}/> */}
+      <Button title="Génerer par l'appareil " onPress={() => updateCoordsFromSensors()} icon={<MaterialCommunityIcons name="cog-refresh" size={24} color="white" />} iconRight={true}/>
       <Button title="Enregistrer " onPress={() => onSubmit()} icon={<AntDesign name="cloudupload" size={24} color="white" />} iconRight={true}  />
     </>
   );
