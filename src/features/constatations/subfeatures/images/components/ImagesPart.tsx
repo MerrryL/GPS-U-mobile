@@ -6,23 +6,19 @@ import { Button, Card, Chip, Input, ListItem, Text, Tile } from "react-native-el
 import imageURL from "../../../utils/ImageURL";
 import ImagesPartAdd from "./ImagesPartAdd";
 import ImagesPartView from "./ImagesPartView";
-import { useImages } from "../hooks/useImages";
-import { useDefineAThumb } from "../hooks/useDefineAThumb";
+import { useImages } from "../hooks/useConstatationImages";
+import { useDefineAsThumbConstatationImage } from "../hooks/useDefineAsThumbConstatationImage";
 
 type ImagesPartProps = {
   constatationId: string;
 };
 
 export function ImagesPart({ constatationId = null }:ImagesPartProps) {
-  // const [activeIndex, setActiveIndex] = useState({
-  //   activeIndex:0
-  // });
-
   const ImagesQuery = useImages({
     constatationId: constatationId,
   });
 
-  const useDefineAThumbMutation = useDefineAThumb({constatationId: constatationId});
+  const useDefineAsThumbMutation = useDefineAsThumbConstatationImage({constatationId: constatationId});
 
   let ImagesWithMedia = [];
   let ImagesWithoutMedia = [];
@@ -36,8 +32,8 @@ export function ImagesPart({ constatationId = null }:ImagesPartProps) {
     }
   });
 
-  const defineAThumb = async (imageId, constatationId) => {
-    await useDefineAThumbMutation.mutateAsync({
+  const defineAsThumb = async (imageId, constatationId) => {
+    await useDefineAsThumbMutation.mutateAsync({
       imageId: imageId,
       constatationId: constatationId,
     });
@@ -46,18 +42,13 @@ export function ImagesPart({ constatationId = null }:ImagesPartProps) {
 
   return ( 
     <View>
-      <View>
-        <ImagesPartAdd constatationId={constatationId}/>
-      </View>
-
       <Text>{ImagesWithoutMedia?.length ?? '0'} photo(s) demandent d'être prises</Text>
 
       {ImagesWithoutMedia.map((image, index) => (
-        <ImagesPartView imageId={image?.id?.toString()} key={index}/>
+        <ImagesPartView constatationId={constatationId} imageId={image?.id?.toString()} key={index}/>
       ))}
 
       <Text>{ImagesWithMedia?.length ?? '0'} photo(s) déjà prises</Text>
-
 
       <ScrollView>
         {ImagesWithMedia.map((image, index) => (
@@ -65,7 +56,7 @@ export function ImagesPart({ constatationId = null }:ImagesPartProps) {
             <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
               <Chip
                 title="Définir comme image par défaut"
-                onPress={() => defineAThumb(image.id, image.constatation_id)}
+                onPress={() => defineAsThumb(image.id, image.constatation_id)}
                 icon={{
                 name: "file-image-o",
                 type: "font-awesome",
@@ -94,8 +85,9 @@ export function ImagesPart({ constatationId = null }:ImagesPartProps) {
         ))
         }
       </ScrollView>
-
+      <View>
+        <ImagesPartAdd constatationId={constatationId}/>
+      </View>
     </View>
-    
   );
 }

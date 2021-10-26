@@ -3,19 +3,21 @@ import { useMutation } from "react-query";
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
 
-import { defineAThumb } from "../api";
+import { defineAsThumbConstatationImage } from "../api";
 
 import { Constatation, Image } from "@/types";
 
-type UseDefineAThumbOptions = {
-  constatationId?: string;
-  config?:  MutationConfig<typeof defineAThumb>;
+type UseDefineAsThumbConstatationImageOptions = {
+  constatationId: string;
+  imageId: string;
+  config?:  MutationConfig<typeof defineAsThumbConstatationImage>;
 };
 
-export const useDefineAThumb = ({
+export const useDefineAsThumbConstatationImage = ({
   constatationId,
+  imageId,
   config
-}: UseDefineAThumbOptions = {}) => {
+}: UseDefineAsThumbConstatationImageOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (updatingConstatation : Constatation) => {
@@ -52,10 +54,10 @@ export const useDefineAThumb = ({
 
       addNotification({
         type: "success",
-        title: "New Thumb Defined",
+        title: "L'image a été définie comme vignette",
       });
     },
     ...config,
-    mutationFn: defineAThumb,
+    mutationFn: defineAsThumbConstatationImage,
   });
 };

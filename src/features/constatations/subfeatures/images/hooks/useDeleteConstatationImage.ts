@@ -3,21 +3,21 @@ import { useMutation } from "react-query";
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
 
-import { deleteImage } from "../api";
+import { deleteConstatationImage } from "../api";
 
 import { Constatation, Image} from "@/types";
 
-type UseDeleteImageOptions = {
+type UseDeleteConstatationImageOptions = {
   imageId: string;
   constatationId: string;
-  config?: MutationConfig<typeof deleteImage>;
+  config?: MutationConfig<typeof deleteConstatationImage>;
 };
 
-export const useDeleteImage = ({
+export const useDeleteConstatationImage = ({
   imageId,
   constatationId,
   config,
-}: UseDeleteImageOptions) => {
+}: UseDeleteConstatationImageOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {
@@ -51,10 +51,10 @@ export const useDeleteImage = ({
 
       addNotification({
         type: "success",
-        title: "Image Deleteed",
+        title: "Image supprimée",
       });
     },
     ...config,
-    mutationFn: deleteImage,
+    mutationFn: deleteConstatationImage,
   });
 };

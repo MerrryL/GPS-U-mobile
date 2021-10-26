@@ -4,7 +4,7 @@ import create from 'zustand';
 
 export type Notification = {
   id: string;
-  type: 'info' | 'warning' | 'success' | 'error';
+  type: 'primary' | 'warning' | 'success' | 'error';
   title: string;
   message?: string;
 };

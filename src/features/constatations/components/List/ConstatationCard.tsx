@@ -36,19 +36,19 @@ export function ConstatationCard({ constatation }: constatationCardProps) {
           title="Edit"
           style={{ marginRight: 10 }}
           onPress={() =>
-            navigation.navigate("Edition", { constatationId: constatation.id })
+            navigation.navigate("Edition", { constatationId: constatation?.id })
           }
         />
         <Button
           title="Détails"
           style={{ marginRight: 10 }}
           onPress={() =>
-            navigation.navigate("Details", { constatationId: constatation.id })
+            navigation.navigate("Details", { constatationId: constatation?.id })
           }
         />
       </View>
       <Card.Title style={{ alignSelf: "flex-start" }}>
-        Constatation n°{constatation.id}
+        Constatation n°{constatation?.id}
       </Card.Title>
 
       <Card.Divider />
@@ -56,10 +56,10 @@ export function ConstatationCard({ constatation }: constatationCardProps) {
         Addresse:{constatation?.localization?.address?.formatted_address}
       </Card.FeaturedTitle>
       <Card.FeaturedSubtitle>
-        Date: {constatation.created_at}
+        Date: {constatation?.created_at}
       </Card.FeaturedSubtitle>
       <Text style={{ marginBottom: 10 }}>
-        Validation:{constatation.isValidated}
+        Validation:{constatation?.isValidated}
       </Text>
       <Card.Divider />
       <Image
@@ -75,11 +75,11 @@ export function ConstatationCard({ constatation }: constatationCardProps) {
         }}
       />
       <Text style={{ marginBottom: 10 }}>
-        {constatation?.images.length > 1 ? constatation?.images.length +" photos" : constatation?.images.length > 0 ? "Une photo" : "Pas de photo"}
+        {constatation?.images.length > 1 ? constatation?.images?.length +" photos" : constatation?.images?.length > 0 ? "Une photo" : "Pas de photo"}
       </Text>
-      <Text style={{ marginBottom: 10 }}>{constatation.description}</Text>
-      <Text style={{ marginBottom: 10 }}>Par: {constatation.comment}</Text>
-      <Text style={{ marginBottom: 10 }}>Champs:{constatation.comment}</Text>
+      <Text style={{ marginBottom: 10 }}>Description: {constatation?.description}</Text>
+      <Text style={{ marginBottom: 10 }}>Par: {constatation?.comment}</Text>
+      <Text style={{ marginBottom: 10 }}>Champs:{constatation?.comment}</Text>
     </Card>
   );
 }

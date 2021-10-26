@@ -10,7 +10,7 @@ import { useConstatation } from "../../hooks/useConstatation";
 import { useUpdateConstatation } from "../../hooks/useUpdateConstatation";
 import imageURL from "../../utils/ImageURL";
 import { AntDesign, Entypo, FontAwesome, FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { useUnRequireValidationConstatation } from "../../hooks/useUnRequireValidationConstatation";
+import { useRefuseValidationConstatation } from "../../hooks/useRefuseValidationConstatation";
 import { useRequireValidationConstatation } from "../../hooks/useRequireValidationConstatation";
 import { useValidateConstatation } from "../../hooks/useValidateConstatation";
 
@@ -28,13 +28,13 @@ export function CardHeader({ constatationId }) {
   });
 
 
-  const  [constatation, setConstatation] = useState({description: constatationQuery?.data?.description})
+  const [constatation, setConstatation] = useState({description: constatationQuery?.data?.description})
 
   const updateConstatationMutation = useUpdateConstatation();
 
   const requireValidationMutation = useRequireValidationConstatation();
   const validateMutation = useValidateConstatation();
-  const unRequireValidationMutation = useUnRequireValidationConstatation;
+  const refuseValidationMutation = useRefuseValidationConstatation();
 
 
   const onValidationSubmit = async () => {
@@ -48,6 +48,12 @@ export function CardHeader({ constatationId }) {
     });
   }
 
+  const onRefuseValidationSubmit = async() => {
+    await refuseValidationMutation.mutateAsync({
+      constatationId:constatationId,
+    })
+  }
+
   const {
     control,
     handleSubmit,
@@ -56,14 +62,13 @@ export function CardHeader({ constatationId }) {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (values) => {
-    console.log("here", values);
+  const onSubmit = async (values: ConstatationValues) => {
     await updateConstatationMutation.mutateAsync({
       data: values,
       constatationId: constatationId,
     });
-    //onSuccess();
   };
+
   return (
     <>     
       <Card.Divider />
@@ -96,13 +101,14 @@ export function CardHeader({ constatationId }) {
               Date de validation: {constatationQuery?.data?.validationDate}
             </Text>
             ) : (
-            constatationQuery?.data?.requiresValidation ? (
+            constatationQuery?.data?.requiresValidation == 1 ? (
               <>
                 <Text style={{ flex: 0.5, height: "auto", marginBottom: 10 }}>
                   Validation possible depuis le
                   {constatationQuery?.data?.requiresValidationDate}
                 </Text>
-                <Button title="Valider " onPress={() => onValidationSubmit()} icon={<Ionicons name="checkmark-done" size={24} color="white" />} iconRight={true}  />
+                <Button title="Valider " onPress={() => onValidationSubmit()} icon={<Ionicons name="thumbs-up" size={24} color="white" />} iconRight={true}  />
+                <Button title="Refuser " onPress={() => onRefuseValidationSubmit()} icon={<Ionicons name="thumbs-down" size={24} color="white" />} iconRight={true}  />
 
               </>
               
@@ -128,17 +134,17 @@ export function CardHeader({ constatationId }) {
             <Input
               onBlur={onBlur}
               onChangeText={onChange}
-              value={constatation?.description ?? ""}
+              value={value}
+              defaultValue={constatation?.description}
               placeholder="Description"
               multiline
               numberOfLines={4}
             />
           )}
           name="description"
-          //defaultValue={}
         />
         <Text>{errors.description?.message}</Text>
-        <Button title="Enregistrer " onPress={() => handleSubmit(onSubmit)} icon={<AntDesign name="cloudupload" size={24} color="white" />} iconRight={true}  />
+        <Button title="Enregistrer " onPress={handleSubmit(onSubmit)} icon={<AntDesign name="cloudupload" size={24} color="white" />} iconRight={true}  />
 
       </View>
       <View

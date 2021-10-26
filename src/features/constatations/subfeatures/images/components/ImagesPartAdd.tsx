@@ -7,7 +7,7 @@ import { Image, View, Platform } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 import { Card, Button, Icon, Text, Input } from "react-native-elements";
-import { useCreateImage } from "../hooks/useCreateImage";
+import { useCreateConstatationImage } from "../hooks/useCreateConstatationsImage";
 
 
 type ImagesValues = {
@@ -20,53 +20,51 @@ const schema = yup.object().shape({
 
 
 export default function ImagesPartAdd({ constatationId }) {
-    const imageCreateMutation = useCreateImage({ constatationId })
+  const imageCreateMutation = useCreateConstatationImage({ constatationId })
 
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-      } = useForm<ImagesValues>({
-        resolver: yupResolver(schema),
-      });
+  const {
+      control,
+      handleSubmit,
+      formState: { errors },
+    } = useForm<ImagesValues>({
+      resolver: yupResolver(schema),
+    });
+  
+  const onSubmit = async (values) => {
+    await imageCreateMutation.mutateAsync({
+      name: values.name,
+      constatationId: constatationId,
+    });
     
-    const onSubmit = async (values) => {
-      
-      console.log("values", values);
-      await imageCreateMutation.mutateAsync({
-        name: values.name,
-        constatationId: constatationId,
-      });
-      
-      //onSuccess();
-    };
+    //onSuccess();
+  };
+  
+  return(
+    <View
+      style={{
+        flex: 1, alignItems: "center", justifyContent: "center", margin:"10px" }}>
     
-    return(
-        <View
-          style={{
-            flex: 1, alignItems: "center", justifyContent: "center", margin:"10px" }}>
-        
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Input
-                onBlur={onBlur }
-                onChangeText={onChange }
-                value={value}
-                placeholder="Nom"
-                multiline
-                numberOfLines={4}
-              />
-            )}
-            name="name"
-            defaultValue=""
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <Input
+            onBlur={onBlur }
+            onChangeText={onChange }
+            value={value}
+            placeholder="Nom"
+            multiline
+            numberOfLines={4}
           />
-          <Text>{errors.name?.message}</Text>
-          <Button title="Nouvelle image" onPress={handleSubmit(onSubmit)} />
-        </View>
+        )}
+        name="name"
+        defaultValue=""
+      />
+      <Text>{errors.name?.message}</Text>
+      <Button title="Nouvelle image" onPress={handleSubmit(onSubmit)} />
+    </View>
 
-    )
+  )
 }

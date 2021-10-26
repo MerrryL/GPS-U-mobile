@@ -47,10 +47,11 @@ export const useValidateConstatation = ({
       }
     },
     onSuccess: (data) => {
+      queryClient.refetchQueries(["constatations"]);
       queryClient.refetchQueries(["constatations", data.id]);
       addNotification({
         type: "success",
-        title: "Constatation Updated",
+        title: "Constatation validée",
       });
     },
     ...config,

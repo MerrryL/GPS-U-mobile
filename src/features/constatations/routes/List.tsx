@@ -46,7 +46,6 @@ export default function List() {
         title="+"
         placement="right"
         size="large"
-        // onPress={() => navigation.navigate("Nouvelle")}
         onPress={() => handleCreation(null)}
       />
     </>

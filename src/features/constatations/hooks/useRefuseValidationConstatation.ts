@@ -3,16 +3,16 @@ import { useMutation } from "react-query";
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
 
-import { unRequireValidation } from "../api";
+import { refuseValidation } from "../api";
 import { Constatation } from "@/types";
 
-type UseUnRequireValidationConstatationOptions = {
-  config?: MutationConfig<typeof unRequireValidation>;
+type UseRefuseValidationConstatationOptions = {
+  config?: MutationConfig<typeof refuseValidation>;
 };
 
-export const useUnRequireValidationConstatation = ({
+export const useRefuseValidationConstatation = ({
   config,
-}: UseUnRequireValidationConstatationOptions = {}) => {
+}: UseRefuseValidationConstatationOptions = {}) => {
   const { addNotification } = useNotificationStore();
 
   return useMutation({
@@ -47,13 +47,14 @@ export const useUnRequireValidationConstatation = ({
       }
     },
     onSuccess: (data) => {
+      queryClient.refetchQueries(["constatations"]);
       queryClient.refetchQueries(["constatations", data.id]);
       addNotification({
         type: "success",
-        title: "Constatation Updated",
+        title: "Validation de la constatation refusée",
       });
     },
     ...config,
-    mutationFn: unRequireValidation,
+    mutationFn: refuseValidation,
   });
 };

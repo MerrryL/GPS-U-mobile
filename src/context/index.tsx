@@ -13,16 +13,17 @@ import { AuthProvider } from '@/lib/auth';
 import { queryClient } from '@/lib/react-query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Notifications } from '@/components/Notifications';
+import Spinner from '@/components/Elements/Spinner';
 
 
-const ErrorFallback = (props: { error: Error, resetError: Function }) => {
+const ErrorFallback = (props: { error: Error }) => {
   // const navigation= useNavigation();
   return (
     <View>
     <Text h1>Il y a eu un accident!</Text>
     <Text h3>{props.error.toString()}</Text>
     
-    <Button onPress={() => props.resetError} title={'Réessayons'} />
+    {/* <Button onPress={() => props.resetError} title={'Réessayons'} /> */}
   </View>
 
   )
@@ -37,7 +38,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     <React.Suspense
       fallback={
         
-          <ActivityIndicator size="large" />
+          <Spinner />
         
       }
     >

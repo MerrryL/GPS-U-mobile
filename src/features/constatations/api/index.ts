@@ -19,13 +19,11 @@ export const getConstatation = ({
   return axios.get(`/constatations/${constatationId}`);
 };
 
-type ConstatationBody = {
-  comment: string;
-};
-
 type CreateConstatationOptions = {
   //localization: Localization;
-  data: ConstatationBody;
+  data: {
+    description: string;
+  },
 };
 
 export const createConstatation = ({
@@ -54,17 +52,17 @@ type RequireValidationOptions = {
 export const requireValidation = ({
   constatationId,
 }: RequireValidationOptions): Promise<Constatation> => {
-  return axios.post(`constatations/require_validation/${constatationId}`);
+  return axios.post(`constatations/${constatationId}/require_validation`);
 };
 
-type UnRequireValidationOptions = {
+type RefuseValidationOptions = {
   constatationId: string;
 }
 
-export const unRequireValidation = ({
+export const refuseValidation = ({
   constatationId,
-}: UnRequireValidationOptions): Promise<Constatation> => {
-  return axios.post(`constatations/unrequire_validation/${constatationId}`);
+}: RefuseValidationOptions): Promise<Constatation> => {
+  return axios.post(`constatations/${constatationId}/refuse_validation`);
 };
 
 type ValidateConstatationOptions = {
@@ -74,7 +72,7 @@ type ValidateConstatationOptions = {
 export const validateConstatation = ({
   constatationId,
 }: ValidateConstatationOptions): Promise<Constatation> => {
-  return axios.post(`constatations/validate_constatation/${constatationId}`);
+  return axios.post(`constatations/${constatationId}/validate_constatation`);
 };
 
 type DeleteConstatationOptions = {

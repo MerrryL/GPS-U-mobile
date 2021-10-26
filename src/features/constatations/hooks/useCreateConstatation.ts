@@ -37,10 +37,10 @@ export const useCreateConstatation = ({
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["constatations"]);
+      queryClient.refetchQueries(["constatations"]);
       addNotification({
         type: "success",
-        title: "Constatation Created",
+        title: "Constatation Créée",
       });
     },
     ...config,

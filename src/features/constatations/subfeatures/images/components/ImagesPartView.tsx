@@ -1,25 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Card, Button, Icon, Text, Input } from "react-native-elements";
+import { Card, Chip, Button, Icon, Text, Input } from "react-native-elements";
 import { Image, View, Platform, ScrollView } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { useUploadImage } from "../hooks/useUploadImage";
-import { useDeleteImage } from "../hooks/useDeleteImage";
-import { useImage } from "../hooks/useImage";
+import { useUploadConstatationImage } from "../hooks/useUploadConstatationImage";
+import { useDeleteConstatationImage } from "../hooks/useDeleteConstatationImage";
+import { useConstatationImage } from "../hooks/useConstatationImage";
+import { useNotificationStore } from "@/hooks/useNotificationStore";
 
 
 type ImagesPartViewProps = {
-    imageId: string;
-    key: number;
+  constatationId: string;
+  imageId: string;
+  key: number;
 };
 
-export default function ImagesPartView({ imageId }:ImagesPartViewProps) {
+export default function ImagesPartView({ constatationId, imageId }:ImagesPartViewProps) {
+  const { addNotification } = useNotificationStore();
   const [image, setImage] = useState(null);
-  const imageQuery = useImage({
+  const imageQuery = useConstatationImage({
       imageId: imageId,
+      constatationId: constatationId,
   });
 
-  const imageUploadMutation = useUploadImage({ image: image, imageId: imageId });
-  const imageDeleteMutation = useDeleteImage({imageId: imageId, constatationId: imageQuery?.data?.constatation_id});
+  const imageUploadMutation = useUploadConstatationImage({ image: image, imageId: imageId });
+  const imageDeleteMutation = useDeleteConstatationImage({imageId: imageId, constatationId: imageQuery?.data?.constatation_id});
 
   useEffect(() => {
     (async () => {
@@ -27,7 +31,10 @@ export default function ImagesPartView({ imageId }:ImagesPartViewProps) {
         const { status } =
           await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== "granted") {
-          alert("Sorry, we need camera roll permissions to make this work!");
+          addNotification({
+            type: "error",
+            title: "Désolé, la permission d'utiliser la caméra est requise",
+          });
         }
       }
     })();
@@ -42,24 +49,20 @@ export default function ImagesPartView({ imageId }:ImagesPartViewProps) {
       base64: true,
     });
 
-    console.log(result);
-
     if (!result.cancelled) {
       setImage(result);
     }
   };
-  //const mutation = useMutation((image) => uploadImage(image))
   
   const onSubmit = async () => {
     await imageUploadMutation.mutateAsync({
         image: image,
         imageId: imageId,
+        constatationId: constatationId
     });
-        //onSuccess();
   };  
 
   const onDeleteSubmit = async () => {
-    //todo: pause
     await imageDeleteMutation.mutateAsync({
         constatationId: imageQuery?.data?.constatation_id,
         imageId: imageId,
@@ -71,17 +74,41 @@ export default function ImagesPartView({ imageId }:ImagesPartViewProps) {
     <>
       <ScrollView >
         <View style={{ flex: 1, alignItems: "center", justifyContent: "center", margin:"10px" }}>
-          <Text h2>{imageQuery?.data?.name}</Text>
-          <Button title="Supprimer l'image" onPress={onDeleteSubmit} />
+          <View style={{ flex: 1, justifyContent: "space-between", alignItems: "stretch", flexDirection: "row", width: "100%" }}>
+            <Text style={{ alignSelf: "center"}} h2>{imageQuery?.data?.name}</Text>
+            <Chip style={{ alignSelf: "flex-end", margin: "auto"}} title="Annuler" onPress={onDeleteSubmit} />
+          </View>
 
-          <Button title="Pick an image from camera roll" onPress={pickImage} />
+          <Chip 
+            title={image ? "Reprendre une photo" : "Prendre une photo"} 
+            onPress={pickImage} 
+            icon={{
+              name: "file-image-o",
+              type: "font-awesome",
+              size: 20,
+              color: "white",
+              }}
+            iconRight
+          />
           {image && (
-            <Image
-              source={{ uri: image.uri }}
-              style={{ width: 200, height: 200 }}
-            />
+            <>
+              <Image
+                source={{ uri: image.uri }}
+                style={{ width: 200, height: 200 }}
+              />
+              <Chip 
+              title="Sauvegarder cette photo" 
+              onPress={onSubmit}
+              icon={{
+                name: "save",
+                type: "font-awesome",
+                size: 20,
+                color: "white",
+                }}
+              iconRight
+              />
+            </>
           )}
-          <Button title="Send to Network" onPress={onSubmit} />
         </View>
       </ScrollView>
     </>

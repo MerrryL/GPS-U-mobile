@@ -47,10 +47,11 @@ export const useUpdateConstatation = ({
       }
     },
     onSuccess: (data) => {
+      queryClient.refetchQueries(["constatations"]);
       queryClient.refetchQueries(["constatations", data.id]);
       addNotification({
         type: "success",
-        title: "Constatation Updated",
+        title: "Constatation Mise-à-jour",
       });
     },
     ...config,
