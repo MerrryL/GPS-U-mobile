@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import { MultipleSelectPicker } from 'react-native-multi-select-picker'
-import SelectBox from 'react-native-multi-selectbox'
+import SelectBox from 'react-native-multi-selectbox';
 import { Card, Button } from "react-native-elements";
 import { View, Text } from 'react-native';
 import { xorBy } from 'lodash';
-import { useUpdateObserver } from '../hooks/useUpdateObservers';
+import { useUpdateConstatationObservers } from '../hooks/useUpdateConstatationObservers';
 
-import { Observer } from '@/types';
+import { useConstatationObservers } from '../hooks/useConstatationObservers';
+import { useObservers } from '../hooks/useObservers';
 
 type ObserverPartProps= {
     constatationId: string;
@@ -14,45 +14,45 @@ type ObserverPartProps= {
     options: any;
 }
 
-export function ObserverPart({  constatationId, initialObservers, options }: ObserverPartProps) {
-    const updateObserverMutation = useUpdateObserver({constatationId: constatationId, observers: null}); 
+type ObserverToSend = {
+    id: string | number;
+    item: string;
+}
+
+export function ObserverPart({  constatationId }: ObserverPartProps) {
+    const updateObserverMutation = useUpdateConstatationObservers({constatationId: constatationId}); 
+
+    const allObserversQuery= useObservers();
+    const options = allObserversQuery?.data?.map( observer => ({item: observer?.lastName?.toUpperCase() + " " + observer?.firstName, id: observer.id}));
+
+    const initialObserversQuery = useConstatationObservers({constatationId});
+    const initialObservers = initialObserversQuery?.data?.map( observer => ({item: observer?.lastName?.toUpperCase() + " " + observer?.firstName, id: observer.id}));;
+
     const [selectedObservers, setSelectedObservers] = useState( initialObservers);
     const [obsOptions, setOptions] = useState(options);
 
-    useEffect(() => {
-        //TODO:there musts be some bugs here due to bad initialization of options and initialObservers
-        // console.log("options",options);
-        // console.log("initialObservers", initialObservers);
-        setSelectedObservers(initialObservers);
-        setOptions(options);
-    }, [options]);
-
-    
-    //console.log("init observers", initialObservers, options);
 
     const onSubmit = async () => {
-        let selectedObserversId = selectedObservers.map(function(item) { return item["id"]; }) ?? [];
+        let selectedObserversId = selectedObservers.map((item: ObserverToSend) => item.id );
 
         await updateObserverMutation.mutateAsync({
             constatationId: constatationId,
             observers: selectedObserversId,
         });
-        
-        //onSuccess();
     };
 
     return (
         <View style={{margin: 10}}>
-            <Text>Warning: the UI doesn't update correctly</Text>
             <Card>
             {
                 typeof obsOptions != "undefined"  && typeof selectedObservers != "undefined" &&
                     <SelectBox
-                    label="Select multiple"
+                    label="Choix des observateurs"
                     options={obsOptions}
                     selectedValues={selectedObservers}
                     onMultiSelect={onMultiChange()}
                     onTapClose={onMultiChange()}
+                    listEmptyText="Pas de résultats"
                     isMulti
                 />
             }

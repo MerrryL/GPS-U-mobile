@@ -6,7 +6,8 @@ import { useLocalization } from "../hooks/useLocalization";
 import LocalizationPicker from "./LocalizationPicker";
 import LocalizationPickerWeb from "./LocalizationPickerWeb";
 
-export function LocalizationPart({ constatationId = null }) {
+//TODO: add type
+export function LocalizationPart({ constatationId }) {
   const LocalizationQuery = useLocalization({
     constatationId: constatationId,
   });

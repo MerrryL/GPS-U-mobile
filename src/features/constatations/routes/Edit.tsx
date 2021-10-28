@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 
-import { Button, Text, Input } from "react-native-elements";
-
-import { ScrollView, View } from "react-native";
+import { ScrollView } from "react-native";
 import { Card } from "react-native-elements";
+import Accordion from 'react-native-collapsible/Accordion';
 
 //import { FieldGroup } from "../components/Edit/FieldGroup";
 import { CardHeader } from "../components/Edit/CardHeader";
@@ -11,10 +10,8 @@ import { ImagesPart } from "../subfeatures/images/components/ImagesPart";
 import { LocalizationPart } from "../subfeatures/location/components/LocalizationPart";
 import { FieldGroupPart } from "../subfeatures/fieldgroups/components/FieldGroupsPart";
 
-import Accordion from 'react-native-collapsible/Accordion';
+
 import { ObserverPart } from "../subfeatures/observers/components/ObserverPart";
-import { useConstatation } from "../hooks/useConstatation";
-import { useObservers } from "../subfeatures/observers/hooks/useObservers";
 import { FollowupPart } from "../../followups/components/FollowupPart";
 
 type Params = {
@@ -32,12 +29,6 @@ type Route = {
 export default function Edit({ route }: EditProps) {
   const constatationId = route.params.constatationId;
   const [activeSections, setActiveSections] = useState([0]);
-
-  const allObserversQuery= useObservers();
-  const options = allObserversQuery?.data?.map( observer => ({item: observer?.lastName?.toUpperCase() + " " + observer?.firstName, id: observer.id}));
-  const observersQuery = useConstatation({constatationId});
-  const initialObservers = observersQuery?.data?.observers?.map( observer => ({item: observer?.lastName?.toUpperCase() + " " + observer?.firstName, id: observer.id}));
-
 
   const sections= [
     {
@@ -63,7 +54,7 @@ export default function Edit({ route }: EditProps) {
     {
       position: 4,
       title: 'Agents constatants',
-      content: <ObserverPart constatationId={constatationId} initialObservers={initialObservers} options={options}/>
+      content: <ObserverPart constatationId={constatationId}/>
     },
     // {
     //   position: 5,

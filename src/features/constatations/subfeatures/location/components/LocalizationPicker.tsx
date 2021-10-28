@@ -6,14 +6,13 @@ import {
 //TODO:later replace addressinput
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import React, { useState, useEffect } from "react";
-import { Text, Button, Input } from "react-native-elements";
+import { FAB, Text, Button, Input } from "react-native-elements";
 import { AntDesign, FontAwesome, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { StyleSheet, View, Dimensions, Linking, TouchableOpacity } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import { Localization } from "@/types";
 
-import { useLocalization } from "../hooks/useLocalization";
+import { Localization } from "@/types";
 import { useUpdateLocalization } from "../hooks/useUpdateLocalization";
 
 type LocalizationPickerProps = {
@@ -21,16 +20,21 @@ type LocalizationPickerProps = {
   constatationId: string,
 }
 
-export default function LocalizationPicker({ localization, constatationId }: LocalizationPickerProps) {
-  const initialRegion = {
+export default function LocalizationPickerWeb({ localization, constatationId }: LocalizationPickerProps) {
+  //TODO:the initialRegion should adapt the latitude/long Delta?
+  const defaultCoords = {
     latitude: 50.509317,
     longitude: 3.590973,
+  };
+  
+  const initialRegion = {
+    latitude: parseFloat(localization?.latitude ?? defaultCoords.latitude),
+    longitude: parseFloat(localization?.longitude ?? defaultCoords.longitude),
     latitudeDelta: 0.002,
     longitudeDelta: 0.001,
   };
 
-   // console.table( localization);
-  const [coords, setCoords] = useState({
+  const [coords, setCoords] = useState<Localization| undefined>({
     id: localization?.id ?? null,
     accuracy: localization?.accuracy ?? null,
     address_components: localization?.address_components ?? [],
@@ -40,8 +44,8 @@ export default function LocalizationPicker({ localization, constatationId }: Loc
     formatted_address: localization?.formatted_address ?? null,
     given_name: localization?.given_name ?? null,
     heading: localization?.heading ?? null,
-    latitude: localization?.latitude ?? null,
-    longitude: localization?.longitude ?? null,
+    latitude: localization?.latitude ?? initialRegion.latitude,
+    longitude: localization?.longitude ?? initialRegion.longitude,
     place_id: localization?.place_id ?? null,
     speed: localization?.speed ?? null,
     viewport: localization?.viewport ?? {},
@@ -49,11 +53,14 @@ export default function LocalizationPicker({ localization, constatationId }: Loc
     updated_at: localization?.updated_at ?? null,
   });
 
+
   useEffect(() => setCoords(localization), [localization]);
 
   const updateCoordsFromSensors = async () => {
     let updatedCoords = await getCurrentLocationFromSensors();
      // console.table(coords);
+     console.log("e", coords?.latitude, coords?.longitude);
+
     setCoords((oldCoords) => ({
       ...oldCoords,
       accuracy: updatedCoords?.coords?.accuracy,
@@ -64,6 +71,8 @@ export default function LocalizationPicker({ localization, constatationId }: Loc
       longitude: updatedCoords?.coords?.longitude,
       speed: updatedCoords?.coords?.speed,
     }));
+
+    console.log("e", coords?.latitude, coords?.longitude);
 
     let updatedAddress = await getAddressForCoordinates({
       latitude: updatedCoords?.coords?.latitude,
@@ -145,7 +154,7 @@ export default function LocalizationPicker({ localization, constatationId }: Loc
 
     //onSuccess();
   };
-
+  
   return (
     <>
       <Input
@@ -204,22 +213,25 @@ export default function LocalizationPicker({ localization, constatationId }: Loc
 
       <View style={styles.container}>
         <MapView style={styles.map} initialRegion={initialRegion}>
-          <MapView.Marker
-            coordinate={{
-              latitude: parseFloat(coords?.latitude),
-              longitude: parseFloat(coords?.longitude),
-            }}
-            draggable
-            onDragEnd={(e) =>
-              setCoords((prevCoords) => ({
-                ...prevCoords,
-                latitude: e.latLng.lat() as number,
-                longitude: e.latLng.lng() as number,
-              }))
-            }
-            title="Ici"
-            description="Vous êtes ici"
-          />
+          {
+            typeof coords?.latitude != "undefined"  &&
+              <MapView.Marker
+              coordinate={{
+                latitude: coords?.latitude != null ? parseFloat(coords?.latitude?.toString()) : initialRegion.latitude,
+                longitude: coords?.longitude != null ? parseFloat(coords?.longitude?.toString()) : initialRegion.longitude,
+              }}
+              draggable
+              onDragEnd={(e) =>
+                setCoords((prevCoords) => ({
+                  ...prevCoords,
+                  latitude: e.latLng.lat() as number,
+                  longitude: e.latLng.lng() as number,
+                }))
+              }
+              title="Ici"
+              description="Vous êtes ici"
+            />
+          }
         </MapView>
       </View>
       <Button title="Génerer par l'appareil " onPress={() => updateCoordsFromSensors()} icon={<MaterialCommunityIcons name="cog-refresh" size={24} color="white" />} iconRight={true}/>

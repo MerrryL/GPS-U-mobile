@@ -16,12 +16,12 @@ export const useCreateObservation = ({
   const { addNotification } = useNotificationStore();
   return useMutation({
     onMutate: async (newObservation) => {
-      await queryClient.cancelQueries(["constatations"]);
+      await queryClient.cancelQueries(["observations"]);
 
       const previousObservations =
-        queryClient.getQueryData<Observation[]>(["constatations"]);
+        queryClient.getQueryData<Observation[]>(["observations"]);
 
-      queryClient.setQueryData(["constatations"], [
+      queryClient.setQueryData(["observations"], [
         ...(previousObservations || []),
         newObservation.data,
       ]);
@@ -31,13 +31,13 @@ export const useCreateObservation = ({
     onError: (_, __, context: any) => {
       if (context?.previousObservations) {
         queryClient.setQueryData(
-          ["constatations"],
+          ["observations"],
           context.previousObservations
         );
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["constatations"]);
+      queryClient.invalidateQueries(["observations"]);
       addNotification({
         type: "success",
         title: "Observation Created",

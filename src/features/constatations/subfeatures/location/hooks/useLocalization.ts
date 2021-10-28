@@ -3,7 +3,7 @@ import { QueryConfig } from "@/lib/react-query";
 import { getLocalization } from "../api";
 
 type UseLocalizationOptions = {
-  constatationId?: string;
+  constatationId: string | number;
   config?: QueryConfig<typeof getLocalization>;
 };
 

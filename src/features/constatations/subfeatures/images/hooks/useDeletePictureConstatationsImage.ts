@@ -3,33 +3,32 @@ import { useMutation } from "react-query";
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
 
-import { deleteConstatationImage } from "../api";
+import { Constatation, Image } from "@/types";
+import { deletePictureConstatationImage } from "../api/index";
 
-import { Constatation, Image} from "@/types";
-
-type UseDeleteConstatationImageOptions = {
-  imageId: string;
+type UseDeletePictureConstatationImageOptions = {
   constatationId: string;
-  config?: MutationConfig<typeof deleteConstatationImage>;
+  imageId:string;
+  config?: MutationConfig<typeof deletePictureConstatationImage>;
 };
 
-export const useDeleteConstatationImage = ({
-  imageId,
+export const useDeletePictureConstatationImage = ({
   constatationId,
+  imageId,
   config,
-}: UseDeleteConstatationImageOptions) => {
+}: UseDeletePictureConstatationImageOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {
       queryClient.refetchQueries(["constatations"]);
       queryClient.refetchQueries(["images"]);
-
+      
       addNotification({
         type: "success",
-        title: "Image supprimée",
+        title: "L'image a été retirée, vous pouvez en télécharger une autre",
       });
     },
     ...config,
-    mutationFn: deleteConstatationImage,
+    mutationFn: deletePictureConstatationImage,
   });
 };

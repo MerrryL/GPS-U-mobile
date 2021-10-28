@@ -125,3 +125,7 @@ export type User = {
 
 //TODO: Find out what is the best pattern
 export type Observer = User;
+
+export type Observation = {
+  name:string;
+} & BaseEntity;

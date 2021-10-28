@@ -9,7 +9,7 @@ export function ParametersScreen() {
   return (
     <>
       <ParametersStack.Navigator>
-        <ParametersStack.Screen name="ListeDossiers" component={ListDossiers} />
+        {/* <ParametersStack.Screen name="ListeDossiers" component={ListDossiers} /> */}
       </ParametersStack.Navigator>
     </>
   );

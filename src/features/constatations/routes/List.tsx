@@ -33,6 +33,7 @@ export default function List() {
       </>
     );
   }
+  //TODO: handle case where the list is empty
 
   return (
     <>

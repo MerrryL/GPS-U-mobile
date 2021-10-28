@@ -16,11 +16,6 @@ function authRequestInterceptor(config: AxiosRequestConfig) {
 
 export const axios = Axios.create({
   baseURL: Constants.manifest.extra.API_URL + "api/",
-  //TODO:check
-  // headers: {
-  //   "Access-Control-Allow-Origin": "*",
-  //   "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-  // },
   withCredentials: true
 });
 
@@ -32,7 +27,7 @@ axios.interceptors.response.use(
   },
   (error) => {
     const message = error.response?.data?.message || error.message;
-    const errors = error.response?.data?.errors || error.errors;
+    const errors = error.response?.data?.errors || error?.errors;
 
     useNotificationStore.getState().addNotification({
       type: 'error',
@@ -49,9 +44,6 @@ axios.interceptors.response.use(
         })
       };
     }
-
-
-
     return Promise.reject(error);
   }
 );

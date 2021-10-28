@@ -2,36 +2,17 @@ import { axios } from "@/lib/axios";
 
 import { Observer } from "@/types";
 
-//ObserversPart
-
-type GetObserversOptions = {
-  constatationId?: string;
-};
-
-// //TODO: this points to Index on the api instead of a "show"
-// export const getObservers = ({
-//   constatationId = null,
-// }: GetObserversOptions): Promise<Observer[]> => {
-//   let filter = "";
-//   if (constatationId) {
-//     filter+="?filter[constatation_id]="+constatationId;
-//   }
-//   return axios.get('/users' + filter);
-// };
-
 
 export const getObservers = (): Promise<Observer[]> => {
   return axios.get('/observers');
 };
 
-type GetObserverOptions = {
-  userId: string;
+type GetConstatationObserversOptions = {
+  constatationId: string;
 };
 
-export const getObserver = ({
-  userId,
-}: GetObserverOptions): Promise<Observer> => {
-  return axios.get(`/users/${userId}`);
+export const getConstatationObservers = ({constatationId}: GetConstatationObserversOptions): Promise<Observer[]> => {
+  return axios.get(`/constatations/${constatationId}/observers`);
 };
 
 type ObserverToSend = {
@@ -43,18 +24,9 @@ type CreateObserverOptions = {
   observers: ObserverToSend[];
 };
 
-export const updateObserver = ({
+export const updateConstatationObservers = ({
   constatationId,
   observers = [],
 }: CreateObserverOptions): Promise<Observer[]> => {
   return axios.post(`constatations/${constatationId}/observers/`, { observers });
-};
-
-type DeleteObserverOptions = {
-  userId: string;
-  constatationId: string;
-};
-
-export const deleteObserver = ({ userId, constatationId }: DeleteObserverOptions) => {
-  return axios.delete(`users/${userId}`);
 };

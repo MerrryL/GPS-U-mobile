@@ -19,9 +19,9 @@ export default function List() {
       data: null,
     });
 
-    navigation.navigate("Edition", {
-      observationId: newObservation?.id,
-    });
+    // navigation.navigate("Edition", {
+    //   observationId: newObservation?.id,
+    // });
     //onSuccess();
   };
 
@@ -32,6 +32,7 @@ export default function List() {
       </>
     );
   }
+  //TODO: handle case where the list is empty
 
   return (
     <>
@@ -44,7 +45,6 @@ export default function List() {
         title="+"
         placement="right"
         size="large"
-        // onPress={() => navigation.navigate("Nouvelle")}
         onPress={() => handleCreation(null)}
       />
     </>

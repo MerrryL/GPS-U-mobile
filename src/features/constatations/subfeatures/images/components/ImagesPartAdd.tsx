@@ -35,8 +35,7 @@ export default function ImagesPartAdd({ constatationId }) {
       name: values.name,
       constatationId: constatationId,
     });
-    
-    //onSuccess();
+    //TODO: maybe make the user immediately take a photo
   };
   
   return(

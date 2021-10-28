@@ -8,6 +8,7 @@ import ImagesPartAdd from "./ImagesPartAdd";
 import ImagesPartView from "./ImagesPartView";
 import { useImages } from "../hooks/useConstatationImages";
 import { useDefineAsThumbConstatationImage } from "../hooks/useDefineAsThumbConstatationImage";
+import { useDeletePictureConstatationImage } from "../hooks/useDeletePictureConstatationsImage";
 
 type ImagesPartProps = {
   constatationId: string;
@@ -19,6 +20,7 @@ export function ImagesPart({ constatationId = null }:ImagesPartProps) {
   });
 
   const useDefineAsThumbMutation = useDefineAsThumbConstatationImage({constatationId: constatationId});
+  const useDeletePictureMutation = useDeletePictureConstatationImage({constatationId:constatationId});
 
   let ImagesWithMedia = [];
   let ImagesWithoutMedia = [];
@@ -37,7 +39,13 @@ export function ImagesPart({ constatationId = null }:ImagesPartProps) {
       imageId: imageId,
       constatationId: constatationId,
     });
-    //onSuccess();
+  };
+
+  const deletePicture = async( imageId, constatationId) => {
+    await useDeletePictureMutation.mutateAsync({
+      imageId: imageId,
+      constatationId: constatationId
+    })
   };
 
   return ( 
@@ -67,6 +75,7 @@ export function ImagesPart({ constatationId = null }:ImagesPartProps) {
               />
               <Chip
                 title="Supprimer cette image"
+                onPress={() => deletePicture(image.id, image.constatation_id)}
                 icon={{
                 name: "close",
                 type: "font-awesome",

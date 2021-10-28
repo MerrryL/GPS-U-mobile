@@ -5,17 +5,17 @@ import { QueryConfig } from "@/lib/react-query";
 import { getObservation } from "../api";
 
 type UseObservationOptions = {
-  constatationId: string;
+  observationId: string;
   config?: QueryConfig<typeof getObservation>;
 };
 
 export const useObservation = ({
-  constatationId,
+  observationId,
   config,
 }: UseObservationOptions) => {
   return useQuery({
     ...config,
-    queryKey: ["constatations", constatationId],
-    queryFn: () => getObservation({ constatationId }),
+    queryKey: ["observations", observationId],
+    queryFn: () => getObservation({ observationId }),
   });
 };

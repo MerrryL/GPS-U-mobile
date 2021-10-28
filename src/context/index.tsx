@@ -14,6 +14,9 @@ import { queryClient } from '@/lib/react-query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Notifications } from '@/components/Notifications';
 import Spinner from '@/components/Elements/Spinner';
+import { Layout } from '@/components/Layout/Layout';
+
+import { useNotificationStore } from "@/hooks/useNotificationStore";
 
 
 const ErrorFallback = (props: { error: Error }) => {
@@ -44,14 +47,18 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     >
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <QueryClientProvider client={queryClient}>
-          {Constants.manifest.extra.ENV !== 'test' && <ReactQueryDevtools />}
-          <Notifications/>
-          <AuthProvider>
-          <SafeAreaProvider>
-            <NavigationContainer>{children}</NavigationContainer>
-          </SafeAreaProvider>
-            
-          </AuthProvider>
+            {Constants.manifest.extra.ENV === 'test' && <ReactQueryDevtools initialIsOpen={false} />}
+            <Notifications/>
+            <AuthProvider>
+            <SafeAreaProvider>
+            <Layout title="test"/>
+            <NavigationContainer>
+              
+                {children}
+            </NavigationContainer>
+            </SafeAreaProvider>
+              
+            </AuthProvider>
         </QueryClientProvider>
       </ErrorBoundary>
     </React.Suspense>

@@ -1,5 +1,4 @@
 import { initReactQueryAuth } from "react-query-auth";
-import { ActivityIndicator, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import {
@@ -13,6 +12,7 @@ import {
 } from "@/features/auth";
 import React from "react";
 import { axios } from "@/lib/axios";
+import Spinner from "@/components/Elements/Spinner";
 
 async function handleUserResponse(data: UserResponse) {
   const { token, user } = data;
@@ -32,7 +32,7 @@ async function handleUserResponse(data: UserResponse) {
 
 //TODO: user is already set in previous method
 async function loadUser() {
-  if (await AsyncStorage.getItem("token")) {
+  if (await AsyncStorage.getItem("token") && await AsyncStorage.getItem("token") === null) {
     const data = await getUserProfile();
     return data;
   }
@@ -53,8 +53,9 @@ async function registerFn(data: RegisterCredentials) {
 
 async function logoutFn() {
   try {
-    await AsyncStorage.removeItem("token");
+    await AsyncStorage.multiRemove(["user", "token"]);
   } catch (e) {
+    console.log("error", e);
     // remove error
   }
 }
@@ -66,9 +67,7 @@ const authConfig = {
   logoutFn,
   LoaderComponent() {
     return (
-      <View>
-        <ActivityIndicator size="large" />
-      </View>
+      <Spinner/>
     );
   },
 };

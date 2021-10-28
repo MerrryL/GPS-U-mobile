@@ -71,6 +71,18 @@ export const uploadConstatationImage = ({
   return axios.post(`/constatations/${constatationId}/images/${imageId}/upload`, { image });
 };
 
+type DeletePictureConstatationImageOptions = {
+  imageId: string;
+  constatationId: string;
+}
+
+export const deletePictureConstatationImage= ({
+  imageId,
+  constatationId
+}: DeletePictureConstatationImageOptions): Promise<Constatation> => {
+  return axios.delete(`/constatations/${constatationId}/images/${imageId}/remove`);
+}
+
 type DefineAsThumbOptions = {
   constatationId: string;
   imageId: string;

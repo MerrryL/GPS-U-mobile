@@ -21,6 +21,7 @@ type LocalizationPickerProps = {
 }
 
 export default function LocalizationPickerWeb({ localization, constatationId }: LocalizationPickerProps) {
+  
   //TODO:the initialRegion should adapt the latitude/long Delta?
   const defaultCoords = {
     latitude: 50.509317,
@@ -34,33 +35,17 @@ export default function LocalizationPickerWeb({ localization, constatationId }: 
     longitudeDelta: 0.001,
   };
 
-  const [coords, setCoords] = useState<Localization| undefined>({
-    id: localization?.id ?? null,
-    accuracy: localization?.accuracy ?? null,
-    address_components: localization?.address_components ?? [],
-    altitude: localization?.altitude ?? null,
-    altitudeAccuracy: localization?.altitudeAccuracy ?? null,
-    constatation_id: localization?.constatation_id ?? null,
-    formatted_address: localization?.formatted_address ?? null,
-    given_name: localization?.given_name ?? null,
-    heading: localization?.heading ?? null,
-    latitude: localization?.latitude ?? initialRegion.latitude,
-    longitude: localization?.longitude ?? initialRegion.longitude,
-    place_id: localization?.place_id ?? null,
-    speed: localization?.speed ?? null,
-    viewport: localization?.viewport ?? {},
-    created_at: localization?.created_at ?? null,
-    updated_at: localization?.updated_at ?? null,
-  });
+  const [coords, setCoords] = useState<Localization>({});
 
+  useEffect(() => {
+    //TODO: not working and can't make it work ffs
+    //console.log("triggered", localization, "coords", coords);
+    setCoords((prevCoords) => ({...prevCoords, localization}));
 
-  useEffect(() => setCoords(localization), [localization]);
+  }, [localization]);
 
   const updateCoordsFromSensors = async () => {
     let updatedCoords = await getCurrentLocationFromSensors();
-     // console.table(coords);
-     console.log("e", coords?.latitude, coords?.longitude);
-
     setCoords((oldCoords) => ({
       ...oldCoords,
       accuracy: updatedCoords?.coords?.accuracy,
@@ -92,7 +77,6 @@ export default function LocalizationPickerWeb({ localization, constatationId }: 
   };
 
   const updateAddressFromCoords = async () => {
-     // console.table(coords);
     let updatedAddress = await getAddressForCoordinates({
       latitude: coords.latitude,
       longitude: coords.longitude,
@@ -129,7 +113,6 @@ export default function LocalizationPickerWeb({ localization, constatationId }: 
     const newCoords = await getCoordinatesForAddress({
       formatted_address: coords.formatted_address,
     });
-     // console.table(coords);
     setCoords((prevCoords) => ({
       ...prevCoords,
       latitude: newCoords.lat,

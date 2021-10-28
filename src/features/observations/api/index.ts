@@ -4,8 +4,12 @@ import { Observation } from "@/types";
 
 
 //Observations part
+export const getCodexes = (): Promise<Observation[]> => {
+  return axios.get("/codexes");
+};
+
 export const getObservations = (): Promise<Observation[]> => {
-  return axios.get("observations");
+  return axios.get("/observations");
 };
 
 type GetObservationOptions = {

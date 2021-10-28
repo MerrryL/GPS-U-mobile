@@ -18,21 +18,21 @@ export const useUpdateObservation = ({
   return useMutation({
     onMutate: async (updatingObservation: any) => {
       await queryClient.cancelQueries([
-        "constatations",
-        updatingObservation?.constatationId,
+        "observations",
+        updatingObservation?.observationId,
       ]);
 
       const previousObservation = queryClient.getQueryData<Observation>([
-        "constatations",
-        updatingObservation?.constatationId,
+        "observations",
+        updatingObservation?.observationId,
       ]);
 
       queryClient.setQueryData(
-        ["constatations", updatingObservation?.constatationId],
+        ["observations", updatingObservation?.observationId],
         {
           ...previousObservation,
           ...updatingObservation.data,
-          id: updatingObservation.constatationId,
+          id: updatingObservation.observationId,
         }
       );
 
@@ -41,13 +41,13 @@ export const useUpdateObservation = ({
     onError: (_, __, context: any) => {
       if (context?.previousObservation) {
         queryClient.setQueryData(
-          ["constatations", context.previousObservation.id],
+          ["observations", context.previousObservation.id],
           context.previousObservation
         );
       }
     },
     onSuccess: (data) => {
-      queryClient.refetchQueries(["constatations", data.id]);
+      queryClient.refetchQueries(["observations", data.id]);
       addNotification({
         type: "success",
         title: "Observation Updated",

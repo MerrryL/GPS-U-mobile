@@ -34,43 +34,19 @@ export const useUploadConstatationImage = ({
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {
-
       if(isImage(data)){
-        await queryClient.cancelQueries(["images"]);
-
-        const previousImages =
-          queryClient.getQueryData<Image[]>(["images"]);
-
-        let imageIndex = previousImages.findIndex((obj => obj.id == imageId))
-
-        previousImages[imageIndex]= data;
-
-        queryClient.setQueryData(["images"], [
-          ...previousImages
-        ]);
-        
-        await queryClient.cancelQueries(["constatations"]);
-
-        const previousConstatations =
-          queryClient.getQueryData<Constatation[]>(["constatations"]);
-          
-        //console.log(queryClient.getQueryData<Constatation[]>(["constatations", 100]));
-        let index = previousConstatations.findIndex((obj => obj.id == data.constatation_id))
-
-        let imageIndex2 = previousConstatations[index].images.findIndex((obj => obj.id == data.id));
-
-        previousConstatations[index].images[imageIndex2]= data;
-
-        queryClient.setQueryData(["constatations"], [
-          ...previousConstatations,
-        ]);
+        queryClient.refetchQueries(["constatations"]);
+        queryClient.refetchQueries(["constatations", data.constatation_id]);
+        queryClient.refetchQueries(["images"]);
         addNotification({
           type: "success",
           title: "L'image a été téléchargée",
         });
       }
       else {
+        queryClient.refetchQueries(["constatations"]);
         queryClient.refetchQueries(["constatations", data.id]);
+        
         addNotification({
           type: "success",
           title: "L'image a été téléchargée et définie comme vignette",
