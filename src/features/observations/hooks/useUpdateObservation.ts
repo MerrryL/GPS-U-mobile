@@ -50,7 +50,7 @@ export const useUpdateObservation = ({
       queryClient.refetchQueries(["observations", data.id]);
       addNotification({
         type: "success",
-        title: "Observation Updated",
+        title: "Observation mise-à-jour",
       });
     },
     ...config,

@@ -40,7 +40,7 @@ export const useCreateObservation = ({
       queryClient.invalidateQueries(["observations"]);
       addNotification({
         type: "success",
-        title: "Observation Created",
+        title: "Observation Créée",
       });
     },
     ...config,

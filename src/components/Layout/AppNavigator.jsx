@@ -20,7 +20,7 @@ function AppNavigator() {
         activeTintColor: "#e91e63",
       }}
     >
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Constatations"
         component={ConstatationStackScreen}
         options={{
@@ -29,7 +29,7 @@ function AppNavigator() {
             <AntDesign name="database" color={color} size={size} />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Observations"
         component={ObservationStackScreen}

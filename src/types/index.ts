@@ -77,6 +77,7 @@ export type Field = {
 export type Image = {
   constatation_id: string;
   name: string;
+  description:string;
   media: Media[];
 } & BaseEntity;
 
@@ -125,7 +126,52 @@ export type User = {
 
 //TODO: Find out what is the best pattern
 export type Observer = User;
+export type Supervisor = User;
+export type Worker = User;
 
 export type Observation = {
   name:string;
+  code:string;
+  short_description:string;
+  description:string;
+  fine_amount:string;
+  codex: Codex;
+  observation_type: ObservationType;
+  field_groups: FieldGroup[];
+  images: Image[];
 } & BaseEntity;
+
+export type ObservationType = {
+  name:string;
+  description:string;
+}
+
+export type Codex = {
+  name:string;
+  precode:string;
+  description:string;
+}
+
+export type Followup = {
+  name: string;
+  description:string;
+  status: Status;
+  observation: Observation;
+  supervisors: Supervisor[];
+  tasks: Task[];
+} & BaseEntity;
+
+export type Status = {
+  name:string;
+} & BaseEntity;
+
+export type Task = {
+  name:string;
+  description:string;
+  realisation_date: Date;
+  report_date: Date;
+  report_periodicity: Date;
+  status: Status;
+  followup: Followup[];
+  workers: Worker[];
+}
