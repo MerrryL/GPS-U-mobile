@@ -16,6 +16,8 @@ type UseCreateTaskOptions = {
   report_date: string;
   report_periodicity: string;
   task_status_id: string;
+  //Todo: replace the any
+  operators_id: any;
   config?: MutationConfig<typeof createTask>;
 };
 
@@ -32,7 +34,7 @@ export const useCreateTask = ({
     queryClient.refetchQueries(["fields"]);
     addNotification({
       type: "success",
-      title: "Champ créé",
+      title: "Tâche créé",
     });
     },
     ...config,

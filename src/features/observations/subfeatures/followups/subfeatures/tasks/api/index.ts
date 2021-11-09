@@ -1,5 +1,14 @@
 import { axios } from "@/lib/axios";
-import { Task } from "@/types";
+import { Task, Operator, TaskStatus } from "@/types";
+
+
+export const getTaskStatuses= ():Promise<TaskStatus[]> => {
+  return axios.get(`/task_status/`);
+};
+
+export const getOperators= ():Promise<Operator[]> => {
+  return axios.get(`/operators/`);
+};
 
 type GetTasksOptions = {
   observationId :string;
@@ -37,7 +46,8 @@ type CreateTaskOptions = {
   report_date: string; 
   report_periodicity: string; 
   task_status_id: string;
-  value: string;
+  //TODO: fix the any
+  operators_id: any;
 };
 
 export const createTask = ({
@@ -48,9 +58,10 @@ export const createTask = ({
   realisation_date, 
   report_date, 
   report_periodicity, 
-  task_status_id
+  task_status_id, 
+  operators_id
 }: CreateTaskOptions): Promise<Task> => {
-  return axios.post(`/observations/${observationId}/followups/${followupId}/tasks/`, { name, description, realisation_date, report_date, report_periodicity, task_status_id });
+  return axios.post(`/observations/${observationId}/followups/${followupId}/tasks/`, { name, description, realisation_date, report_date, report_periodicity, task_status_id, operators_id });
 };
 
 type DeleteTaskOptions = {

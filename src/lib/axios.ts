@@ -19,31 +19,32 @@ export const axios = Axios.create({
   withCredentials: true
 });
 
+const notifyErrors = (error) => {
+  const message = error.response?.data?.message || error.message;
+  const errors = error.response?.data?.errors || error?.errors;
 
-axios.interceptors.request.use(authRequestInterceptor);
+  useNotificationStore.getState().addNotification({
+    type: 'error',
+    title: 'Error',
+    message,
+  })
+
+  if(errors) {
+    for (const [key, value] of Object.entries(errors)) {
+      useNotificationStore.getState().addNotification({
+        type: 'error',
+        title: 'Error '+ key.toString(),
+        message: value.toString(),
+      })
+    };
+  }
+  return Promise.reject(error);
+};
+
+axios.interceptors.request.use(authRequestInterceptor, notifyErrors);
 axios.interceptors.response.use(
   (response) => {
     return response.data;
   },
-  (error) => {
-    const message = error.response?.data?.message || error.message;
-    const errors = error.response?.data?.errors || error?.errors;
-
-    useNotificationStore.getState().addNotification({
-      type: 'error',
-      title: 'Error',
-      message,
-    })
-
-    if(errors) {
-      for (const [key, value] of Object.entries(errors)) {
-        useNotificationStore.getState().addNotification({
-          type: 'error',
-          title: 'Error '+ key.toString(),
-          message: value.toString(),
-        })
-      };
-    }
-    return Promise.reject(error);
-  }
+  notifyErrors
 );

@@ -7,8 +7,12 @@ import { View, Platform } from "react-native";
 
 import { Card, Button, Icon, Text, Input, Switch} from "react-native-elements";
 import { useCreateTask } from "../hooks/useCreateTask";
-import SwitchInput from "@/components/Elements/Inputs/SwitchInput";
+import SwitchInput from "@/components/Elements/Inputs/CheckBoxInput";
 import TextInput from "@/components/Elements/Inputs/TextInput";
+import MultiPickerInput from "@/components/Elements/Inputs/MultiPickerInput";
+import { useOperators } from "../hooks/useOperators";
+import { useTaskStatuses } from "../hooks/usetASKStatuses";
+import PickerInput from "@/components/Elements/Inputs/PickerInput";
 
 
 type TasksValues = {
@@ -19,6 +23,7 @@ type TasksValues = {
     report_periodicity: string;
     task_status_id: string;
     isDefault:boolean;
+    operators_id: string[];
 };
 
 const schema = yup.object().shape({
@@ -28,6 +33,7 @@ const schema = yup.object().shape({
     report_date: yup.string().required(),
     report_periodicity: yup.string().required(), 
     task_status_id: yup.string().required(),
+    operators_id:  yup.array().min(1).required(),
 });
 
 type TasksAddProps = {
@@ -37,6 +43,12 @@ type TasksAddProps = {
 
 export function TaskAdd({ followupId, observationId }: TasksAddProps) {
   const taskCreateMutation = useCreateTask({observationId, followupId});
+
+  const operatorsQuery = useOperators();
+  const operatorsOptions = operatorsQuery?.data?.map( operator => ({item: operator?.lastName + " " + operator?.firstName, id: operator.id}));
+
+  const taskStatusesQuery = useTaskStatuses();
+  const taskStatusesOptions = taskStatusesQuery?.data?.map( status => ({item: status.name, id: status.id}));
 
   const {
       control,
@@ -50,14 +62,20 @@ export function TaskAdd({ followupId, observationId }: TasksAddProps) {
     
     console.log("values", values);
 
-    const { name, description, realisation_date, report_date, report_periodicity, task_status_id} = values;
+    const { name, description, realisation_date, report_date, report_periodicity, task_status_id, operators_id} = values;
 
     await taskCreateMutation.mutateAsync({
-      name, description, realisation_date, report_date, report_periodicity, task_status_id,
-      observationId: observationId,
-      followupId: followupId
+      name, 
+      description, 
+      realisation_date, 
+      report_date, 
+      report_periodicity,
+      task_status_id,
+      operators_id,
+      observationId,
+      followupId
     });
-      };
+  };
   
   return(
     <View style={{ flex: 1, alignItems: "flex-start", justifyContent: "center", margin:"10px" }}>
@@ -67,7 +85,9 @@ export function TaskAdd({ followupId, observationId }: TasksAddProps) {
       <TextInput name="realisation_date" defaultValue="" label="Date de réalisation" control={control} />
       <TextInput name="report_date" defaultValue="" label="Date butoir" control={control} />
       <TextInput name="report_periodicity" defaultValue="" label="Périodicité" control={control} />
-      <TextInput name="task_status_id" defaultValue="" label="Type" control={control} />
+      <PickerInput name="task_status_id" defaultValue="" label="Type" control={control} options={taskStatusesOptions} />
+      <MultiPickerInput name="operators_id" label="Opérateurs" control={control} options={operatorsOptions} />
+
 
       <Button title="Nouvelle tâche" onPress={handleSubmit(onSubmit)} />
     </View>

@@ -7,7 +7,7 @@ import { View, Platform } from "react-native";
 
 import { Card, Button, Icon, Text, Input, Switch} from "react-native-elements";
 import { useCreateField } from "../hooks/useCreateField";
-import SwitchInput from "@/components/Elements/Inputs/SwitchInput";
+import SwitchInput from "@/components/Elements/Inputs/CheckBoxInput";
 import TextInput from "@/components/Elements/Inputs/TextInput";
 
 

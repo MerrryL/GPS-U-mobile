@@ -1,40 +1,74 @@
-// import React, { useState } from "react";
-// import { Picker } from "@react-native-picker/picker";
-// import { Text, Input } from "react-native-elements";
-// import { format } from "date-fns";
-// import { useForm, Controller, useController } from "react-hook-form";
-// import { yupResolver } from "@hookform/resolvers/yup";
-// import * as yup from "yup";
+import React, { useEffect, useState } from "react";
+import SelectBox from "react-native-multi-selectbox";
+import { Text, makeStyles } from "react-native-elements";
+import { useController } from "react-hook-form";
+import { xorBy } from "lodash";
+import { View } from "react-native";
 
-// export default function PickerInput({
-//   name,
-//   label,
-//   defaultValue,
-//   control,
-//   options,
-// }) {
-//   const { field, fieldState, formState } = useController({
-//     control,
-//     name,
-//     defaultValue: defaultValue,
-//   });
+export default function MultiPickerInput(props) {
+  const {
+    name,
+    label = name,
+    defaultValue = null,
+    selectedValues = [],
+    control,
+    options,
+  } = props;
 
-//   return (
-//     <>
-//       <Text>{label}</Text>
-//       <Picker {...field}>
-//         {options?.map((option) => {
-//           return (
-//             <Picker.Item
-//               label={option.item}
-//               value={option.id}
-//               key={option.id}
-//             />
-//           );
-//         })}
-//       </Picker>
-//       {/* <Text>{formState.isDirty ? "modifié" : "pas modifié"}</Text> */}
-//       {/* <Text>{fieldState?.errors[name]?.message}</Text> */}
-//     </>
-//   );
-// }
+  const { field, fieldState, formState } = useController({
+    control,
+    name,
+    defaultValue,
+  });
+
+  const styles = useStyles();
+
+  const [currentSelection, setCurrentSelection] = useState(selectedValues);
+
+  useEffect(() => {
+    field.onChange(currentSelection);
+  }, [currentSelection]);
+
+  const inputConfig = {
+    ...field,
+    label: "",
+    options: options,
+    selectedValues: currentSelection,
+    onMultiSelect: onMultiChange,
+    onTapClose: onMultiChange,
+    listEmptyText: "Pas de résultats",
+    isMulti: true,
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.label}>{label}</Text>
+      <SelectBox {...inputConfig} />
+      <Text>{fieldState?.error?.message}</Text>
+      <Text style={styles.border}></Text>
+    </View>
+  );
+
+  function onMultiChange() {
+    return (item) => {
+      setCurrentSelection(xorBy(currentSelection, [item], "id"));
+      //   field.onChange(currentSelection);
+    };
+  }
+}
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    paddingRight: "10px",
+    paddingLeft: "10px",
+    marginBottom: "10px",
+    flex: 1,
+    flexDirection: "column",
+  },
+  label: { fontSize: 16, fontWeight: "bold", color: theme.colors.grey3 },
+  border: {
+    marginTop: "10px",
+    borderBottomColor: theme.colors.grey3,
+    borderBottomWidth: "1px",
+  },
+}));

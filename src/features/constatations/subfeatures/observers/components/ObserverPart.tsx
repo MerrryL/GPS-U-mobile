@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { useForm, Controller } from "react-hook-form";
 import SelectBox from 'react-native-multi-selectbox';
 import { Card, Button } from "react-native-elements";
 import { View, Text } from 'react-native';
@@ -7,11 +8,10 @@ import { useUpdateConstatationObservers } from '../hooks/useUpdateConstatationOb
 
 import { useConstatationObservers } from '../hooks/useConstatationObservers';
 import { useObservers } from '../hooks/useObservers';
+import MultiPickerInput from '@/components/Elements/Inputs/MultiPickerInput';
 
 type ObserverPartProps= {
     constatationId: string;
-    initialObservers: any;
-    options: any;
 }
 
 type ObserverToSend = {
@@ -31,6 +31,11 @@ export function ObserverPart({  constatationId }: ObserverPartProps) {
     const [selectedObservers, setSelectedObservers] = useState( initialObservers);
     const [obsOptions, setOptions] = useState(options);
 
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+      } = useForm<any>();
 
     const onSubmit = async () => {
         let selectedObserversId = selectedObservers.map((item: ObserverToSend) => item.id );
@@ -44,18 +49,7 @@ export function ObserverPart({  constatationId }: ObserverPartProps) {
     return (
         <View style={{margin: 10}}>
             <Card>
-            {
-                typeof obsOptions != "undefined"  && typeof selectedObservers != "undefined" &&
-                    <SelectBox
-                    label="Choix des observateurs"
-                    options={obsOptions}
-                    selectedValues={selectedObservers}
-                    onMultiSelect={onMultiChange()}
-                    onTapClose={onMultiChange()}
-                    listEmptyText="Pas de résultats"
-                    isMulti
-                />
-            }
+            <MultiPickerInput name="observers" label="observers" options={obsOptions} selectedValues={selectedObservers} control={control}/>
             
             </Card>
             <Button title="MAJ" onPress={() => onSubmit()}/>

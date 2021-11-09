@@ -1,6 +1,14 @@
 import { axios } from "@/lib/axios";
 
-import { Observation, Followup } from "@/types";
+import { Observation, Followup, Supervisor, FollowupStatus } from "@/types";
+
+export const getFollowupStatuses= ():Promise<FollowupStatus[]> => {
+  return axios.get(`/followup_status/`);
+};
+
+export const getSupervisors= ():Promise<Supervisor[]> => {
+  return axios.get(`/supervisors/`);
+};
 
 type GetFollowupsOptions = {
   observationId: string;
@@ -28,14 +36,18 @@ type CreateFollowupOptions = {
   observationId: string;
   name: string;
   description:string;
+  followup_status_id: string;
+  supervisors_id: any;
 };
 
 export const createFollowup = ({
   observationId,
   name,
-  description
+  description,
+  followup_status_id,
+  supervisors_id,
 }: CreateFollowupOptions): Promise<Followup> => {
-  return axios.post(`/observations/${observationId}/followups`, { name, description });
+  return axios.post(`/observations/${observationId}/followups`, { name, description, followup_status_id, supervisors_id, });
 };
 
 type UpdateFollowupOptions = {

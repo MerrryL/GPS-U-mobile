@@ -127,7 +127,7 @@ export type User = {
 //TODO: Find out what is the best pattern
 export type Observer = User;
 export type Supervisor = User;
-export type Worker = User;
+export type Operator = User;
 
 export type Observation = {
   name:string;
@@ -155,15 +155,18 @@ export type Codex = {
 export type Followup = {
   name: string;
   description:string;
-  status: Status;
+  followup_status: FollowupStatus;
   observation: Observation;
-  supervisors: Supervisor[];
+  supervisor: Supervisor;
   tasks: Task[];
 } & BaseEntity;
+
 
 export type Status = {
   name:string;
 } & BaseEntity;
+
+export type FollowupStatus = Status;
 
 export type Task = {
   name:string;
@@ -171,7 +174,9 @@ export type Task = {
   realisation_date: Date;
   report_date: Date;
   report_periodicity: Date;
-  status: Status;
+  task_status: TaskStatus;
   followup: Followup[];
-  workers: Worker[];
+  operators: Operator[];
 }
+
+export type TaskStatus = Status;

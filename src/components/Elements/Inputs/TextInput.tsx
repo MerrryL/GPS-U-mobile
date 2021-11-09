@@ -2,25 +2,38 @@ import React from "react";
 import { Text, Input } from "react-native-elements";
 import { useController } from "react-hook-form";
 
-export default function TextInput({ name, label, defaultValue, control }) {
+export default function TextInput(props) {
+  const {
+    name,
+    label = name,
+    control,
+    defaultValue = "",
+    numberOfLines = null,
+  } = props;
+
   const { field, fieldState, formState } = useController({
     control,
     name,
-    defaultValue: defaultValue,
+    defaultValue,
   });
+
+  const inputConfig = {
+    ...field,
+    value: field.value ?? defaultValue,
+    label: label,
+    placeholder: label,
+    onChangeText: field.onChange,
+    autoCompleteType: "text",
+    multiline: numberOfLines ? true : false,
+    numberOfLines: numberOfLines ? numberOfLines : null,
+  };
 
   //TODO: change style, definitely
   return (
     <>
-      <Input
-        {...field}
-        autoCompleteType="text"
-        label={label}
-        onChangeText={field.onChange}
-        placeholder={label}
-      />
-      {/* <Text>{formState.isDirty ? "modifié" : "pas modifié"}</Text> */}
+      <Input {...inputConfig} />
       <Text>{fieldState?.error?.message}</Text>
+      {/* <Text>{formState.isDirty ? "modifié" : "pas modifié"}</Text> */}
     </>
   );
 }

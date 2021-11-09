@@ -13,6 +13,7 @@ import { FieldGroupPart } from "../subfeatures/fieldgroups/components/FieldGroup
 
 import { ObserverPart } from "../subfeatures/observers/components/ObserverPart";
 import { FollowupPart } from "../../followups/components/FollowupPart";
+import { ObservationPart } from "../subfeatures/observations/components/ObserverPart";
 
 type Params = {
   constatationId: string;
@@ -38,24 +39,34 @@ export default function Edit({ route }: EditProps) {
     },
     {
       position: 1,
+      title: 'Agents constatants',
+      content: <ObserverPart constatationId={constatationId}/>
+    },
+    {
+      position: 2,
       title: 'Images',
       content: <ImagesPart constatationId={constatationId} />
     },
     {
-      position: 2,
+      position: 3,
       title: 'Localisation',
       content: <LocalizationPart constatationId={constatationId} />
     },
     {
-      position: 3,
-      title: 'Champs',
-      content: <FieldGroupPart constatationId={constatationId} />
-    },
-    {
       position: 4,
-      title: 'Agents constatants',
-      content: <ObserverPart constatationId={constatationId}/>
+      title: 'Observations',
+      content: <ObservationPart constatationId={constatationId}/>
     },
+    // {
+    //   position: 6,
+    //   title: 'Corps',
+    //   content: <CardHeader constatationId={constatationId} />
+    // },
+    // {
+    //   position: 3,
+    //   title: 'Champs',
+    //   content: <FieldGroupPart constatationId={constatationId} />
+    // },
     // {
     //   position: 5,
     //   title: 'Observations',

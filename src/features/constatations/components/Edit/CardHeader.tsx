@@ -13,6 +13,8 @@ import { AntDesign, Entypo, FontAwesome, FontAwesome5, Ionicons, MaterialCommuni
 import { useRefuseValidationConstatation } from "../../hooks/useRefuseValidationConstatation";
 import { useRequireValidationConstatation } from "../../hooks/useRequireValidationConstatation";
 import { useValidateConstatation } from "../../hooks/useValidateConstatation";
+import MultiPickerInput from "@/components/Elements/Inputs/MultiPickerInput";
+import TextInput from "@/components/Elements/Inputs/TextInput";
 
 type ConstatationValues = {
   description: string;
@@ -125,25 +127,11 @@ export function CardHeader({ constatationId }) {
         </View>
       </View>
       <View>
-        <Controller
-          control={control}
-          rules={{
-            required: true,
-          }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <Input
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              defaultValue={constatation?.description}
-              placeholder="Description"
-              multiline
-              numberOfLines={4}
-            />
-          )}
-          name="description"
-        />
-        <Text>{errors.description?.message}</Text>
+
+        {/* <MultiPickerInput name="Observations" label="Observations" options={obsOptions} selectedValues={selectedObservations} control={control}/> */}
+
+        <TextInput name="description" defaultValue={constatation?.description} label="Description" control={control} />
+        
         <Button title="Enregistrer " onPress={handleSubmit(onSubmit)} icon={<AntDesign name="cloudupload" size={24} color="white" />} iconRight={true}  />
 
       </View>

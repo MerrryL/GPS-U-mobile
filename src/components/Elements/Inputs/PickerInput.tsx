@@ -14,9 +14,10 @@ export default function PickerInput({
   const { field, fieldState, formState } = useController({
     control,
     name,
-    defaultValue: defaultValue,
+    defaultValue,
   });
 
+  //TODO: make it so width is 100% of parent? through picker.item width?
   const styles = useStyles();
 
   return (
@@ -33,9 +34,9 @@ export default function PickerInput({
           );
         })}
       </Picker>
-      <Text style={styles.border}></Text>
       {/* <Text>{formState.isDirty ? "modifié" : "pas modifié"}</Text> */}
-      {/* <Text>{fieldState?.errors[name]?.message}</Text> */}
+      <Text>{fieldState?.error?.message}</Text>
+      <Text style={styles.border}></Text>
     </View>
   );
 }
@@ -52,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "40px",
     borderColor: theme.colors.grey3,
     borderRadius: "10px",
+    marginTop: "10px",
   },
   pickerItem: { fontSize: "18px", minHeight: "40px" },
   border: {

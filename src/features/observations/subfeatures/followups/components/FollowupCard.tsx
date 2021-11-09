@@ -35,6 +35,8 @@ export function FollowupCard({ followupId, observationId }: FollowupCardProps) {
                 <Button title="Supprimer le suivi" onPress={onDeleteSubmit} />
                 <Card.Title>Suivi: {followup?.name}</Card.Title>
                 <Text>Decription: {followup?.description}</Text>
+                {/* <Text>Superviseur: {followup?.supervisor?.lastName + " " + followup?.supervisor?.firstName}</Text> */}
+                <Text>Etat: {followup?.followup_status?.name}</Text>
                 <TaskAdd observationId={observationId} followupId={followup?.id}/>
                 {followup?.tasks?.map( (task) => <TaskCard taskId={task?.id} observationId={observationId} followupId={task?.followup_id} key={task?.id}/>)}
             </Card>

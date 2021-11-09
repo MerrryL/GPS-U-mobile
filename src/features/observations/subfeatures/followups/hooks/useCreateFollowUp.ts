@@ -11,6 +11,9 @@ type UseCreateFollowupOptions = {
   observationId: string;
   name: string;
   description: string;
+  followup_status_id: string;
+  //Todo: replace the any
+  supervisors_id: any;
   config?: MutationConfig<typeof createFollowup>;
 };
 
