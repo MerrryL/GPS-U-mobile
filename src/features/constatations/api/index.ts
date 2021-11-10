@@ -1,8 +1,12 @@
 import { axios } from "@/lib/axios";
 import { LocationActivityType } from "expo-location";
 
-import { Constatation } from "@/types";
+import { Constatation, Observation } from "@/types";
 
+
+export const getObservations = (): Promise<Observation[]> => {
+  return axios.get("observations");
+};
 
 //Constatations part
 export const getConstatations = (): Promise<Constatation[]> => {
@@ -35,14 +39,21 @@ export const createConstatation = ({
 
 type UpdateConstatationOptions = {
   constatationId: string;
-  data: Constatation;
+  description:string;
+  observers: any;
+  observations: any; 
 };
 
 export const updateConstatation = ({
-  data,
+  description,
+  observers,
+  observations,
   constatationId,
 }: UpdateConstatationOptions): Promise<Constatation> => {
-  return axios.patch(`constatations/${constatationId}`, data);
+  console.log(description,
+    observers,
+    observations,);
+  return axios.patch(`constatations/${constatationId}`, { description, observers, observations});
 };
 
 type RequireValidationOptions = {

@@ -15,22 +15,25 @@ import { useRequireValidationConstatation } from "../../hooks/useRequireValidati
 import { useValidateConstatation } from "../../hooks/useValidateConstatation";
 import MultiPickerInput from "@/components/Elements/Inputs/MultiPickerInput";
 import TextInput from "@/components/Elements/Inputs/TextInput";
+import { getObservationsOptions, getObserversOptions } from "@/utils/getOptions";
 
 type ConstatationValues = {
   description: string;
+  observers: any;
+  observations: any;
 };
 
 const schema = yup.object().shape({
   description: yup.string().required(),
+  observations: yup.array().min(1).required(),
+  observers: yup.array().min(1).required(),
 });
 
 export function CardHeader({ constatationId }) {
   const constatationQuery = useConstatation({
     constatationId: constatationId,
   });
-
-
-  const [constatation, setConstatation] = useState({description: constatationQuery?.data?.description})
+  const constatation=constatationQuery?.data;
 
   const updateConstatationMutation = useUpdateConstatation();
 
@@ -65,11 +68,14 @@ export function CardHeader({ constatationId }) {
   });
 
   const onSubmit = async (values: ConstatationValues) => {
+    console.log("values", values);
+    
+    const { description, observers, observations} = values;
     await updateConstatationMutation.mutateAsync({
-      data: values,
-      constatationId: constatationId,
+      description, observers, observations,constatationId,
     });
   };
+ 
 
   return (
     <>     
@@ -128,9 +134,10 @@ export function CardHeader({ constatationId }) {
       </View>
       <View>
 
-        {/* <MultiPickerInput name="Observations" label="Observations" options={obsOptions} selectedValues={selectedObservations} control={control}/> */}
+        <MultiPickerInput name="observers" label="Constatateurs" options={getObserversOptions()} selectedValues={constatation?.observers} control={control}/>
+        <MultiPickerInput name="observations" label="Observations" options={getObservationsOptions()} selectedValues={constatation?.observations} control={control}/>
 
-        <TextInput name="description" defaultValue={constatation?.description} label="Description" control={control} />
+        <TextInput name="description" defaultValue={constatation?.description} numberOfLines={5} label="Description" control={control} />
         
         <Button title="Enregistrer " onPress={handleSubmit(onSubmit)} icon={<AntDesign name="cloudupload" size={24} color="white" />} iconRight={true}  />
 

@@ -45,7 +45,7 @@ export function FollowupsAdd({ observationId }: FollowupAddProps) {
         control,
         handleSubmit,
         formState: { errors },
-      } = useForm<FollowupsValues>({
+    } = useForm<FollowupsValues>({
       resolver: yupResolver(schema),
     });
     
@@ -65,19 +65,6 @@ export function FollowupsAdd({ observationId }: FollowupAddProps) {
       
       //onSuccess();
     };
-
-    const inputs= [
-      {
-        name: "name",
-        label: "Nom",
-        type: "text"
-      },
-      {
-        name: "description",
-        label: "Description",
-        type: "text"        
-      }      
-    ];
     
     return(
       

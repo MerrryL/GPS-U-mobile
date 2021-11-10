@@ -21,7 +21,6 @@ type observationCardProps = {
 export function ObservationCard({ observation }: observationCardProps) {
   const navigation = useNavigation();
 
-  //console.log(observation);
   return (
     <Card>
       <View

@@ -17,8 +17,10 @@ export default function TextInput(props) {
     defaultValue,
   });
 
+  const { ref, ...field2 } = field;
+
   const inputConfig = {
-    ...field,
+    ...field2,
     value: field.value ?? defaultValue,
     label: label,
     placeholder: label,

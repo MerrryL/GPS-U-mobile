@@ -13,10 +13,10 @@ export default function CheckBoxInput(props) {
 
   const [isSelected, setSelection] = useState(false);
 
-  console.log(field.ref, "ref");
+  const { ref, ...field2 } = field;
 
   const inputConfig = {
-    ...field,
+    ...field2,
     defaultValue: defaultValue,
     checked: isSelected,
     title: label,

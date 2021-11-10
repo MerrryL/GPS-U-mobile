@@ -8,9 +8,8 @@ import { useObservations } from "../hooks/useObservations";
 import { useNavigation } from "@react-navigation/native";
 import { useCreateObservation } from "../hooks/useCreateObservation";
 
-export default function List() {
+export default function List({ route, navigation }) {
   const observationsQuery = useObservations();
-  const navigation = useNavigation();
 
   const createObservationMutation = useCreateObservation();
 
@@ -18,11 +17,6 @@ export default function List() {
     let newObservation = await createObservationMutation.mutateAsync({
       data: null,
     });
-
-    // navigation.navigate("Edition", {
-    //   observationId: newObservation?.id,
-    // });
-    //onSuccess();
   };
 
   if (observationsQuery.isLoading) {
@@ -37,7 +31,7 @@ export default function List() {
   return (
     <>
       <ScrollView>
-        {observationsQuery.data.map((observation, index) => (
+        {observationsQuery?.data?.map((observation, index) => (
           <ObservationCard observation={observation} key={index} />
         ))}
       </ScrollView>

@@ -9,9 +9,8 @@ import { useConstatations } from "../hooks/useConstatations";
 import { useNavigation } from "@react-navigation/native";
 import { useCreateConstatation } from "../hooks/useCreateConstatation";
 
-export default function List() {
+export default function List({ route, navigation }) {
   const constatationsQuery = useConstatations();
-  const navigation = useNavigation();
 
   const createConstatationMutation = useCreateConstatation();
 

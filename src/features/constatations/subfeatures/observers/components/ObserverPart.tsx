@@ -7,7 +7,7 @@ import { xorBy } from 'lodash';
 import { useUpdateConstatationObservers } from '../hooks/useUpdateConstatationObservers';
 
 import { useConstatationObservers } from '../hooks/useConstatationObservers';
-import { useObservers } from '../hooks/useObservers';
+import { useObservers } from '../../../../../hooks/useObservers';
 import MultiPickerInput from '@/components/Elements/Inputs/MultiPickerInput';
 
 type ObserverPartProps= {

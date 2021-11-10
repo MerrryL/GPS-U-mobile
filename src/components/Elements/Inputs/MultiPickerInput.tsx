@@ -29,21 +29,42 @@ export default function MultiPickerInput(props) {
     field.onChange(currentSelection);
   }, [currentSelection]);
 
+  const containerStyle = {};
+
+  const listOptionProps = {
+    style: {
+      maxHeight: "300px",
+      flex: 1,
+    },
+  };
+
+  const multiSelectInputFieldProps = {
+    numColumns: 2,
+    horizontal: false,
+  };
+
   const inputConfig = {
     ...field,
     label: "",
     options: options,
     selectedValues: currentSelection,
-    onMultiSelect: onMultiChange,
-    onTapClose: onMultiChange,
+    onMultiSelect: onMultiChange(),
+    onTapClose: onMultiChange(),
+    inputPlaceholder: "Choisissez une/des " + label?.toLowerCase(),
     listEmptyText: "Pas de résultats",
     isMulti: true,
+    listOptionProps: listOptionProps,
+    containerStyle: containerStyle,
+    multiSelectInputFieldProps: multiSelectInputFieldProps,
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
-      <SelectBox {...inputConfig} />
+      <SelectBox
+        {...inputConfig}
+        multiListEmptyLabelStyle={{ flexDirection: "column" }}
+      />
       <Text>{fieldState?.error?.message}</Text>
       <Text style={styles.border}></Text>
     </View>
@@ -64,6 +85,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "10px",
     flex: 1,
     flexDirection: "column",
+    flexBasis: "auto",
   },
   label: { fontSize: 16, fontWeight: "bold", color: theme.colors.grey3 },
   border: {
