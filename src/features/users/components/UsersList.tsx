@@ -1,5 +1,5 @@
 import { Table, Spinner } from '@/components/Elements';
-import { formatDate } from '@/utils/format';
+import { formatDate } from '@/utils/formatDate';
 
 import { useUsers } from '../hooks/useUsers';
 import { User } from '@/types';
@@ -17,11 +17,11 @@ export const UsersList = () => {
     );
   }
 
-  if (!usersQuery.data) return null;
+  if (!usersQuery?.data) return null;
 
   return (
     <Table<User>
-      data={usersQuery.data}
+      data={usersQuery?.data}
       columns={[
         {
           title: 'First Name',

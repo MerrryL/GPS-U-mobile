@@ -8,7 +8,8 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import Constants from "expo-constants";
 
 import { ActivityIndicator, DevSettings, View } from "react-native";
-import { Button, Text } from "react-native-elements";
+import { ThemeProvider, Button, Text } from "react-native-elements";
+import { useColorScheme } from 'react-native-appearance';
 import { AuthProvider } from '@/lib/auth';
 import { queryClient } from '@/lib/react-query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -17,6 +18,7 @@ import Spinner from '@/components/Elements/Spinner';
 import { Layout } from '@/components/Layout/Layout';
 
 import { useNotificationStore } from "@/hooks/useNotificationStore";
+
 
 
 const ErrorFallback = (props: { error: Error }) => {
@@ -37,30 +39,46 @@ type AppProviderProps = {
 };
 
 export const AppProvider = ({ children }: AppProviderProps) => {
+
+  const colorScheme= useColorScheme();
+
+  const theme = {
+    colors:{
+      tifannyBlue: "#A0E7E5",
+      mint: "#B4F8C8",
+      hotPink: "#FFAEBC",
+      yellow: "#FBE7C6",
+      ivory: "#EEEDE7"
+    }
+  }
+  const Context = React.createContext(null);
+
   return (
-    <React.Suspense
-      fallback={
-        
-          <Spinner />
-        
-      }
-    >
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <QueryClientProvider client={queryClient}>
-            {Constants.manifest.extra.ENV === 'test' && <ReactQueryDevtools initialIsOpen={false} />}
-            <Notifications/>
-            <AuthProvider>
-            <SafeAreaProvider>
-            <Layout title="test"/>
-            <NavigationContainer>
-              
-                {children}
-            </NavigationContainer>
-            </SafeAreaProvider>
-              
-            </AuthProvider>
-        </QueryClientProvider>
-      </ErrorBoundary>
-    </React.Suspense>
+    <ThemeProvider theme={theme} useDark={colorScheme === 'dark'}>
+      <React.Suspense
+        fallback={
+          
+            <Spinner />
+          
+        }
+      >
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <QueryClientProvider client={queryClient}>
+              {Constants?.manifest?.extra?.ENV === 'test' && <ReactQueryDevtools initialIsOpen={false} />}
+              <Notifications/>
+              <AuthProvider>
+              <SafeAreaProvider>
+                <NavigationContainer>
+                  <Layout/>
+                  
+                  {children}
+                </NavigationContainer>
+              </SafeAreaProvider>
+                
+              </AuthProvider>
+          </QueryClientProvider>
+        </ErrorBoundary>
+      </React.Suspense>
+    </ThemeProvider>
   );
 };

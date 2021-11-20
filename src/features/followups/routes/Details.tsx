@@ -5,11 +5,11 @@ import { FlatList, View } from "react-native";
 import { Card, Button, Icon, Text, Input } from "react-native-elements";
 
 
-import { useObservation } from "../hooks/useObservation";
+import { useFollowup } from "../hooks/useFollowup";
 
 
 type Params = {
-  observationId: string;
+  followupId: string;
 };
 
 type DetailsProps = {
@@ -21,8 +21,8 @@ type Route = {
 };
 
 export default function Details({ route }: DetailsProps) {
-  const observationQuery = useObservation({
-    observationId: route.params.observationId,
+  const followupQuery = useFollowup({
+    followupId: route.params.followupId,
   });
 
   const navigation = useNavigation();

@@ -6,19 +6,18 @@ import { Header } from "react-native-elements";
 
 type LayoutProps = {
   children: React.ReactNode;
-  title: string;
 };
 
-export const Layout = ({ children, title }: LayoutProps) => {
-  console.log(children);
-    return (
+export const Layout = () => {
+  const title ="testss";
+
+  return (
     <>
       <Header
         leftComponent={{ icon: 'menu', color: '#fff', iconStyle: { color: '#fff' } }}
         centerComponent={{ text: title, style: { color: '#fff' } }}
         rightComponent={{ icon: 'home', color: '#fff' }}
       />
-     <View>{children}</View>
     </>
   );
 };

@@ -21,12 +21,6 @@ export type Constatation = {
   media: Media[];
 } & BaseEntity;
 
-export type Location = {
-  title: string;
-  body: string;
-  teamId: string;
-} & BaseEntity;
-
 export type ImageToSend = {
   name: string;
   height: number;
@@ -72,7 +66,14 @@ export type Field = {
   value: string;
   isDefault: string;
   field_group_id: string;
+  pivot: ConstFieldPivot;
 } & BaseEntity;
+
+export type ConstFieldPivot = {
+  constatation_id: string | number | null;
+  field_id: string | number | null;
+  value: string | number | null;
+}
 
 export type Image = {
   constatation_id: string;

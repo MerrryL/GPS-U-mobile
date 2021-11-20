@@ -7,15 +7,15 @@ import Details from "./Details";
 import Create from "./Create";
 import Edit from "./Edit";
 
-const ObservationsStack = createStackNavigator();
+const FollowupsStack = createStackNavigator();
 
-export default function ObservationStackScreen() {
+export default function FollowupStackScreen() {
   return (
-    <ObservationsStack.Navigator>
-      <ObservationsStack.Screen name="Liste" component={List} />
-      <ObservationsStack.Screen name="Details" component={Details} />
-      <ObservationsStack.Screen name="Edition" component={Edit} />
-      <ObservationsStack.Screen name="Nouvelle" component={Create} />
-    </ObservationsStack.Navigator>
+    <FollowupsStack.Navigator>
+      <FollowupsStack.Screen name="Liste" component={List} />
+      <FollowupsStack.Screen name="Details" component={Details} />
+      <FollowupsStack.Screen name="Edition" component={Edit} />
+      <FollowupsStack.Screen name="Nouvelle" component={Create} />
+    </FollowupsStack.Navigator>
   );
 }

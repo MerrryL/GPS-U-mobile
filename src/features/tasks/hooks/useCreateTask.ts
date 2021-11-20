@@ -3,36 +3,36 @@ import { useMutation } from "react-query";
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
 
-import { createObservation } from "../api";
-import { Observation } from "@/types";
+import { createTask } from "../api";
+import { Task } from "@/types";
 
-type UseCreateObservationOptions = {
-  config?: MutationConfig<typeof createObservation>;
+type UseCreateTaskOptions = {
+  config?: MutationConfig<typeof createTask>;
 };
 
-export const useCreateObservation = ({
+export const useCreateTask = ({
   config,
-}: UseCreateObservationOptions = {}) => {
+}: UseCreateTaskOptions = {}) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
-    onMutate: async (newObservation) => {
+    onMutate: async (newTask) => {
       await queryClient.cancelQueries(["constatations"]);
 
-      const previousObservations =
-        queryClient.getQueryData<Observation[]>(["constatations"]);
+      const previousTasks =
+        queryClient.getQueryData<Task[]>(["constatations"]);
 
       queryClient.setQueryData(["constatations"], [
-        ...(previousObservations || []),
-        newObservation.data,
+        ...(previousTasks || []),
+        newTask.data,
       ]);
 
-      return { previousObservations };
+      return { previousTasks };
     },
     onError: (_, __, context: any) => {
-      if (context?.previousObservations) {
+      if (context?.previousTasks) {
         queryClient.setQueryData(
           ["constatations"],
-          context.previousObservations
+          context.previousTasks
         );
       }
     },
@@ -40,10 +40,10 @@ export const useCreateObservation = ({
       queryClient.invalidateQueries(["constatations"]);
       addNotification({
         type: "success",
-        title: "Observation Created",
+        title: "Task Created",
       });
     },
     ...config,
-    mutationFn: createObservation,
+    mutationFn: createTask,
   });
 };

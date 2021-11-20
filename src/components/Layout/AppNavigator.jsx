@@ -9,6 +9,8 @@ import ConstatationStackScreen from "@/features/constatations/routes/Index";
 import { ParametersScreen } from "@/features/parameters";
 import AboutScreen from "@/features/about";
 import ObservationStackScreen from "@/features/observations/routes";
+import FollowupStackScreen from "@/features/followups/routes";
+import TaskStackScreen from "@/features/tasks/routes";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -35,6 +37,26 @@ function AppNavigator() {
         component={ObservationStackScreen}
         options={{
           tabBarLabel: "Observations",
+          tabBarIcon: ({ color, size }) => (
+            <AntDesign name="database" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Suivis"
+        component={FollowupStackScreen}
+        options={{
+          tabBarLabel: "Suivis",
+          tabBarIcon: ({ color, size }) => (
+            <AntDesign name="database" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Tâches"
+        component={TaskStackScreen}
+        options={{
+          tabBarLabel: "Tâches",
           tabBarIcon: ({ color, size }) => (
             <AntDesign name="database" color={color} size={size} />
           ),

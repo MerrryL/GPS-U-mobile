@@ -6,12 +6,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import { View } from "react-native";
-import { useObservation } from "../../hooks/useObservation";
-import { useUpdateObservation } from "../../hooks/useUpdateObservation";
+import { useFollowup } from "../../hooks/useFollowup";
+import { useUpdateFollowup } from "../../hooks/useUpdateFollowup";
 import { AntDesign, Entypo, FontAwesome, FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 
-type ObservationValues = {
+type FollowupValues = {
   description: string;
 };
 
@@ -19,30 +19,30 @@ const schema = yup.object().shape({
   description: yup.string().required(),
 });
 
-export function CardHeader({ observationId }) {
-  const observationQuery = useObservation({
-    observationId: observationId,
+export function CardHeader({ followupId }) {
+  const followupQuery = useFollowup({
+    followupId: followupId,
   });
 
 
-  const  [observation, setObservation] = useState({description: observationQuery?.data?.description})
+  const  [followup, setFollowup] = useState({description: followupQuery?.data?.description})
 
-  const updateObservationMutation = useUpdateObservation();
+  const updateFollowupMutation = useUpdateFollowup();
 
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<ObservationValues>({
+  } = useForm<FollowupValues>({
     resolver: yupResolver(schema),
   });
 
   const onSubmit = async (values) => {
     console.log("here", values);
-    await updateObservationMutation.mutateAsync({
+    await updateFollowupMutation.mutateAsync({
       data: values,
-      observationId: observationId,
+      followupId: followupId,
     });
     //onSuccess();
   };

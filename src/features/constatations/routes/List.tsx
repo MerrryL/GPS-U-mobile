@@ -3,10 +3,9 @@ import { ScrollView } from "react-native-gesture-handler";
 import { Text } from "react-native-elements";
 import { FAB } from "react-native-elements";
 
-import { ConstatationCard } from "../components/List/ConstatationCard";
+import { ConstatationListCard } from "../components/List/ConstatationListCard";
 import { SearchBar } from "../components/SearchBar";
 import { useConstatations } from "../hooks/useConstatations";
-import { useNavigation } from "@react-navigation/native";
 import { useCreateConstatation } from "../hooks/useCreateConstatation";
 
 export default function List({ route, navigation }) {
@@ -38,8 +37,8 @@ export default function List({ route, navigation }) {
     <>
       <SearchBar />
       <ScrollView>
-        {constatationsQuery.data.map((constatation, index) => (
-          <ConstatationCard constatation={constatation} key={index} />
+        {constatationsQuery?.data.map((constatation, index) => (
+          <ConstatationListCard constatation={constatation} key={index} />
         ))}
       </ScrollView>
       <FAB

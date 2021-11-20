@@ -1,96 +1,57 @@
 import { axios } from "@/lib/axios";
 import { LocationActivityType } from "expo-location";
 
-import { Observation } from "@/types";
+import { Followup } from "@/types";
 
 
-//Observations part
-export const getObservations = (): Promise<Observation[]> => {
-  return axios.get("constatations");
+//Followups part
+export const getFollowups = (): Promise<Followup[]> => {
+  return axios.get("followups");
 };
 
-type GetObservationOptions = {
-  constatationId: string;
+type GetFollowupOptions = {
+  followupId: string;
 };
 
-export const getObservation = ({
-  constatationId,
-}: GetObservationOptions): Promise<Observation> => {
-  return axios.get(`/constatations/${constatationId}`);
+export const getFollowup = ({
+  followupId,
+}: GetFollowupOptions): Promise<Followup> => {
+  return axios.get(`/followups/${followupId}`);
 };
 
-type ObservationBody = {
+type FollowupBody = {
   comment: string;
 };
 
-type CreateObservationOptions = {
-  //localization: Localization;
-  data: ObservationBody;
+type CreateFollowupOptions = {
+  data: FollowupBody;
 };
 
-export const createObservation = ({
+export const createFollowup = ({
   // localization,
   data,
-}: CreateObservationOptions): Promise<Observation> => {
-  return axios.post("constatations", { data });
+}: CreateFollowupOptions): Promise<Followup> => {
+  return axios.post("followups", { data });
 };
 
-type UpdateObservationOptions = {
-  constatationId: string;
-  data: Observation;
+type UpdateFollowupOptions = {
+  followupId: string;
+  data: Followup;
 };
 
-export const updateObservation = ({
+export const updateFollowup = ({
   data,
-  constatationId,
-}: UpdateObservationOptions): Promise<Observation> => {
-  return axios.patch(`constatations/${constatationId}`, data);
+  followupId,
+}: UpdateFollowupOptions): Promise<Followup> => {
+  return axios.patch(`followups/${followupId}`, data);
 };
 
-type RequireValidationOptions = {
-  constatationId: string;
-}
-
-export const requireValidation = ({
-  constatationId,
-}: RequireValidationOptions): Promise<Observation> => {
-  return axios.post(`constatations/require_validation/${constatationId}`);
+type DeleteFollowupOptions = {
+  followupId: string;
 };
 
-type UnRequireValidationOptions = {
-  constatationId: string;
-}
-
-export const unRequireValidation = ({
-  constatationId,
-}: UnRequireValidationOptions): Promise<Observation> => {
-  return axios.post(`constatations/unrequire_validation/${constatationId}`);
-};
-
-type ValidateObservationOptions = {
-  constatationId: string;
-}
-
-export const validateObservation = ({
-  constatationId,
-}: ValidateObservationOptions): Promise<Observation> => {
-  return axios.post(`constatations/validate_constatation/${constatationId}`);
-};
-
-type DeleteObservationOptions = {
-  constatationId: string;
-};
-
-export const deleteObservation = ({
-  constatationId,
-}: DeleteObservationOptions) => {
-  return axios.delete(`constatations/${constatationId}`);
-};
-
-export const importModels = (): Promise<Observation[]> => {
-  return axios.get("models");
-};
-
-export const importCopies = (): Promise<Observation[]> => {
-  return axios.get("copies");
+export const deleteFollowup = ({
+  followupId,
+}: DeleteFollowupOptions) => {
+  return axios.delete(`followups/${followupId}`);
 };

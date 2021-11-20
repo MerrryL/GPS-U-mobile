@@ -50,6 +50,7 @@ export function ImagesPart({ constatationId = null }:ImagesPartProps) {
 
   return ( 
     <View>
+      
       <Text>{ImagesWithoutMedia?.length ?? '0'} photo(s) demandent d'être prises</Text>
 
       {ImagesWithoutMedia.map((image, index) => (

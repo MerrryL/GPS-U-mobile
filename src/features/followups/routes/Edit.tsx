@@ -6,7 +6,7 @@ import { ScrollView, View } from "react-native";
 import { Card } from "react-native-elements";
 
 type Params = {
-  observationId: string;
+  followupId: string;
 };
 
 type EditProps = {
@@ -18,7 +18,7 @@ type Route = {
 };
 
 export default function Edit({ route }: EditProps) {
-  const observationId = route.params.observationId;
+  const followupId = route.params.followupId;
   
 
   return (

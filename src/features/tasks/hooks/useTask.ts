@@ -2,20 +2,20 @@ import { useQuery } from "react-query";
 
 import { QueryConfig } from "@/lib/react-query";
 
-import { getObservation } from "../api";
+import { getTask } from "../api";
 
-type UseObservationOptions = {
+type UseTaskOptions = {
   constatationId: string;
-  config?: QueryConfig<typeof getObservation>;
+  config?: QueryConfig<typeof getTask>;
 };
 
-export const useObservation = ({
+export const useTask = ({
   constatationId,
   config,
-}: UseObservationOptions) => {
+}: UseTaskOptions) => {
   return useQuery({
     ...config,
     queryKey: ["constatations", constatationId],
-    queryFn: () => getObservation({ constatationId }),
+    queryFn: () => getTask({ constatationId }),
   });
 };

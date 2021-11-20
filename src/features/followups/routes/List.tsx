@@ -3,29 +3,29 @@ import { ScrollView } from "react-native-gesture-handler";
 import { Text } from "react-native-elements";
 import { FAB } from "react-native-elements";
 
-import { ObservationCard } from "../components/List/ObservationCard";
-import { useObservations } from "../hooks/useObservations";
+import { FollowupCard } from "../components/List/FollowupCard";
+import { useFollowups } from "../hooks/useFollowups";
 import { useNavigation } from "@react-navigation/native";
-import { useCreateObservation } from "../hooks/useCreateObservation";
+import { useCreateFollowup } from "../hooks/useCreateFollowup";
 
 export default function List() {
-  const observationsQuery = useObservations();
+  const followupsQuery = useFollowups();
   const navigation = useNavigation();
 
-  const createObservationMutation = useCreateObservation();
+  const createFollowupMutation = useCreateFollowup();
 
   const handleCreation = async (values) => {
-    let newObservation = await createObservationMutation.mutateAsync({
+    let newFollowup = await createFollowupMutation.mutateAsync({
       data: null,
     });
 
     navigation.navigate("Edition", {
-      observationId: newObservation?.id,
+      followupId: newFollowup?.id,
     });
     //onSuccess();
   };
 
-  if (observationsQuery.isLoading) {
+  if (followupsQuery.isLoading) {
     return (
       <>
         <Text>Loading...</Text>
@@ -33,11 +33,13 @@ export default function List() {
     );
   }
 
+  console.log("suivis", followupsQuery?.data);
+
   return (
     <>
       <ScrollView>
-        {observationsQuery.data.map((observation, index) => (
-          <ObservationCard observation={observation} key={index} />
+        {followupsQuery?.data?.map((followup, index) => (
+          <FollowupCard followup={followup} key={index} />
         ))}
       </ScrollView>
       <FAB
