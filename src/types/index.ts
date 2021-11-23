@@ -100,7 +100,7 @@ export type Media = {
 export interface GeneratedConversions {
   thumb: boolean;
 }
-export type Localization {
+export type Localization = {
   constatation_id: string;
   accuracy: any;
   address_components: any;
@@ -115,6 +115,11 @@ export type Localization {
   speed: any;
   viewport: any;
 } & BaseEntity;
+
+export type Marker = {
+  latitude: number;
+  longitude: number;
+}
 
 export type User = {
   firstName: string;

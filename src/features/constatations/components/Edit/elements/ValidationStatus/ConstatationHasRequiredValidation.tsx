@@ -1,4 +1,4 @@
-import DateText from "@/components/Date/DateText";
+import DateText from "@/components/Elements/Text/DateText";
 import React from "react";
 import { Text, makeStyles } from "react-native-elements";
 import ConstatationRefusalButton from "../Buttons/ConstatationRefusalButton";

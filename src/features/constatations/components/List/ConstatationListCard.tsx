@@ -21,7 +21,7 @@ import ConstatationObservations from "./elements/ConstatationObservations";
 import ConstatationObservers from "./elements/ConstatationObservers";
 import ConstatationFields from "./elements/ConstatationFields";
 import ConstatationActions from "./elements/ConstatationActions";
-import DateText from "@/components/Date/DateText";
+import DateText from "@/components/Elements/Text/DateText";
 import ConstatationAddress from "./elements/ConstatationAddress";
 
 type constatationCardProps = {

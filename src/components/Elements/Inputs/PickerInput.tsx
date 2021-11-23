@@ -3,6 +3,7 @@ import { Picker } from "@react-native-picker/picker";
 import { Text, makeStyles } from "react-native-elements";
 import { useController } from "react-hook-form";
 import { View } from "react-native";
+import NormalText from "../Text/NormalText";
 
 export default function PickerInput({
   name,
@@ -18,11 +19,12 @@ export default function PickerInput({
   });
 
   //TODO: make it so width is 100% of parent? through picker.item width?
+  //TODO: custom Text for error messages
   const styles = useStyles();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
+      <NormalText boldText={label} />
       <Picker style={styles.picker} {...field}>
         {options?.map((option) => {
           return (
@@ -47,18 +49,17 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: "10px",
     marginBottom: "10px",
   },
-  label: { fontSize: 16, fontWeight: "bold", color: theme.colors.grey3 },
   picker: {
     fontSize: "18px",
     minHeight: "40px",
-    borderColor: theme.colors.grey3,
-    borderRadius: "10px",
+    borderColor: theme?.colors?.grey3,
+    borderRadius: 10,
     marginTop: "10px",
   },
   pickerItem: { fontSize: "18px", minHeight: "40px" },
   border: {
     marginTop: "10px",
-    borderBottomColor: theme.colors.grey3,
-    borderBottomWidth: "1px",
+    borderBottomColor: theme?.colors?.grey3,
+    borderBottomWidth: 1,
   },
 }));

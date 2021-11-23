@@ -2,7 +2,7 @@ import Constants from "expo-constants";
 import { Media } from "@/types/";
 
 type ImageURLProps = {
-  image: Media;
+  image: Media | null;
 };
 
 export default function imageURL({ image }: ImageURLProps) {

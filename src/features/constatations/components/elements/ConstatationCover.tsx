@@ -1,3 +1,4 @@
+import NormalText from "@/components/Elements/Text/NormalText";
 import imageURL from "@/features/constatations/utils/ImageURL";
 import React from "react";
 import { View } from "react-native";
@@ -9,20 +10,17 @@ export default function ConstatationCover(props) {
   const styles = useStyles();
 
   const url = imageURL({ image: cover });
+
   const length = images
     ? images.filter((image) => image.media.length > 0).length
     : 0;
+  const photoAmount =
+    length > 1 ? length + " photos" : length > 0 ? "Une photo" : "Pas de photo";
 
   return (
     <View style={styles.container}>
       <Image source={url} resizeMode="cover" style={styles.cover} />
-      <Text style={{ marginBottom: 10 }}>
-        {length > 1
-          ? length + " photos"
-          : length > 0
-          ? "Une photo"
-          : "Pas de photo"}
-      </Text>
+      <NormalText text={photoAmount} />
     </View>
   );
 }

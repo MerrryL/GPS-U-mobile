@@ -1,5 +1,5 @@
-import CardPartLongText from "@/components/Elements/Card/Part/CardPartLongText";
-import CardPartTitle from "@/components/Elements/Card/Part/CardPartTitle";
+import LongText from "@/components/Elements/Text/LongText";
+import Title from "@/components/Elements/Text/Title";
 import UserShort from "@/components/Elements/User/UserShort";
 import { Observer } from "@/types";
 import React from "react";
@@ -19,7 +19,7 @@ export default function ConstatationObservers(props: ConstatationObserversProps)
   
   return (
     <View style={styles.container}>
-        <CardPartTitle title="Constatateurs" />
+        <Title title="Constatateurs" />
 
         { observers && observers.map( (observer :Observer, index) => {
             return (

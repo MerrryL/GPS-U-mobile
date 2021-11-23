@@ -1,5 +1,5 @@
-import CardPartLongText from "@/components/Elements/Card/Part/CardPartLongText";
-import CardPartTitle from "@/components/Elements/Card/Part/CardPartTitle";
+import LongText from "@/components/Elements/Text/LongText";
+import Title from "@/components/Elements/Text/Title";
 import React from "react";
 import { View } from "react-native";
 import { makeStyles} from "react-native-elements";
@@ -16,8 +16,8 @@ export default function ConstatationDescription(props: ConstatationDescriptionPr
     <>
       {description &&
       <View style={styles.container}>
-        <CardPartTitle title="Description" />
-        <CardPartLongText text={description} />
+        <Title title="Description" />
+        <LongText text={description} />
       </View>
       }
     </>

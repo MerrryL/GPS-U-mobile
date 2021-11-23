@@ -1,5 +1,5 @@
-import CardPartLongText from "@/components/Elements/Card/Part/CardPartLongText";
-import CardPartTitle from "@/components/Elements/Card/Part/CardPartTitle";
+import LongText from "@/components/Elements/Text/LongText";
+import Title from "@/components/Elements/Text/Title";
 import { Dossier } from "@/types";
 import React from "react";
 import { View } from "react-native";
@@ -20,7 +20,7 @@ export default function ConstatationDossiers(props: ConstatationDossiersProps) {
     <>
       { dossiers.length > 0 && 
         <View style={styles.container}>
-        <CardPartTitle title="Dossiers" />
+        <Title title="Dossiers" />
 
         { dossiers.map ( (dossier, index) => 
           <Text key={index}>{dossier.name}</Text>

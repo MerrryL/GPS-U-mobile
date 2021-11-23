@@ -1,4 +1,4 @@
-import CardPartText from "@/components/Elements/Card/Part/CardPartText";
+import NormalText from "@/components/Elements/Text/NormalText";
 import React from "react";
 import { Text, makeStyles } from "react-native-elements";
 import ConstatationRequireValidationButton from "../Buttons/ConstatationRequireValidationButton";
@@ -9,7 +9,7 @@ export default function ConstatationIsDraft(props) {
   const styles = useStyles();
   return (
     <>
-      <CardPartText boldText="Non soumis à approbation"></CardPartText>
+      <Text boldText="Non soumis à approbation"></Text>
       <ConstatationRequireValidationButton id={id} />
     </>
   );

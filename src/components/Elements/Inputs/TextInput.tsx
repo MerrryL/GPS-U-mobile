@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, Input } from "react-native-elements";
 import { useController } from "react-hook-form";
+import NormalText from "../Text/NormalText";
 
 export default function TextInput(props) {
   const {
@@ -22,7 +23,7 @@ export default function TextInput(props) {
   const inputConfig = {
     ...field2,
     value: field.value ?? defaultValue,
-    label: label,
+    label: label + ":",
     placeholder: label,
     onChangeText: field.onChange,
     autoCompleteType: "text",
@@ -31,8 +32,10 @@ export default function TextInput(props) {
   };
 
   //TODO: change style, definitely
+  //TODO: make custom error text
   return (
     <>
+      {/* <NormalText boldText={label} /> */}
       <Input {...inputConfig} />
       <Text>{fieldState?.error?.message}</Text>
       {/* <Text>{formState.isDirty ? "modifié" : "pas modifié"}</Text> */}

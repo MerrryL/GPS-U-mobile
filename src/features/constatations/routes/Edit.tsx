@@ -6,7 +6,7 @@ import { Card } from "react-native-elements";
 //import { FieldGroup } from "../components/Edit/FieldGroup";
 import { ConstatationEditCard } from "../components/Edit/ConstatationEditCard";
 import { ImagesPart } from "../subfeatures/images/components/ImagesPart";
-import { LocalizationPart } from "../subfeatures/location/components/LocalizationPart";
+import { LocalizationPart } from "../subfeatures/localization/components/LocalizationPart";
 import { FieldGroupPart } from "../subfeatures/fieldgroups/components/FieldGroupsPart";
 
 

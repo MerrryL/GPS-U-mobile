@@ -2,29 +2,20 @@ import React, {useState} from "react";
 import { Card, Switch, Icon, Button, Text, Input, makeStyles } from "react-native-elements";
 import { ScrollView } from "react-native";
 
-import { format } from 'date-fns';
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import { View } from "react-native";
-import { useConstatation } from "../../hooks/useConstatation";
 import { useUpdateConstatation } from "../../hooks/useUpdateConstatation";
-import imageURL from "../../utils/ImageURL";
 import { AntDesign, Entypo, FontAwesome, FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { useRefuseValidationConstatation } from "../../hooks/useRefuseValidationConstatation";
-import { useRequireValidationConstatation } from "../../hooks/useRequireValidationConstatation";
-import { useValidateConstatation } from "../../hooks/useValidateConstatation";
 import MultiPickerInput from "@/components/Elements/Inputs/MultiPickerInput";
 import TextInput from "@/components/Elements/Inputs/TextInput";
 import { getObservationsOptions, getObserversOptions } from "@/utils/getOptions";
-import ConstatationCover from "../elements/ConstatationCover";
-import ConstatationIsValidated from "./elements/ValidationStatus/ConstatationIsValidated";
-import ConstatationHasRequiredValidation from "./elements/ValidationStatus/ConstatationHasRequiredValidation";
-import ConstatationIsDraft from "./elements/ValidationStatus/ConstatationIsDraft";
 import ConstatationValidationStatus from "./elements/ValidationStatus/ConstatationValidationStatus";
-import DateText from "@/components/Date/DateText";
-import { ImagesPart } from "../../subfeatures/images/components/ImagesPart";
+import DateText from "@/components/Elements/Text/DateText";
+import ImagesPart from "../../subfeatures/images/components/ImagesPart";
+import LocalizationPart from "../../subfeatures/localization/components/LocalizationPart";
 
 type ConstatationValues = {
   description: string;
@@ -94,11 +85,9 @@ export function ConstatationEditCard(props) {
         <Card.Divider />
 
 
-        <View style={styles.body}>
-
+        {/* <View style={styles.body}>
           <MultiPickerInput name="observers" label="Constatateurs" options={getObserversOptions()} selectedValues={constatation?.observers} control={control}/>
           <MultiPickerInput name="observations" label="Observations" options={getObservationsOptions()} selectedValues={constatation?.observations} control={control}/>
-
           <TextInput name="description" defaultValue={constatation?.description} numberOfLines={5} label="Description" control={control} />
           
           <Button title="Enregistrer " onPress={handleSubmit(onSubmit)} icon={<AntDesign name="cloudupload" size={24} color="white" />} iconRight={true}  />
@@ -107,10 +96,19 @@ export function ConstatationEditCard(props) {
 
         <Card.Divider />
 
-        <View style={styles.header}>
-          <ConstatationCover cover={media?.[0]} images={images} style={styles.cover}/>
-          <ImagesPart constatationId={id}/>
-        </View>
+        <View style={styles.images}>
+          <ImagesPart cover={media?.[0]} images={images} constatationId={id}/>
+        </View> */}
+
+
+        <Card.Divider />
+
+        {/* <View style={styles.localization}>
+          <LocalizationPart localization={localization} constatationId={id}/>
+        </View> */}
+
+
+        <Card.Divider />
 
 
 
@@ -126,20 +124,17 @@ const useStyles = makeStyles((theme) => ({
   },
   dateContainer:{
     flex: 1,
-    flexDirection:'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between'
-  },
-  header: {
-    flexDirection: "row",
-    height: "auto",
-    borderBottomWidth: 1,
-    padding: 10,
-  },
-  cover: {
-    alignSelf: "flex-start" 
+    flexDirection:'column',
+    justifyContent: 'space-around',
+    alignItems: 'flex-end'
   },
   body: {
 
-  }
+  },
+  images:{
+
+  },
+  localization:{
+
+  },
 }));

@@ -1,7 +1,7 @@
-import AddressText from "@/components/Address/AddressText";
+import AddressText from "@/components/Elements/Text/AddressText";
 import OpenCoords from "@/components/Address/OpenCoordsLink";
-import CardPartLongText from "@/components/Elements/Card/Part/CardPartLongText";
-import CardPartTitle from "@/components/Elements/Card/Part/CardPartTitle";
+import LongText from "@/components/Elements/Text/LongText";
+import Title from "@/components/Elements/Text/Title";
 import { Localization } from "@/types";
 import React from "react";
 import { View } from "react-native";

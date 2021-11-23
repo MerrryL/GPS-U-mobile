@@ -18,6 +18,11 @@ export const useDefineAsThumbConstatationImage = ({
   imageId,
   config
 }: UseDefineAsThumbConstatationImageOptions) => {
+  console.log("g,", {
+    constatationId,
+    imageId,
+    config
+  });
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (updatingConstatation : Constatation) => {

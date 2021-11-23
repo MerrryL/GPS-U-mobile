@@ -56,9 +56,20 @@ export const deleteConstatationImage = ({ imageId, constatationId }: DeleteConst
   return axios.delete(`/constatations/${constatationId}/images/${imageId}`);
 };
 
+type UploadConstatationOtherImageOptions = {
+  constatationId: string;
+  image: ImageToSend;
+};
+
+export const uploadConstatationOtherImage = ({
+  image,
+  constatationId,
+}: UploadConstatationOtherImageOptions): Promise<Image | Constatation> => {
+  return axios.post(`/constatations/${constatationId}/images/upload`, { image });
+};
 
 type UploadConstatationImageOptions = {
-  imageId: string;
+  imageId? : string;
   constatationId: string;
   image: ImageToSend;
 };
@@ -92,5 +103,6 @@ export const defineAsThumbConstatationImage = ({
   constatationId,
   imageId
 }: DefineAsThumbOptions): Promise<Constatation> => {
+  console.log("c", constatationId, imageId);
   return axios.get(`/constatations/${constatationId}/images/${imageId}/defineAsThumb`)
 }

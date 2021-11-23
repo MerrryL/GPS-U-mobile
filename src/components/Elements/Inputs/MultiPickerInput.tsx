@@ -4,6 +4,7 @@ import { Text, makeStyles } from "react-native-elements";
 import { useController } from "react-hook-form";
 import { xorBy } from "lodash";
 import { View } from "react-native";
+import NormalText from "../Text/NormalText";
 
 export default function MultiPickerInput(props) {
   const {
@@ -60,7 +61,7 @@ export default function MultiPickerInput(props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
+      <NormalText boldText={label} />
       <SelectBox
         {...inputConfig}
         multiListEmptyLabelStyle={{ flexDirection: "column" }}
@@ -73,7 +74,6 @@ export default function MultiPickerInput(props) {
   function onMultiChange() {
     return (item) => {
       setCurrentSelection(xorBy(currentSelection, [item], "id"));
-      //   field.onChange(currentSelection);
     };
   }
 }
@@ -87,10 +87,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     flexBasis: "auto",
   },
-  label: { fontSize: 16, fontWeight: "bold", color: theme.colors.grey3 },
+  label: { fontSize: 16, fontWeight: "bold", color: theme?.colors?.grey3 },
   border: {
     marginTop: "10px",
-    borderBottomColor: theme.colors.grey3,
-    borderBottomWidth: "1px",
+    borderBottomColor: theme?.colors?.grey3,
+    borderBottomWidth: 1,
   },
 }));

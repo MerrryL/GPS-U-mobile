@@ -1,6 +1,6 @@
-import CardPartLongText from "@/components/Elements/Card/Part/CardPartLongText";
-import CardPartText from "@/components/Elements/Card/Part/CardPartText";
-import CardPartTitle from "@/components/Elements/Card/Part/CardPartTitle";
+import LongText from "@/components/Elements/Text/LongText";
+import NormalText from "@/components/Elements/Text/NormalText";
+import Title from "@/components/Elements/Text/Title";
 import { Observation } from "@/types";
 import React from "react";
 import { View } from "react-native";
@@ -28,11 +28,11 @@ export default function ConstatationObservations(props: ConstatationObservations
 
   return (
     <View style={styles.container}>
-        <CardPartTitle title="Observations" />
+        <Title title="Observations" />
 
         { observations && observations.map( (observation :Observation, index) => {
             return (
-                <CardPartText key={index} boldText={observation?.codex?.precode + " " + observation?.code +" du "+ observation.codex.name} text={observation?.name}/>
+                <Text key={index} boldText={observation?.codex?.precode + " " + observation?.code +" du "+ observation.codex.name} text={observation?.name}/>
                 );
            })
         }  

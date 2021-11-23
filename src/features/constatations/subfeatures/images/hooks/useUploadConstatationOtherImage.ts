@@ -3,7 +3,7 @@ import { useMutation } from "react-query";
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
 
-import { uploadConstatationImage } from "../api";
+import { uploadConstatationOtherImage } from "../api";
 
 import { Constatation, Image } from "@/types";
 
@@ -17,19 +17,17 @@ type ImageToSend = {
 };
 
 type UseUploadConstatationImageOptions = {
-  imageId: string;
   constatationId:string;
   image: ImageToSend;
-  config?: MutationConfig<typeof uploadConstatationImage>;
+  config?: MutationConfig<typeof uploadConstatationOtherImage>;
 };
 
 function isImage(data: Image | Constatation):data is Image {
   return (data as Image).constatation_id !== undefined;
 }
 
-export const useUploadConstatationImage = ({
+export const useUploadConstatationOtherImage = ({
   constatationId,
-  imageId,
   image,
   config,
 }: UseUploadConstatationImageOptions) => {
@@ -59,6 +57,6 @@ export const useUploadConstatationImage = ({
       
     },
     ...config,
-    mutationFn: uploadConstatationImage,
+    mutationFn: uploadConstatationOtherImage,
   });
 };

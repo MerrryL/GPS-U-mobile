@@ -1,5 +1,5 @@
-import CardPartLongText from "@/components/Elements/Card/Part/CardPartLongText";
-import CardPartTitle from "@/components/Elements/Card/Part/CardPartTitle";
+import LongText from "@/components/Elements/Text/LongText";
+import Title from "@/components/Elements/Text/Title";
 import { Action } from "@/types";
 import React from "react";
 import { View } from "react-native";
@@ -20,7 +20,7 @@ export default function ConstatationActions(props: ConstatationActionsProps) {
     <>
       { actions.length > 0 && 
         <View style={styles.container}>
-        <CardPartTitle title="Actions" />
+        <Title title="Actions" />
 
         { actions.map ( (action, index) => 
           <Text key={index}>{action.name}</Text>

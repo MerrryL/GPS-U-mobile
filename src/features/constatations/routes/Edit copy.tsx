@@ -7,7 +7,7 @@ import Accordion from 'react-native-collapsible/Accordion';
 //import { FieldGroup } from "../components/Edit/FieldGroup";
 import { CardHeader } from "../components/Edit/ConstatationEditCard";
 import { ImagesPart } from "../subfeatures/images/components/ImagesPart";
-import { LocalizationPart } from "../subfeatures/location/components/LocalizationPart";
+import { LocalizationPart } from "../subfeatures/localization/components/LocalizationPart";
 import { FieldGroupPart } from "../subfeatures/fieldgroups/components/FieldGroupsPart";
 
 

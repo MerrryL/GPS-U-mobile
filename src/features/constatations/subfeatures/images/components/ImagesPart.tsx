@@ -1,31 +1,31 @@
 import React, { useState } from "react";
-import { StyleSheet, ScrollView, View, SafeAreaView, Dimensions } from 'react-native';
+import { View } from 'react-native';
 
-import { Button, Card, Chip, Input, ListItem, Text, Tile } from "react-native-elements";
+import { makeStyles } from "react-native-elements";
 
-import imageURL from "../../../utils/ImageURL";
-import ImagesPartAdd from "./ImagesPartAdd";
-import ImagesPartView from "./ImagesPartView";
-import { useImages } from "../hooks/useConstatationImages";
-import { useDefineAsThumbConstatationImage } from "../hooks/useDefineAsThumbConstatationImage";
-import { useDeletePictureConstatationImage } from "../hooks/useDeletePictureConstatationsImage";
+import { Image, Media } from "@/types";
+import TabOfImages from "@/features/constatations/subfeatures/images/components/elements/TabOfImages";
+import ConstatationCover from "@/features/constatations/components/elements/ConstatationCover";
+import NormalText from "@/components/Elements/Text/NormalText";
+import TabOfRemainingImages from "./elements/TabOfRemainingImages";
+import AddAnotherImage from "./elements/AddAnotherImage";
+
 
 type ImagesPartProps = {
+  cover: Media;
+  images: Image[];
   constatationId: string;
 };
 
-export function ImagesPart({ constatationId = null }:ImagesPartProps) {
-  const ImagesQuery = useImages({
-    constatationId: constatationId,
-  });
+export default function ImagesPart(props :ImagesPartProps) {
+  const {cover, images, constatationId} = props;
+  const styles = useStyles();
 
-  const useDefineAsThumbMutation = useDefineAsThumbConstatationImage({constatationId: constatationId});
-  const useDeletePictureMutation = useDeletePictureConstatationImage({constatationId:constatationId});
 
-  let ImagesWithMedia = [];
-  let ImagesWithoutMedia = [];
+  let ImagesWithMedia:Image[] = [];
+  let ImagesWithoutMedia:Image[] = [];
 
-  ImagesQuery?.data?.map(image => {
+  images.map(image => {
     if (image?.media?.length>0) {
       ImagesWithMedia.push(image)
     }
@@ -34,70 +34,62 @@ export function ImagesPart({ constatationId = null }:ImagesPartProps) {
     }
   });
 
-  const defineAsThumb = async (imageId, constatationId) => {
-    await useDefineAsThumbMutation.mutateAsync({
-      imageId: imageId,
-      constatationId: constatationId,
-    });
-  };
-
-  const deletePicture = async( imageId, constatationId) => {
-    await useDeletePictureMutation.mutateAsync({
-      imageId: imageId,
-      constatationId: constatationId
-    })
-  };
 
   return ( 
     <View>
+      <NormalText boldText="Photo de couverture actuelle"/>
+      <ConstatationCover cover={cover} images={images} style={styles.cover}/>
+
+      {ImagesWithMedia.length > 0 
+      ? <TabOfImages images={ImagesWithMedia} />
+      : <NormalText boldText="Aucune photo n'a été prise pour l'instant" text="N'hésitez pas à compléter les demandes de photographies spécifiques aux observations ou à rajouter d'autres photographies" />
+      }
+
+      {ImagesWithoutMedia.length > 0
+      ? <TabOfRemainingImages images={ImagesWithoutMedia} />
+      : <NormalText boldText="Aucune autre photo n'est requise pour l'instant" text="Mais n'hésitez pas à rajouter d'autres photographies" />
+      }
+
+      <AddAnotherImage constatationId={constatationId}/>
+
       
-      <Text>{ImagesWithoutMedia?.length ?? '0'} photo(s) demandent d'être prises</Text>
 
-      {ImagesWithoutMedia.map((image, index) => (
-        <ImagesPartView constatationId={constatationId} imageId={image?.id?.toString()} key={index}/>
-      ))}
+      {/* <ScrollView >
+        {ImagesWithoutMedia.map((image, index) => (
+          <ImagesPartView constatationId={constatationId} myImage={image} key={index}/>
+        ))}
+      </ScrollView> */}
 
-      <Text>{ImagesWithMedia?.length ?? '0'} photo(s) déjà prises</Text>
+      
 
-      <ScrollView>
-        {ImagesWithMedia.map((image, index) => (
-          <View key={index}>
-            <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
-              <Chip
-                title="Définir comme image par défaut"
-                onPress={() => defineAsThumb(image.id, image.constatation_id)}
-                icon={{
-                name: "file-image-o",
-                type: "font-awesome",
-                size: 20,
-                color: "white",
-                }}
-                iconRight
-              />
-              <Chip
-                title="Supprimer cette image"
-                onPress={() => deletePicture(image.id, image.constatation_id)}
-                icon={{
-                name: "close",
-                type: "font-awesome",
-                size: 20,
-                color: "white",
-                }}
-                iconRight
-              />
-            </View>
-            <Tile
-              imageSrc={imageURL({image})}
-              title={image.name}
-              caption={image.text}
-            />
-          </View>  
-        ))
-        }
-      </ScrollView>
       <View>
-        <ImagesPartAdd constatationId={constatationId}/>
+        {/* <ImagesPartAdd constatationId={constatationId}/> */}
       </View>
     </View>
   );
 }
+
+const useStyles = makeStyles((theme, props: StyleProps) => ({
+  container: {
+    alignItems: "baseline",
+    ...props.container,
+  },
+  boldText: { 
+    fontSize: "16px",
+    fontWeight: "bold", 
+    color: theme?.colors?.grey3,
+    ...props.boldText,
+  },
+  text: {
+    ...props.text
+  },
+  
+  cover: {
+    width: 150,
+    height: 150,
+    borderRadius: 20,
+    overflow: "hidden",
+    borderWidth: 3,
+    borderColor: "black",
+  },
+}));

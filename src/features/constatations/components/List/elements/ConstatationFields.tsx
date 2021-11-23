@@ -1,5 +1,5 @@
-import CardPartLongText from "@/components/Elements/Card/Part/CardPartLongText";
-import CardPartTitle from "@/components/Elements/Card/Part/CardPartTitle";
+import LongText from "@/components/Elements/Text/LongText";
+import Title from "@/components/Elements/Text/Title";
 import { Field } from "@/types";
 import React from "react";
 import { View } from "react-native";
@@ -20,11 +20,11 @@ export default function ConstatationFields(props: ConstatationFieldsProps) {
 
   return (
     <View style={styles.container}>
-        <CardPartTitle title="Champs" />
+        <Title title="Champs" />
 
         { fields && fields.map( (field :Field, index) => {
             return (
-                <CardPartLongText key={index} boldText={field.name} text={field?.pivot?.value?.toString() ?? "Indéfini"}/>
+                <LongText key={index} boldText={field.name} text={field?.pivot?.value?.toString() ?? "Indéfini"}/>
                 );
            })
         }  
