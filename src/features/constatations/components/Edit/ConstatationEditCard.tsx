@@ -16,6 +16,7 @@ import ConstatationValidationStatus from "./elements/ValidationStatus/Constatati
 import DateText from "@/components/Elements/Text/DateText";
 import ImagesPart from "../../subfeatures/images/components/ImagesPart";
 import LocalizationPart from "../../subfeatures/localization/components/LocalizationPart";
+import { FieldPart } from "../../subfeatures/fields/components/FieldPart";
 
 type ConstatationValues = {
   description: string;
@@ -72,6 +73,8 @@ export function ConstatationEditCard(props) {
     });
   };
 
+  // console.log("c", constatation);
+
   return (
     <ScrollView style={styles.container}>
       <Card>
@@ -110,6 +113,13 @@ export function ConstatationEditCard(props) {
 
         <Card.Divider />
 
+        <View style={styles.fields}>
+          <FieldPart fields={fields} constatationId={id}/>
+        </View>
+
+
+        <Card.Divider />
+
 
 
       </Card>
@@ -137,4 +147,7 @@ const useStyles = makeStyles((theme) => ({
   localization:{
 
   },
+  fields:{
+    
+  }
 }));

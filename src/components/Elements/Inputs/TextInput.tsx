@@ -3,20 +3,23 @@ import { Text, Input } from "react-native-elements";
 import { useController } from "react-hook-form";
 import NormalText from "../Text/NormalText";
 
-export default function TextInput(props) {
-  const {
-    name,
-    label = name,
-    control,
-    defaultValue = "",
-    numberOfLines = null,
-  } = props;
+
+
+export default function TextInput({
+  name,
+  label = name,
+  control,
+  defaultValue = "",
+  numberOfLines = null,
+} : TextInputProps) {
 
   const { field, fieldState, formState } = useController({
     control,
     name,
     defaultValue,
   });
+
+  // console.log("field", field);
 
   const { ref, ...field2 } = field;
 
@@ -35,10 +38,10 @@ export default function TextInput(props) {
   //TODO: make custom error text
   return (
     <>
-      {/* <NormalText boldText={label} /> */}
       <Input {...inputConfig} />
       <Text>{fieldState?.error?.message}</Text>
-      {/* <Text>{formState.isDirty ? "modifié" : "pas modifié"}</Text> */}
     </>
   );
 }
+
+type TextInputProps = any;

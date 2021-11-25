@@ -1,5 +1,7 @@
+import { string } from "yup/lib/locale";
+
 export type BaseEntity = {
-  id ?: string | number | null;
+  id : string;
   created_at: string;
   updated_at: string;
 };
@@ -61,12 +63,19 @@ export type FieldGroup = {
 
 export type Field = {
   name: string;
-  type: string;
-  orderedUuid: string;
-  value: string;
-  isDefault: string;
+  type_id: string;
+  type: FieldType;
+  options: string;
+  defaultValue: string;
+  isRequired: boolean;
   field_group_id: string;
+  field_group: FieldGroup;
   pivot: ConstFieldPivot;
+} & BaseEntity;
+
+export type FieldType = {
+  name:string;
+  value:string;
 } & BaseEntity;
 
 export type ConstFieldPivot = {

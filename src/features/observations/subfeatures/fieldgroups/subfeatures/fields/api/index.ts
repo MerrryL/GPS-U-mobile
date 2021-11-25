@@ -32,20 +32,20 @@ type CreateFieldOptions = {
   observationId: string;
   fieldGroupId: string;
   name: string;
-  type: string;
-  isDefault: boolean;
-  value: string;
+  type_id: string;
+  defaultValue: string;
+  isRequired: boolean;
 };
 
 export const createField = ({
   observationId,
   fieldGroupId,
   name,
-  type,
-  isDefault,
-  value,
+  type_id,
+  defaultValue,
+  isRequired,
 }: CreateFieldOptions): Promise<Field> => {
-  return axios.post(`/observations/${observationId}/field_groups/${fieldGroupId}/fields/`, { name, type, isDefault, value });
+  return axios.post(`/observations/${observationId}/field_groups/${fieldGroupId}/fields/`, { name, type_id, defaultValue, isRequired });
 };
 
 type DeleteFieldOptions = {

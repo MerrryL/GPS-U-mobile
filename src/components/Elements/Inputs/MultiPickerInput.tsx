@@ -22,6 +22,8 @@ export default function MultiPickerInput(props) {
     defaultValue,
   });
 
+  const { ref, ...rest } = field;
+
   const styles = useStyles();
 
   const [currentSelection, setCurrentSelection] = useState(selectedValues);
@@ -45,7 +47,7 @@ export default function MultiPickerInput(props) {
   };
 
   const inputConfig = {
-    ...field,
+    ...rest,
     label: "",
     options: options,
     selectedValues: currentSelection,
