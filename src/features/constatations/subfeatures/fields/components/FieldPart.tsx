@@ -15,7 +15,8 @@ import useFieldGroupBy from "../utils/useFieldGroupBy";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import InputFromField from "./InputFromField";
+import InputFromField from "../../../../../components/Elements/FormBuilder/InputSelector";
+import FormBuilder from "@/components/Elements/FormBuilder/FormBuilder";
 
 type FieldPartProps = {
   fields: Field[];
@@ -30,9 +31,6 @@ type Grouped = {
 type FieldValues = any;
 
 const schema = yup.object().shape({
-  description: yup.string().required(),
-  observations: yup.array().min(1).required(),
-  observers: yup.array().min(1).required(),
 });
 
 export function FieldPart(props: FieldPartProps) {
@@ -50,15 +48,22 @@ export function FieldPart(props: FieldPartProps) {
 
 
 
+  const onSubmit = async (values: ConstatationValues) => {
+
+  };
 
   const groupedFields = useFieldGroupBy(fields);
 
-  // console.log("groups", groupedFields);
+  console.log("groups", groupedFields);
 
 
   return (
     <View style={styles.container}>
-      {
+
+      { groupedFields?.length > 0 && 
+        <FormBuilder schema={schema} fields={groupedFields} onSubmit={onSubmit} />
+      }
+      {/* {
         groupedFields.map( ( groupedField : Grouped, index ) => (
           <View style={styles.groupedField} key={index}>
             <NormalText boldText={groupedField.fieldGroup.name} />
@@ -69,7 +74,7 @@ export function FieldPart(props: FieldPartProps) {
         ))
 
         
-      }
+      } */}
 
     </View>
   );

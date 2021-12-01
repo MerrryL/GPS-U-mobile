@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { Card, Switch, Icon, Button, Text, Input, makeStyles } from "react-native-elements";
 import { ScrollView } from "react-native";
 
@@ -17,6 +17,8 @@ import DateText from "@/components/Elements/Text/DateText";
 import ImagesPart from "../../subfeatures/images/components/ImagesPart";
 import LocalizationPart from "../../subfeatures/localization/components/LocalizationPart";
 import { FieldPart } from "../../subfeatures/fields/components/FieldPart";
+import FormBuilder from "@/components/Elements/FormBuilder/FormBuilder";
+import { InputedField } from "@/types/utilityTypes";
 
 type ConstatationValues = {
   description: string;
@@ -25,14 +27,14 @@ type ConstatationValues = {
 };
 
 const schema = yup.object().shape({
-  description: yup.string().required(),
-  observations: yup.array().min(1).required(),
-  observers: yup.array().min(1).required(),
+  description: yup.string().defined(),
+  observations: yup.array().min(1).defined(),
+  observers: yup.array().min(1).defined(),
 });
 
 export function ConstatationEditCard(props) {
   const { constatation } = props;
-  const { 
+  const {
     actions,
     created_at,
     description,
@@ -49,7 +51,7 @@ export function ConstatationEditCard(props) {
     requiresValidation,
     requiresValidationDate,
     updated_at,
-    validationDate 
+    validationDate
   } = constatation || {};
 
   const styles = useStyles();
@@ -66,14 +68,44 @@ export function ConstatationEditCard(props) {
 
   const onSubmit = async (values: ConstatationValues) => {
     console.log("values", values);
-    
+
     const { description, observers, observations} = values;
     await updateConstatationMutation.mutateAsync({
       description, observers, observations, constatationId:id,
     });
   };
 
-  // console.log("c", constatation);
+  console.log("c", constatation?.fields);
+
+  // const fieldsss:InputedField[] = [
+  //   {type:"text", name:"test", defaultValue:"lol", schema: yup.string().required() },
+  //   {type:"text", name: "test3", schema: yup.string().required() }
+  // ];
+
+  const test:InputedField[] = [
+    {
+      name: "description",
+      type: "text",
+      value: constatation?.description,
+      schema: yup.string().defined(),
+      defaultValue: "",
+    },
+    {
+      name: "observations",
+      type: "multi-select",
+      schema: yup.array().min(1).defined(),
+      value: constatation?.observations?.map( (obs) => {return {id: obs.id, item: obs.name}}),
+      defaultValue:[1],
+      options:getObservationsOptions()
+    },
+    {
+      name: "observers",
+      type: "multi-select",
+      value: constatation?.observers?.map( (obs) => {return {id: obs.id, item: obs.name}}),
+      schema: yup.array().min(1).defined(),
+      options:getObserversOptions()
+    },
+  ]
 
   return (
     <ScrollView style={styles.container}>
@@ -87,12 +119,14 @@ export function ConstatationEditCard(props) {
 
         <Card.Divider />
 
+        <FormBuilder schema={schema} fields={test} onSubmit={onSubmit} />
+
 
         {/* <View style={styles.body}>
           <MultiPickerInput name="observers" label="Constatateurs" options={getObserversOptions()} selectedValues={constatation?.observers} control={control}/>
           <MultiPickerInput name="observations" label="Observations" options={getObservationsOptions()} selectedValues={constatation?.observations} control={control}/>
           <TextInput name="description" defaultValue={constatation?.description} numberOfLines={5} label="Description" control={control} />
-          
+
           <Button title="Enregistrer " onPress={handleSubmit(onSubmit)} icon={<AntDesign name="cloudupload" size={24} color="white" />} iconRight={true}  />
 
         </View>
@@ -148,6 +182,6 @@ const useStyles = makeStyles((theme) => ({
 
   },
   fields:{
-    
+
   }
 }));

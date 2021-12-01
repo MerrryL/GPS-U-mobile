@@ -3,7 +3,7 @@ import { Field, FieldGroup } from "@/types";
 import { groupBy } from "lodash";
 
 
-export default function ( fields : Field[] ) {
+export default function mapFieldsToFieldForms( fields : Field[] ) {
 
     const splittedFields= _.groupBy(fields, "field_group_id");
 

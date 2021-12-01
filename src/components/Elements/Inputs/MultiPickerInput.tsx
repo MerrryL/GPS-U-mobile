@@ -1,32 +1,36 @@
 import React, { useEffect, useState } from "react";
 import SelectBox from "react-native-multi-selectbox";
 import { Text, makeStyles } from "react-native-elements";
-import { useController } from "react-hook-form";
 import { xorBy } from "lodash";
 import { View } from "react-native";
 import NormalText from "../Text/NormalText";
+import { InputedField, RHFField, RHFFormState, RHFieldState, SelectOption } from "@/types/utilityTypes";
 
-export default function MultiPickerInput(props) {
+type MultiPickerInputProps = {
+  field: RHFField,
+  fieldState: RHFieldState,
+  formState: RHFFormState,
+  label?: string;
+  defaultValue: SelectOption | [];
+  options: SelectOption[]
+}
+
+export default function MultiPickerInput(props:MultiPickerInputProps) {
+  
   const {
-    name,
-    label = name,
-    defaultValue = null,
-    selectedValues = [],
-    control,
+    field, 
+    fieldState,
+    label = field.name,
+    defaultValue = [],
     options,
   } = props;
-
-  const { field, fieldState, formState } = useController({
-    control,
-    name,
-    defaultValue,
-  });
 
   const { ref, ...rest } = field;
 
   const styles = useStyles();
+  
 
-  const [currentSelection, setCurrentSelection] = useState(selectedValues);
+  const [currentSelection, setCurrentSelection] = useState( field?.value || []);
 
   useEffect(() => {
     field.onChange(currentSelection);

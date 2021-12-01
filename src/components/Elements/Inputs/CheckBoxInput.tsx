@@ -1,26 +1,25 @@
 import React, { useState } from "react";
 import { Text, CheckBox } from "react-native-elements";
-import { useController } from "react-hook-form";
+import { InputedField, RHFField, RHFFormState, RHFieldState } from "@/types/utilityTypes";
 
-export default function CheckBoxInput(props) {
-  const { name, label = name, defaultValue = false, control } = props;
+type CheckBoxInputType = {
+  field: RHFField,
+  fieldState: RHFieldState,
+  formState: RHFFormState
+}
 
-  const { field, fieldState, formState } = useController({
-    control,
-    name,
-    defaultValue,
-  });
+export default function CheckBoxInput(props:CheckBoxInputType) {
+  const { field, fieldState } = props;
 
-  const [isSelected, setSelection] = useState(false);
+  const [isSelected, setSelection] = useState(field.value || field.defaultValue || false);
 
   const { ref, ...field2 } = field;
 
   const inputConfig = {
     ...field2,
-    defaultValue: defaultValue,
     checked: isSelected,
-    title: label,
-    placeholder: label,
+    title: field.label,
+    placeholder: field.label,
     onPress: () => {
       setSelection(!isSelected);
       field.onChange(!isSelected);

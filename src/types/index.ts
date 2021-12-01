@@ -1,5 +1,3 @@
-import { string } from "yup/lib/locale";
-
 export type BaseEntity = {
   id : string;
   created_at: string;

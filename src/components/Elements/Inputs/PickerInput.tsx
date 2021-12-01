@@ -1,22 +1,27 @@
 import React from "react";
 import { Picker } from "@react-native-picker/picker";
 import { Text, makeStyles } from "react-native-elements";
-import { useController } from "react-hook-form";
 import { View } from "react-native";
 import NormalText from "../Text/NormalText";
 
-export default function PickerInput({
-  name,
-  label,
-  defaultValue,
-  control,
-  options,
-}) {
-  const { field, fieldState, formState } = useController({
-    control,
+import { InputedField, RHFField, RHFFormState, RHFieldState, SelectOption } from "@/types/utilityTypes";
+
+type PickerInputProps = {
+  field: RHFField,
+  fieldState: RHFieldState,
+  formState: RHFFormState
+}
+
+export default function PickerInput(props : PickerInputProps) {
+  const { field, fieldState } = props;
+
+  const {
     name,
+    label,
     defaultValue,
-  });
+    control,
+    options,
+  } = field;
 
   //TODO: make it so width is 100% of parent? through picker.item width?
   //TODO: custom Text for error messages
@@ -26,7 +31,7 @@ export default function PickerInput({
     <View style={styles.container}>
       <NormalText boldText={label} />
       <Picker style={styles.picker} {...field}>
-        {options?.map((option) => {
+        {field.options?.map((option:SelectOption) => {
           return (
             <Picker.Item
               label={option.item}
