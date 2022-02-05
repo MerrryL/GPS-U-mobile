@@ -8,15 +8,7 @@ export default function EditButton(props) {
 
   const styles = useStyles();
 
-  return (
-    <Button
-      title="Editer"
-      style={styles.button}
-      onPress={() =>
-        navigation.navigate("Edition", { constatationId: constatationId })
-      }
-    />
-  );
+  return <Button title="Editer" style={styles.button} onPress={() => navigation.navigate("Edition", { constatationId: constatationId })} />;
 }
 
 const useStyles = makeStyles((theme: Partial<FullTheme>) => ({

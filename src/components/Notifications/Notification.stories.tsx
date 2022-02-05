@@ -12,9 +12,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<NotificationProps> = (props) => (
-  <Notification {...props} />
-);
+const Template: Story<NotificationProps> = (props) => <Notification {...props} />;
 
 export const Info = Template.bind({});
 Info.args = {

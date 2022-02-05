@@ -1,9 +1,4 @@
-import {
-  RHFField,
-  RHFFormState,
-  RHFieldState,
-  SelectOption,
-} from "@/types/utilityTypes";
+import { RHFField, RHFFormState, RHFieldState, SelectOption } from "@/types/utilityTypes";
 import { xorBy } from "lodash";
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
@@ -20,13 +15,7 @@ type MultiPickerInputProps = {
   options?: SelectOption[];
 };
 
-export default function MultiPickerInput({
-  field,
-  fieldState,
-  label = field.name,
-  defaultValue = [],
-  options,
-}: MultiPickerInputProps) {
+export default function MultiPickerInput({ field, fieldState, label = field.name, defaultValue = [], options }: MultiPickerInputProps) {
   const { ref, ...rest } = field;
 
   const styles = useStyles();
@@ -69,10 +58,7 @@ export default function MultiPickerInput({
   return (
     <View style={styles.container}>
       <NormalText boldText={label} />
-      <SelectBox
-        {...inputConfig}
-        multiListEmptyLabelStyle={{ flexDirection: "column" }}
-      />
+      <SelectBox {...inputConfig} multiListEmptyLabelStyle={{ flexDirection: "column" }} />
       <Text>{fieldState?.error?.message}</Text>
       <Text style={styles.border}></Text>
     </View>

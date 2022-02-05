@@ -12,9 +12,7 @@ type ConstatationObserversProps = {
 //TODO : implement observers functionnality
 //Create, add, delete, link
 
-export default function ConstatationObservers(
-  props: ConstatationObserversProps
-) {
+export default function ConstatationObservers(props: ConstatationObserversProps) {
   const { observers } = props;
   const styles = useStyles();
 

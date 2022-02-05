@@ -42,12 +42,7 @@ export function FollowupCard({ followupId, observationId }: FollowupCardProps) {
         <Text>Etat: {followup?.followup_status?.name}</Text>
         <TaskAdd observationId={observationId} followupId={followup?.id} />
         {followup?.tasks?.map((task) => (
-          <TaskCard
-            taskId={task?.id}
-            observationId={observationId}
-            followupId={task?.followup_id}
-            key={task?.id}
-          />
+          <TaskCard taskId={task?.id} observationId={observationId} followupId={task?.followup_id} key={task?.id} />
         ))}
       </Card>
     </View>

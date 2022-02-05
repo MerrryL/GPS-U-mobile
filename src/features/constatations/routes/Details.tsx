@@ -46,34 +46,16 @@ export default function Details({ route }: DetailsProps) {
       />
       <Card.Title>Constatation n°{constatationQuery?.data?.id}</Card.Title>
       <Card.Divider />
-      <Card.Image
-        source={imageURL({ image: constatationQuery?.data })}
-        resizeMode="cover"
-        style={{ width: 200, height: 200 }}
-      />
-      <Text style={{ marginBottom: 10 }}>
-        {constatationQuery?.data?.comment}
-      </Text>
+      <Card.Image source={imageURL({ image: constatationQuery?.data })} resizeMode="cover" style={{ width: 200, height: 200 }} />
+      <Text style={{ marginBottom: 10 }}>{constatationQuery?.data?.comment}</Text>
 
       <Card.Divider />
-      <Text style={{ marginBottom: 10 }}>
-        {constatationQuery?.data?.isValidated}
-      </Text>
-      <Text style={{ marginBottom: 10 }}>
-        {constatationQuery?.data?.validationDate}
-      </Text>
-      <Text style={{ marginBottom: 10 }}>
-        {constatationQuery?.data?.requiresValidation}
-      </Text>
-      <Text style={{ marginBottom: 10 }}>
-        {constatationQuery?.data?.requiresValidationDate}
-      </Text>
-      <Text style={{ marginBottom: 10 }}>
-        {constatationQuery?.data?.created_at}
-      </Text>
-      <Text style={{ marginBottom: 10 }}>
-        {constatationQuery?.data?.updated_at}
-      </Text>
+      <Text style={{ marginBottom: 10 }}>{constatationQuery?.data?.isValidated}</Text>
+      <Text style={{ marginBottom: 10 }}>{constatationQuery?.data?.validationDate}</Text>
+      <Text style={{ marginBottom: 10 }}>{constatationQuery?.data?.requiresValidation}</Text>
+      <Text style={{ marginBottom: 10 }}>{constatationQuery?.data?.requiresValidationDate}</Text>
+      <Text style={{ marginBottom: 10 }}>{constatationQuery?.data?.created_at}</Text>
+      <Text style={{ marginBottom: 10 }}>{constatationQuery?.data?.updated_at}</Text>
 
       <Card.Divider />
     </Card>

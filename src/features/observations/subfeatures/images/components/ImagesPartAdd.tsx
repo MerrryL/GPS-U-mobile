@@ -47,12 +47,7 @@ export default function ImagesPartAdd({ observationId }) {
       }}
     >
       <TextInput name="name" defaultValue="" label="Nom" control={control} />
-      <TextInput
-        name="description"
-        defaultValue=""
-        label="Description"
-        control={control}
-      />
+      <TextInput name="description" defaultValue="" label="Description" control={control} />
 
       <Button title="Nouvelle image" onPress={handleSubmit(onSubmit)} />
     </View>

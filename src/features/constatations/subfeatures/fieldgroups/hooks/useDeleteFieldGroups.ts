@@ -13,42 +13,28 @@ type UseDeleteFieldGroupOptions = {
   config?: MutationConfig<typeof deleteFieldGroup>;
 };
 
-export const useDeleteFieldGroup = ({
-  fieldGroupId,
-  constatationId,
-  config,
-}: UseDeleteFieldGroupOptions) => {
+export const useDeleteFieldGroup = ({ fieldGroupId, constatationId, config }: UseDeleteFieldGroupOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {
       await queryClient.cancelQueries(["field_groups"]);
 
-      const previousfieldGroups = queryClient.getQueryData<FieldGroup[]>([
-        "field_groups",
-      ]);
+      const previousfieldGroups = queryClient.getQueryData<FieldGroup[]>(["field_groups"]);
 
-      let fieldGroupIndex = previousfieldGroups.findIndex(
-        (obj) => obj.id == fieldGroupId
-      );
+      const fieldGroupIndex = previousfieldGroups.findIndex((obj) => obj.id == fieldGroupId);
 
       previousfieldGroups.splice(fieldGroupIndex, 1);
 
       queryClient.setQueryData(["field_groups"], [...previousfieldGroups]);
 
-      const previousConstatations = queryClient.getQueryData<Constatation[]>([
-        "constatations",
-      ]);
+      const previousConstatations = queryClient.getQueryData<Constatation[]>(["constatations"]);
 
       //console.log(queryClient.getQueryData<Constatation[]>(["constatations", 100]));
-      let index = previousConstatations.findIndex(
-        (obj) => obj.id == constatationId
-      );
+      const index = previousConstatations.findIndex((obj) => obj.id == constatationId);
 
       console.log(previousConstatations, previousConstatations[index], index);
 
-      let index2 = previousConstatations[index].field_groups.findIndex(
-        (obj) => obj.id == fieldGroupId
-      );
+      const index2 = previousConstatations[index].field_groups.findIndex((obj) => obj.id == fieldGroupId);
 
       previousConstatations[index].field_groups.splice(index2, 1);
 

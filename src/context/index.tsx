@@ -49,9 +49,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       <React.Suspense fallback={<Spinner />}>
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <QueryClientProvider client={queryClient}>
-            {Constants?.manifest?.extra?.ENV === "test" && (
-              <ReactQueryDevtools initialIsOpen={false} />
-            )}
+            {Constants?.manifest?.extra?.ENV === "test" && <ReactQueryDevtools initialIsOpen={false} />}
             <Notifications />
             <AuthProvider>
               <SafeAreaProvider>

@@ -10,10 +10,7 @@ function AboutScreen() {
   return (
     <>
       <Text>Hello</Text>
-      <Button
-        onPress={() => logout().then(() => navigation.navigate("Home"))}
-        title="Se déconnecter"
-      ></Button>
+      <Button onPress={() => logout().then(() => navigation.navigate("Home"))} title="Se déconnecter"></Button>
     </>
   );
 }

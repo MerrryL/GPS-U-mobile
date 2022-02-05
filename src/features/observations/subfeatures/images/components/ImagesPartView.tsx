@@ -11,10 +11,7 @@ type ImagesPartViewProps = {
   key: number;
 };
 
-export default function ImagesPartView({
-  observationId,
-  imageId,
-}: ImagesPartViewProps) {
+export default function ImagesPartView({ observationId, imageId }: ImagesPartViewProps) {
   const { addNotification } = useNotificationStore();
   const imageQuery = useObservationImage({
     imageId: imageId,
@@ -58,11 +55,7 @@ export default function ImagesPartView({
             <Text style={{ alignSelf: "center" }} h2>
               {imageQuery?.data?.name}
             </Text>
-            <Chip
-              style={{ alignSelf: "flex-end", margin: "auto" }}
-              title="Annuler"
-              onPress={onDeleteSubmit}
-            />
+            <Chip style={{ alignSelf: "flex-end", margin: "auto" }} title="Annuler" onPress={onDeleteSubmit} />
           </View>
           <Text h5>{imageQuery?.data?.description}</Text>
         </View>

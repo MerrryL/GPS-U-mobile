@@ -1,10 +1,4 @@
-import {
-  createUser,
-  render,
-  screen,
-  userEvent,
-  waitFor,
-} from "@/test/test-utils";
+import { createUser, render, screen, userEvent, waitFor } from "@/test/test-utils";
 
 import { LoginForm } from "../LoginForm";
 

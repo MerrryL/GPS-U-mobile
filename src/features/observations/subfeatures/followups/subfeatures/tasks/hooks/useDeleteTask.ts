@@ -14,12 +14,7 @@ type UseDeleteTaskOptions = {
   config?: MutationConfig<typeof deleteTask>;
 };
 
-export const useDeleteTask = ({
-  fieldId,
-  followupId,
-  constatationId,
-  config,
-}: UseDeleteTaskOptions) => {
+export const useDeleteTask = ({ fieldId, followupId, constatationId, config }: UseDeleteTaskOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {

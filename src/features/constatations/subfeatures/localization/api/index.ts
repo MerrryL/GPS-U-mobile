@@ -6,9 +6,7 @@ type GetLocalizationOptions = {
   constatationId: string | number;
 };
 
-export const getLocalization = ({
-  constatationId,
-}: GetLocalizationOptions): Promise<Localization> => {
+export const getLocalization = ({ constatationId }: GetLocalizationOptions): Promise<Localization> => {
   return axios.get(`/constatations/${constatationId}/localization`);
 };
 
@@ -17,19 +15,10 @@ type UpdateLocalizationOptions = {
   constatationId: string;
 };
 
-export const updateLocalization = ({
-  localization,
-  constatationId,
-}: UpdateLocalizationOptions): Promise<Localization> => {
+export const updateLocalization = ({ localization, constatationId }: UpdateLocalizationOptions): Promise<Localization> => {
   if (localization.id === undefined) {
-    return axios.post(
-      `/constatations/${constatationId}/localization/`,
-      localization
-    );
+    return axios.post(`/constatations/${constatationId}/localization/`, localization);
   } else {
-    return axios.patch(
-      `/constatations/${constatationId}/localization/${localization.id}`,
-      localization
-    );
+    return axios.patch(`/constatations/${constatationId}/localization/${localization.id}`, localization);
   }
 };

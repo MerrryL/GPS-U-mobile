@@ -66,15 +66,7 @@ export function TaskAdd({ followupId, observationId }: TasksAddProps) {
   const onSubmit = async (values) => {
     console.log("values", values);
 
-    const {
-      name,
-      description,
-      realisation_date,
-      report_date,
-      report_periodicity,
-      task_status_id,
-      operators_id,
-    } = values;
+    const { name, description, realisation_date, report_date, report_periodicity, task_status_id, operators_id } = values;
 
     await taskCreateMutation.mutateAsync({
       name,
@@ -99,43 +91,12 @@ export function TaskAdd({ followupId, observationId }: TasksAddProps) {
       }}
     >
       <TextInput name="name" defaultValue="" label="Nom" control={control} />
-      <TextInput
-        name="description"
-        defaultValue=""
-        label="Description"
-        control={control}
-      />
-      <TextInput
-        name="realisation_date"
-        defaultValue=""
-        label="Date de réalisation"
-        control={control}
-      />
-      <TextInput
-        name="report_date"
-        defaultValue=""
-        label="Date butoir"
-        control={control}
-      />
-      <TextInput
-        name="report_periodicity"
-        defaultValue=""
-        label="Périodicité"
-        control={control}
-      />
-      <PickerInput
-        name="task_status_id"
-        defaultValue=""
-        label="Type"
-        control={control}
-        options={taskStatusesOptions}
-      />
-      <MultiPickerInput
-        name="operators_id"
-        label="Opérateurs"
-        control={control}
-        options={operatorsOptions}
-      />
+      <TextInput name="description" defaultValue="" label="Description" control={control} />
+      <TextInput name="realisation_date" defaultValue="" label="Date de réalisation" control={control} />
+      <TextInput name="report_date" defaultValue="" label="Date butoir" control={control} />
+      <TextInput name="report_periodicity" defaultValue="" label="Périodicité" control={control} />
+      <PickerInput name="task_status_id" defaultValue="" label="Type" control={control} options={taskStatusesOptions} />
+      <MultiPickerInput name="operators_id" label="Opérateurs" control={control} options={operatorsOptions} />
 
       <Button title="Nouvelle tâche" onPress={handleSubmit(onSubmit)} />
     </View>

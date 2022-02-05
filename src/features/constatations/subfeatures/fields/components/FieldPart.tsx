@@ -22,7 +22,7 @@ type Grouped = {
 
 type FieldValues = any;
 
-type StyleProps = {};
+// type StyleProps = {};
 
 const schema = yup.object().shape({});
 
@@ -39,7 +39,9 @@ export function FieldPart(props: FieldPartProps) {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (values: ConstatationValues) => {};
+  const onSubmit = async (values: ConstatationValues) => {
+    console.log("here");
+  };
 
   const groupedFields = useFieldGroupBy(fields);
 
@@ -47,13 +49,7 @@ export function FieldPart(props: FieldPartProps) {
 
   return (
     <View style={styles.container}>
-      {groupedFields?.length > 0 && (
-        <FormBuilder
-          schema={schema}
-          fields={groupedFields}
-          onSubmit={onSubmit}
-        />
-      )}
+      {groupedFields?.length > 0 && <FormBuilder schema={schema} fields={groupedFields} onSubmit={onSubmit} />}
       {/* {
         groupedFields.map( ( groupedField : Grouped, index ) => (
           <View style={styles.groupedField} key={index}>
@@ -70,9 +66,7 @@ export function FieldPart(props: FieldPartProps) {
   );
 }
 
-const useStyles = makeStyles(
-  (theme: Partial<FullTheme>, props: StyleProps) => ({
-    container: {},
-    groupedField: {},
-  })
-);
+const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+  container: {},
+  groupedField: {},
+}));

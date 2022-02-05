@@ -10,9 +10,7 @@ type GetFollowupOptions = {
   followupId: string;
 };
 
-export const getFollowup = ({
-  followupId,
-}: GetFollowupOptions): Promise<Followup> => {
+export const getFollowup = ({ followupId }: GetFollowupOptions): Promise<Followup> => {
   return axios.get(`/followups/${followupId}`);
 };
 
@@ -36,10 +34,7 @@ type UpdateFollowupOptions = {
   data: Followup;
 };
 
-export const updateFollowup = ({
-  data,
-  followupId,
-}: UpdateFollowupOptions): Promise<Followup> => {
+export const updateFollowup = ({ data, followupId }: UpdateFollowupOptions): Promise<Followup> => {
   return axios.patch(`followups/${followupId}`, data);
 };
 

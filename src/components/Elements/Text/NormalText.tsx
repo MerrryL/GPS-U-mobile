@@ -14,13 +14,7 @@ type NormalTextProps = {
 type StyleProps = any;
 
 export default function NormalText(props: NormalTextProps) {
-  const {
-    boldText = null,
-    text = null,
-    containerStyle = null,
-    boldTextStyle = null,
-    textStyle = null,
-  } = props;
+  const { boldText = null, text = null, containerStyle = null, boldTextStyle = null, textStyle = null } = props;
 
   const styles = useStyles({
     container: containerStyle,
@@ -30,33 +24,29 @@ export default function NormalText(props: NormalTextProps) {
 
   return (
     <View style={styles.container}>
-      {boldText && (
-        <Text style={styles.boldText}>{capitalize(boldText + ": ")}</Text>
-      )}
+      {boldText && <Text style={styles.boldText}>{capitalize(boldText + ": ")}</Text>}
       {text && <Text style={styles.text}>{capitalize(text)}</Text>}
     </View>
   );
 }
 
-const useStyles = makeStyles(
-  (theme: Partial<FullTheme>, props: StyleProps) => ({
-    container: {
-      alignItems: "baseline",
-      paddingLeft: "10px",
-      paddingRight: "10px",
-      ...props.container,
-    },
-    boldText: {
-      fontSize: "16px",
-      fontWeight: "bold",
-      marginTop: "10px",
-      marginBottom: "5px",
-      color: theme?.colors?.grey3,
-      ...props.boldText,
-    },
-    text: {
-      marginBottom: "5px",
-      ...props.text,
-    },
-  })
-);
+const useStyles = makeStyles((theme: Partial<FullTheme>, props: StyleProps) => ({
+  container: {
+    alignItems: "baseline",
+    paddingLeft: "10px",
+    paddingRight: "10px",
+    ...props.container,
+  },
+  boldText: {
+    fontSize: "16px",
+    fontWeight: "bold",
+    marginTop: "10px",
+    marginBottom: "5px",
+    color: theme?.colors?.grey3,
+    ...props.boldText,
+  },
+  text: {
+    marginBottom: "5px",
+    ...props.text,
+  },
+}));

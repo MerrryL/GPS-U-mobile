@@ -24,13 +24,7 @@ export default function ConstatationFields(props: ConstatationFieldsProps) {
 
       {fields &&
         fields.map((field: Field, index) => {
-          return (
-            <LongText
-              key={index}
-              boldText={field.name}
-              text={field?.pivot?.value?.toString() ?? "Indéfini"}
-            />
-          );
+          return <LongText key={index} boldText={field.name} text={field?.pivot?.value?.toString() ?? "Indéfini"} />;
         })}
     </View>
   );

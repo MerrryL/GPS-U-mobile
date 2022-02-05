@@ -50,16 +50,7 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <Input
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            leftIcon={<Icon name="user" size={24} color="black" />}
-            placeholder="Prénom"
-            textContentType="givenName"
-          />
-        )}
+        render={({ field: { onChange, onBlur, value } }) => <Input onBlur={onBlur} onChangeText={onChange} value={value} leftIcon={<Icon name="user" size={24} color="black" />} placeholder="Prénom" textContentType="givenName" />}
         name="firstName"
         defaultValue=""
       />
@@ -70,16 +61,7 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <Input
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            leftIcon={<Icon name="user" size={24} color="black" />}
-            placeholder="Nom"
-            textContentType="familyName"
-          />
-        )}
+        render={({ field: { onChange, onBlur, value } }) => <Input onBlur={onBlur} onChangeText={onChange} value={value} leftIcon={<Icon name="user" size={24} color="black" />} placeholder="Nom" textContentType="familyName" />}
         name="lastName"
         defaultValue=""
       />
@@ -90,18 +72,7 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <Input
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            leftIcon={<Icon name="at" size={24} color="black" />}
-            placeholder="Adresse e-mail"
-            autoCompleteType="email"
-            keyboardType="email-address"
-            textContentType="emailAddress"
-          />
-        )}
+        render={({ field: { onChange, onBlur, value } }) => <Input onBlur={onBlur} onChangeText={onChange} value={value} leftIcon={<Icon name="at" size={24} color="black" />} placeholder="Adresse e-mail" autoCompleteType="email" keyboardType="email-address" textContentType="emailAddress" />}
         name="email"
         defaultValue=""
       />
@@ -112,17 +83,7 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <Input
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            leftIcon={<Icon name="lock" size={24} color="black" />}
-            placeholder="Mot de passe"
-            secureTextEntry={true}
-            textContentType="newPassword"
-          />
-        )}
+        render={({ field: { onChange, onBlur, value } }) => <Input onBlur={onBlur} onChangeText={onChange} value={value} leftIcon={<Icon name="lock" size={24} color="black" />} placeholder="Mot de passe" secureTextEntry={true} textContentType="newPassword" />}
         name="password"
         defaultValue=""
       />

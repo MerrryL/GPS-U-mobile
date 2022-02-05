@@ -7,10 +7,7 @@ type UseFieldGroupOptions = {
   config?: QueryConfig<typeof getFieldGroup>;
 };
 
-export const useFieldGroup = ({
-  fieldGroupId,
-  config,
-}: UseFieldGroupOptions) => {
+export const useFieldGroup = ({ fieldGroupId, config }: UseFieldGroupOptions) => {
   return useQuery({
     ...config,
     queryKey: ["field_groups", fieldGroupId],

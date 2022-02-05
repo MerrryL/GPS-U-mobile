@@ -41,9 +41,7 @@ export function FollowupsAdd({ observationId }: FollowupAddProps) {
   }));
 
   const followupStatusesQuery = useFollowupStatuses();
-  const followupStatusesOptions = followupStatusesQuery?.data?.map(
-    (status) => ({ item: status.name, id: status.id })
-  );
+  const followupStatusesOptions = followupStatusesQuery?.data?.map((status) => ({ item: status.name, id: status.id }));
 
   const {
     control,
@@ -79,25 +77,9 @@ export function FollowupsAdd({ observationId }: FollowupAddProps) {
       }}
     >
       <TextInput name="name" defaultValue="" label="Nom" control={control} />
-      <TextInput
-        name="description"
-        defaultValue=""
-        label="Description"
-        control={control}
-      />
-      <PickerInput
-        name="followup_status_id"
-        defaultValue="1"
-        label="Etat"
-        control={control}
-        options={followupStatusesOptions}
-      />
-      <MultiPickerInput
-        name="supervisors_id"
-        label="Superviseurs"
-        control={control}
-        options={supervisorsOptions}
-      />
+      <TextInput name="description" defaultValue="" label="Description" control={control} />
+      <PickerInput name="followup_status_id" defaultValue="1" label="Etat" control={control} options={followupStatusesOptions} />
+      <MultiPickerInput name="supervisors_id" label="Superviseurs" control={control} options={supervisorsOptions} />
 
       <Button title="Nouveau Suivi" onPress={handleSubmit(onSubmit)} />
     </View>

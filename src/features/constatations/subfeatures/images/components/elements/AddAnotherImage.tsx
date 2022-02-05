@@ -9,9 +9,7 @@ type AddAnotherImageProps = {
   constatationId: string;
 };
 
-export default function AddAnotherImage({
-  constatationId,
-}: AddAnotherImageProps) {
+export default function AddAnotherImage({ constatationId }: AddAnotherImageProps) {
   console.log("props", constatationId);
 
   const [image, setImage] = useState(null);
@@ -35,12 +33,7 @@ export default function AddAnotherImage({
   return (
     <View style={styles.container}>
       <NormalText boldText="Prenez d'autres photographies" />
-      <ImagePicker
-        image={image}
-        onChange={setImage}
-        onSubmit={onSubmit}
-        displayPlaceholder={false}
-      />
+      <ImagePicker image={image} onChange={setImage} onSubmit={onSubmit} displayPlaceholder={false} />
     </View>
   );
 }

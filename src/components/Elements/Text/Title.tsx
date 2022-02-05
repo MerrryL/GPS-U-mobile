@@ -24,15 +24,13 @@ export default function Title(props: TitleProps) {
   );
 }
 
-const useStyles = makeStyles(
-  (theme: Partial<FullTheme>, props: StyleProps) => ({
-    container: {
-      ...props.container,
-    },
-    title: {
-      fontWeight: "bold",
-      color: theme?.colors?.grey2,
-      ...props.title,
-    },
-  })
-);
+const useStyles = makeStyles((theme: Partial<FullTheme>, props: StyleProps) => ({
+  container: {
+    ...props.container,
+  },
+  title: {
+    fontWeight: "bold",
+    color: theme?.colors?.grey2,
+    ...props.title,
+  },
+}));

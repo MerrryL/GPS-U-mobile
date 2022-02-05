@@ -85,9 +85,7 @@ export default function Edit(props: EditProps) {
     } else {
       return (
         <>
-          <Card.Title onPress={() => _updateSections(section.position)}>
-            {section.title}
-          </Card.Title>
+          <Card.Title onPress={() => _updateSections(section.position)}>{section.title}</Card.Title>
           <Card.Divider />
         </>
       );
@@ -116,14 +114,7 @@ export default function Edit(props: EditProps) {
         <Card.Title h2>Constatation n°{constatationId}</Card.Title>
         <Card.Divider />
 
-        <Accordion
-          activeSections={activeSections}
-          sections={sections}
-          renderSectionTitle={_renderSectionTitle}
-          renderHeader={_renderHeader}
-          renderContent={_renderContent}
-          onChange={_updateSections}
-        />
+        <Accordion activeSections={activeSections} sections={sections} renderSectionTitle={_renderSectionTitle} renderHeader={_renderHeader} renderContent={_renderContent} onChange={_updateSections} />
 
         {/* Actions, dossier */}
         {/* Suivis */}

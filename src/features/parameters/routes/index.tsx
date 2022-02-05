@@ -8,9 +8,7 @@ const ParametersStack = createStackNavigator();
 export function ParametersScreen() {
   return (
     <>
-      <ParametersStack.Navigator>
-        {/* <ParametersStack.Screen name="ListeDossiers" component={ListDossiers} /> */}
-      </ParametersStack.Navigator>
+      <ParametersStack.Navigator>{/* <ParametersStack.Screen name="ListeDossiers" component={ListDossiers} /> */}</ParametersStack.Navigator>
     </>
   );
 }

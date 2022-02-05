@@ -15,11 +15,7 @@ export const Notifications = () => {
       return (
         <View>
           {notifications.map((notification) => (
-            <Notification
-              key={notification.id}
-              notification={notification}
-              onDismiss={dismissNotification}
-            />
+            <Notification key={notification.id} notification={notification} onDismiss={dismissNotification} />
           ))}
         </View>
       );

@@ -30,15 +30,12 @@ export function ObservationPart({ constatationId }: ObservationPartProps) {
   const initialObservationsQuery = useConstatationObservations({
     constatationId,
   });
-  const initialObservations = initialObservationsQuery?.data?.map(
-    (Observation) => ({
-      item: Observation?.lastName?.toUpperCase() + " " + Observation?.firstName,
-      id: Observation.id,
-    })
-  );
+  const initialObservations = initialObservationsQuery?.data?.map((Observation) => ({
+    item: Observation?.lastName?.toUpperCase() + " " + Observation?.firstName,
+    id: Observation.id,
+  }));
 
-  const [selectedObservations, setSelectedObservations] =
-    useState(initialObservations);
+  const [selectedObservations, setSelectedObservations] = useState(initialObservations);
   const [obsOptions, setOptions] = useState(options);
 
   const {
@@ -48,9 +45,7 @@ export function ObservationPart({ constatationId }: ObservationPartProps) {
   } = useForm<any>();
 
   const onSubmit = async () => {
-    let selectedObservationsId = selectedObservations.map(
-      (item: ObservationToSend) => item.id
-    );
+    const selectedObservationsId = selectedObservations.map((item: ObservationToSend) => item.id);
 
     await updateObservationMutation.mutateAsync({
       constatationId: constatationId,
@@ -61,20 +56,13 @@ export function ObservationPart({ constatationId }: ObservationPartProps) {
   return (
     <>
       <Card>
-        <MultiPickerInput
-          name="Observations"
-          label="Observations"
-          options={obsOptions}
-          selectedValues={selectedObservations}
-          control={control}
-        />
+        <MultiPickerInput name="Observations" label="Observations" options={obsOptions} selectedValues={selectedObservations} control={control} />
       </Card>
       <Button title="MAJ" onPress={() => onSubmit()} />
     </>
   );
 
   function onMultiChange() {
-    return (item) =>
-      setSelectedObservations(xorBy(selectedObservations, [item], "id"));
+    return (item) => setSelectedObservations(xorBy(selectedObservations, [item], "id"));
   }
 }

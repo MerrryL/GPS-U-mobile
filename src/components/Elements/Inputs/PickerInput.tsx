@@ -1,9 +1,4 @@
-import {
-  RHFField,
-  RHFFormState,
-  RHFieldState,
-  SelectOption,
-} from "@/types/utilityTypes";
+import { RHFField, RHFFormState, RHFieldState, SelectOption } from "@/types/utilityTypes";
 import { Picker } from "@react-native-picker/picker";
 import React from "react";
 import { View } from "react-native";
@@ -30,13 +25,7 @@ export default function PickerInput(props: PickerInputProps) {
       <NormalText boldText={label} />
       <Picker style={styles.picker} {...field}>
         {field.options?.map((option: SelectOption) => {
-          return (
-            <Picker.Item
-              label={option.item}
-              value={option.id}
-              key={option.id}
-            />
-          );
+          return <Picker.Item label={option.item} value={option.id} key={option.id} />;
         })}
       </Picker>
       {/* <Text>{formState.isDirty ? "modifié" : "pas modifié"}</Text> */}

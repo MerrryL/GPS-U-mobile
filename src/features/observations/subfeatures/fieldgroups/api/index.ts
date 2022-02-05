@@ -6,9 +6,7 @@ type GetObservationFieldGroupsOptions = {
   observationId: string;
 };
 
-export const getObservationFieldGroups = ({
-  observationId,
-}: GetObservationFieldGroupsOptions): Promise<FieldGroup[]> => {
+export const getObservationFieldGroups = ({ observationId }: GetObservationFieldGroupsOptions): Promise<FieldGroup[]> => {
   return axios.get(`/observations/${observationId}/field_groups`);
 };
 
@@ -17,13 +15,8 @@ type GetObservationFieldGroupOptions = {
   fieldGroupId: string;
 };
 
-export const getObservationFieldGroup = ({
-  observationId,
-  fieldGroupId,
-}: GetObservationFieldGroupOptions): Promise<FieldGroup> => {
-  return axios.get(
-    `/observations/${observationId}/field_groups/${fieldGroupId}`
-  );
+export const getObservationFieldGroup = ({ observationId, fieldGroupId }: GetObservationFieldGroupOptions): Promise<FieldGroup> => {
+  return axios.get(`/observations/${observationId}/field_groups/${fieldGroupId}`);
 };
 
 type CreateObservationFieldGroupOptions = {
@@ -33,12 +26,7 @@ type CreateObservationFieldGroupOptions = {
   type: string;
 };
 
-export const createObservationFieldGroup = ({
-  observationId,
-  name,
-  type,
-  logical_operator,
-}: CreateObservationFieldGroupOptions): Promise<FieldGroup> => {
+export const createObservationFieldGroup = ({ observationId, name, type, logical_operator }: CreateObservationFieldGroupOptions): Promise<FieldGroup> => {
   return axios.post(`/observations/${observationId}/field_groups`, {
     name,
     type,
@@ -52,17 +40,8 @@ type UpdateObservationFieldGroupOptions = {
   type: string;
 };
 
-export const updateObservationFieldGroup = ({
-  observationId,
-  fieldGroupId,
-  name,
-  type,
-  logical_operator,
-}: UpdateObservationFieldGroupOptions): Promise<FieldGroup> => {
-  return axios.post(
-    `/observations/${observationId}/field_groups/${fieldGroupId}`,
-    { name, type, logical_operator }
-  );
+export const updateObservationFieldGroup = ({ observationId, fieldGroupId, name, type, logical_operator }: UpdateObservationFieldGroupOptions): Promise<FieldGroup> => {
+  return axios.post(`/observations/${observationId}/field_groups/${fieldGroupId}`, { name, type, logical_operator });
 };
 
 type DeleteObservationFieldGroupOptions = {
@@ -70,11 +49,6 @@ type DeleteObservationFieldGroupOptions = {
   observationId: string;
 };
 
-export const deleteObservationFieldGroup = ({
-  fieldGroupId,
-  observationId,
-}: DeleteObservationFieldGroupOptions) => {
-  return axios.delete(
-    `/observations/${observationId}/field_groups/${fieldGroupId}`
-  );
+export const deleteObservationFieldGroup = ({ fieldGroupId, observationId }: DeleteObservationFieldGroupOptions) => {
+  return axios.delete(`/observations/${observationId}/field_groups/${fieldGroupId}`);
 };

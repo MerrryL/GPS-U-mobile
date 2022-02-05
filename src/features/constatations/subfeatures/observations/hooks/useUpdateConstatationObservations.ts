@@ -16,11 +16,7 @@ type UseUpdateObservationOptions = {
   config?: MutationConfig<typeof updateConstatationObservations>;
 };
 
-export const useUpdateConstatationObservations = ({
-  constatationId,
-  Observations,
-  config,
-}: UseUpdateObservationOptions) => {
+export const useUpdateConstatationObservations = ({ constatationId, Observations, config }: UseUpdateObservationOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {

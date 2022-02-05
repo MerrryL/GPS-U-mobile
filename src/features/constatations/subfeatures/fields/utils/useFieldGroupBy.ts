@@ -1,9 +1,7 @@
 import { Field, FieldGroup } from "@/types";
 import _ from "lodash";
 
-export default function mapFieldsToFieldForms(
-  fields: Field[]
-): { fieldGroup: FieldGroup; fields: Field[] }[] {
+export default function mapFieldsToFieldForms(fields: Field[]): { fieldGroup: FieldGroup; fields: Field[] }[] {
   const splittedFields = _.groupBy(fields, "field_group_id");
 
   const groupedFields = Object.entries(splittedFields).map(([key, value]) => {

@@ -26,14 +26,7 @@ type FormBuilderProps = {
 type FormValues = any;
 
 //TODO:LATER
-export default function FormBuilder({
-  title,
-  description,
-  fields,
-  fieldGroups,
-  onSubmit,
-  schema,
-}: FormBuilderProps) {
+export default function FormBuilder({ title, description, fields, fieldGroups, onSubmit, schema }: FormBuilderProps) {
   // const defaultValues = fields?.map( field => {return {field.name: field?.defaultValue}) || {};
   // const schemas = fields.map( field => field.schema);
 
@@ -56,10 +49,7 @@ export default function FormBuilder({
     return (
       <View>
         <NormalText boldText={title} text={description} />
-        {fields &&
-          fields?.map((field: InputedField, index: React.Key) => (
-            <InputSelector f={field} key={index} control={control} />
-          ))}
+        {fields && fields?.map((field: InputedField, index: React.Key) => <InputSelector f={field} key={index} control={control} />)}
       </View>
     );
   };
@@ -77,12 +67,7 @@ export default function FormBuilder({
           })
         )}
 
-      <Button
-        title="Enregistrer "
-        onPress={handleSubmit(onSubmit)}
-        icon={<AntDesign name="cloudupload" size={24} color="white" />}
-        iconRight={true}
-      />
+      <Button title="Enregistrer " onPress={handleSubmit(onSubmit)} icon={<AntDesign name="cloudupload" size={24} color="white" />} iconRight={true} />
     </View>
   );
 }

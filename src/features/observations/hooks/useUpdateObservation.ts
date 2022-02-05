@@ -10,40 +10,26 @@ type UseUpdateObservationOptions = {
   config?: MutationConfig<typeof updateObservation>;
 };
 
-export const useUpdateObservation = ({
-  config,
-}: UseUpdateObservationOptions = {}) => {
+export const useUpdateObservation = ({ config }: UseUpdateObservationOptions = {}) => {
   const { addNotification } = useNotificationStore();
 
   return useMutation({
     onMutate: async (updatingObservation: any) => {
-      await queryClient.cancelQueries([
-        "observations",
-        updatingObservation?.observationId,
-      ]);
+      await queryClient.cancelQueries(["observations", updatingObservation?.observationId]);
 
-      const previousObservation = queryClient.getQueryData<Observation>([
-        "observations",
-        updatingObservation?.observationId,
-      ]);
+      const previousObservation = queryClient.getQueryData<Observation>(["observations", updatingObservation?.observationId]);
 
-      queryClient.setQueryData(
-        ["observations", updatingObservation?.observationId],
-        {
-          ...previousObservation,
-          ...updatingObservation.data,
-          id: updatingObservation.observationId,
-        }
-      );
+      queryClient.setQueryData(["observations", updatingObservation?.observationId], {
+        ...previousObservation,
+        ...updatingObservation.data,
+        id: updatingObservation.observationId,
+      });
 
       return { previousObservation };
     },
     onError: (_, __, context: any) => {
       if (context?.previousObservation) {
-        queryClient.setQueryData(
-          ["observations", context.previousObservation.id],
-          context.previousObservation
-        );
+        queryClient.setQueryData(["observations", context.previousObservation.id], context.previousObservation);
       }
     },
     onSuccess: (data) => {

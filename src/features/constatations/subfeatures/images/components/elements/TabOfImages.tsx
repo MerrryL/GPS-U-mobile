@@ -20,27 +20,12 @@ export default function TabOfImages(props: ImagesTabsProps) {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => setVisibility(!isVisible)}>
-        <Text
-          style={{ alignSelf: "flex-end", fontStyle: "italic", color: "blue" }}
-        >
-          {isVisible ? "Cacher la galerie" : "Montrer la galerie"}
-        </Text>
+        <Text style={{ alignSelf: "flex-end", fontStyle: "italic", color: "blue" }}>{isVisible ? "Cacher la galerie" : "Montrer la galerie"}</Text>
       </TouchableOpacity>
       {isVisible && (
         <>
-          <Tab
-            value={index}
-            onChange={setIndex}
-            indicatorStyle={styles.indicatorStyle}
-          >
-            {images &&
-              images.map((image, key) => (
-                <Tab.Item
-                  key={key}
-                  title={image.name}
-                  titleStyle={styles.tabItem}
-                />
-              ))}
+          <Tab value={index} onChange={setIndex} indicatorStyle={styles.indicatorStyle}>
+            {images && images.map((image, key) => <Tab.Item key={key} title={image.name} titleStyle={styles.tabItem} />)}
           </Tab>
 
           <TabView value={index} onChange={setIndex}>

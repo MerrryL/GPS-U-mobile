@@ -14,8 +14,7 @@ export default function imageURL({ image }: ImageURLProps) {
 
   const extension = file_name.substr(name?.length);
 
-  const path =
-    Constants?.manifest?.extra?.API_URL + "images/" + id + "/" + file_name;
+  const path = Constants?.manifest?.extra?.API_URL + "images/" + id + "/" + file_name;
 
   return { uri: path };
 }

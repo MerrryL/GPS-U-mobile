@@ -3,14 +3,7 @@ import React from "react";
 import { Followup } from "@/types";
 import { useNavigation } from "@react-navigation/native";
 
-import {
-  Card,
-  Image,
-  Button,
-  Icon,
-  Divider,
-  Text,
-} from "react-native-elements";
+import { Card, Image, Button, Icon, Divider, Text } from "react-native-elements";
 
 import { View } from "react-native";
 import { id } from "date-fns/locale";
@@ -22,19 +15,7 @@ type followupCardProps = {
 export function FollowupCard({ followup }: followupCardProps) {
   const navigation = useNavigation();
 
-  const {
-    constatation,
-    created_at,
-    deleted_at,
-    description,
-    followup_status,
-    id,
-    name,
-    observation_id,
-    supervisors,
-    tasks,
-    updated_at,
-  } = followup;
+  const { constatation, created_at, deleted_at, description, followup_status, id, name, observation_id, supervisors, tasks, updated_at } = followup;
 
   //console.log(followup);
   return (
@@ -46,20 +27,8 @@ export function FollowupCard({ followup }: followupCardProps) {
           justifyContent: "flex-end",
         }}
       >
-        <Button
-          title="Edit"
-          style={{ marginRight: 10 }}
-          onPress={() =>
-            navigation.navigate("Edition", { observationId: observation?.id })
-          }
-        />
-        <Button
-          title="Détails"
-          style={{ marginRight: 10 }}
-          onPress={() =>
-            navigation.navigate("Details", { observationId: observation?.id })
-          }
-        />
+        <Button title="Edit" style={{ marginRight: 10 }} onPress={() => navigation.navigate("Edition", { observationId: observation?.id })} />
+        <Button title="Détails" style={{ marginRight: 10 }} onPress={() => navigation.navigate("Details", { observationId: observation?.id })} />
       </View>
       <View>
         <Text>Date de création: {created_at}</Text>

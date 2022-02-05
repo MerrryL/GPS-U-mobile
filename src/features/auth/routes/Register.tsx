@@ -6,10 +6,7 @@ import React from "react";
 export default function Register({ navigation }) {
   return (
     <>
-      <Button
-        title={"Déjà inscrit?"}
-        onPress={() => navigation.navigate("Se connecter")}
-      />
+      <Button title={"Déjà inscrit?"} onPress={() => navigation.navigate("Se connecter")} />
       <RegisterForm onSuccess={() => navigation.navigate("Home")} />
     </>
   );

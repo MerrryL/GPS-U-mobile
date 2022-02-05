@@ -9,10 +9,7 @@ type UseConstatationOptions = {
   config?: QueryConfig<typeof getConstatation>;
 };
 
-export const useConstatation = ({
-  constatationId,
-  config,
-}: UseConstatationOptions) => {
+export const useConstatation = ({ constatationId, config }: UseConstatationOptions) => {
   return useQuery({
     ...config,
     queryKey: ["constatations", constatationId],

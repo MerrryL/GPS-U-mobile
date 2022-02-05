@@ -74,20 +74,9 @@ export function FieldsAdd({ fieldGroupId, observationId }: FieldsAddProps) {
     >
       <TextInput name="name" defaultValue="" label="Nom" control={control} />
       <TextInput name="options" defaultValue="" label="Nom" control={control} />
-      <PickerInput
-        name="type_id"
-        defaultValue={0}
-        label="Type"
-        options={fieldTypesOptions}
-        control={control}
-      />
+      <PickerInput name="type_id" defaultValue={0} label="Type" options={fieldTypesOptions} control={control} />
 
-      <SwitchInput
-        name="isDefault"
-        defaultValue={false}
-        label="Champ obligatoire?"
-        control={control}
-      />
+      <SwitchInput name="isDefault" defaultValue={false} label="Champ obligatoire?" control={control} />
 
       <Button title="Nouveau Champ" onPress={handleSubmit(onSubmit)} />
     </View>

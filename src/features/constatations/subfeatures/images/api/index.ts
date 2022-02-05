@@ -16,9 +16,7 @@ type GetConstatationImagesOptions = {
   constatationId: string;
 };
 
-export const getConstatationImages = ({
-  constatationId,
-}: GetConstatationImagesOptions): Promise<Image[]> => {
+export const getConstatationImages = ({ constatationId }: GetConstatationImagesOptions): Promise<Image[]> => {
   return axios.get(`/constatations/${constatationId}/images`);
 };
 
@@ -27,10 +25,7 @@ type GetConstatationImageOptions = {
   imageId: string;
 };
 
-export const getConstatationImage = ({
-  constatationId,
-  imageId,
-}: GetConstatationImageOptions): Promise<Image> => {
+export const getConstatationImage = ({ constatationId, imageId }: GetConstatationImageOptions): Promise<Image> => {
   return axios.get(`/constatations/${constatationId}/images/${imageId}`);
 };
 
@@ -39,10 +34,7 @@ type CreateConstatationImageOptions = {
   name: string;
 };
 
-export const createConstatationImage = ({
-  constatationId,
-  name,
-}: CreateConstatationImageOptions): Promise<Image> => {
+export const createConstatationImage = ({ constatationId, name }: CreateConstatationImageOptions): Promise<Image> => {
   console.log("here");
   return axios.post(`/constatations/${constatationId}/images`, { name });
 };
@@ -52,10 +44,7 @@ type DeleteConstatationImageOptions = {
   constatationId: string;
 };
 
-export const deleteConstatationImage = ({
-  imageId,
-  constatationId,
-}: DeleteConstatationImageOptions) => {
+export const deleteConstatationImage = ({ imageId, constatationId }: DeleteConstatationImageOptions) => {
   return axios.delete(`/constatations/${constatationId}/images/${imageId}`);
 };
 
@@ -64,10 +53,7 @@ type UploadConstatationOtherImageOptions = {
   image: ImageToSend;
 };
 
-export const uploadConstatationOtherImage = ({
-  image,
-  constatationId,
-}: UploadConstatationOtherImageOptions): Promise<Image | Constatation> => {
+export const uploadConstatationOtherImage = ({ image, constatationId }: UploadConstatationOtherImageOptions): Promise<Image | Constatation> => {
   return axios.post(`/constatations/${constatationId}/images/upload`, {
     image,
   });
@@ -79,15 +65,8 @@ type UploadConstatationImageOptions = {
   image: ImageToSend;
 };
 
-export const uploadConstatationImage = ({
-  image,
-  constatationId,
-  imageId,
-}: UploadConstatationImageOptions): Promise<Image | Constatation> => {
-  return axios.post(
-    `/constatations/${constatationId}/images/${imageId}/upload`,
-    { image }
-  );
+export const uploadConstatationImage = ({ image, constatationId, imageId }: UploadConstatationImageOptions): Promise<Image | Constatation> => {
+  return axios.post(`/constatations/${constatationId}/images/${imageId}/upload`, { image });
 };
 
 type DeletePictureConstatationImageOptions = {
@@ -95,13 +74,8 @@ type DeletePictureConstatationImageOptions = {
   constatationId: string;
 };
 
-export const deletePictureConstatationImage = ({
-  imageId,
-  constatationId,
-}: DeletePictureConstatationImageOptions): Promise<Constatation> => {
-  return axios.delete(
-    `/constatations/${constatationId}/images/${imageId}/remove`
-  );
+export const deletePictureConstatationImage = ({ imageId, constatationId }: DeletePictureConstatationImageOptions): Promise<Constatation> => {
+  return axios.delete(`/constatations/${constatationId}/images/${imageId}/remove`);
 };
 
 type DefineAsThumbOptions = {
@@ -109,12 +83,7 @@ type DefineAsThumbOptions = {
   imageId: string;
 };
 
-export const defineAsThumbConstatationImage = ({
-  constatationId,
-  imageId,
-}: DefineAsThumbOptions): Promise<Constatation> => {
+export const defineAsThumbConstatationImage = ({ constatationId, imageId }: DefineAsThumbOptions): Promise<Constatation> => {
   console.log("c", constatationId, imageId);
-  return axios.get(
-    `/constatations/${constatationId}/images/${imageId}/defineAsThumb`
-  );
+  return axios.get(`/constatations/${constatationId}/images/${imageId}/defineAsThumb`);
 };

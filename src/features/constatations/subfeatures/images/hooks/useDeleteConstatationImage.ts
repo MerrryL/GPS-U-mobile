@@ -13,11 +13,7 @@ type UseDeleteConstatationImageOptions = {
   config?: MutationConfig<typeof deleteConstatationImage>;
 };
 
-export const useDeleteConstatationImage = ({
-  imageId,
-  constatationId,
-  config,
-}: UseDeleteConstatationImageOptions) => {
+export const useDeleteConstatationImage = ({ imageId, constatationId, config }: UseDeleteConstatationImageOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {

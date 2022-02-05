@@ -27,12 +27,7 @@ function isImage(data: Image | Constatation): data is Image {
   return (data as Image).constatation_id !== undefined;
 }
 
-export const useUploadConstatationImage = ({
-  constatationId,
-  imageId,
-  image,
-  config,
-}: UseUploadConstatationImageOptions) => {
+export const useUploadConstatationImage = ({ constatationId, imageId, image, config }: UseUploadConstatationImageOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {

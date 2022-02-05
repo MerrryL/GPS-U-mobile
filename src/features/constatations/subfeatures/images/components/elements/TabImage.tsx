@@ -57,16 +57,8 @@ export default function TabImage(props: ConstatationGalleryImageProps) {
 
   return (
     <View style={styles.container}>
-      <LongText
-        containerStyle={{ margin: "20px" }}
-        boldText={image.name}
-        text={image.description}
-      />
-      <Image
-        style={styles.image}
-        resizeMode="cover"
-        source={imageURL({ image: image.media[0] })}
-      />
+      <LongText containerStyle={{ margin: "20px" }} boldText={image.name} text={image.description} />
+      <Image style={styles.image} resizeMode="cover" source={imageURL({ image: image.media[0] })} />
       <View style={styles.buttonContainer}>
         <Chip
           title="Définir comme image par défaut"
@@ -95,21 +87,19 @@ export default function TabImage(props: ConstatationGalleryImageProps) {
   );
 }
 
-const useStyles = makeStyles(
-  (theme: Partial<FullTheme>, props: ConstatationGalleryImagePropsStyle) => ({
-    container: {
-      minHeight: 150,
-    },
-    buttonContainer: {
-      flexDirection: "row",
-      justifyContent: "flex-end",
-    },
-    image: {
-      alignSelf: "center",
-      margin: "auto",
+const useStyles = makeStyles((theme: Partial<FullTheme>, props: ConstatationGalleryImagePropsStyle) => ({
+  container: {
+    minHeight: 150,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+  },
+  image: {
+    alignSelf: "center",
+    margin: "auto",
 
-      width: props.width * 0.8,
-      height: props.width * 0.8,
-    },
-  })
-);
+    width: props.width * 0.8,
+    height: props.width * 0.8,
+  },
+}));

@@ -8,17 +8,11 @@ interface ConstatationHasRequiredValidationPropsType {
   id: number;
   requiresValidationDate?: string;
 }
-export default function ConstatationHasRequiredValidation({
-  id,
-  requiresValidationDate = "Inconnue",
-}: ConstatationHasRequiredValidationPropsType) {
+export default function ConstatationHasRequiredValidation({ id, requiresValidationDate = "Inconnue" }: ConstatationHasRequiredValidationPropsType) {
   const styles = useStyles();
   return (
     <>
-      <DateText
-        boldText="Validation possible depuis le"
-        date={requiresValidationDate}
-      />
+      <DateText boldText="Validation possible depuis le" date={requiresValidationDate} />
       <ConstatationValidationButton id={id} />
       <ConstatationRefusalButton id={id} />
     </>

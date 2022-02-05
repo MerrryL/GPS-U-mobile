@@ -36,10 +36,7 @@ type UpdateTaskOptions = {
   data: Task;
 };
 
-export const updateTask = ({
-  data,
-  taskId,
-}: UpdateTaskOptions): Promise<Task> => {
+export const updateTask = ({ data, taskId }: UpdateTaskOptions): Promise<Task> => {
   return axios.patch(`tasks/${taskId}`, data);
 };
 

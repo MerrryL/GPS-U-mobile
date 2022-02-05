@@ -10,35 +10,13 @@ type DateTextProps = {
   dateStyle?: any;
 };
 export default function DateText(props: DateTextProps) {
-  const {
-    boldText = "Date",
-    preDateText = "Le ",
-    date,
-    containerStyle = { flexDirection: "row" },
-    dateStyle = null,
-  } = props;
+  const { boldText = "Date", preDateText = "Le ", date, containerStyle = { flexDirection: "row" }, dateStyle = null } = props;
 
   if (!date) {
-    return (
-      <NormalText
-        {...props}
-        boldText="boldText"
-        text="Pas de date valide"
-        containerStyle={containerStyle}
-        textStyle={dateStyle}
-      />
-    );
+    return <NormalText {...props} boldText="boldText" text="Pas de date valide" containerStyle={containerStyle} textStyle={dateStyle} />;
   }
 
   const text = preDateText + formatDate(date);
 
-  return (
-    <NormalText
-      {...props}
-      boldText={boldText}
-      text={text}
-      containerStyle={containerStyle}
-      textStyle={dateStyle}
-    />
-  );
+  return <NormalText {...props} boldText={boldText} text={text} containerStyle={containerStyle} textStyle={dateStyle} />;
 }

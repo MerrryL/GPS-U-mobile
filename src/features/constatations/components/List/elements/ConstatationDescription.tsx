@@ -8,9 +8,7 @@ type ConstatationDescriptionProps = {
   description: string;
 };
 
-export default function ConstatationDescription(
-  props: ConstatationDescriptionProps
-) {
+export default function ConstatationDescription(props: ConstatationDescriptionProps) {
   const { description = "" } = props;
   const styles = useStyles();
 

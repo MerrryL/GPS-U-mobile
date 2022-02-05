@@ -11,10 +11,7 @@ type UseCreateObservationImageOptions = {
   config?: MutationConfig<typeof createObservationImage>;
 };
 
-export const useCreateObservationImage = ({
-  observationId,
-  config,
-}: UseCreateObservationImageOptions) => {
+export const useCreateObservationImage = ({ observationId, config }: UseCreateObservationImageOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {

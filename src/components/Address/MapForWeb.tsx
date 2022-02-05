@@ -43,14 +43,8 @@ export default function MapForWeb({ markers, onChange }: MapProps) {
             <MapView.Marker
               key={index}
               coordinate={{
-                latitude:
-                  marker?.latitude != null
-                    ? parseFloat(marker?.latitude?.toString())
-                    : initialRegion.latitude,
-                longitude:
-                  marker?.longitude != null
-                    ? parseFloat(marker?.longitude?.toString())
-                    : initialRegion.longitude,
+                latitude: marker?.latitude != null ? parseFloat(marker?.latitude?.toString()) : initialRegion.latitude,
+                longitude: marker?.longitude != null ? parseFloat(marker?.longitude?.toString()) : initialRegion.longitude,
               }}
               draggable
               onDragEnd={onDragEnd}

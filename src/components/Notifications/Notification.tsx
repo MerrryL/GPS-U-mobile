@@ -21,10 +21,7 @@ export type NotificationProps = {
   onDismiss: (id: string) => void;
 };
 
-export const Notification = ({
-  notification: { id, type, title, message },
-  onDismiss,
-}: NotificationProps) => {
+export const Notification = ({ notification: { id, type, title, message }, onDismiss }: NotificationProps) => {
   useEffect(() => {
     const timer = setTimeout(() => onDismiss(id), 3000);
     return () => clearTimeout(timer);

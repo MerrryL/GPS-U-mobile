@@ -15,9 +15,7 @@ type GetObservationOptions = {
   observationId: string;
 };
 
-export const getObservation = ({
-  observationId,
-}: GetObservationOptions): Promise<Observation> => {
+export const getObservation = ({ observationId }: GetObservationOptions): Promise<Observation> => {
   return axios.get(`/observations/${observationId}`);
 };
 
@@ -30,9 +28,7 @@ type CreateObservationOptions = {
   data: ObservationBody;
 };
 
-export const createObservation = ({
-  data,
-}: CreateObservationOptions): Promise<Observation> => {
+export const createObservation = ({ data }: CreateObservationOptions): Promise<Observation> => {
   return axios.post("observations", { data });
 };
 
@@ -41,10 +37,7 @@ type UpdateObservationOptions = {
   data: Observation;
 };
 
-export const updateObservation = ({
-  data,
-  observationId,
-}: UpdateObservationOptions): Promise<Observation> => {
+export const updateObservation = ({ data, observationId }: UpdateObservationOptions): Promise<Observation> => {
   return axios.patch(`observations/${observationId}`, data);
 };
 
@@ -52,8 +45,6 @@ type DeleteObservationOptions = {
   observationId: string;
 };
 
-export const deleteObservation = ({
-  observationId,
-}: DeleteObservationOptions) => {
+export const deleteObservation = ({ observationId }: DeleteObservationOptions) => {
   return axios.delete(`observations/${observationId}`);
 };

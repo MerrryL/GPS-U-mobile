@@ -28,12 +28,7 @@ export default function ListDossiers() {
           <DossierCard dossier={dossier} key={index} />
         ))}
       </ScrollView>
-      <FAB
-        title="+"
-        placement="right"
-        size="large"
-        onPress={() => navigation.navigate("Nouveau")}
-      />
+      <FAB title="+" placement="right" size="large" onPress={() => navigation.navigate("Nouveau")} />
     </>
   );
 }

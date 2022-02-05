@@ -13,10 +13,7 @@ type FieldGroupCardProps = {
   constatationId: string;
 };
 
-export function FieldGroupCard({
-  fieldGroup,
-  constatationId,
-}: FieldGroupCardProps) {
+export function FieldGroupCard({ fieldGroup, constatationId }: FieldGroupCardProps) {
   const FieldGroupQuery = useFieldGroup({
     fieldGroupId: fieldGroup.id,
   });
@@ -44,17 +41,9 @@ export function FieldGroupCard({
         <Card.Title>Groupe: {fieldGroup.name}</Card.Title>
         <Text h4>Type: {fieldGroup.type}</Text>
         <Text>Opérateur logique: {fieldGroup.logical_operator}</Text>
-        <FieldsAdd
-          constatationId={constatationId}
-          fieldGroupId={fieldGroup.id}
-        />
+        <FieldsAdd constatationId={constatationId} fieldGroupId={fieldGroup.id} />
         {FieldQuery?.data?.map((field) => (
-          <FieldCard
-            field={field}
-            constatationId={constatationId}
-            fieldGroupId={fieldGroup.id}
-            key={field.id}
-          />
+          <FieldCard field={field} constatationId={constatationId} fieldGroupId={fieldGroup.id} key={field.id} />
         ))}
       </Card>
     </View>

@@ -7,10 +7,7 @@ type UseLocalizationOptions = {
   config?: QueryConfig<typeof getLocalization>;
 };
 
-export const useLocalization = ({
-  constatationId,
-  config,
-}: UseLocalizationOptions) => {
+export const useLocalization = ({ constatationId, config }: UseLocalizationOptions) => {
   return useQuery({
     ...config,
     queryKey: ["localizations", constatationId],

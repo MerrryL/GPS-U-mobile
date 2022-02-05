@@ -11,9 +11,7 @@ type CheckBoxInputType = {
 export default function CheckBoxInput(props: CheckBoxInputType) {
   const { field, fieldState } = props;
 
-  const [isSelected, setSelection] = useState(
-    field.value || field.defaultValue || false
-  );
+  const [isSelected, setSelection] = useState(field.value || field.defaultValue || false);
 
   const { ref, ...field2 } = field;
 

@@ -59,9 +59,7 @@ export default function Edit({ route }: EditProps) {
     } else {
       return (
         <>
-          <Card.Title onPress={() => _updateSections(section.position)}>
-            {section.title}
-          </Card.Title>
+          <Card.Title onPress={() => _updateSections(section.position)}>{section.title}</Card.Title>
           <Card.Divider />
         </>
       );
@@ -93,14 +91,7 @@ export default function Edit({ route }: EditProps) {
         </Card.Title>
         <Card.Divider />
 
-        <Accordion
-          activeSections={activeSections}
-          sections={sections}
-          renderSectionTitle={_renderSectionTitle}
-          renderHeader={_renderHeader}
-          renderContent={_renderContent}
-          onChange={_updateSections}
-        />
+        <Accordion activeSections={activeSections} sections={sections} renderSectionTitle={_renderSectionTitle} renderHeader={_renderHeader} renderContent={_renderContent} onChange={_updateSections} />
 
         {/* Actions, dossier */}
         {/* Suivis */}

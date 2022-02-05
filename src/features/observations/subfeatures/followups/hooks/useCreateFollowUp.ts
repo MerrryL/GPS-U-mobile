@@ -17,10 +17,7 @@ type UseCreateFollowupOptions = {
   config?: MutationConfig<typeof createFollowup>;
 };
 
-export const useCreateFollowup = ({
-  observationId,
-  config,
-}: UseCreateFollowupOptions) => {
+export const useCreateFollowup = ({ observationId, config }: UseCreateFollowupOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {

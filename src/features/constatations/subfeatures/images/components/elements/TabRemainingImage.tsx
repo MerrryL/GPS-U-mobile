@@ -11,9 +11,7 @@ type TabRemainingImagesProps = {
   myImage: ImageType;
 };
 
-export default function TabRemainingImages({
-  myImage,
-}: TabRemainingImagesProps) {
+export default function TabRemainingImages({ myImage }: TabRemainingImagesProps) {
   const [image, setImage] = useState(null);
   const styles = useStyles();
 
@@ -45,11 +43,7 @@ export default function TabRemainingImages({
 
   return (
     <View style={styles.container}>
-      <LongText
-        containerStyle={{ margin: "20px" }}
-        boldText={myImage.name}
-        text={myImage.description}
-      />
+      <LongText containerStyle={{ margin: "20px" }} boldText={myImage.name} text={myImage.description} />
       <ImagePicker image={image} onChange={setImage} onSubmit={onSubmit} />
     </View>
   );

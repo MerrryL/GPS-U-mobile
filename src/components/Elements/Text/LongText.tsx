@@ -13,14 +13,7 @@ type LongTextProps = {
 };
 
 export default function LongText(props: LongTextProps) {
-  const {
-    boldText = null,
-    text,
-    containerStyle = null,
-    boldTextStyle = null,
-    textStyle = null,
-    maxLength,
-  } = props;
+  const { boldText = null, text, containerStyle = null, boldTextStyle = null, textStyle = null, maxLength } = props;
 
   const shortenedText = text?.substring(0, maxLength ?? 40) ?? null;
 
@@ -28,16 +21,7 @@ export default function LongText(props: LongTextProps) {
 
   return (
     <>
-      <NormalText
-        {...props}
-        text={
-          text !== shortenedText
-            ? seeMore
-              ? shortenedText + "..."
-              : text
-            : text
-        }
-      />
+      <NormalText {...props} text={text !== shortenedText ? (seeMore ? shortenedText + "..." : text) : text} />
       {text !== shortenedText && (
         <TouchableOpacity onPress={() => toggleSeeMore(!seeMore)}>
           <Text

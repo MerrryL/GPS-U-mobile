@@ -9,12 +9,7 @@ type UseFieldOptions = {
   config?: QueryConfig<typeof getField>;
 };
 
-export const useField = ({
-  fieldId,
-  observationId,
-  fieldGroupId,
-  config,
-}: UseFieldOptions) => {
+export const useField = ({ fieldId, observationId, fieldGroupId, config }: UseFieldOptions) => {
   return useQuery({
     ...config,
     queryKey: ["fields", fieldId],

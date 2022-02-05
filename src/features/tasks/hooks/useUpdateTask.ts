@@ -15,33 +15,21 @@ export const useUpdateTask = ({ config }: UseUpdateTaskOptions = {}) => {
 
   return useMutation({
     onMutate: async (updatingTask: any) => {
-      await queryClient.cancelQueries([
-        "constatations",
-        updatingTask?.constatationId,
-      ]);
+      await queryClient.cancelQueries(["constatations", updatingTask?.constatationId]);
 
-      const previousTask = queryClient.getQueryData<Task>([
-        "constatations",
-        updatingTask?.constatationId,
-      ]);
+      const previousTask = queryClient.getQueryData<Task>(["constatations", updatingTask?.constatationId]);
 
-      queryClient.setQueryData(
-        ["constatations", updatingTask?.constatationId],
-        {
-          ...previousTask,
-          ...updatingTask.data,
-          id: updatingTask.constatationId,
-        }
-      );
+      queryClient.setQueryData(["constatations", updatingTask?.constatationId], {
+        ...previousTask,
+        ...updatingTask.data,
+        id: updatingTask.constatationId,
+      });
 
       return { previousTask };
     },
     onError: (_, __, context: any) => {
       if (context?.previousTask) {
-        queryClient.setQueryData(
-          ["constatations", context.previousTask.id],
-          context.previousTask
-        );
+        queryClient.setQueryData(["constatations", context.previousTask.id], context.previousTask);
       }
     },
     onSuccess: (data) => {

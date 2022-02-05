@@ -11,10 +11,7 @@ type UseCreateConstatationImageOptions = {
   config?: MutationConfig<typeof createConstatationImage>;
 };
 
-export const useCreateConstatationImage = ({
-  constatationId,
-  config,
-}: UseCreateConstatationImageOptions) => {
+export const useCreateConstatationImage = ({ constatationId, config }: UseCreateConstatationImageOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {

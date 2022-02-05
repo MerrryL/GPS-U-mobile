@@ -7,13 +7,8 @@ type GetFieldsOptions = {
 };
 
 //TODO: this points to Index on the api instead of a "show"
-export const getFields = ({
-  observationId,
-  fieldGroupId,
-}: GetFieldsOptions): Promise<Field[]> => {
-  return axios.get(
-    `/observations/${observationId}/field_groups/${fieldGroupId}/fields`
-  );
+export const getFields = ({ observationId, fieldGroupId }: GetFieldsOptions): Promise<Field[]> => {
+  return axios.get(`/observations/${observationId}/field_groups/${fieldGroupId}/fields`);
 };
 
 type GetFieldOptions = {
@@ -22,14 +17,8 @@ type GetFieldOptions = {
   fieldId: string;
 };
 
-export const getField = ({
-  observationId,
-  fieldGroupId,
-  fieldId,
-}: GetFieldOptions): Promise<Field> => {
-  return axios.get(
-    `/observations/${observationId}/field_groups/${fieldGroupId}/fields/${fieldId}`
-  );
+export const getField = ({ observationId, fieldGroupId, fieldId }: GetFieldOptions): Promise<Field> => {
+  return axios.get(`/observations/${observationId}/field_groups/${fieldGroupId}/fields/${fieldId}`);
 };
 
 type CreateFieldOptions = {
@@ -41,18 +30,8 @@ type CreateFieldOptions = {
   isRequired: boolean;
 };
 
-export const createField = ({
-  observationId,
-  fieldGroupId,
-  name,
-  type_id,
-  defaultValue,
-  isRequired,
-}: CreateFieldOptions): Promise<Field> => {
-  return axios.post(
-    `/observations/${observationId}/field_groups/${fieldGroupId}/fields/`,
-    { name, type_id, defaultValue, isRequired }
-  );
+export const createField = ({ observationId, fieldGroupId, name, type_id, defaultValue, isRequired }: CreateFieldOptions): Promise<Field> => {
+  return axios.post(`/observations/${observationId}/field_groups/${fieldGroupId}/fields/`, { name, type_id, defaultValue, isRequired });
 };
 
 type DeleteFieldOptions = {
@@ -61,12 +40,6 @@ type DeleteFieldOptions = {
   observationId: string;
 };
 
-export const deleteField = ({
-  fieldId,
-  fieldGroupId,
-  observationId,
-}: DeleteFieldOptions) => {
-  return axios.delete(
-    `/observations/${observationId}/field_groups/${fieldGroupId}/fields/${fieldId}`
-  );
+export const deleteField = ({ fieldId, fieldGroupId, observationId }: DeleteFieldOptions) => {
+  return axios.delete(`/observations/${observationId}/field_groups/${fieldGroupId}/fields/${fieldId}`);
 };

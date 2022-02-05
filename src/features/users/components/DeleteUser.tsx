@@ -20,12 +20,7 @@ export const DeleteUser = ({ id }: DeleteUserProps) => {
       body="Are you sure you want to delete this user?"
       triggerButton={<Button variant="danger">Delete</Button>}
       confirmButton={
-        <Button
-          isLoading={deleteUserMutation.isLoading}
-          type="button"
-          className="bg-red-600"
-          onClick={() => deleteUserMutation.mutate({ userId: id })}
-        >
+        <Button isLoading={deleteUserMutation.isLoading} type="button" className="bg-red-600" onClick={() => deleteUserMutation.mutate({ userId: id })}>
           Delete
         </Button>
       }

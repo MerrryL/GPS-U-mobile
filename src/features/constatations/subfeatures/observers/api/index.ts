@@ -10,9 +10,7 @@ type GetConstatationObserversOptions = {
   constatationId: string;
 };
 
-export const getConstatationObservers = ({
-  constatationId,
-}: GetConstatationObserversOptions): Promise<Observer[]> => {
+export const getConstatationObservers = ({ constatationId }: GetConstatationObserversOptions): Promise<Observer[]> => {
   return axios.get(`/constatations/${constatationId}/observers`);
 };
 
@@ -25,10 +23,7 @@ type CreateObserverOptions = {
   observers: ObserverToSend[];
 };
 
-export const updateConstatationObservers = ({
-  constatationId,
-  observers = [],
-}: CreateObserverOptions): Promise<Observer[]> => {
+export const updateConstatationObservers = ({ constatationId, observers = [] }: CreateObserverOptions): Promise<Observer[]> => {
   return axios.post(`constatations/${constatationId}/observers/`, {
     observers,
   });

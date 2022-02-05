@@ -14,7 +14,7 @@ export default function List({ route, navigation }) {
   const createObservationMutation = useCreateObservation();
 
   const handleCreation = async (values) => {
-    let newObservation = await createObservationMutation.mutateAsync({
+    const newObservation = await createObservationMutation.mutateAsync({
       data: null,
     });
   };
@@ -35,12 +35,7 @@ export default function List({ route, navigation }) {
           <ObservationCard observation={observation} key={index} />
         ))}
       </ScrollView>
-      <FAB
-        title="+"
-        placement="right"
-        size="large"
-        onPress={() => handleCreation(null)}
-      />
+      <FAB title="+" placement="right" size="large" onPress={() => handleCreation(null)} />
     </>
   );
 }

@@ -63,12 +63,7 @@ export function FieldGroupsAdd({ observationId }: FieldGroupAddProps) {
 
       <TextInput name="type" defaultValue="" label="Type" control={control} />
 
-      <TextInput
-        name="logical_operator"
-        defaultValue=""
-        label="Opérateur logique"
-        control={control}
-      />
+      <TextInput name="logical_operator" defaultValue="" label="Opérateur logique" control={control} />
 
       {/* <Controller
             control={control}

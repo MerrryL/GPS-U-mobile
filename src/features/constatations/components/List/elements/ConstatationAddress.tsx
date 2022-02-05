@@ -19,12 +19,7 @@ export default function ConstatationAddress(props: ConstatationAddressProps) {
   return (
     <View style={styles.container}>
       <AddressText address={localization?.formatted_address} />
-      {localization && localization.latitude && localization.longitude && (
-        <OpenCoords
-          latitude={localization.latitude}
-          longitude={localization.longitude}
-        />
-      )}
+      {localization && localization.latitude && localization.longitude && <OpenCoords latitude={localization.latitude} longitude={localization.longitude} />}
     </View>
   );
 }

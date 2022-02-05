@@ -10,31 +10,21 @@ type UseCreateObservationOptions = {
   config?: MutationConfig<typeof createObservation>;
 };
 
-export const useCreateObservation = ({
-  config,
-}: UseCreateObservationOptions = {}) => {
+export const useCreateObservation = ({ config }: UseCreateObservationOptions = {}) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onMutate: async (newObservation) => {
       await queryClient.cancelQueries(["observations"]);
 
-      const previousObservations = queryClient.getQueryData<Observation[]>([
-        "observations",
-      ]);
+      const previousObservations = queryClient.getQueryData<Observation[]>(["observations"]);
 
-      queryClient.setQueryData(
-        ["observations"],
-        [...(previousObservations || []), newObservation.data]
-      );
+      queryClient.setQueryData(["observations"], [...(previousObservations || []), newObservation.data]);
 
       return { previousObservations };
     },
     onError: (_, __, context: any) => {
       if (context?.previousObservations) {
-        queryClient.setQueryData(
-          ["observations"],
-          context.previousObservations
-        );
+        queryClient.setQueryData(["observations"], context.previousObservations);
       }
     },
     onSuccess: () => {

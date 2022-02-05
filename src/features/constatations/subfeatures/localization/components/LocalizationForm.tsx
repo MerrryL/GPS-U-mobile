@@ -36,39 +36,11 @@ export default function LocalizationForm({ coords }) {
 
   return (
     <View>
-      <TextInput
-        name="given_name"
-        defaultValue={coords.given_name}
-        label="Lieu-dit"
-        control={control}
-      />
-      <TextInput
-        name="address"
-        defaultValue={coords.given_name}
-        label="Adresse"
-        control={control}
-      />
+      <TextInput name="given_name" defaultValue={coords.given_name} label="Lieu-dit" control={control} />
+      <TextInput name="address" defaultValue={coords.given_name} label="Adresse" control={control} />
       <View style={styles.coords}>
-        <TextInput
-          name="latitude"
-          label="Lat"
-          leftIcon={
-            <MaterialCommunityIcons name="latitude" size={24} color="black" />
-          }
-          editable={false}
-          defaultValue={coords.latitude || ""}
-          control={control}
-        />
-        <TextInput
-          name="longitude"
-          label="Lng"
-          leftIcon={
-            <MaterialCommunityIcons name="longitude" size={24} color="black" />
-          }
-          editable={false}
-          defaultValue={coords.longitude || ""}
-          control={control}
-        />
+        <TextInput name="latitude" label="Lat" leftIcon={<MaterialCommunityIcons name="latitude" size={24} color="black" />} editable={false} defaultValue={coords.latitude || ""} control={control} />
+        <TextInput name="longitude" label="Lng" leftIcon={<MaterialCommunityIcons name="longitude" size={24} color="black" />} editable={false} defaultValue={coords.longitude || ""} control={control} />
       </View>
     </View>
   );

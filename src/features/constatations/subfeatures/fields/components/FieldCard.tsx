@@ -11,11 +11,7 @@ type FieldCardProps = {
   constatationId: string;
 };
 
-export function FieldCard({
-  field,
-  fieldGroupId,
-  constatationId,
-}: FieldCardProps) {
+export function FieldCard({ field, fieldGroupId, constatationId }: FieldCardProps) {
   const FieldQuery = useField({ fieldId: field.id });
   const fieldDeleteMutation = useDeleteField({
     constatationId: constatationId,

@@ -61,12 +61,7 @@ type AuthorizationProps = {
     }
 );
 
-export const Authorization = ({
-  policyCheck,
-  allowedRoles,
-  forbiddenFallback = null,
-  children,
-}: AuthorizationProps) => {
+export const Authorization = ({ policyCheck, allowedRoles, forbiddenFallback = null, children }: AuthorizationProps) => {
   const { checkAccess } = useAuthorization();
 
   let canAccess = false;

@@ -35,12 +35,7 @@ export const UpdateProfile = () => {
       }
       title="Update Profile"
       submitButton={
-        <Button
-          form="update-profile"
-          type="submit"
-          size="sm"
-          isLoading={updateProfileMutation.isLoading}
-        >
+        <Button form="update-profile" type="submit" size="sm" isLoading={updateProfileMutation.isLoading}>
           Submit
         </Button>
       }
@@ -62,28 +57,11 @@ export const UpdateProfile = () => {
       >
         {({ register, formState }) => (
           <>
-            <InputField
-              label="First Name"
-              error={formState.errors["firstName"]}
-              registration={register("firstName")}
-            />
-            <InputField
-              label="Last Name"
-              error={formState.errors["lastName"]}
-              registration={register("lastName")}
-            />
-            <InputField
-              label="Email Address"
-              type="email"
-              error={formState.errors["email"]}
-              registration={register("email")}
-            />
+            <InputField label="First Name" error={formState.errors["firstName"]} registration={register("firstName")} />
+            <InputField label="Last Name" error={formState.errors["lastName"]} registration={register("lastName")} />
+            <InputField label="Email Address" type="email" error={formState.errors["email"]} registration={register("email")} />
 
-            <TextAreaField
-              label="Bio"
-              error={formState.errors["bio"]}
-              registration={register("bio")}
-            />
+            <TextAreaField label="Bio" error={formState.errors["bio"]} registration={register("bio")} />
           </>
         )}
       </Form>

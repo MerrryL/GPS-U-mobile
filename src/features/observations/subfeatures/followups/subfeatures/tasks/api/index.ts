@@ -15,13 +15,8 @@ type GetTasksOptions = {
 };
 
 //TODO: this points to Index on the api instead of a "show"
-export const getTasks = ({
-  observationId,
-  followupId,
-}: GetTasksOptions): Promise<Task[]> => {
-  return axios.get(
-    `/observations/${observationId}/followups/${followupId}/tasks`
-  );
+export const getTasks = ({ observationId, followupId }: GetTasksOptions): Promise<Task[]> => {
+  return axios.get(`/observations/${observationId}/followups/${followupId}/tasks`);
 };
 
 type GetTaskOptions = {
@@ -30,14 +25,8 @@ type GetTaskOptions = {
   taskId: string;
 };
 
-export const getTask = ({
-  observationId,
-  followupId,
-  taskId,
-}: GetTaskOptions): Promise<Task> => {
-  return axios.get(
-    `/observations/${observationId}/followups/${followupId}/tasks/${taskId}`
-  );
+export const getTask = ({ observationId, followupId, taskId }: GetTaskOptions): Promise<Task> => {
+  return axios.get(`/observations/${observationId}/followups/${followupId}/tasks/${taskId}`);
 };
 
 type CreateTaskOptions = {
@@ -53,29 +42,16 @@ type CreateTaskOptions = {
   operators_id: any;
 };
 
-export const createTask = ({
-  observationId,
-  followupId,
-  name,
-  description,
-  realisation_date,
-  report_date,
-  report_periodicity,
-  task_status_id,
-  operators_id,
-}: CreateTaskOptions): Promise<Task> => {
-  return axios.post(
-    `/observations/${observationId}/followups/${followupId}/tasks/`,
-    {
-      name,
-      description,
-      realisation_date,
-      report_date,
-      report_periodicity,
-      task_status_id,
-      operators_id,
-    }
-  );
+export const createTask = ({ observationId, followupId, name, description, realisation_date, report_date, report_periodicity, task_status_id, operators_id }: CreateTaskOptions): Promise<Task> => {
+  return axios.post(`/observations/${observationId}/followups/${followupId}/tasks/`, {
+    name,
+    description,
+    realisation_date,
+    report_date,
+    report_periodicity,
+    task_status_id,
+    operators_id,
+  });
 };
 
 type DeleteTaskOptions = {
@@ -84,12 +60,6 @@ type DeleteTaskOptions = {
   observationId: string;
 };
 
-export const deleteTask = ({
-  taskId,
-  followupId,
-  observationId,
-}: DeleteTaskOptions) => {
-  return axios.delete(
-    `/observations/${observationId}/followups/${followupId}/tasks/${taskId}`
-  );
+export const deleteTask = ({ taskId, followupId, observationId }: DeleteTaskOptions) => {
+  return axios.delete(`/observations/${observationId}/followups/${followupId}/tasks/${taskId}`);
 };

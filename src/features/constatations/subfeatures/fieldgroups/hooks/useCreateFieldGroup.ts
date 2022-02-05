@@ -15,32 +15,20 @@ type UseCreateFieldGroupOptions = {
   config?: MutationConfig<typeof createFieldGroup>;
 };
 
-export const useCreateFieldGroup = ({
-  constatationId,
-  config,
-}: UseCreateFieldGroupOptions) => {
+export const useCreateFieldGroup = ({ constatationId, config }: UseCreateFieldGroupOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {
       await queryClient.cancelQueries(["field_groups"]);
 
-      const previousFieldGroups = queryClient.getQueryData<FieldGroup[]>([
-        "field_groups",
-      ]);
+      const previousFieldGroups = queryClient.getQueryData<FieldGroup[]>(["field_groups"]);
 
-      queryClient.setQueryData(
-        ["field_groups"],
-        [...(previousFieldGroups || []), data]
-      );
+      queryClient.setQueryData(["field_groups"], [...(previousFieldGroups || []), data]);
 
-      const previousConstatations = queryClient.getQueryData<Constatation[]>([
-        "constatations",
-      ]);
+      const previousConstatations = queryClient.getQueryData<Constatation[]>(["constatations"]);
 
       //console.log(queryClient.getQueryData<Constatation[]>(["constatations", 100]));
-      let index = previousConstatations.findIndex(
-        (obj) => obj.id.toString() == constatationId
-      );
+      const index = previousConstatations.findIndex((obj) => obj.id.toString() == constatationId);
 
       previousConstatations[index].field_groups.push(data);
 

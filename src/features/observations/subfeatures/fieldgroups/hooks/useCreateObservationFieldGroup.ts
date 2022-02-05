@@ -15,10 +15,7 @@ type UseCreateObservationFieldGroupOptions = {
   config?: MutationConfig<typeof createObservationFieldGroup>;
 };
 
-export const useCreateObservationFieldGroup = ({
-  observationId,
-  config,
-}: UseCreateObservationFieldGroupOptions) => {
+export const useCreateObservationFieldGroup = ({ observationId, config }: UseCreateObservationFieldGroupOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {

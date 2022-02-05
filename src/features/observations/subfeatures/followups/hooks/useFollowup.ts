@@ -8,11 +8,7 @@ type UseFollowupOptions = {
   config?: QueryConfig<typeof getFollowup>;
 };
 
-export const useFollowup = ({
-  observationId,
-  followupId,
-  config,
-}: UseFollowupOptions) => {
+export const useFollowup = ({ observationId, followupId, config }: UseFollowupOptions) => {
   return useQuery({
     ...config,
     queryKey: ["followups", followupId],

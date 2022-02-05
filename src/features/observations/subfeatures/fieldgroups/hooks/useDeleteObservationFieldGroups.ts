@@ -14,11 +14,7 @@ type UseDeleteObservationFieldGroupOptions = {
 };
 
 //Todo: error after deletion : it looks like it fetches ["field_groups", $id] and errors on it
-export const useDeleteObservationFieldGroup = ({
-  fieldGroupId,
-  observationId,
-  config,
-}: UseDeleteObservationFieldGroupOptions) => {
+export const useDeleteObservationFieldGroup = ({ fieldGroupId, observationId, config }: UseDeleteObservationFieldGroupOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {

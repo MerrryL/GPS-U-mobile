@@ -6,29 +6,10 @@ import ConstatationIsDraft from "./ConstatationIsDraft";
 import ConstatationIsValidated from "./ConstatationIsValidated";
 
 export default function ConstatationValidationStatus(props) {
-  const {
-    id,
-    isValidated,
-    validationDate,
-    requiresValidation,
-    requiresValidationDate,
-  } = props;
+  const { id, isValidated, validationDate, requiresValidation, requiresValidationDate } = props;
 
   const styles = useStyles();
-  return (
-    <View style={styles.container}>
-      {isValidated == 1 ? (
-        <ConstatationIsValidated validationDate={validationDate} />
-      ) : requiresValidation == 1 ? (
-        <ConstatationHasRequiredValidation
-          id={id}
-          requiresValidationDate={requiresValidationDate}
-        />
-      ) : (
-        <ConstatationIsDraft id={id} />
-      )}
-    </View>
-  );
+  return <View style={styles.container}>{isValidated == 1 ? <ConstatationIsValidated validationDate={validationDate} /> : requiresValidation == 1 ? <ConstatationHasRequiredValidation id={id} requiresValidationDate={requiresValidationDate} /> : <ConstatationIsDraft id={id} />}</View>;
 }
 
 const useStyles = makeStyles((theme: Partial<FullTheme>) => ({

@@ -29,15 +29,11 @@ export type UserResponse = {
   currentUser: AuthUser;
 };
 
-export const loginWithEmailAndPassword = (
-  data: LoginCredentials
-): Promise<UserResponse> => {
+export const loginWithEmailAndPassword = (data: LoginCredentials): Promise<UserResponse> => {
   return axios.post("/login", data);
 };
 
-export const registerWithEmailAndPassword = (
-  data: RegisterCredentials
-): Promise<UserResponse> => {
+export const registerWithEmailAndPassword = (data: RegisterCredentials): Promise<UserResponse> => {
   return axios.post("/register", data);
 };
 

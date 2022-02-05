@@ -7,10 +7,7 @@ type LocalizationPickerProps = {
   constatationId: string;
 };
 
-export default function LocalizationPicker({
-  localization,
-  constatationId,
-}: LocalizationPickerProps) {
+export default function LocalizationPicker({ localization, constatationId }: LocalizationPickerProps) {
   const [coords, setCoords] = useState<Localization>(localization || {});
   return <View></View>;
 }

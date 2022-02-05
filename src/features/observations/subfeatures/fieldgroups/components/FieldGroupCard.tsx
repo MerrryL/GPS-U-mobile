@@ -13,10 +13,7 @@ type ObservationFieldGroupCardProps = {
   observationId: string;
 };
 
-export function FieldGroupCard({
-  fieldGroupId,
-  observationId,
-}: ObservationFieldGroupCardProps) {
+export function FieldGroupCard({ fieldGroupId, observationId }: ObservationFieldGroupCardProps) {
   const ObservationFieldGroupQuery = useObservationFieldGroup({
     fieldGroupId: fieldGroupId,
     observationId: observationId,
@@ -42,17 +39,9 @@ export function FieldGroupCard({
         <Card.Title>Groupe: {fieldGroup?.name}</Card.Title>
         <Text>Type: {fieldGroup?.type}</Text>
         <Text>Opérateur logique: {fieldGroup?.logical_operator}</Text>
-        <FieldsAdd
-          observationId={observationId}
-          fieldGroupId={fieldGroup?.id}
-        />
+        <FieldsAdd observationId={observationId} fieldGroupId={fieldGroup?.id} />
         {fieldGroup?.fields?.map((field) => (
-          <FieldCard
-            fieldId={field?.id}
-            observationId={observationId}
-            fieldGroupId={field?.field_group_id}
-            key={field?.id}
-          />
+          <FieldCard fieldId={field?.id} observationId={observationId} fieldGroupId={field?.field_group_id} key={field?.id} />
         ))}
       </Card>
     </View>

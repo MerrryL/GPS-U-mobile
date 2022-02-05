@@ -36,9 +36,7 @@ function AppNavigator() {
         component={ConstatationStackScreen}
         options={{
           tabBarLabel: "Constatations",
-          tabBarIcon: ({ color, focused }) => (
-            <AntDesign name="database" color={color} focused={focused} />
-          ),
+          tabBarIcon: ({ color, focused }) => <AntDesign name="database" color={color} focused={focused} />,
         }}
       />
       <Tab.Screen
@@ -46,9 +44,7 @@ function AppNavigator() {
         component={ObservationStackScreen}
         options={{
           tabBarLabel: "Observations",
-          tabBarIcon: ({ color, focused }) => (
-            <AntDesign name="database" color={color} focused={focused} />
-          ),
+          tabBarIcon: ({ color, focused }) => <AntDesign name="database" color={color} focused={focused} />,
         }}
       />
       <Tab.Screen
@@ -56,9 +52,7 @@ function AppNavigator() {
         component={FollowupStackScreen}
         options={{
           tabBarLabel: "Suivis",
-          tabBarIcon: ({ color, focused }) => (
-            <AntDesign name="database" color={color} focused={focused} />
-          ),
+          tabBarIcon: ({ color, focused }) => <AntDesign name="database" color={color} focused={focused} />,
         }}
       />
       <Tab.Screen
@@ -66,9 +60,7 @@ function AppNavigator() {
         component={TaskStackScreen}
         options={{
           tabBarLabel: "Tâches",
-          tabBarIcon: ({ color, focused }) => (
-            <AntDesign name="database" color={color} focused={focused} />
-          ),
+          tabBarIcon: ({ color, focused }) => <AntDesign name="database" color={color} focused={focused} />,
         }}
       />
       <Tab.Screen
@@ -76,9 +68,7 @@ function AppNavigator() {
         component={HomeScreen}
         options={{
           tabBarLabel: "Home",
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons name="home" color={color} focused={focused} />
-          ),
+          tabBarIcon: ({ color, focused }) => <Ionicons name="home" color={color} focused={focused} />,
         }}
       />
       {/* <Tab.Screen
@@ -96,9 +86,7 @@ function AppNavigator() {
         component={ParametersScreen}
         options={{
           tabBarLabel: "Paramètres",
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons name="settings" color={color} focused={focused} />
-          ),
+          tabBarIcon: ({ color, focused }) => <Ionicons name="settings" color={color} focused={focused} />,
         }}
       />
 
@@ -107,9 +95,7 @@ function AppNavigator() {
         component={AboutScreen}
         options={{
           tabBarLabel: "A propos",
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons name="help-outline" color={color} focused={focused} />
-          ),
+          tabBarIcon: ({ color, focused }) => <Ionicons name="help-outline" color={color} focused={focused} />,
         }}
       />
     </Tab.Navigator>

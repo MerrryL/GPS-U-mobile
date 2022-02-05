@@ -14,11 +14,7 @@ export function FieldGroupPart({ observationId }) {
     <>
       <FieldGroupsAdd observationId={observationId} />
       {FieldGroupsQuery?.data?.map((fieldGroup) => (
-        <FieldGroupCard
-          fieldGroupId={fieldGroup.id}
-          observationId={observationId}
-          key={fieldGroup.id}
-        />
+        <FieldGroupCard fieldGroupId={fieldGroup.id} observationId={observationId} key={fieldGroup.id} />
       ))}
     </>
   );

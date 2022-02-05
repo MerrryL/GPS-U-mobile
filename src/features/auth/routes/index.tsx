@@ -22,9 +22,7 @@ export const AuthRoutes = () => {
           component={Login}
           options={{
             tabBarLabel: "Utilisateur",
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="people-outline" color={color} size={size} />
-            ),
+            tabBarIcon: ({ color, size }) => <Ionicons name="people-outline" color={color} size={size} />,
           }}
         />
         <Tab.Screen
@@ -32,9 +30,7 @@ export const AuthRoutes = () => {
           component={Register}
           options={{
             tabBarLabel: "S'inscrire",
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="settings" color={color} size={size} />
-            ),
+            tabBarIcon: ({ color, size }) => <Ionicons name="settings" color={color} size={size} />,
           }}
         />
       </Tab.Navigator>

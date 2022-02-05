@@ -10,40 +10,26 @@ type UseValidateConstatationOptions = {
   config?: MutationConfig<typeof validateConstatation>;
 };
 
-export const useValidateConstatation = ({
-  config,
-}: UseValidateConstatationOptions = {}) => {
+export const useValidateConstatation = ({ config }: UseValidateConstatationOptions = {}) => {
   const { addNotification } = useNotificationStore();
 
   return useMutation({
     onMutate: async (updatingConstatation: any) => {
-      await queryClient.cancelQueries([
-        "constatations",
-        updatingConstatation?.constatationId,
-      ]);
+      await queryClient.cancelQueries(["constatations", updatingConstatation?.constatationId]);
 
-      const previousConstatation = queryClient.getQueryData<Constatation>([
-        "constatations",
-        updatingConstatation?.constatationId,
-      ]);
+      const previousConstatation = queryClient.getQueryData<Constatation>(["constatations", updatingConstatation?.constatationId]);
 
-      queryClient.setQueryData(
-        ["constatations", updatingConstatation?.constatationId],
-        {
-          ...previousConstatation,
-          ...updatingConstatation.data,
-          id: updatingConstatation.constatationId,
-        }
-      );
+      queryClient.setQueryData(["constatations", updatingConstatation?.constatationId], {
+        ...previousConstatation,
+        ...updatingConstatation.data,
+        id: updatingConstatation.constatationId,
+      });
 
       return { previousConstatation };
     },
     onError: (_, __, context: any) => {
       if (context?.previousConstatation) {
-        queryClient.setQueryData(
-          ["constatations", context.previousConstatation.id],
-          context.previousConstatation
-        );
+        queryClient.setQueryData(["constatations", context.previousConstatation.id], context.previousConstatation);
       }
     },
     onSuccess: (data) => {

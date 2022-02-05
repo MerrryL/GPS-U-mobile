@@ -45,18 +45,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <Input
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            autoCompleteType="email"
-            keyboardType="default"
-            textContentType="emailAddress"
-            leftIcon={<Icon name="at" size={24} color="black" />}
-            placeholder="Adresse e-mail"
-          />
-        )}
+        render={({ field: { onChange, onBlur, value } }) => <Input onBlur={onBlur} onChangeText={onChange} value={value} autoCompleteType="email" keyboardType="default" textContentType="emailAddress" leftIcon={<Icon name="at" size={24} color="black" />} placeholder="Adresse e-mail" />}
         name="email"
         defaultValue=""
       />
@@ -67,19 +56,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <Input
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            autoCompleteType="password"
-            keyboardType="email-address"
-            textContentType="password"
-            secureTextEntry={true}
-            leftIcon={<Icon name="lock" size={24} color="black" />}
-            placeholder="Mot de passe"
-          />
-        )}
+        render={({ field: { onChange, onBlur, value } }) => <Input onBlur={onBlur} onChangeText={onChange} value={value} autoCompleteType="password" keyboardType="email-address" textContentType="password" secureTextEntry={true} leftIcon={<Icon name="lock" size={24} color="black" />} placeholder="Mot de passe" />}
         name="password"
         defaultValue=""
       />

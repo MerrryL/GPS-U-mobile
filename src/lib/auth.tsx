@@ -1,15 +1,7 @@
 import { initReactQueryAuth } from "react-query-auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import {
-  loginWithEmailAndPassword,
-  getUserProfile,
-  registerWithEmailAndPassword,
-  UserResponse,
-  LoginCredentials,
-  RegisterCredentials,
-  AuthUser,
-} from "@/features/auth";
+import { loginWithEmailAndPassword, getUserProfile, registerWithEmailAndPassword, UserResponse, LoginCredentials, RegisterCredentials, AuthUser } from "@/features/auth";
 import React from "react";
 import { axios } from "@/lib/axios";
 import Spinner from "@/components/Elements/Spinner";
@@ -32,10 +24,7 @@ async function handleUserResponse(data: UserResponse) {
 
 //TODO: user is already set in previous method
 async function loadUser() {
-  if (
-    (await AsyncStorage.getItem("token")) &&
-    (await AsyncStorage.getItem("token")) === null
-  ) {
+  if ((await AsyncStorage.getItem("token")) && (await AsyncStorage.getItem("token")) === null) {
     const data = await getUserProfile();
     return data;
   }
@@ -73,9 +62,4 @@ const authConfig = {
   },
 };
 
-export const { AuthProvider, useAuth } = initReactQueryAuth<
-  AuthUser | null,
-  unknown,
-  LoginCredentials,
-  RegisterCredentials
->(authConfig);
+export const { AuthProvider, useAuth } = initReactQueryAuth<AuthUser | null, unknown, LoginCredentials, RegisterCredentials>(authConfig);

@@ -2,7 +2,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "dev": "tsc --watch",
-    "lint": "eslint --ext .js,.ts .",
+    "lint": "eslint --ext .js,.ts,.tsx,.jsx .",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|jsx|tsx|json)\""
   },
   "dependencies": {

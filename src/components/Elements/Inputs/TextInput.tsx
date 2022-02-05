@@ -8,11 +8,7 @@ type TextInputProps = {
   formState: RHFFormState;
 };
 
-export default function TextInput(props: TextInputProps) {
-  const { field, fieldState, formState } = props;
-
-  // console.log("field" + field.name, props);
-
+export default function TextInput({ field, fieldState, formState }: TextInputProps) {
   let label: string = field.label ? field.label : field.name || "Label";
   label = label.charAt(0).toUpperCase() + label.slice(1);
 

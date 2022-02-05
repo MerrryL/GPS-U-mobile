@@ -12,22 +12,15 @@ type UseDeleteDossierOptions = {
   config?: MutationConfig<typeof deleteDossier>;
 };
 
-export const useDeleteDossier = ({
-  dossierId,
-  config,
-}: UseDeleteDossierOptions) => {
+export const useDeleteDossier = ({ dossierId, config }: UseDeleteDossierOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {
       await queryClient.cancelQueries(["dossiers"]);
 
-      const previousdossiers = queryClient.getQueryData<Dossier[]>([
-        "dossiers",
-      ]);
+      const previousdossiers = queryClient.getQueryData<Dossier[]>(["dossiers"]);
       console.log("dossierId", dossierId, data, previousdossiers);
-      let dossierIndex = previousdossiers.findIndex(
-        (obj) => obj.id == dossierId
-      );
+      const dossierIndex = previousdossiers.findIndex((obj) => obj.id == dossierId);
       previousdossiers.splice(dossierIndex, 1);
       queryClient.setQueryData(["dossiers"], [...previousdossiers]);
 

@@ -20,9 +20,7 @@ type ConstatationObservationsProps = {
 
 //TODO: add link and other functionnalities + extra checking etc
 
-export default function ConstatationObservations(
-  props: ConstatationObservationsProps
-) {
+export default function ConstatationObservations(props: ConstatationObservationsProps) {
   const { observations } = props;
   const styles = useStyles();
 
@@ -32,19 +30,7 @@ export default function ConstatationObservations(
 
       {observations &&
         observations.map((observation: Observation, index) => {
-          return (
-            <Text
-              key={index}
-              boldText={
-                observation?.codex?.precode +
-                " " +
-                observation?.code +
-                " du " +
-                observation.codex.name
-              }
-              text={observation?.name}
-            />
-          );
+          return <Text key={index} boldText={observation?.codex?.precode + " " + observation?.code + " du " + observation.codex.name} text={observation?.name} />;
         })}
     </View>
   );

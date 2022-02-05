@@ -14,12 +14,7 @@ type UseDeleteFieldOptions = {
   config?: MutationConfig<typeof deleteField>;
 };
 
-export const useDeleteField = ({
-  fieldId,
-  fieldGroupId,
-  constatationId,
-  config,
-}: UseDeleteFieldOptions) => {
+export const useDeleteField = ({ fieldId, fieldGroupId, constatationId, config }: UseDeleteFieldOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {

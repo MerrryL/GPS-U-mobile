@@ -21,11 +21,7 @@ type UseCreateTaskOptions = {
   config?: MutationConfig<typeof createTask>;
 };
 
-export const useCreateTask = ({
-  observationId,
-  followupId,
-  config,
-}: UseCreateTaskOptions) => {
+export const useCreateTask = ({ observationId, followupId, config }: UseCreateTaskOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {

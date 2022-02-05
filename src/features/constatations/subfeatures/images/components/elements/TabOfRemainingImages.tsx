@@ -16,10 +16,7 @@ export default function TabOfRemainingImages(props: ImagesTabsProps) {
 
   const [isVisible, setVisibility] = useState(true);
 
-  const boldText =
-    images?.length === 1
-      ? "Une photo est requise"
-      : images?.length + " photo(s) sont requises";
+  const boldText = images?.length === 1 ? "Une photo est requise" : images?.length + " photo(s) sont requises";
   const text = "Pour compléter les observations";
 
   const styles = useStyles();
@@ -29,29 +26,12 @@ export default function TabOfRemainingImages(props: ImagesTabsProps) {
       <NormalText boldText={boldText} text={text} />
 
       <TouchableOpacity onPress={() => setVisibility(!isVisible)}>
-        <Text
-          style={{ alignSelf: "flex-end", fontStyle: "italic", color: "blue" }}
-        >
-          {isVisible
-            ? "Cacher les photos requises"
-            : "Prendre les photos requises"}
-        </Text>
+        <Text style={{ alignSelf: "flex-end", fontStyle: "italic", color: "blue" }}>{isVisible ? "Cacher les photos requises" : "Prendre les photos requises"}</Text>
       </TouchableOpacity>
       {isVisible && (
         <>
-          <Tab
-            value={index}
-            onChange={setIndex}
-            indicatorStyle={styles.indicatorStyle}
-          >
-            {images &&
-              images.map((image, key) => (
-                <Tab.Item
-                  key={key}
-                  title={image.name}
-                  titleStyle={styles.tabItem}
-                />
-              ))}
+          <Tab value={index} onChange={setIndex} indicatorStyle={styles.indicatorStyle}>
+            {images && images.map((image, key) => <Tab.Item key={key} title={image.name} titleStyle={styles.tabItem} />)}
           </Tab>
 
           <TabView value={index} onChange={setIndex}>

@@ -10,15 +10,7 @@ export default function DetailsButton({ constatationId }: DetailsButtonProps) {
 
   const styles = useStyles();
 
-  return (
-    <Button
-      title="Détails"
-      style={styles.button}
-      onPress={() =>
-        navigation.navigate("Details", { constatationId: constatationId })
-      }
-    />
-  );
+  return <Button title="Détails" style={styles.button} onPress={() => navigation.navigate("Details", { constatationId: constatationId })} />;
 }
 
 const useStyles = makeStyles((theme: Partial<FullTheme>) => ({

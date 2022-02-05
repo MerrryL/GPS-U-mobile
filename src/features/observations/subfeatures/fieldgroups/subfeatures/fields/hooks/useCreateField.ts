@@ -13,11 +13,7 @@ type UseCreateFieldOptions = {
   config?: MutationConfig<typeof createField>;
 };
 
-export const useCreateField = ({
-  observationId,
-  fieldGroupId,
-  config,
-}: UseCreateFieldOptions) => {
+export const useCreateField = ({ observationId, fieldGroupId, config }: UseCreateFieldOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {

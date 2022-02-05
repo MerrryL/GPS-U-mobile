@@ -66,14 +66,7 @@ export function FieldsAdd({ fieldGroupId, constatationId }: FieldsAddProps) {
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <Input
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            placeholder="Nom"
-          />
-        )}
+        render={({ field: { onChange, onBlur, value } }) => <Input onBlur={onBlur} onChangeText={onChange} value={value} placeholder="Nom" />}
         name="name"
         defaultValue=""
       />
@@ -84,14 +77,7 @@ export function FieldsAdd({ fieldGroupId, constatationId }: FieldsAddProps) {
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <Input
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            placeholder="Type"
-          />
-        )}
+        render={({ field: { onChange, onBlur, value } }) => <Input onBlur={onBlur} onChangeText={onChange} value={value} placeholder="Type" />}
         name="type"
         defaultValue=""
       />
@@ -102,14 +88,7 @@ export function FieldsAdd({ fieldGroupId, constatationId }: FieldsAddProps) {
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <Input
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            placeholder="Valeur"
-          />
-        )}
+        render={({ field: { onChange, onBlur, value } }) => <Input onBlur={onBlur} onChangeText={onChange} value={value} placeholder="Valeur" />}
         name="value"
         defaultValue=""
       />

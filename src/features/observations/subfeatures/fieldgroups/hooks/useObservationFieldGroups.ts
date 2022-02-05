@@ -9,10 +9,7 @@ type UseObservationFieldGroupsOptions = {
   config?: QueryConfig<typeof getObservationFieldGroups>;
 };
 
-export const useObservationFieldGroups = ({
-  config,
-  observationId,
-}: UseObservationFieldGroupsOptions) => {
+export const useObservationFieldGroups = ({ config, observationId }: UseObservationFieldGroupsOptions) => {
   return useQuery({
     ...config,
     queryKey: ["field_groups"],

@@ -11,9 +11,7 @@ type UseUpdateLocalizationOptions = {
   config?: MutationConfig<typeof updateLocalization>;
 };
 
-export const useUpdateLocalization = ({
-  config,
-}: UseUpdateLocalizationOptions = {}) => {
+export const useUpdateLocalization = ({ config }: UseUpdateLocalizationOptions = {}) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {

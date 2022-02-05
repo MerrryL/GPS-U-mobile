@@ -9,22 +9,7 @@ type TaskCardProps = {
 };
 
 export function TaskCard({ task }: TaskCardProps) {
-  const {
-    created_at,
-    deleted_at,
-    description,
-    followup,
-    followup_id,
-    id,
-    name,
-    operators,
-    realisation_date,
-    report_date,
-    report_periodicity,
-    task_status,
-    task_status_id,
-    updated_at,
-  } = task;
+  const { created_at, deleted_at, description, followup, followup_id, id, name, operators, realisation_date, report_date, report_periodicity, task_status, task_status_id, updated_at } = task;
   const navigation = useNavigation();
 
   //console.log(task);
@@ -37,20 +22,8 @@ export function TaskCard({ task }: TaskCardProps) {
           justifyContent: "flex-end",
         }}
       >
-        <Button
-          title="Edit"
-          style={{ marginRight: 10 }}
-          onPress={() =>
-            navigation.navigate("Edition", { observationId: observation?.id })
-          }
-        />
-        <Button
-          title="Détails"
-          style={{ marginRight: 10 }}
-          onPress={() =>
-            navigation.navigate("Details", { observationId: observation?.id })
-          }
-        />
+        <Button title="Edit" style={{ marginRight: 10 }} onPress={() => navigation.navigate("Edition", { observationId: observation?.id })} />
+        <Button title="Détails" style={{ marginRight: 10 }} onPress={() => navigation.navigate("Details", { observationId: observation?.id })} />
       </View>
       <View>
         <Text>Nom: {name}</Text>

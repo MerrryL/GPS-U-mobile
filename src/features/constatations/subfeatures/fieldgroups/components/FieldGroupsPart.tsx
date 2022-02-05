@@ -14,11 +14,7 @@ export function FieldGroupPart({ constatationId = null }) {
     <>
       <FieldGroupsAdd constatationId={constatationId} />
       {FieldGroupsQuery?.data?.map((fieldGroup) => (
-        <FieldGroupCard
-          fieldGroup={fieldGroup}
-          constatationId={constatationId}
-          key={fieldGroup.id}
-        />
+        <FieldGroupCard fieldGroup={fieldGroup} constatationId={constatationId} key={fieldGroup.id} />
       ))}
     </>
   );

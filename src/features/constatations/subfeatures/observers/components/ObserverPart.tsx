@@ -44,9 +44,7 @@ export function ObserverPart({ constatationId }: ObserverPartProps) {
   } = useForm<any>();
 
   const onSubmit = async () => {
-    let selectedObserversId = selectedObservers.map(
-      (item: ObserverToSend) => item.id
-    );
+    const selectedObserversId = selectedObservers.map((item: ObserverToSend) => item.id);
 
     await updateObserverMutation.mutateAsync({
       constatationId: constatationId,
@@ -57,20 +55,13 @@ export function ObserverPart({ constatationId }: ObserverPartProps) {
   return (
     <View style={{ margin: 10 }}>
       <Card>
-        <MultiPickerInput
-          name="observers"
-          label="observers"
-          options={obsOptions}
-          selectedValues={selectedObservers}
-          control={control}
-        />
+        <MultiPickerInput name="observers" label="observers" options={obsOptions} selectedValues={selectedObservers} control={control} />
       </Card>
       <Button title="MAJ" onPress={() => onSubmit()} />
     </View>
   );
 
   function onMultiChange() {
-    return (item) =>
-      setSelectedObservers(xorBy(selectedObservers, [item], "id"));
+    return (item) => setSelectedObservers(xorBy(selectedObservers, [item], "id"));
   }
 }

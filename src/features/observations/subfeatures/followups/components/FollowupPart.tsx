@@ -14,11 +14,7 @@ export function FollowupPart({ observationId }) {
     <>
       <FollowupsAdd observationId={observationId} />
       {FollowupsQuery?.data?.map((followup) => (
-        <FollowupCard
-          followupId={followup.id}
-          observationId={observationId}
-          key={followup.id}
-        />
+        <FollowupCard followupId={followup.id} observationId={observationId} key={followup.id} />
       ))}
     </>
   );

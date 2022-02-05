@@ -14,7 +14,7 @@ export default function List({ route, navigation }) {
   const createConstatationMutation = useCreateConstatation();
 
   const handleCreation = async (values) => {
-    let newConstatation = await createConstatationMutation.mutateAsync({
+    const newConstatation = await createConstatationMutation.mutateAsync({
       data: null,
     });
 
@@ -41,12 +41,7 @@ export default function List({ route, navigation }) {
           <ConstatationListCard constatation={constatation} key={index} />
         ))}
       </ScrollView>
-      <FAB
-        title="+"
-        placement="right"
-        size="large"
-        onPress={() => handleCreation(null)}
-      />
+      <FAB title="+" placement="right" size="large" onPress={() => handleCreation(null)} />
     </>
   );
 }

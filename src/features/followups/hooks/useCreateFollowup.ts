@@ -10,22 +10,15 @@ type UseCreateFollowupOptions = {
   config?: MutationConfig<typeof createFollowup>;
 };
 
-export const useCreateFollowup = ({
-  config,
-}: UseCreateFollowupOptions = {}) => {
+export const useCreateFollowup = ({ config }: UseCreateFollowupOptions = {}) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onMutate: async (newFollowup) => {
       await queryClient.cancelQueries(["constatations"]);
 
-      const previousFollowups = queryClient.getQueryData<Followup[]>([
-        "constatations",
-      ]);
+      const previousFollowups = queryClient.getQueryData<Followup[]>(["constatations"]);
 
-      queryClient.setQueryData(
-        ["constatations"],
-        [...(previousFollowups || []), newFollowup.data]
-      );
+      queryClient.setQueryData(["constatations"], [...(previousFollowups || []), newFollowup.data]);
 
       return { previousFollowups };
     },

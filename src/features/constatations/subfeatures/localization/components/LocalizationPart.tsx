@@ -1,26 +1,11 @@
-import {
-  getAddressForCoordinates,
-  getCoordinatesForAddress,
-  getCurrentLocationFromSensors,
-} from "@/lib/localization";
+import { getAddressForCoordinates, getCoordinatesForAddress, getCurrentLocationFromSensors } from "@/lib/localization";
 //TODO:later replace addressinput
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import React, { useState, useEffect } from "react";
 import { FAB, Text, Button, Input } from "react-native-elements";
-import {
-  AntDesign,
-  FontAwesome,
-  FontAwesome5,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
+import { AntDesign, FontAwesome, FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
 
-import {
-  StyleSheet,
-  View,
-  Dimensions,
-  Linking,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, View, Dimensions, Linking, TouchableOpacity } from "react-native";
 import MapView, { Marker } from "react-native-web-maps";
 
 import { Localization } from "@/types";
@@ -33,10 +18,7 @@ type LocalizationPartProps = {
   constatationId: string;
 };
 
-export default function LocalizationPart({
-  localization,
-  constatationId,
-}: LocalizationPartProps) {
+export default function LocalizationPart({ localization, constatationId }: LocalizationPartProps) {
   const [coords, setCoords] = useState<Localization>(localization || {});
 
   useEffect(() => {
@@ -46,7 +28,7 @@ export default function LocalizationPart({
   }, [localization]);
 
   const updateCoordsFromSensors = async () => {
-    let updatedCoords = await getCurrentLocationFromSensors();
+    const updatedCoords = await getCurrentLocationFromSensors();
     console.log("up", updatedCoords.coords);
     setCoords((oldCoords) => ({
       ...oldCoords,
@@ -113,62 +95,24 @@ export default function LocalizationPart({
 
   return (
     <>
-      <Button
-        title="Génerer par l'appareil "
-        onPress={() => updateCoordsFromSensors()}
-        icon={
-          <MaterialCommunityIcons name="cog-refresh" size={24} color="white" />
-        }
-        iconRight={true}
-      />
-      <Button
-        title="Enregistrer "
-        onPress={() => onSubmit()}
-        icon={<AntDesign name="cloudupload" size={24} color="white" />}
-        iconRight={true}
-      />
+      <Button title="Génerer par l'appareil " onPress={() => updateCoordsFromSensors()} icon={<MaterialCommunityIcons name="cog-refresh" size={24} color="white" />} iconRight={true} />
+      <Button title="Enregistrer " onPress={() => onSubmit()} icon={<AntDesign name="cloudupload" size={24} color="white" />} iconRight={true} />
 
       <LocalizationForm coords={coords} />
 
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <Button
-          style={{ width: 200 }}
-          icon={<FontAwesome name="hand-o-up" size={24} color="white" />}
-          iconRight={true}
-          disabled={coords?.latitude && coords?.longitude ? false : true}
-          title="Maj adresse "
-          onPress={() => updateAddressFromCoords()}
-        />
-        <Button
-          style={{ width: 200 }}
-          icon={<FontAwesome name="hand-o-down" size={24} color="white" />}
-          disabled={coords?.formatted_address ? false : true}
-          title=" Maj coords"
-          onPress={() => updateCoordsFromAddress()}
-        />
+        <Button style={{ width: 200 }} icon={<FontAwesome name="hand-o-up" size={24} color="white" />} iconRight={true} disabled={coords?.latitude && coords?.longitude ? false : true} title="Maj adresse " onPress={() => updateAddressFromCoords()} />
+        <Button style={{ width: 200 }} icon={<FontAwesome name="hand-o-down" size={24} color="white" />} disabled={coords?.formatted_address ? false : true} title=" Maj coords" onPress={() => updateCoordsFromAddress()} />
       </View>
 
-      <TouchableOpacity
-        onPress={() =>
-          Linking.openURL(
-            "https://www.google.com/maps/place/" +
-              coords.latitude +
-              "," +
-              coords.longitude
-          )
-        }
-      >
+      <TouchableOpacity onPress={() => Linking.openURL("https://www.google.com/maps/place/" + coords.latitude + "," + coords.longitude)}>
         <Text style={{ color: "blue", alignSelf: "center" }}>
-          Ouvrir sur maps{" "}
-          <MaterialCommunityIcons name="google-maps" size={24} color="blue" />
+          Ouvrir sur maps <MaterialCommunityIcons name="google-maps" size={24} color="blue" />
         </Text>
       </TouchableOpacity>
 
       {/* <MapInfos /> */}
-      <Map
-        markers={[{ latitude: coords.latitude, longitude: coords.longitude }]}
-        onChange={onChange}
-      />
+      <Map markers={[{ latitude: coords.latitude, longitude: coords.longitude }]} onChange={onChange} />
     </>
   );
 }

@@ -18,10 +18,7 @@ export const useCreateTask = ({ config }: UseCreateTaskOptions = {}) => {
 
       const previousTasks = queryClient.getQueryData<Task[]>(["constatations"]);
 
-      queryClient.setQueryData(
-        ["constatations"],
-        [...(previousTasks || []), newTask.data]
-      );
+      queryClient.setQueryData(["constatations"], [...(previousTasks || []), newTask.data]);
 
       return { previousTasks };
     },

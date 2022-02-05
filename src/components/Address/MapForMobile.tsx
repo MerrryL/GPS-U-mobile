@@ -44,14 +44,8 @@ export default function MapForMobile({ markers, onChange }: MapProps) {
             <Marker
               key={index}
               coordinate={{
-                latitude:
-                  marker?.latitude != null
-                    ? parseFloat(marker?.latitude?.toString())
-                    : initialRegion.latitude,
-                longitude:
-                  marker?.longitude != null
-                    ? parseFloat(marker?.longitude?.toString())
-                    : initialRegion.longitude,
+                latitude: marker?.latitude != null ? parseFloat(marker?.latitude?.toString()) : initialRegion.latitude,
+                longitude: marker?.longitude != null ? parseFloat(marker?.longitude?.toString()) : initialRegion.longitude,
               }}
               draggable
               onDragEnd={onDragEnd}

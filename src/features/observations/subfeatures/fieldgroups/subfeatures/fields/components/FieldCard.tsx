@@ -11,11 +11,7 @@ type FieldCardProps = {
   constatationId: string;
 };
 
-export function FieldCard({
-  fieldId,
-  fieldGroupId,
-  observationId,
-}: FieldCardProps) {
+export function FieldCard({ fieldId, fieldGroupId, observationId }: FieldCardProps) {
   const FieldQuery = useField({ fieldId, observationId, fieldGroupId });
   const fieldDeleteMutation = useDeleteField({
     fieldId,
@@ -36,11 +32,7 @@ export function FieldCard({
       <Card>
         <Card.Title>{FieldQuery?.data?.name}</Card.Title>
         <Text h4>Type: {FieldQuery?.data?.type}</Text>
-        <Text h5>
-          {FieldQuery?.data?.isDefault
-            ? "Champ obligatoire"
-            : "Champ non obligatoire"}
-        </Text>
+        <Text h5>{FieldQuery?.data?.isDefault ? "Champ obligatoire" : "Champ non obligatoire"}</Text>
         <Button title="Supprimer le champ" onPress={onDeleteSubmit} />
       </Card>
     </View>

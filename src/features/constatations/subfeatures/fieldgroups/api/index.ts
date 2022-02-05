@@ -10,9 +10,7 @@ type GetFieldGroupsOptions = {
 };
 
 //TODO: this points to Index on the api instead of a "show"
-export const getFieldGroups = ({
-  constatationId = null,
-}: GetFieldGroupsOptions): Promise<FieldGroup[]> => {
+export const getFieldGroups = ({ constatationId = null }: GetFieldGroupsOptions): Promise<FieldGroup[]> => {
   let filter = "";
   if (constatationId) {
     filter += "?filter[constatation_id]=" + constatationId;
@@ -24,9 +22,7 @@ type GetFieldGroupOptions = {
   fieldGroupId: string;
 };
 
-export const getFieldGroup = ({
-  fieldGroupId,
-}: GetFieldGroupOptions): Promise<FieldGroup> => {
+export const getFieldGroup = ({ fieldGroupId }: GetFieldGroupOptions): Promise<FieldGroup> => {
   return axios.get(`/field_groups/${fieldGroupId}`);
 };
 
@@ -37,12 +33,7 @@ type CreateFieldGroupOptions = {
   logical_operator: string;
 };
 
-export const createFieldGroup = ({
-  constatationId,
-  name,
-  type,
-  logical_operator,
-}: CreateFieldGroupOptions): Promise<FieldGroup> => {
+export const createFieldGroup = ({ constatationId, name, type, logical_operator }: CreateFieldGroupOptions): Promise<FieldGroup> => {
   return axios.post("/field_groups/", {
     name,
     type,
@@ -56,9 +47,6 @@ type DeleteFieldGroupOptions = {
   constatationId: string;
 };
 
-export const deleteFieldGroup = ({
-  fieldGroupId,
-  constatationId,
-}: DeleteFieldGroupOptions) => {
+export const deleteFieldGroup = ({ fieldGroupId, constatationId }: DeleteFieldGroupOptions) => {
   return axios.delete(`field_groups/${fieldGroupId}`);
 };

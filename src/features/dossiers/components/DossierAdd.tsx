@@ -27,10 +27,7 @@ type DossiersAddProps = {
   constatationId: string;
 };
 
-export function DossiersAdd({
-  dossierGroupId,
-  constatationId,
-}: DossiersAddProps) {
+export function DossiersAdd({ dossierGroupId, constatationId }: DossiersAddProps) {
   const dossierCreateMutation = useCreateDossier({ constatationId });
 
   const {
@@ -68,14 +65,7 @@ export function DossiersAdd({
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <Input
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            placeholder="Nom"
-          />
-        )}
+        render={({ field: { onChange, onBlur, value } }) => <Input onBlur={onBlur} onChangeText={onChange} value={value} placeholder="Nom" />}
         name="name"
         defaultValue=""
       />
@@ -86,14 +76,7 @@ export function DossiersAdd({
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <Input
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            placeholder="Type"
-          />
-        )}
+        render={({ field: { onChange, onBlur, value } }) => <Input onBlur={onBlur} onChangeText={onChange} value={value} placeholder="Type" />}
         name="type"
         defaultValue=""
       />
@@ -104,14 +87,7 @@ export function DossiersAdd({
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <Input
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            placeholder="Valeur"
-          />
-        )}
+        render={({ field: { onChange, onBlur, value } }) => <Input onBlur={onBlur} onChangeText={onChange} value={value} placeholder="Valeur" />}
         name="value"
         defaultValue=""
       />

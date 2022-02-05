@@ -20,34 +20,10 @@ export function ConstatationListCard(props: constatationCardProps) {
   const { constatation } = props;
   const styles = useStyles();
 
-  const {
-    actions,
-    created_at,
-    description,
-    dossiers,
-    fields,
-    id,
-    images,
-    isValidated,
-    localization,
-    media,
-    modelType,
-    observations,
-    observers,
-    requiresValidation,
-    requiresValidationDate,
-    updated_at,
-    validationDate,
-  } = constatation || {};
+  const { actions, created_at, description, dossiers, fields, id, images, isValidated, localization, media, modelType, observations, observers, requiresValidation, requiresValidationDate, updated_at, validationDate } = constatation || {};
 
-  const backGroundColor =
-    isValidated == 1 ? "#d6ffdb" : requiresValidation == 1 ? "#ffd7d6" : "#aaa";
-  const statusText =
-    isValidated == 1
-      ? "Validée"
-      : requiresValidation == 1
-      ? "A valider"
-      : "Brouillon";
+  const backGroundColor = isValidated == 1 ? "#d6ffdb" : requiresValidation == 1 ? "#ffd7d6" : "#aaa";
+  const statusText = isValidated == 1 ? "Validée" : requiresValidation == 1 ? "A valider" : "Brouillon";
 
   return (
     <Card containerStyle={styles.container}>
@@ -65,11 +41,7 @@ export function ConstatationListCard(props: constatationCardProps) {
 
       <Card.Divider />
       <View style={styles.body}>
-        <ConstatationCover
-          cover={media?.[0]}
-          images={images}
-          style={styles.cover}
-        />
+        <ConstatationCover cover={media?.[0]} images={images} style={styles.cover} />
         <View style={styles.headerInfos}>
           <DateText date={created_at} />
           <ConstatationAddress localization={localization} />
@@ -86,12 +58,7 @@ export function ConstatationListCard(props: constatationCardProps) {
         <ConstatationFields fields={fields} />
       </View>
 
-      <DateText
-        boldText="Dernière m-a-j"
-        date={updated_at}
-        dateStyle={{ alignSelf: "flex-end" }}
-        containerStyle={{ flexDirection: "column", alignItems: "flex-end" }}
-      />
+      <DateText boldText="Dernière m-a-j" date={updated_at} dateStyle={{ alignSelf: "flex-end" }} containerStyle={{ flexDirection: "column", alignItems: "flex-end" }} />
     </Card>
   );
 }

@@ -11,11 +11,8 @@ export default function ConstatationCover(props) {
 
   const url = imageURL({ image: cover });
 
-  const length = images
-    ? images.filter((image) => image.media.length > 0).length
-    : 0;
-  const photoAmount =
-    length > 1 ? length + " photos" : length > 0 ? "Une photo" : "Pas de photo";
+  const length = images ? images.filter((image) => image.media.length > 0).length : 0;
+  const photoAmount = length > 1 ? length + " photos" : length > 0 ? "Une photo" : "Pas de photo";
 
   return (
     <View style={styles.container}>

@@ -1,10 +1,7 @@
 import DateText from "@/components/Elements/Text/DateText";
 import { Constatation, User } from "@/types";
 import { ConstatationValues, InputedField } from "@/types/utilityTypes";
-import {
-  getObservationsOptions,
-  getObserversOptions,
-} from "@/utils/getOptions";
+import { getObservationsOptions, getObserversOptions } from "@/utils/getOptions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -24,28 +21,8 @@ const schema = yup.object().shape({
   observers: yup.array().min(1).defined(),
 });
 
-export function ConstatationEditCard({
-  constatation,
-}: ConstatationEditCardProps) {
-  const {
-    actions,
-    created_at,
-    description,
-    dossiers,
-    field_groups,
-    id,
-    images,
-    isValidated,
-    localization,
-    media,
-    modelType,
-    observations,
-    observers,
-    requiresValidation,
-    requiresValidationDate,
-    updated_at,
-    validationDate,
-  } = constatation || {};
+export function ConstatationEditCard({ constatation }: ConstatationEditCardProps) {
+  const { actions, created_at, description, dossiers, field_groups, id, images, isValidated, localization, media, modelType, observations, observers, requiresValidation, requiresValidationDate, updated_at, validationDate } = constatation || {};
 
   const styles = useStyles();
 
@@ -112,13 +89,7 @@ export function ConstatationEditCard({
         <View style={styles.dateContainer}>
           <DateText boldText="Création" date={created_at} />
           <DateText boldText="Dernière Modification" date={created_at} />
-          <ConstatationValidationStatus
-            id={id}
-            isValidated={isValidated}
-            validationDate={validationDate}
-            requiresValidation={requiresValidation}
-            requiresValidationDate={requiresValidationDate}
-          />
+          <ConstatationValidationStatus id={id} isValidated={isValidated} validationDate={validationDate} requiresValidation={requiresValidation} requiresValidationDate={requiresValidationDate} />
         </View>
 
         <Card.Divider />
@@ -149,9 +120,7 @@ export function ConstatationEditCard({
 
         <Card.Divider />
 
-        <View style={styles.fields}>
-          {/* <FieldPart fields={fields} constatationId={id}/> */}
-        </View>
+        <View style={styles.fields}>{/* <FieldPart fields={fields} constatationId={id}/> */}</View>
 
         <Card.Divider />
       </Card>

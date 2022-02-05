@@ -1,21 +1,7 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  ScrollView,
-  View,
-  SafeAreaView,
-  Dimensions,
-} from "react-native";
+import { StyleSheet, ScrollView, View, SafeAreaView, Dimensions } from "react-native";
 
-import {
-  Button,
-  Card,
-  Chip,
-  Input,
-  ListItem,
-  Text,
-  Tile,
-} from "react-native-elements";
+import { Button, Card, Chip, Input, ListItem, Text, Tile } from "react-native-elements";
 
 import ImagesPartAdd from "./ImagesPartAdd";
 import ImagesPartView from "./ImagesPartView";
@@ -36,11 +22,7 @@ export function ImagesPart({ observationId }: ImagesPartProps) {
         <ImagesPartAdd observationId={observationId} />
       </View>
       {ImagesQuery?.data?.map((image, index) => (
-        <ImagesPartView
-          observationId={observationId}
-          imageId={image.id}
-          key={index}
-        />
+        <ImagesPartView observationId={observationId} imageId={image.id} key={index} />
       ))}
     </View>
   );
