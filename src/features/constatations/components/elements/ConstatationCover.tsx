@@ -2,7 +2,7 @@ import NormalText from "@/components/Elements/Text/NormalText";
 import imageURL from "@/features/constatations/utils/ImageURL";
 import React from "react";
 import { View } from "react-native";
-import { Image, makeStyles, Text } from "react-native-elements";
+import { Image, makeStyles } from "react-native-elements";
 
 export default function ConstatationCover(props) {
   const { cover, images } = props;
@@ -25,7 +25,7 @@ export default function ConstatationCover(props) {
   );
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
   container: {
     flexDirection: "column",
   },

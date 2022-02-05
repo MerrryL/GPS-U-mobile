@@ -1,17 +1,19 @@
+import { RHFField, RHFFormState, RHFieldState } from "@/types/utilityTypes";
 import React, { useState } from "react";
-import { Text, CheckBox } from "react-native-elements";
-import { InputedField, RHFField, RHFFormState, RHFieldState } from "@/types/utilityTypes";
+import { CheckBox, Text } from "react-native-elements";
 
 type CheckBoxInputType = {
-  field: RHFField,
-  fieldState: RHFieldState,
-  formState: RHFFormState
-}
+  field: RHFField;
+  fieldState: RHFieldState;
+  formState: RHFFormState;
+};
 
-export default function CheckBoxInput(props:CheckBoxInputType) {
+export default function CheckBoxInput(props: CheckBoxInputType) {
   const { field, fieldState } = props;
 
-  const [isSelected, setSelection] = useState(field.value || field.defaultValue || false);
+  const [isSelected, setSelection] = useState(
+    field.value || field.defaultValue || false
+  );
 
   const { ref, ...field2 } = field;
 

@@ -5,7 +5,7 @@ import { MutationConfig, queryClient } from "@/lib/react-query";
 
 import { deleteConstatationImage } from "../api";
 
-import { Constatation, Image} from "@/types";
+import { Constatation, Image } from "@/types";
 
 type UseDeleteConstatationImageOptions = {
   imageId: string;

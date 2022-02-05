@@ -9,10 +9,13 @@ type UseObservationImagesOptions = {
   config?: QueryConfig<typeof getObservationImages>;
 };
 
-export const useImages = ({ config, observationId = null }: UseObservationImagesOptions) => {
+export const useImages = ({
+  config,
+  observationId = null,
+}: UseObservationImagesOptions) => {
   return useQuery({
     ...config,
     queryKey: ["images"],
-    queryFn: () => getObservationImages({observationId}),
+    queryFn: () => getObservationImages({ observationId }),
   });
 };

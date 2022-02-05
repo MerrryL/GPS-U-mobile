@@ -3,7 +3,6 @@ import { LocationActivityType } from "expo-location";
 
 import { Constatation, Observation } from "@/types";
 
-
 export const getObservations = (): Promise<Observation[]> => {
   return axios.get("observations");
 };
@@ -27,7 +26,7 @@ type CreateConstatationOptions = {
   //localization: Localization;
   data: {
     description: string;
-  },
+  };
 };
 
 export const createConstatation = ({
@@ -39,9 +38,9 @@ export const createConstatation = ({
 
 type UpdateConstatationOptions = {
   constatationId: string;
-  description:string;
+  description: string;
   observers: any;
-  observations: any; 
+  observations: any;
 };
 
 export const updateConstatation = ({
@@ -50,15 +49,17 @@ export const updateConstatation = ({
   observations,
   constatationId,
 }: UpdateConstatationOptions): Promise<Constatation> => {
-  console.log(description,
+  console.log(description, observers, observations);
+  return axios.patch(`constatations/${constatationId}`, {
+    description,
     observers,
-    observations,);
-  return axios.patch(`constatations/${constatationId}`, { description, observers, observations});
+    observations,
+  });
 };
 
 type RequireValidationOptions = {
   constatationId: string;
-}
+};
 
 export const requireValidation = ({
   constatationId,
@@ -68,7 +69,7 @@ export const requireValidation = ({
 
 type RefuseValidationOptions = {
   constatationId: string;
-}
+};
 
 export const refuseValidation = ({
   constatationId,
@@ -78,7 +79,7 @@ export const refuseValidation = ({
 
 type ValidateConstatationOptions = {
   constatationId: string;
-}
+};
 
 export const validateConstatation = ({
   constatationId,

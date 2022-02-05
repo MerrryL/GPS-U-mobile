@@ -1,24 +1,24 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { Comment } from '@/features/comments';
-import { User } from '@/features/users';
+import { Comment } from "@/features/comments";
+import { User } from "@/features/users";
 
-import { useAuth } from './auth';
+import { useAuth } from "./auth";
 
 export enum ROLES {
-  ADMIN = 'ADMIN',
-  USER = 'USER',
+  ADMIN = "ADMIN",
+  USER = "USER",
 }
 
 type RoleTypes = keyof typeof ROLES;
 
 export const POLICIES = {
-  'comment:delete': (user: User, comment: Comment) => {
-    if (user.role === 'ADMIN') {
+  "comment:delete": (user: User, comment: Comment) => {
+    if (user.role === "ADMIN") {
       return true;
     }
 
-    if (user.role === 'USER' && comment.authorId === user.id) {
+    if (user.role === "USER" && comment.authorId === user.id) {
       return true;
     }
 
@@ -30,7 +30,7 @@ export const useAuthorization = () => {
   const { user } = useAuth();
 
   if (!user) {
-    throw Error('User does not exist!');
+    throw Error("User does not exist!");
   }
 
   const checkAccess = React.useCallback(
@@ -75,7 +75,7 @@ export const Authorization = ({
     canAccess = checkAccess({ allowedRoles });
   }
 
-  if (typeof policyCheck !== 'undefined') {
+  if (typeof policyCheck !== "undefined") {
     canAccess = policyCheck;
   }
 

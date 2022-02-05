@@ -1,29 +1,21 @@
-import React from "react";
-import { Card, Switch, Icon, Button, Text, Input, makeStyles } from "react-native-elements";
-import { ScrollView } from "react-native";
-
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-
-import { View } from "react-native";
-import { useUpdateConstatation } from "../../hooks/useUpdateConstatation";
-import { AntDesign, Entypo, FontAwesome, FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import MultiPickerInput from "@/components/Elements/Inputs/MultiPickerInput";
-import TextInput from "@/components/Elements/Inputs/TextInput";
-import { getObservationsOptions, getObserversOptions } from "@/utils/getOptions";
-import ConstatationValidationStatus from "./elements/ValidationStatus/ConstatationValidationStatus";
 import DateText from "@/components/Elements/Text/DateText";
-import ImagesPart from "../../subfeatures/images/components/ImagesPart";
-import LocalizationPart from "../../subfeatures/localization/components/LocalizationPart";
-import { FieldPart } from "../../subfeatures/fields/components/FieldPart";
-import FormBuilder from "@/components/Elements/FormBuilder/FormBuilder";
-import { InputedField } from "@/types/utilityTypes";
+import { Constatation, User } from "@/types";
+import { ConstatationValues, InputedField } from "@/types/utilityTypes";
+import {
+  getObservationsOptions,
+  getObserversOptions,
+} from "@/utils/getOptions";
+import { yupResolver } from "@hookform/resolvers/yup";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { ScrollView, View } from "react-native";
+import { Card, FullTheme, makeStyles } from "react-native-elements";
+import * as yup from "yup";
+import { useUpdateConstatation } from "../../hooks/useUpdateConstatation";
+import ConstatationValidationStatus from "./elements/ValidationStatus/ConstatationValidationStatus";
 
-type ConstatationValues = {
-  description: string;
-  observers: any;
-  observations: any;
+type ConstatationEditCardProps = {
+  constatation: Constatation;
 };
 
 const schema = yup.object().shape({
@@ -32,14 +24,15 @@ const schema = yup.object().shape({
   observers: yup.array().min(1).defined(),
 });
 
-export function ConstatationEditCard(props) {
-  const { constatation } = props;
+export function ConstatationEditCard({
+  constatation,
+}: ConstatationEditCardProps) {
   const {
     actions,
     created_at,
     description,
     dossiers,
-    fields,
+    field_groups,
     id,
     images,
     isValidated,
@@ -51,7 +44,7 @@ export function ConstatationEditCard(props) {
     requiresValidation,
     requiresValidationDate,
     updated_at,
-    validationDate
+    validationDate,
   } = constatation || {};
 
   const styles = useStyles();
@@ -69,20 +62,21 @@ export function ConstatationEditCard(props) {
   const onSubmit = async (values: ConstatationValues) => {
     console.log("values", values);
 
-    const { description, observers, observations} = values;
+    const { description, observers, observations } = values;
     await updateConstatationMutation.mutateAsync({
-      description, observers, observations, constatationId:id,
+      description,
+      observers,
+      observations,
+      constatationId: id,
     });
   };
-
-  console.log("c", constatation?.fields);
 
   // const fieldsss:InputedField[] = [
   //   {type:"text", name:"test", defaultValue:"lol", schema: yup.string().required() },
   //   {type:"text", name: "test3", schema: yup.string().required() }
   // ];
 
-  const test:InputedField[] = [
+  const test: InputedField[] = [
     {
       name: "description",
       type: "text",
@@ -94,33 +88,43 @@ export function ConstatationEditCard(props) {
       name: "observations",
       type: "multi-select",
       schema: yup.array().min(1).defined(),
-      value: constatation?.observations?.map( (obs) => {return {id: obs.id, item: obs.name}}),
-      defaultValue:[1],
-      options:getObservationsOptions()
+      value: constatation?.observations?.map((obs) => {
+        return { id: obs.id, item: obs.name };
+      }),
+      defaultValue: [1],
+      options: getObservationsOptions(),
     },
     {
       name: "observers",
       type: "multi-select",
-      value: constatation?.observers?.map( (obs) => {return {id: obs.id, item: obs.name}}),
+      value: constatation?.observers?.map((obs: User) => {
+        return { id: obs.id, item: obs.lastName + " " + obs.firstName };
+      }),
       schema: yup.array().min(1).defined(),
-      options:getObserversOptions()
+      options: getObserversOptions(),
     },
-  ]
+  ];
 
   return (
     <ScrollView style={styles.container}>
       <Card>
         <Card.Title h2>Constatation n°{id}</Card.Title>
-        <View style={styles.dateContainer} >
-          <DateText boldText="Création" date={created_at}/>
-          <DateText boldText="Dernière Modification" date={created_at}/>
-          <ConstatationValidationStatus id={id} isValidated={isValidated} validationDate={validationDate} requiresValidation={requiresValidation} requiresValidationDate={requiresValidationDate}/>
+        <View style={styles.dateContainer}>
+          <DateText boldText="Création" date={created_at} />
+          <DateText boldText="Dernière Modification" date={created_at} />
+          <ConstatationValidationStatus
+            id={id}
+            isValidated={isValidated}
+            validationDate={validationDate}
+            requiresValidation={requiresValidation}
+            requiresValidationDate={requiresValidationDate}
+          />
         </View>
 
         <Card.Divider />
 
-        <FormBuilder schema={schema} fields={test} onSubmit={onSubmit} />
-
+        {/* <FormBuilder schema={schema} fields={test} onSubmit={onSubmit} /> */}
+        {/* <FormBuilder title="test" description="test test" schema={schema} fieldgroups={test} onSubmit={onSubmit} /> */}
 
         {/* <View style={styles.body}>
           <MultiPickerInput name="observers" label="Constatateurs" options={getObserversOptions()} selectedValues={constatation?.observers} control={control}/>
@@ -137,51 +141,34 @@ export function ConstatationEditCard(props) {
           <ImagesPart cover={media?.[0]} images={images} constatationId={id}/>
         </View> */}
 
-
         <Card.Divider />
 
         {/* <View style={styles.localization}>
           <LocalizationPart localization={localization} constatationId={id}/>
         </View> */}
 
-
         <Card.Divider />
 
         <View style={styles.fields}>
-          <FieldPart fields={fields} constatationId={id}/>
+          {/* <FieldPart fields={fields} constatationId={id}/> */}
         </View>
 
-
         <Card.Divider />
-
-
-
       </Card>
     </ScrollView>
-
   );
 }
 
-const useStyles = makeStyles((theme) => ({
-  container:{
-
-  },
-  dateContainer:{
+const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+  container: {},
+  dateContainer: {
     flex: 1,
-    flexDirection:'column',
-    justifyContent: 'space-around',
-    alignItems: 'flex-end'
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignItems: "flex-end",
   },
-  body: {
-
-  },
-  images:{
-
-  },
-  localization:{
-
-  },
-  fields:{
-
-  }
+  body: {},
+  images: {},
+  localization: {},
+  fields: {},
 }));

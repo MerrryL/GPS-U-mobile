@@ -25,7 +25,7 @@ export const useDeleteObservationFieldGroup = ({
       queryClient.refetchQueries(["observations"]);
       queryClient.refetchQueries(["observations", observationId]);
       queryClient.refetchQueries(["field_groups"]);
-      
+
       addNotification({
         type: "success",
         title: "Groupe de champs supprimé",

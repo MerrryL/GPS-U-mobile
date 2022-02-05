@@ -19,11 +19,6 @@ type Route = {
 
 export default function Edit({ route }: EditProps) {
   const taskId = route.params.taskId;
-  
 
-  return (
-    <ScrollView>
-
-    </ScrollView>
-  );
+  return <ScrollView></ScrollView>;
 }

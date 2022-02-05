@@ -1,26 +1,24 @@
+import { RHFField, RHFFormState, RHFieldState } from "@/types/utilityTypes";
 import React from "react";
-import { Text, Input } from "react-native-elements";
-import NormalText from "../Text/NormalText";
-import { InputedField, RHFField, RHFFormState, RHFieldState } from "@/types/utilityTypes";
+import { Input, Text } from "react-native-elements";
 
 type TextInputProps = {
-  field: RHFField,
-  fieldState: RHFieldState,
-  formState: RHFFormState
-}
+  field: RHFField;
+  fieldState: RHFieldState;
+  formState: RHFFormState;
+};
 
-export default function TextInput(props : TextInputProps) {
-  const { field, fieldState, formState} = props;
+export default function TextInput(props: TextInputProps) {
+  const { field, fieldState, formState } = props;
 
   // console.log("field" + field.name, props);
 
-
-  let label:string = field.label ? field.label : field.name || "Label";
-  label = label.charAt(0).toUpperCase() + label.slice(1) ;
+  let label: string = field.label ? field.label : field.name || "Label";
+  label = label.charAt(0).toUpperCase() + label.slice(1);
 
   const inputConfig = {
     ...field,
-    label: label+ ":",
+    label: label + ":",
     placeholder: label,
     onChangeText: field.onChange,
     autoCompleteType: "text",

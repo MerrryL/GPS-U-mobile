@@ -1,9 +1,9 @@
-import { userGenerator } from '@/test/data-generators';
-import { render, screen, userEvent, waitFor } from '@/test/test-utils';
+import { userGenerator } from "@/test/data-generators";
+import { render, screen, userEvent, waitFor } from "@/test/test-utils";
 
-import { RegisterForm } from '../RegisterForm';
+import { RegisterForm } from "../RegisterForm";
 
-test('should register new user and call onSuccess cb which should navigate the user to the app', async () => {
+test("should register new user and call onSuccess cb which should navigate the user to the app", async () => {
   const newUser = userGenerator({});
 
   const onSuccess = jest.fn();
@@ -16,7 +16,7 @@ test('should register new user and call onSuccess cb which should navigate the u
   userEvent.type(screen.getByLabelText(/password/i), newUser.password);
   userEvent.type(screen.getByLabelText(/team name/i), newUser.teamName);
 
-  userEvent.click(screen.getByRole('button', { name: /register/i }));
+  userEvent.click(screen.getByRole("button", { name: /register/i }));
 
   await waitFor(() => expect(onSuccess).toHaveBeenCalledTimes(1));
 });

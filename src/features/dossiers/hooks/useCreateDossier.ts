@@ -18,22 +18,30 @@ export const useCreateDossier = ({
 }: UseCreateDossierOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
-      onSuccess: async (data) => {
-        await queryClient.cancelQueries(["dossiers"]);
-        const previousDossiers = queryClient.getQueryData<Dossier[]>(["dossiers"]);
-        queryClient.setQueryData(["dossiers"], [ ...(previousDossiers || []), data, ]);
+    onSuccess: async (data) => {
+      await queryClient.cancelQueries(["dossiers"]);
+      const previousDossiers = queryClient.getQueryData<Dossier[]>([
+        "dossiers",
+      ]);
+      queryClient.setQueryData(
+        ["dossiers"],
+        [...(previousDossiers || []), data]
+      );
 
+      await queryClient.cancelQueries(["constatations"]);
+      const previousConstatations = queryClient.getQueryData<Constatation[]>([
+        "constatations",
+      ]);
+      let constatIndex = previousConstatations.findIndex(
+        (obj) => obj.id.toString() == constatationId
+      );
+      previousConstatations[constatIndex].dossiers.push(data);
+      queryClient.setQueryData(["constatations"], [...previousConstatations]);
 
-        await queryClient.cancelQueries(["constatations"]);
-        const previousConstatations = queryClient.getQueryData<Constatation[]>(["constatations"]);
-        let constatIndex = previousConstatations.findIndex((obj => obj.id.toString() == constatationId));
-        previousConstatations[constatIndex].dossiers.push(data);
-        queryClient.setQueryData(["constatations"], [ ...previousConstatations,]);
-
-        addNotification({
-          type: "success",
-          title: "Dossier Created",
-        });
+      addNotification({
+        type: "success",
+        title: "Dossier Created",
+      });
     },
     ...config,
     mutationFn: createDossier,

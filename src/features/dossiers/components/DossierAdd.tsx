@@ -5,56 +5,64 @@ import * as yup from "yup";
 
 import { View, Platform } from "react-native";
 
-import { Card, Button, Icon, Text, Input, Switch} from "react-native-elements";
+import { Card, Button, Icon, Text, Input, Switch } from "react-native-elements";
 import { useCreateDossier } from "../hooks/useCreateDossier";
 
-
 type DossiersValues = {
-    name: string;
-    type: string;
-    isDefault:boolean;
-    value: string;
+  name: string;
+  type: string;
+  isDefault: boolean;
+  value: string;
 };
 
 const schema = yup.object().shape({
-    name: yup.string().required(),
-    type: yup.string().required(),
-    isDefault: yup.boolean().required(),
-    value: yup.string().required(),
+  name: yup.string().required(),
+  type: yup.string().required(),
+  isDefault: yup.boolean().required(),
+  value: yup.string().required(),
 });
 
 type DossiersAddProps = {
   dossierGroupId: string;
   constatationId: string;
-}
+};
 
-export function DossiersAdd({ dossierGroupId, constatationId }: DossiersAddProps) {
-  const dossierCreateMutation = useCreateDossier({constatationId});
+export function DossiersAdd({
+  dossierGroupId,
+  constatationId,
+}: DossiersAddProps) {
+  const dossierCreateMutation = useCreateDossier({ constatationId });
 
   const {
-      control,
-      handleSubmit,
-      formState: { errors },
-    } = useForm<DossiersValues>({
-      resolver: yupResolver(schema),
-    });
-  
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<DossiersValues>({
+    resolver: yupResolver(schema),
+  });
+
   const onSubmit = async (values) => {
-    
     console.log("values", values);
     await dossierCreateMutation.mutateAsync({
       name: values.name,
       type: values.type,
       value: values.value,
       isDefault: values.isDefault,
-      constatationId: constatationId
+      constatationId: constatationId,
     });
-    
+
     //onSuccess();
   };
-  
-  return(
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center", margin:"10px" }}>
+
+  return (
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        margin: "10px",
+      }}
+    >
       <Controller
         control={control}
         rules={{
@@ -126,8 +134,7 @@ export function DossiersAdd({ dossierGroupId, constatationId }: DossiersAddProps
       />
       <Text>{errors.isDefault?.message}</Text>
 
-
       <Button title="Nouveau Champ" onPress={handleSubmit(onSubmit)} />
     </View>
-  )
+  );
 }

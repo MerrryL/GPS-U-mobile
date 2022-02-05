@@ -11,10 +11,7 @@ type UseDossierOptions = {
   config?: QueryConfig<typeof getDossier>;
 };
 
-export const useDossier = ({
-  dossierId,
-  config,
-}: UseDossierOptions) => {
+export const useDossier = ({ dossierId, config }: UseDossierOptions) => {
   return useQuery({
     ...config,
     queryKey: ["dossiers", dossierId],

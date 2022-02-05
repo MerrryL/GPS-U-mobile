@@ -1,17 +1,16 @@
 import { axios } from "@/lib/axios";
 import { Task, Operator, TaskStatus } from "@/types";
 
-
-export const getTaskStatuses= ():Promise<TaskStatus[]> => {
+export const getTaskStatuses = (): Promise<TaskStatus[]> => {
   return axios.get(`/task_status/`);
 };
 
-export const getOperators= ():Promise<Operator[]> => {
+export const getOperators = (): Promise<Operator[]> => {
   return axios.get(`/operators/`);
 };
 
 type GetTasksOptions = {
-  observationId :string;
+  observationId: string;
   followupId: string;
 };
 
@@ -20,7 +19,9 @@ export const getTasks = ({
   observationId,
   followupId,
 }: GetTasksOptions): Promise<Task[]> => {
-  return axios.get(`/observations/${observationId}/followups/${followupId}/tasks`);
+  return axios.get(
+    `/observations/${observationId}/followups/${followupId}/tasks`
+  );
 };
 
 type GetTaskOptions = {
@@ -34,17 +35,19 @@ export const getTask = ({
   followupId,
   taskId,
 }: GetTaskOptions): Promise<Task> => {
-  return axios.get(`/observations/${observationId}/followups/${followupId}/tasks/${taskId}`);
+  return axios.get(
+    `/observations/${observationId}/followups/${followupId}/tasks/${taskId}`
+  );
 };
 
 type CreateTaskOptions = {
   observationId: string;
   followupId: string;
   name: string;
-  description: string; 
-  realisation_date: string; 
-  report_date: string; 
-  report_periodicity: string; 
+  description: string;
+  realisation_date: string;
+  report_date: string;
+  report_periodicity: string;
   task_status_id: string;
   //TODO: fix the any
   operators_id: any;
@@ -53,15 +56,26 @@ type CreateTaskOptions = {
 export const createTask = ({
   observationId,
   followupId,
-  name, 
-  description, 
-  realisation_date, 
-  report_date, 
-  report_periodicity, 
-  task_status_id, 
-  operators_id
+  name,
+  description,
+  realisation_date,
+  report_date,
+  report_periodicity,
+  task_status_id,
+  operators_id,
 }: CreateTaskOptions): Promise<Task> => {
-  return axios.post(`/observations/${observationId}/followups/${followupId}/tasks/`, { name, description, realisation_date, report_date, report_periodicity, task_status_id, operators_id });
+  return axios.post(
+    `/observations/${observationId}/followups/${followupId}/tasks/`,
+    {
+      name,
+      description,
+      realisation_date,
+      report_date,
+      report_periodicity,
+      task_status_id,
+      operators_id,
+    }
+  );
 };
 
 type DeleteTaskOptions = {
@@ -70,6 +84,12 @@ type DeleteTaskOptions = {
   observationId: string;
 };
 
-export const deleteTask = ({ taskId, followupId, observationId }: DeleteTaskOptions) => {
-  return axios.delete(`/observations/${observationId}/followups/${followupId}/tasks/${taskId}`);
+export const deleteTask = ({
+  taskId,
+  followupId,
+  observationId,
+}: DeleteTaskOptions) => {
+  return axios.delete(
+    `/observations/${observationId}/followups/${followupId}/tasks/${taskId}`
+  );
 };

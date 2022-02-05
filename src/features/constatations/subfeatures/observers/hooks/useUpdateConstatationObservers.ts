@@ -5,11 +5,10 @@ import { MutationConfig, queryClient } from "@/lib/react-query";
 
 import { updateConstatationObservers } from "../api";
 
-
 type ObserverToSend = {
   id: string | number;
   item: string;
-}
+};
 
 type UseUpdateObserverOptions = {
   constatationId: string;
@@ -24,18 +23,17 @@ export const useUpdateConstatationObservers = ({
 }: UseUpdateObserverOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
-      onSuccess: async (data) => {
+    onSuccess: async (data) => {
+      console.log("data", data);
 
-        console.log("data", data);
-        
-        queryClient.refetchQueries(["constatations"]);
-        queryClient.refetchQueries(["constatationObservers"]);
-        queryClient.refetchQueries(["constatations", constatationId]);
+      queryClient.refetchQueries(["constatations"]);
+      queryClient.refetchQueries(["constatationObservers"]);
+      queryClient.refetchQueries(["constatations", constatationId]);
 
-        addNotification({
-          type: "success",
-          title: "Les observateurs de la constatation ont été mis-à-jour",
-        });
+      addNotification({
+        type: "success",
+        title: "Les observateurs de la constatation ont été mis-à-jour",
+      });
     },
     ...config,
     mutationFn: updateConstatationObservers,

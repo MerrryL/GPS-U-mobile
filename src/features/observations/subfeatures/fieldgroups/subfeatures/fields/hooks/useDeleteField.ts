@@ -8,7 +8,7 @@ import { deleteField } from "../api";
 import { Constatation, FieldGroup, Field } from "@/types";
 
 type UseDeleteFieldOptions = {
-  fieldId:string;
+  fieldId: string;
   fieldGroupId: string;
   constatationId: string;
   config?: MutationConfig<typeof deleteField>;
@@ -31,7 +31,7 @@ export const useDeleteField = ({
         type: "success",
         title: "Champ supprimé",
       });
-      },
+    },
     ...config,
     mutationFn: deleteField,
   });

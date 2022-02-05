@@ -22,7 +22,8 @@ type followupCardProps = {
 export function FollowupCard({ followup }: followupCardProps) {
   const navigation = useNavigation();
 
-  const { constatation,
+  const {
+    constatation,
     created_at,
     deleted_at,
     description,
@@ -32,9 +33,8 @@ export function FollowupCard({ followup }: followupCardProps) {
     observation_id,
     supervisors,
     tasks,
-    updated_at} = followup;
-
-
+    updated_at,
+  } = followup;
 
   //console.log(followup);
   return (
@@ -62,18 +62,16 @@ export function FollowupCard({ followup }: followupCardProps) {
         />
       </View>
       <View>
-      <Text>Date de création: {created_at}</Text>
-      <Text>Date de suppression: {deleted_at}</Text>
-      <Text>Description:{description}</Text>
-      {/* <Text>Statut: TODO{followup_status}</Text> */}
-      <Text>Nom: {name}</Text>
-      {/* <Text>Observation: TODO {observation_id}</Text> */}
-      {/* <Text>Superviseurs: TODO{supervisors}</Text> */}
-      {/* <Text>Taches: TODO{tasks}</Text> */}
-      <Text>Date de mise à jour: {updated_at}</Text>
-        
+        <Text>Date de création: {created_at}</Text>
+        <Text>Date de suppression: {deleted_at}</Text>
+        <Text>Description:{description}</Text>
+        {/* <Text>Statut: TODO{followup_status}</Text> */}
+        <Text>Nom: {name}</Text>
+        {/* <Text>Observation: TODO {observation_id}</Text> */}
+        {/* <Text>Superviseurs: TODO{supervisors}</Text> */}
+        {/* <Text>Taches: TODO{tasks}</Text> */}
+        <Text>Date de mise à jour: {updated_at}</Text>
       </View>
-
     </Card>
   );
 }

@@ -4,13 +4,11 @@ import { Dossier } from "@/types";
 
 //DossiersPart
 
-type GetDossiersOptions = {
-
-};
+type GetDossiersOptions = {};
 
 //TODO: this points to Index on the api instead of a "show"
-export const getDossiers = ({ }: GetDossiersOptions): Promise<Dossier[]> => {
-    return axios.get('/dossiers');
+export const getDossiers = ({}: GetDossiersOptions): Promise<Dossier[]> => {
+  return axios.get("/dossiers");
 };
 
 type GetDossierOptions = {
@@ -38,7 +36,13 @@ export const createDossier = ({
   isDefault,
   value,
 }: CreateDossierOptions): Promise<Dossier> => {
-  return axios.post("/dossiers/", { name, type, isDefault, value, constatationId });
+  return axios.post("/dossiers/", {
+    name,
+    type,
+    isDefault,
+    value,
+    constatationId,
+  });
 };
 
 type DeleteDossierOptions = {

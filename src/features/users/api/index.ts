@@ -1,6 +1,6 @@
-import { axios } from '@/lib/axios';
+import { axios } from "@/lib/axios";
 
-import { User } from '@/types';
+import { User } from "@/types";
 
 export const getUsers = (): Promise<User[]> => {
   return axios.get(`/users`);

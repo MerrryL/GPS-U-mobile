@@ -1,27 +1,25 @@
-import React from "react";
+import {
+  RHFField,
+  RHFFormState,
+  RHFieldState,
+  SelectOption,
+} from "@/types/utilityTypes";
 import { Picker } from "@react-native-picker/picker";
-import { Text, makeStyles } from "react-native-elements";
+import React from "react";
 import { View } from "react-native";
+import { FullTheme, makeStyles, Text } from "react-native-elements";
 import NormalText from "../Text/NormalText";
 
-import { InputedField, RHFField, RHFFormState, RHFieldState, SelectOption } from "@/types/utilityTypes";
-
 type PickerInputProps = {
-  field: RHFField,
-  fieldState: RHFieldState,
-  formState: RHFFormState
-}
+  field: RHFField;
+  fieldState: RHFieldState;
+  formState: RHFFormState;
+};
 
-export default function PickerInput(props : PickerInputProps) {
+export default function PickerInput(props: PickerInputProps) {
   const { field, fieldState } = props;
 
-  const {
-    name,
-    label,
-    defaultValue,
-    control,
-    options,
-  } = field;
+  const { name, label, defaultValue, control, options } = field;
 
   //TODO: make it so width is 100% of parent? through picker.item width?
   //TODO: custom Text for error messages
@@ -31,7 +29,7 @@ export default function PickerInput(props : PickerInputProps) {
     <View style={styles.container}>
       <NormalText boldText={label} />
       <Picker style={styles.picker} {...field}>
-        {field.options?.map((option:SelectOption) => {
+        {field.options?.map((option: SelectOption) => {
           return (
             <Picker.Item
               label={option.item}
@@ -48,7 +46,7 @@ export default function PickerInput(props : PickerInputProps) {
   );
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
   container: {
     paddingRight: "10px",
     paddingLeft: "10px",

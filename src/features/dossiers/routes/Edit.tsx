@@ -37,8 +37,6 @@ export default function Edit({ route }: EditProps) {
         {/* <FieldGroupPart constatationId={route.params.constatationId} /> */}
         <Card.Divider />
         {/* Suivis */}
-
-
       </Card>
     </ScrollView>
   );

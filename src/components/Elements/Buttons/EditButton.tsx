@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/core";
-import React, { useEffect, useState } from "react";
-import { Button, Text, makeStyles } from "react-native-elements";
+import React from "react";
+import { Button, FullTheme, makeStyles } from "react-native-elements";
 
 export default function EditButton(props) {
   const { constatationId } = props;
@@ -19,7 +19,7 @@ export default function EditButton(props) {
   );
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
   button: {
     marginRight: "10px",
   },

@@ -18,22 +18,20 @@ export const useCreateFollowup = ({
     onMutate: async (newFollowup) => {
       await queryClient.cancelQueries(["constatations"]);
 
-      const previousFollowups =
-        queryClient.getQueryData<Followup[]>(["constatations"]);
-
-      queryClient.setQueryData(["constatations"], [
-        ...(previousFollowups || []),
-        newFollowup.data,
+      const previousFollowups = queryClient.getQueryData<Followup[]>([
+        "constatations",
       ]);
+
+      queryClient.setQueryData(
+        ["constatations"],
+        [...(previousFollowups || []), newFollowup.data]
+      );
 
       return { previousFollowups };
     },
     onError: (_, __, context: any) => {
       if (context?.previousFollowups) {
-        queryClient.setQueryData(
-          ["constatations"],
-          context.previousFollowups
-        );
+        queryClient.setQueryData(["constatations"], context.previousFollowups);
       }
     },
     onSuccess: () => {

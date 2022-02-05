@@ -1,14 +1,14 @@
 import { User } from "@/types";
 import { capitalize } from "lodash";
-import React, { useState } from "react";
+import React from "react";
 import { View } from "react-native";
-import { Text, makeStyles } from "react-native-elements";
+import { FullTheme, makeStyles, Text } from "react-native-elements";
 
 type UserShortProps = {
-    user: User;
-    containerStyle?: any;
-    userNameStyle?: any;
-}
+  user: User;
+  containerStyle?: any;
+  userNameStyle?: any;
+};
 
 // firstName: string;
 // lastName: string;
@@ -28,22 +28,20 @@ export default function UserShort(props: UserShortProps) {
   };
 
   const kUserNameStyle = {
-      ...styles.userNameStyle,
-      ...userNameStyle
+    ...styles.userNameStyle,
+    ...userNameStyle,
   };
 
   const name = capitalize(user?.lastName) + " " + capitalize(user?.firstName);
 
   return (
     <View style={kContainerStyle}>
-      <Text style={kUserNameStyle}>
-        {name}
-      </Text>
+      <Text style={kUserNameStyle}>{name}</Text>
     </View>
   );
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
   container: {},
   userNameStyle: {},
 }));

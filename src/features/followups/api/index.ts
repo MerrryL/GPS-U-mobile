@@ -1,8 +1,5 @@
 import { axios } from "@/lib/axios";
-import { LocationActivityType } from "expo-location";
-
 import { Followup } from "@/types";
-
 
 //Followups part
 export const getFollowups = (): Promise<Followup[]> => {
@@ -50,8 +47,6 @@ type DeleteFollowupOptions = {
   followupId: string;
 };
 
-export const deleteFollowup = ({
-  followupId,
-}: DeleteFollowupOptions) => {
+export const deleteFollowup = ({ followupId }: DeleteFollowupOptions) => {
   return axios.delete(`followups/${followupId}`);
 };

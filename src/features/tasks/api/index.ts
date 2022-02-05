@@ -3,7 +3,6 @@ import { LocationActivityType } from "expo-location";
 
 import { Task } from "@/types";
 
-
 //Tasks part
 export const getTasks = (): Promise<Task[]> => {
   return axios.get("tasks");
@@ -13,9 +12,7 @@ type GetTaskOptions = {
   taskId: string;
 };
 
-export const getTask = ({
-  taskId,
-}: GetTaskOptions): Promise<Task> => {
+export const getTask = ({ taskId }: GetTaskOptions): Promise<Task> => {
   return axios.get(`/tasks/${taskId}`);
 };
 
@@ -50,8 +47,6 @@ type DeleteTaskOptions = {
   taskId: string;
 };
 
-export const deleteTask = ({
-  taskId,
-}: DeleteTaskOptions) => {
+export const deleteTask = ({ taskId }: DeleteTaskOptions) => {
   return axios.delete(`tasks/${taskId}`);
 };

@@ -1,34 +1,32 @@
-import React, {useState} from "react";
-import { Card, Switch, Icon, Button, Text, Input } from "react-native-elements";
-import { format } from 'date-fns';
-import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import * as yup from "yup";
-
-import { View } from "react-native";
 import { useFollowup } from "../../hooks/useFollowup";
 import { useUpdateFollowup } from "../../hooks/useUpdateFollowup";
-import { AntDesign, Entypo, FontAwesome, FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-
 
 type FollowupValues = {
   description: string;
 };
 
+interface CardHeaderProps {
+  followupId: number;
+}
+
 const schema = yup.object().shape({
   description: yup.string().required(),
 });
 
-export function CardHeader({ followupId }) {
+export function CardHeader({ followupId }: CardHeaderProps) {
   const followupQuery = useFollowup({
     followupId: followupId,
   });
 
-
-  const  [followup, setFollowup] = useState({description: followupQuery?.data?.description})
+  const [followup, setFollowup] = useState({
+    description: followupQuery?.data?.description,
+  });
 
   const updateFollowupMutation = useUpdateFollowup();
-
 
   const {
     control,
@@ -46,9 +44,5 @@ export function CardHeader({ followupId }) {
     });
     //onSuccess();
   };
-  return (
-    <>     
-      
-    </>
-  );
+  return <></>;
 }

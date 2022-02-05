@@ -11,18 +11,16 @@ export const getFields = ({
 }: GetFieldsOptions): Promise<Field[]> => {
   let filter = "";
   if (fieldGroupId) {
-    filter+="?filter[field_group_id]="+fieldGroupId;
+    filter += "?filter[field_group_id]=" + fieldGroupId;
   }
-  return axios.get('/fields' + filter);
+  return axios.get("/fields" + filter);
 };
 
 type GetFieldOptions = {
   fieldId: string;
 };
 
-export const getField = ({
-  fieldId,
-}: GetFieldOptions): Promise<Field> => {
+export const getField = ({ fieldId }: GetFieldOptions): Promise<Field> => {
   return axios.get(`/fields/${fieldId}`);
 };
 
@@ -43,7 +41,14 @@ export const createField = ({
   isDefault,
   value,
 }: CreateFieldOptions): Promise<Field> => {
-  return axios.post("/fields/", { name, type, isDefault, value, fieldGroupId, constatationId });
+  return axios.post("/fields/", {
+    name,
+    type,
+    isDefault,
+    value,
+    fieldGroupId,
+    constatationId,
+  });
 };
 
 type DeleteFieldOptions = {
@@ -52,6 +57,10 @@ type DeleteFieldOptions = {
   constatationId: string;
 };
 
-export const deleteField = ({ fieldId, fieldGroupId, constatationId }: DeleteFieldOptions) => {
+export const deleteField = ({
+  fieldId,
+  fieldGroupId,
+  constatationId,
+}: DeleteFieldOptions) => {
   return axios.delete(`fields/${fieldId}`);
 };

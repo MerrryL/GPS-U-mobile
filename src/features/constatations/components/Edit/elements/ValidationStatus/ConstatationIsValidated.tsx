@@ -1,6 +1,6 @@
 import DateText from "@/components/Elements/Text/DateText";
 import React from "react";
-import { Text, makeStyles } from "react-native-elements";
+import { makeStyles } from "react-native-elements";
 
 export default function ConstatationIsValidated(props) {
   const { validationDate } = props;
@@ -10,6 +10,6 @@ export default function ConstatationIsValidated(props) {
   return <DateText boldText="Date de validation" date={validationDate} />;
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
   text: { flex: 0.5, height: "auto", marginBottom: 10 },
 }));

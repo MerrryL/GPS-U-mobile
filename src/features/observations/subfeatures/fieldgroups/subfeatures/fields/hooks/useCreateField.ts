@@ -21,13 +21,13 @@ export const useCreateField = ({
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {
-    queryClient.refetchQueries(["observations"]);
-    queryClient.refetchQueries(["field_groups"]);
-    queryClient.refetchQueries(["fields"]);
-    addNotification({
-      type: "success",
-      title: "Champ créé",
-    });
+      queryClient.refetchQueries(["observations"]);
+      queryClient.refetchQueries(["field_groups"]);
+      queryClient.refetchQueries(["fields"]);
+      addNotification({
+        type: "success",
+        title: "Champ créé",
+      });
     },
     ...config,
     mutationFn: createField,

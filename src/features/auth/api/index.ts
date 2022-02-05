@@ -1,4 +1,4 @@
-import { axios } from '@/lib/axios';
+import { axios } from "@/lib/axios";
 
 export type LoginCredentials = {
   email: string;
@@ -21,7 +21,7 @@ export type AuthUser = {
   firstName: string;
   lastName: string;
   bio: string;
-  role: 'ADMIN' | 'USER';
+  role: "ADMIN" | "USER";
 };
 
 export type UserResponse = {
@@ -29,14 +29,18 @@ export type UserResponse = {
   currentUser: AuthUser;
 };
 
-export const loginWithEmailAndPassword = (data: LoginCredentials): Promise<UserResponse> => {
-  return axios.post('/login', data);
+export const loginWithEmailAndPassword = (
+  data: LoginCredentials
+): Promise<UserResponse> => {
+  return axios.post("/login", data);
 };
 
-export const registerWithEmailAndPassword = (data: RegisterCredentials): Promise<UserResponse> => {
-  return axios.post('/register', data);
+export const registerWithEmailAndPassword = (
+  data: RegisterCredentials
+): Promise<UserResponse> => {
+  return axios.post("/register", data);
 };
 
 export const getUserProfile = (): Promise<AuthUser> => {
-  return axios.get('/me');
+  return axios.get("/me");
 };

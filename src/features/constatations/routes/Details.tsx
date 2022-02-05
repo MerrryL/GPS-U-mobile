@@ -4,7 +4,6 @@ import { useNavigation } from "@react-navigation/native";
 import { FlatList, View } from "react-native";
 import { Card, Button, Icon, Text, Input } from "react-native-elements";
 
-
 import { useConstatation } from "../hooks/useConstatation";
 
 import imageURL from "../utils/ImageURL";
@@ -48,9 +47,7 @@ export default function Details({ route }: DetailsProps) {
       <Card.Title>Constatation n°{constatationQuery?.data?.id}</Card.Title>
       <Card.Divider />
       <Card.Image
-        source={
-          imageURL({ image: constatationQuery?.data })
-        }
+        source={imageURL({ image: constatationQuery?.data })}
         resizeMode="cover"
         style={{ width: 200, height: 200 }}
       />
@@ -79,8 +76,6 @@ export default function Details({ route }: DetailsProps) {
       </Text>
 
       <Card.Divider />
-
-
     </Card>
   );
 }

@@ -8,7 +8,7 @@ import { deleteTask } from "../api";
 import { Constatation, Followup, Task } from "@/types";
 
 type UseDeleteTaskOptions = {
-  fieldId:string;
+  fieldId: string;
   followupId: string;
   constatationId: string;
   config?: MutationConfig<typeof deleteTask>;
@@ -31,7 +31,7 @@ export const useDeleteTask = ({
         type: "success",
         title: "Champ supprimé",
       });
-      },
+    },
     ...config,
     mutationFn: deleteTask,
   });

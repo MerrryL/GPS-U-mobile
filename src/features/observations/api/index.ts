@@ -2,7 +2,6 @@ import { axios } from "@/lib/axios";
 
 import { Observation } from "@/types";
 
-
 //Observations part
 export const getCodexes = (): Promise<Observation[]> => {
   return axios.get("/codexes");
@@ -48,7 +47,6 @@ export const updateObservation = ({
 }: UpdateObservationOptions): Promise<Observation> => {
   return axios.patch(`observations/${observationId}`, data);
 };
-
 
 type DeleteObservationOptions = {
   observationId: string;

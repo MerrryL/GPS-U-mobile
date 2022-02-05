@@ -1,6 +1,5 @@
-import NormalText from "@/components/Elements/Text/NormalText";
 import React from "react";
-import { Text, makeStyles } from "react-native-elements";
+import { FullTheme, makeStyles, Text } from "react-native-elements";
 import ConstatationRequireValidationButton from "../Buttons/ConstatationRequireValidationButton";
 
 export default function ConstatationIsDraft(props) {
@@ -15,6 +14,6 @@ export default function ConstatationIsDraft(props) {
   );
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
   text: { flex: 0.5, height: "auto", marginBottom: 10 },
 }));

@@ -23,7 +23,7 @@ export const getConstatationImages = ({
 };
 
 type GetConstatationImageOptions = {
-  constatationId: string,
+  constatationId: string;
   imageId: string;
 };
 
@@ -52,7 +52,10 @@ type DeleteConstatationImageOptions = {
   constatationId: string;
 };
 
-export const deleteConstatationImage = ({ imageId, constatationId }: DeleteConstatationImageOptions) => {
+export const deleteConstatationImage = ({
+  imageId,
+  constatationId,
+}: DeleteConstatationImageOptions) => {
   return axios.delete(`/constatations/${constatationId}/images/${imageId}`);
 };
 
@@ -65,11 +68,13 @@ export const uploadConstatationOtherImage = ({
   image,
   constatationId,
 }: UploadConstatationOtherImageOptions): Promise<Image | Constatation> => {
-  return axios.post(`/constatations/${constatationId}/images/upload`, { image });
+  return axios.post(`/constatations/${constatationId}/images/upload`, {
+    image,
+  });
 };
 
 type UploadConstatationImageOptions = {
-  imageId? : string;
+  imageId?: string;
   constatationId: string;
   image: ImageToSend;
 };
@@ -79,20 +84,25 @@ export const uploadConstatationImage = ({
   constatationId,
   imageId,
 }: UploadConstatationImageOptions): Promise<Image | Constatation> => {
-  return axios.post(`/constatations/${constatationId}/images/${imageId}/upload`, { image });
+  return axios.post(
+    `/constatations/${constatationId}/images/${imageId}/upload`,
+    { image }
+  );
 };
 
 type DeletePictureConstatationImageOptions = {
   imageId: string;
   constatationId: string;
-}
+};
 
-export const deletePictureConstatationImage= ({
+export const deletePictureConstatationImage = ({
   imageId,
-  constatationId
+  constatationId,
 }: DeletePictureConstatationImageOptions): Promise<Constatation> => {
-  return axios.delete(`/constatations/${constatationId}/images/${imageId}/remove`);
-}
+  return axios.delete(
+    `/constatations/${constatationId}/images/${imageId}/remove`
+  );
+};
 
 type DefineAsThumbOptions = {
   constatationId: string;
@@ -101,8 +111,10 @@ type DefineAsThumbOptions = {
 
 export const defineAsThumbConstatationImage = ({
   constatationId,
-  imageId
+  imageId,
 }: DefineAsThumbOptions): Promise<Constatation> => {
   console.log("c", constatationId, imageId);
-  return axios.get(`/constatations/${constatationId}/images/${imageId}/defineAsThumb`)
-}
+  return axios.get(
+    `/constatations/${constatationId}/images/${imageId}/defineAsThumb`
+  );
+};

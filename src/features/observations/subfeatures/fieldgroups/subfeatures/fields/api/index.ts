@@ -2,7 +2,7 @@ import { axios } from "@/lib/axios";
 import { Field } from "@/types";
 
 type GetFieldsOptions = {
-  observationId :string;
+  observationId: string;
   fieldGroupId: string;
 };
 
@@ -11,7 +11,9 @@ export const getFields = ({
   observationId,
   fieldGroupId,
 }: GetFieldsOptions): Promise<Field[]> => {
-  return axios.get(`/observations/${observationId}/field_groups/${fieldGroupId}/fields`);
+  return axios.get(
+    `/observations/${observationId}/field_groups/${fieldGroupId}/fields`
+  );
 };
 
 type GetFieldOptions = {
@@ -25,7 +27,9 @@ export const getField = ({
   fieldGroupId,
   fieldId,
 }: GetFieldOptions): Promise<Field> => {
-  return axios.get(`/observations/${observationId}/field_groups/${fieldGroupId}/fields/${fieldId}`);
+  return axios.get(
+    `/observations/${observationId}/field_groups/${fieldGroupId}/fields/${fieldId}`
+  );
 };
 
 type CreateFieldOptions = {
@@ -45,7 +49,10 @@ export const createField = ({
   defaultValue,
   isRequired,
 }: CreateFieldOptions): Promise<Field> => {
-  return axios.post(`/observations/${observationId}/field_groups/${fieldGroupId}/fields/`, { name, type_id, defaultValue, isRequired });
+  return axios.post(
+    `/observations/${observationId}/field_groups/${fieldGroupId}/fields/`,
+    { name, type_id, defaultValue, isRequired }
+  );
 };
 
 type DeleteFieldOptions = {
@@ -54,6 +61,12 @@ type DeleteFieldOptions = {
   observationId: string;
 };
 
-export const deleteField = ({ fieldId, fieldGroupId, observationId }: DeleteFieldOptions) => {
-  return axios.delete(`/observations/${observationId}/field_groups/${fieldGroupId}/fields/${fieldId}`);
+export const deleteField = ({
+  fieldId,
+  fieldGroupId,
+  observationId,
+}: DeleteFieldOptions) => {
+  return axios.delete(
+    `/observations/${observationId}/field_groups/${fieldGroupId}/fields/${fieldId}`
+  );
 };

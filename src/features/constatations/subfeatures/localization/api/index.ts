@@ -14,19 +14,22 @@ export const getLocalization = ({
 
 type UpdateLocalizationOptions = {
   localization: Localization;
-  constatationId:string;
-}
+  constatationId: string;
+};
 
 export const updateLocalization = ({
   localization,
-  constatationId
+  constatationId,
 }: UpdateLocalizationOptions): Promise<Localization> => {
-  if (localization.id === undefined)
-  { 
-    return axios.post(`/constatations/${constatationId}/localization/`, localization)
+  if (localization.id === undefined) {
+    return axios.post(
+      `/constatations/${constatationId}/localization/`,
+      localization
+    );
+  } else {
+    return axios.patch(
+      `/constatations/${constatationId}/localization/${localization.id}`,
+      localization
+    );
   }
-  else
-  {
-    return axios.patch(`/constatations/${constatationId}/localization/${localization.id}`, localization)
-  };
 };

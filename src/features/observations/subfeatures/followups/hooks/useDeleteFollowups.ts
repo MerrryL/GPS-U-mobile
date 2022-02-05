@@ -25,7 +25,7 @@ export const useDeleteFollowup = ({
       queryClient.refetchQueries(["observations"]);
       queryClient.refetchQueries(["observations", observationId]);
       queryClient.refetchQueries(["followups"]);
-      
+
       addNotification({
         type: "success",
         title: "Suivi supprimé",

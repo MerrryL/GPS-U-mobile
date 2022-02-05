@@ -21,35 +21,35 @@ export const useCreateFieldGroup = ({
 }: UseCreateFieldGroupOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
-      onSuccess: async (data) => {
-        await queryClient.cancelQueries(["field_groups"]);
+    onSuccess: async (data) => {
+      await queryClient.cancelQueries(["field_groups"]);
 
-        const previousFieldGroups =
-          queryClient.getQueryData<FieldGroup[]>(["field_groups"]);
+      const previousFieldGroups = queryClient.getQueryData<FieldGroup[]>([
+        "field_groups",
+      ]);
 
-        queryClient.setQueryData(["field_groups"], [
-          ...(previousFieldGroups || []),
-          data,
-        ]);
+      queryClient.setQueryData(
+        ["field_groups"],
+        [...(previousFieldGroups || []), data]
+      );
 
-        const previousConstatations =
-          queryClient.getQueryData<Constatation[]>(["constatations"]);
-          
-        //console.log(queryClient.getQueryData<Constatation[]>(["constatations", 100]));
-        let index = previousConstatations.findIndex((obj => obj.id.toString() == constatationId))
+      const previousConstatations = queryClient.getQueryData<Constatation[]>([
+        "constatations",
+      ]);
 
-        previousConstatations[index].field_groups.push(data);
+      //console.log(queryClient.getQueryData<Constatation[]>(["constatations", 100]));
+      let index = previousConstatations.findIndex(
+        (obj) => obj.id.toString() == constatationId
+      );
 
+      previousConstatations[index].field_groups.push(data);
 
-        queryClient.setQueryData(["constatations"], [
-          ...previousConstatations,
-        ]);
-        
+      queryClient.setQueryData(["constatations"], [...previousConstatations]);
 
-        addNotification({
-          type: "success",
-          title: "FieldGroup Created",
-        });
+      addNotification({
+        type: "success",
+        title: "FieldGroup Created",
+      });
     },
     ...config,
     mutationFn: createFieldGroup,

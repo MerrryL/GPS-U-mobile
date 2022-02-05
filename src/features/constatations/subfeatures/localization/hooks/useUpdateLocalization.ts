@@ -16,15 +16,15 @@ export const useUpdateLocalization = ({
 }: UseUpdateLocalizationOptions = {}) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
-      onSuccess: async (data) => {
-        queryClient.refetchQueries(["constatations"]);
-        queryClient.refetchQueries(["constatations", data.constatation_id]);
-        queryClient.refetchQueries(["localizations", data.constatation_id]);
+    onSuccess: async (data) => {
+      queryClient.refetchQueries(["constatations"]);
+      queryClient.refetchQueries(["constatations", data.constatation_id]);
+      queryClient.refetchQueries(["localizations", data.constatation_id]);
 
-        addNotification({
-          type: "success",
-          title: "Localisation mise-à-jour",
-        });
+      addNotification({
+        type: "success",
+        title: "Localisation mise-à-jour",
+      });
     },
     ...config,
     mutationFn: updateLocalization,

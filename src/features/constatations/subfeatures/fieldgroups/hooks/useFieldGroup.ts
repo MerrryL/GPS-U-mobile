@@ -2,7 +2,6 @@ import { useQuery } from "react-query";
 import { QueryConfig } from "@/lib/react-query";
 import { getFieldGroup } from "../api";
 
-
 type UseFieldGroupOptions = {
   fieldGroupId?: string;
   config?: QueryConfig<typeof getFieldGroup>;

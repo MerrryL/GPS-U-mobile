@@ -1,11 +1,11 @@
-import { rest } from 'msw';
-import 'react-native-get-random-values';
-import { nanoid } from 'nanoid';
+import { rest } from "msw";
+import "react-native-get-random-values";
+import { nanoid } from "nanoid";
 
-import { API_URL } from '@/config';
+import { API_URL } from "@/config";
 
-import { db, persistDb } from '../db';
-import { requireAuth, delayedResponse } from '../utils';
+import { db, persistDb } from "../db";
+import { requireAuth, delayedResponse } from "../utils";
 
 type CreateCommentBody = {
   body: string;
@@ -16,7 +16,7 @@ export const commentsHandlers = [
   rest.get(`${API_URL}/comments`, (req, res, ctx) => {
     try {
       requireAuth(req);
-      const discussionId = req.url.searchParams.get('discussionId') || '';
+      const discussionId = req.url.searchParams.get("discussionId") || "";
       const result = db.comment.findMany({
         where: {
           discussionId: {
@@ -26,7 +26,10 @@ export const commentsHandlers = [
       });
       return delayedResponse(ctx.json(result));
     } catch (error) {
-      return delayedResponse(ctx.status(400), ctx.json({ message: error.message }));
+      return delayedResponse(
+        ctx.status(400),
+        ctx.json({ message: error.message })
+      );
     }
   }),
 
@@ -40,10 +43,13 @@ export const commentsHandlers = [
         createdAt: Date.now(),
         ...data,
       });
-      persistDb('comment');
+      persistDb("comment");
       return delayedResponse(ctx.json(result));
     } catch (error) {
-      return delayedResponse(ctx.status(400), ctx.json({ message: error.message }));
+      return delayedResponse(
+        ctx.status(400),
+        ctx.json({ message: error.message })
+      );
     }
   }),
 
@@ -56,17 +62,20 @@ export const commentsHandlers = [
           id: {
             equals: commentId,
           },
-          ...(user.role === 'USER' && {
+          ...(user.role === "USER" && {
             authorId: {
               equals: user.id,
             },
           }),
         },
       });
-      persistDb('comment');
+      persistDb("comment");
       return delayedResponse(ctx.json(result));
     } catch (error) {
-      return delayedResponse(ctx.status(400), ctx.json({ message: error.message }));
+      return delayedResponse(
+        ctx.status(400),
+        ctx.json({ message: error.message })
+      );
     }
   }),
 ];

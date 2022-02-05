@@ -1,22 +1,14 @@
-import React from "react";
-
-import { useFields } from "../hooks/useFields";
-import { FieldCard } from "./FieldCard";
-import { FieldsAdd } from "./FieldAdd";
-import { useDeleteField } from "../hooks/useDeleteField";
-import { Field, FieldGroup } from "@/types";
-import { makeStyles } from "react-native-elements";
-// import { useUpdateField } from "../hooks/useUpdateField";
-
-import { View } from "react-native";
-import LongText from "@/components/Elements/Text/LongText";
-import NormalText from "@/components/Elements/Text/NormalText";
-import useFieldGroupBy from "../utils/useFieldGroupBy";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import InputFromField from "../../../../../components/Elements/FormBuilder/InputSelector";
 import FormBuilder from "@/components/Elements/FormBuilder/FormBuilder";
+import { Field, FieldGroup } from "@/types";
+import { ConstatationValues } from "@/types/utilityTypes";
+import { yupResolver } from "@hookform/resolvers/yup";
+import React from "react";
+import { useForm } from "react-hook-form";
+// import { useUpdateField } from "../hooks/useUpdateField";
+import { View } from "react-native";
+import { FullTheme, makeStyles } from "react-native-elements";
+import * as yup from "yup";
+import useFieldGroupBy from "../utils/useFieldGroupBy";
 
 type FieldPartProps = {
   fields: Field[];
@@ -26,15 +18,16 @@ type FieldPartProps = {
 type Grouped = {
   fieldGroup: FieldGroup;
   fields: Field[];
-}
+};
 
 type FieldValues = any;
 
-const schema = yup.object().shape({
-});
+type StyleProps = {};
+
+const schema = yup.object().shape({});
 
 export function FieldPart(props: FieldPartProps) {
-  const {fields, constatationId} = props;
+  const { fields, constatationId } = props;
 
   const styles = useStyles();
 
@@ -46,23 +39,21 @@ export function FieldPart(props: FieldPartProps) {
     resolver: yupResolver(schema),
   });
 
-
-
-  const onSubmit = async (values: ConstatationValues) => {
-
-  };
+  const onSubmit = async (values: ConstatationValues) => {};
 
   const groupedFields = useFieldGroupBy(fields);
 
   console.log("groups", groupedFields);
 
-
   return (
     <View style={styles.container}>
-
-      { groupedFields?.length > 0 && 
-        <FormBuilder schema={schema} fields={groupedFields} onSubmit={onSubmit} />
-      }
+      {groupedFields?.length > 0 && (
+        <FormBuilder
+          schema={schema}
+          fields={groupedFields}
+          onSubmit={onSubmit}
+        />
+      )}
       {/* {
         groupedFields.map( ( groupedField : Grouped, index ) => (
           <View style={styles.groupedField} key={index}>
@@ -75,19 +66,13 @@ export function FieldPart(props: FieldPartProps) {
 
         
       } */}
-
     </View>
   );
 }
 
-const useStyles = makeStyles((theme, props: StyleProps) => ({
-  container: {
-
-  },
-  groupedField:{
-
-  }
-
-}));
-
-
+const useStyles = makeStyles(
+  (theme: Partial<FullTheme>, props: StyleProps) => ({
+    container: {},
+    groupedField: {},
+  })
+);

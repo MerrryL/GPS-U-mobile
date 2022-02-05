@@ -13,7 +13,7 @@ export const getObservationImages = ({
 };
 
 type GetObservationImageOptions = {
-  observationId: string,
+  observationId: string;
   imageId: string;
 };
 
@@ -33,9 +33,12 @@ type CreateObservationImageOptions = {
 export const createObservationImage = ({
   observationId,
   name,
-  description
+  description,
 }: CreateObservationImageOptions): Promise<Image> => {
-  return axios.post(`/observations/${observationId}/images`, { name, description });
+  return axios.post(`/observations/${observationId}/images`, {
+    name,
+    description,
+  });
 };
 
 type UpdateObservationImageOptions = {
@@ -48,9 +51,12 @@ export const updateObservationImage = ({
   observationId,
   imageId,
   name,
-  description
+  description,
 }: UpdateObservationImageOptions): Promise<Image> => {
-  return axios.post(`/observations/${observationId}/images/${imageId}`, { name, description });
+  return axios.post(`/observations/${observationId}/images/${imageId}`, {
+    name,
+    description,
+  });
 };
 
 type DeleteObservationImageOptions = {
@@ -58,6 +64,9 @@ type DeleteObservationImageOptions = {
   observationId: string;
 };
 
-export const deleteObservationImage = ({ imageId, observationId }: DeleteObservationImageOptions) => {
+export const deleteObservationImage = ({
+  imageId,
+  observationId,
+}: DeleteObservationImageOptions) => {
   return axios.delete(`/observations/${observationId}/images/${imageId}`);
 };

@@ -9,10 +9,7 @@ type UseTaskOptions = {
   config?: QueryConfig<typeof getTask>;
 };
 
-export const useTask = ({
-  constatationId,
-  config,
-}: UseTaskOptions) => {
+export const useTask = ({ constatationId, config }: UseTaskOptions) => {
   return useQuery({
     ...config,
     queryKey: ["constatations", constatationId],

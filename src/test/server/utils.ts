@@ -1,12 +1,13 @@
-import jwt from 'jsonwebtoken';
-import omit from 'lodash/omit';
-import { RestRequest, createResponseComposition, context } from 'msw';
+import jwt from "jsonwebtoken";
+import omit from "lodash/omit";
+import { RestRequest, createResponseComposition, context } from "msw";
 
-import { JWT_SECRET } from '@/config';
+import { JWT_SECRET } from "@/config";
 
-import { db } from './db';
+import { db } from "./db";
 
-const isTesting = process.env.NODE_ENV === 'test' || ((window as any).Cypress as any);
+const isTesting =
+  process.env.NODE_ENV === "test" || ((window as any).Cypress as any);
 
 export const delayedResponse = createResponseComposition(undefined, [
   context.delay(isTesting ? 0 : 1000),
@@ -22,9 +23,15 @@ export const hash = (str: string) => {
   return String(hash >>> 0);
 };
 
-export const sanitizeUser = (user: any) => omit(user, ['password', 'iat']);
+export const sanitizeUser = (user: any) => omit(user, ["password", "iat"]);
 
-export function authenticate({ email, password }: { email: string; password: string }) {
+export function authenticate({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}) {
   const user = db.user.findFirst({
     where: {
       email: {
@@ -39,15 +46,15 @@ export function authenticate({ email, password }: { email: string; password: str
     return { user: sanitizedUser, jwt: encodedToken };
   }
 
-  const error = new Error('Invalid username or password');
+  const error = new Error("Invalid username or password");
   throw error;
 }
 
 export function requireAuth(request: RestRequest) {
   try {
-    const encodedToken = request.headers.get('authorization');
+    const encodedToken = request.headers.get("authorization");
     if (!encodedToken) {
-      throw new Error('No authorization token provided!');
+      throw new Error("No authorization token provided!");
     }
     const decodedToken = jwt.verify(encodedToken, JWT_SECRET) as { id: string };
 
@@ -60,7 +67,7 @@ export function requireAuth(request: RestRequest) {
     });
 
     if (!user) {
-      throw Error('Unauthorized');
+      throw Error("Unauthorized");
     }
 
     return sanitizeUser(user);
@@ -70,7 +77,7 @@ export function requireAuth(request: RestRequest) {
 }
 
 export function requireAdmin(user: any) {
-  if (user.role !== 'ADMIN') {
-    throw Error('Unauthorized');
+  if (user.role !== "ADMIN") {
+    throw Error("Unauthorized");
   }
 }

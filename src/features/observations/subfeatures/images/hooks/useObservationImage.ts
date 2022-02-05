@@ -18,6 +18,7 @@ export const useObservationImage = ({
   return useQuery({
     ...config,
     queryKey: ["images", imageId],
-    queryFn: () => getObservationImage({ observationId: observationId, imageId: imageId }),
+    queryFn: () =>
+      getObservationImage({ observationId: observationId, imageId: imageId }),
   });
 };

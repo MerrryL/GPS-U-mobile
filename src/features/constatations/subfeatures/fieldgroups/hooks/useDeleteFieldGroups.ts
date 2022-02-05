@@ -23,9 +23,13 @@ export const useDeleteFieldGroup = ({
     onSuccess: async (data) => {
       await queryClient.cancelQueries(["field_groups"]);
 
-      const previousfieldGroups = queryClient.getQueryData<FieldGroup[]>(["field_groups"]);
+      const previousfieldGroups = queryClient.getQueryData<FieldGroup[]>([
+        "field_groups",
+      ]);
 
-      let fieldGroupIndex = previousfieldGroups.findIndex((obj) => obj.id == fieldGroupId);
+      let fieldGroupIndex = previousfieldGroups.findIndex(
+        (obj) => obj.id == fieldGroupId
+      );
 
       previousfieldGroups.splice(fieldGroupIndex, 1);
 
@@ -42,7 +46,9 @@ export const useDeleteFieldGroup = ({
 
       console.log(previousConstatations, previousConstatations[index], index);
 
-      let index2 = previousConstatations[index].field_groups.findIndex((obj => obj.id == fieldGroupId));
+      let index2 = previousConstatations[index].field_groups.findIndex(
+        (obj) => obj.id == fieldGroupId
+      );
 
       previousConstatations[index].field_groups.splice(index2, 1);
 

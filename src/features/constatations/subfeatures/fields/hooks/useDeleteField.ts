@@ -8,7 +8,7 @@ import { deleteField } from "../api";
 import { Constatation, FieldGroup, Field } from "@/types";
 
 type UseDeleteFieldOptions = {
-  fieldId:string;
+  fieldId: string;
   fieldGroupId: string;
   constatationId: string;
   config?: MutationConfig<typeof deleteField>;
@@ -32,18 +32,36 @@ export const useDeleteField = ({
       queryClient.setQueryData(["fields"], [...previousfields]);
 
       await queryClient.cancelQueries(["field_groups"]);
-      const previousFieldGroups = queryClient.getQueryData<FieldGroup[]>(["field_groups"]);
-      let fieldGroupIndex = previousFieldGroups.findIndex((obj) => obj.id == fieldGroupId);
-      let fieldGroupIndex2 = previousFieldGroups[fieldGroupIndex].fields.findIndex((obj => obj.id == fieldId));
+      const previousFieldGroups = queryClient.getQueryData<FieldGroup[]>([
+        "field_groups",
+      ]);
+      let fieldGroupIndex = previousFieldGroups.findIndex(
+        (obj) => obj.id == fieldGroupId
+      );
+      let fieldGroupIndex2 = previousFieldGroups[
+        fieldGroupIndex
+      ].fields.findIndex((obj) => obj.id == fieldId);
       previousFieldGroups[fieldGroupIndex].fields.splice(fieldGroupIndex2, 1);
       queryClient.setQueryData(["field_groups"], [...previousFieldGroups]);
 
       await queryClient.cancelQueries(["constatations"]);
-      const previousConstatations = queryClient.getQueryData<Constatation[]>(["constatations"]);
-      let constatationIndex = previousConstatations.findIndex((obj) => obj.id == constatationId);
-      let constatationIndex2 = previousConstatations[constatationIndex].field_groups.findIndex((obj => obj.id == fieldGroupId));
-      let constatationIndex3 = previousConstatations[constatationIndex].field_groups[constatationIndex2].fields.findIndex((obj => obj.id == fieldId));
-      previousConstatations[constatationIndex].field_groups[constatationIndex2].fields.splice(constatationIndex3, 1);
+      const previousConstatations = queryClient.getQueryData<Constatation[]>([
+        "constatations",
+      ]);
+      let constatationIndex = previousConstatations.findIndex(
+        (obj) => obj.id == constatationId
+      );
+      let constatationIndex2 = previousConstatations[
+        constatationIndex
+      ].field_groups.findIndex((obj) => obj.id == fieldGroupId);
+      let constatationIndex3 = previousConstatations[
+        constatationIndex
+      ].field_groups[constatationIndex2].fields.findIndex(
+        (obj) => obj.id == fieldId
+      );
+      previousConstatations[constatationIndex].field_groups[
+        constatationIndex2
+      ].fields.splice(constatationIndex3, 1);
       queryClient.setQueryData(["constatations"], [...previousConstatations]);
 
       addNotification({

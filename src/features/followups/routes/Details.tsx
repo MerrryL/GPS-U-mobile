@@ -4,9 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { FlatList, View } from "react-native";
 import { Card, Button, Icon, Text, Input } from "react-native-elements";
 
-
 import { useFollowup } from "../hooks/useFollowup";
-
 
 type Params = {
   followupId: string;
@@ -27,9 +25,5 @@ export default function Details({ route }: DetailsProps) {
 
   const navigation = useNavigation();
 
-  return (
-    <Card>
-      
-    </Card>
-  );
+  return <Card></Card>;
 }

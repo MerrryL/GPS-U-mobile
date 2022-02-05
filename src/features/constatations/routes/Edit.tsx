@@ -9,12 +9,10 @@ import { ImagesPart } from "../subfeatures/images/components/ImagesPart";
 import { LocalizationPart } from "../subfeatures/localization/components/LocalizationPart";
 import { FieldGroupPart } from "../subfeatures/fieldgroups/components/FieldGroupsPart";
 
-
 import { ObserverPart } from "../subfeatures/observers/components/ObserverPart";
 import { FollowupPart } from "../../followups/components/FollowupPart";
 import { ObservationPart } from "../subfeatures/observations/components/ObserverPart";
 import { useConstatation } from "../hooks/useConstatation";
-
 
 //TODO: get rid of any
 type EditProps = {
@@ -22,20 +20,13 @@ type EditProps = {
   route: any;
 };
 
-
 export default function Edit(props: EditProps) {
-  const {navigation, route} = props;
+  const { navigation, route } = props;
   const constatationId = route?.params?.constatationId;
 
   const constatation = useConstatation({
     constatationId: constatationId,
   })?.data;
 
-
-
-  return (
-    
-
-      <ConstatationEditCard constatation={constatation} />
-  );
+  return <ConstatationEditCard constatation={constatation} />;
 }

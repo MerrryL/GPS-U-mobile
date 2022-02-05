@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import { Text, makeStyles } from "react-native-elements";
+import { makeStyles } from "react-native-elements";
 import ConstatationHasRequiredValidation from "./ConstatationHasRequiredValidation";
 import ConstatationIsDraft from "./ConstatationIsDraft";
 import ConstatationIsValidated from "./ConstatationIsValidated";
@@ -31,7 +31,7 @@ export default function ConstatationValidationStatus(props) {
   );
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
   container: {},
   text: { flex: 0.5, height: "auto", marginBottom: 10 },
 }));

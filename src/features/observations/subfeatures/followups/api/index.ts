@@ -2,11 +2,11 @@ import { axios } from "@/lib/axios";
 
 import { Observation, Followup, Supervisor, FollowupStatus } from "@/types";
 
-export const getFollowupStatuses= ():Promise<FollowupStatus[]> => {
+export const getFollowupStatuses = (): Promise<FollowupStatus[]> => {
   return axios.get(`/followup_status/`);
 };
 
-export const getSupervisors= ():Promise<Supervisor[]> => {
+export const getSupervisors = (): Promise<Supervisor[]> => {
   return axios.get(`/supervisors/`);
 };
 
@@ -21,7 +21,7 @@ export const getFollowups = ({
 };
 
 type GetFollowupOptions = {
-  observationId: string,
+  observationId: string;
   followupId: string;
 };
 
@@ -35,7 +35,7 @@ export const getFollowup = ({
 type CreateFollowupOptions = {
   observationId: string;
   name: string;
-  description:string;
+  description: string;
   followup_status_id: string;
   supervisors_id: any;
 };
@@ -47,7 +47,12 @@ export const createFollowup = ({
   followup_status_id,
   supervisors_id,
 }: CreateFollowupOptions): Promise<Followup> => {
-  return axios.post(`/observations/${observationId}/followups`, { name, description, followup_status_id, supervisors_id, });
+  return axios.post(`/observations/${observationId}/followups`, {
+    name,
+    description,
+    followup_status_id,
+    supervisors_id,
+  });
 };
 
 type UpdateFollowupOptions = {
@@ -61,9 +66,12 @@ export const updateFollowup = ({
   observationId,
   followupId,
   name,
-  description
+  description,
 }: UpdateFollowupOptions): Promise<Followup> => {
-  return axios.post(`/observations/${observationId}/followups/${followupId}`, { name, description});
+  return axios.post(`/observations/${observationId}/followups/${followupId}`, {
+    name,
+    description,
+  });
 };
 
 type DeleteFollowupOptions = {
@@ -71,6 +79,9 @@ type DeleteFollowupOptions = {
   observationId: string;
 };
 
-export const deleteFollowup = ({ followupId, observationId }: DeleteFollowupOptions) => {
+export const deleteFollowup = ({
+  followupId,
+  observationId,
+}: DeleteFollowupOptions) => {
   return axios.delete(`/observations/${observationId}/followups/${followupId}`);
 };

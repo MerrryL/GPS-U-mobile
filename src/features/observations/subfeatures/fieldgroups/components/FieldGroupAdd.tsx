@@ -9,60 +9,68 @@ import { Card, Button, Icon, Text, Input } from "react-native-elements";
 import { useCreateObservationFieldGroup } from "../hooks/useCreateObservationFieldGroup";
 import TextInput from "@/components/Elements/Inputs/TextInput";
 
-
 type FieldGroupsValues = {
-    name: string;
-    type: string;
-    logical_operator: string;
+  name: string;
+  type: string;
+  logical_operator: string;
 };
 
 const schema = yup.object().shape({
-    name: yup.string().required(),
-    type: yup.string().required(),
-    logical_operator: yup.string().required(),
+  name: yup.string().required(),
+  type: yup.string().required(),
+  logical_operator: yup.string().required(),
 });
 
-type FieldGroupAddProps= {
+type FieldGroupAddProps = {
   observationId: string;
-}
+};
 
 export function FieldGroupsAdd({ observationId }: FieldGroupAddProps) {
-    const field_groupCreateMutation = useCreateObservationFieldGroup({observationId})
+  const field_groupCreateMutation = useCreateObservationFieldGroup({
+    observationId,
+  });
 
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-      } = useForm<FieldGroupsValues>({
-        resolver: yupResolver(schema),
-      });
-    
-    const onSubmit = async (values) => {
-      
-      console.log("values", values);
-      await field_groupCreateMutation.mutateAsync({
-        name: values.name,
-        type: values.type,
-        logical_operator: values.logical_operator,
-        observationId: observationId,
-      });
-      
-      //onSuccess();
-    };
-    
-    return(
-        <View
-          style={{
-            flex: 1, alignItems: "center", justifyContent: "center", margin:"10px" }}>
-        
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FieldGroupsValues>({
+    resolver: yupResolver(schema),
+  });
 
-        <TextInput name="name" defaultValue="" label="Nom" control={control} />
+  const onSubmit = async (values) => {
+    console.log("values", values);
+    await field_groupCreateMutation.mutateAsync({
+      name: values.name,
+      type: values.type,
+      logical_operator: values.logical_operator,
+      observationId: observationId,
+    });
 
-        <TextInput name="type" defaultValue="" label="Type" control={control} />
+    //onSuccess();
+  };
 
-        <TextInput name="logical_operator" defaultValue="" label="Opérateur logique" control={control} />
+  return (
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        margin: "10px",
+      }}
+    >
+      <TextInput name="name" defaultValue="" label="Nom" control={control} />
 
-        {/* <Controller
+      <TextInput name="type" defaultValue="" label="Type" control={control} />
+
+      <TextInput
+        name="logical_operator"
+        defaultValue=""
+        label="Opérateur logique"
+        control={control}
+      />
+
+      {/* <Controller
             control={control}
             rules={{
               required: true,
@@ -117,8 +125,7 @@ export function FieldGroupsAdd({ observationId }: FieldGroupAddProps) {
           <Text>{errors.logical_operator?.message}</Text>
  */}
 
-          <Button title="Nouveau Groupe" onPress={handleSubmit(onSubmit)} />
-        </View>
-
-    )
+      <Button title="Nouveau Groupe" onPress={handleSubmit(onSubmit)} />
+    </View>
+  );
 }

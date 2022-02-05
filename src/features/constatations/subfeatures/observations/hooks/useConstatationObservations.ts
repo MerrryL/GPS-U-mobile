@@ -9,10 +9,13 @@ type UseConstatationObservationsOptions = {
   config?: QueryConfig<typeof getConstatationObservations>;
 };
 
-export const useConstatationObservations = ({ config, constatationId = null }: UseConstatationObservationsOptions) => {
+export const useConstatationObservations = ({
+  config,
+  constatationId = null,
+}: UseConstatationObservationsOptions) => {
   return useQuery({
     ...config,
     queryKey: ["constatationObservations"],
-    queryFn: () => getConstatationObservations({constatationId}),
+    queryFn: () => getConstatationObservations({ constatationId }),
   });
 };

@@ -1,86 +1,85 @@
-import React, { useState } from "react";
+import TextInput from "@/components/Elements/Inputs/TextInput";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { yupResolver } from "@hookform/resolvers/yup";
+import React from "react";
+import { useForm } from "react-hook-form";
 import { View } from "react-native";
 import { makeStyles } from "react-native-elements";
-
-import TextInput from "@/components/Elements/Inputs/TextInput";
-
-
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-import { AntDesign, FontAwesome, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
-
-
 type LocalizationValues = {
-    given_name: string;
-    address:string;
-    latitude:string;
-    longitude:string;
-    observations: any;
+  given_name: string;
+  address: string;
+  latitude: string;
+  longitude: string;
+  observations: any;
 };
-  
+
 const schema = yup.object().shape({
-    given_name: yup.string().required(),
-    address: yup.string().required(),
-    latitude: yup.string().required(),
-    longitude: yup.string().required(),
+  given_name: yup.string().required(),
+  address: yup.string().required(),
+  latitude: yup.string().required(),
+  longitude: yup.string().required(),
 });
 
-export default function LocalizationForm({coords}) {
-    console.log("coords", coords);
-    const styles = useStyles();
+export default function LocalizationForm({ coords }) {
+  console.log("coords", coords);
+  const styles = useStyles();
 
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-      } = useForm<LocalizationValues>({
-        resolver: yupResolver(schema),
-      });
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LocalizationValues>({
+    resolver: yupResolver(schema),
+  });
 
-
-
-    return (
-        <View>
-            <TextInput name="given_name" defaultValue={coords.given_name} label="Lieu-dit" control={control}/>
-            <TextInput name="address" defaultValue={coords.given_name} label="Adresse" control={control}/>
-            <View style={styles.coords}>
-                <TextInput
-                    name="latitude"
-                    label="Lat"
-                    leftIcon={<MaterialCommunityIcons name="latitude" size={24} color="black" />}
-                    editable={false}
-                    defaultValue={coords.latitude || ""}
-                    control={control}
-                />
-                <TextInput
-                    name="longitude"
-                    label="Lng"
-                    leftIcon={<MaterialCommunityIcons name="longitude" size={24} color="black" />}
-                    editable={false}
-                    defaultValue={coords.longitude || ""} 
-                    control={control}    
-                />
-
-            </View>
-            
-            
-
-        </View>
-    )
+  return (
+    <View>
+      <TextInput
+        name="given_name"
+        defaultValue={coords.given_name}
+        label="Lieu-dit"
+        control={control}
+      />
+      <TextInput
+        name="address"
+        defaultValue={coords.given_name}
+        label="Adresse"
+        control={control}
+      />
+      <View style={styles.coords}>
+        <TextInput
+          name="latitude"
+          label="Lat"
+          leftIcon={
+            <MaterialCommunityIcons name="latitude" size={24} color="black" />
+          }
+          editable={false}
+          defaultValue={coords.latitude || ""}
+          control={control}
+        />
+        <TextInput
+          name="longitude"
+          label="Lng"
+          leftIcon={
+            <MaterialCommunityIcons name="longitude" size={24} color="black" />
+          }
+          editable={false}
+          defaultValue={coords.longitude || ""}
+          control={control}
+        />
+      </View>
+    </View>
+  );
 }
-const useStyles = makeStyles((theme, props) => ({
-    container: {
-        
-    },
-    coords:{
-        
-    },
+const useStyles = makeStyles((theme: Partial<FullTheme>, props) => ({
+  container: {},
+  coords: {},
 }));
-  
 
-{/* <Input
+{
+  /* <Input
         placeholder="Lieu-dit"
         leftIcon={<FontAwesome5 name="monument" size={24} color="black" />}
         value={coords?.given_name ?? ""}
@@ -122,4 +121,5 @@ const useStyles = makeStyles((theme, props) => ({
           value={parseFloat(coords?.longitude)?.toFixed(6)}      
         />
     </>
-  ); */}
+  ); */
+}

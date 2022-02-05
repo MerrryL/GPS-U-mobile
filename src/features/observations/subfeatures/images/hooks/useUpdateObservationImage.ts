@@ -22,7 +22,7 @@ export const useUpdateObservationImage = ({
     onSuccess: async (data) => {
       queryClient.refetchQueries(["observations"]);
       queryClient.refetchQueries(["images"]);
-      
+
       addNotification({
         type: "success",
         title: "Image Modifiée",

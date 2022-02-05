@@ -5,7 +5,7 @@ import { MutationConfig, queryClient } from "@/lib/react-query";
 
 import { deleteObservationImage } from "../api";
 
-import { Observation, Image} from "@/types";
+import { Observation, Image } from "@/types";
 
 type UseDeleteObservationImageOptions = {
   imageId: string;

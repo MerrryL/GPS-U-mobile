@@ -19,11 +19,6 @@ type Route = {
 
 export default function Edit({ route }: EditProps) {
   const followupId = route.params.followupId;
-  
 
-  return (
-    <ScrollView>
-
-    </ScrollView>
-  );
+  return <ScrollView></ScrollView>;
 }

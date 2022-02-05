@@ -1,11 +1,11 @@
-import { rest } from 'msw';
-import 'react-native-get-random-values';
-import { nanoid } from 'nanoid';
+import { rest } from "msw";
+import "react-native-get-random-values";
+import { nanoid } from "nanoid";
 
-import { API_URL } from '@/config';
+import { API_URL } from "@/config";
 
-import { db, persistDb } from '../db';
-import { authenticate, delayedResponse, hash, requireAuth } from '../utils';
+import { db, persistDb } from "../db";
+import { authenticate, delayedResponse, hash, requireAuth } from "../utils";
 
 type RegisterBody = {
   firstName: string;
@@ -35,7 +35,7 @@ export const authHandlers = [
       });
 
       if (existingUser) {
-        throw new Error('The user already exists');
+        throw new Error("The user already exists");
       }
 
       let teamId;
@@ -47,9 +47,9 @@ export const authHandlers = [
           name: userObject.teamName ?? `${userObject.firstName} Team`,
           createdAt: Date.now(),
         });
-        persistDb('team');
+        persistDb("team");
         teamId = team.id;
-        role = 'ADMIN';
+        role = "ADMIN";
       } else {
         const existingTeam = db.team.findFirst({
           where: {
@@ -60,10 +60,10 @@ export const authHandlers = [
         });
 
         if (!existingTeam) {
-          throw new Error('The team you are trying to join does not exist!');
+          throw new Error("The team you are trying to join does not exist!");
         }
         teamId = userObject.teamId;
-        role = 'USER';
+        role = "USER";
       }
 
       db.user.create({
@@ -75,13 +75,19 @@ export const authHandlers = [
         teamId,
       });
 
-      persistDb('user');
+      persistDb("user");
 
-      const result = authenticate({ email: userObject.email, password: userObject.password });
+      const result = authenticate({
+        email: userObject.email,
+        password: userObject.password,
+      });
 
       return delayedResponse(ctx.json(result));
     } catch (error) {
-      return delayedResponse(ctx.status(400), ctx.json({ message: error.message }));
+      return delayedResponse(
+        ctx.status(400),
+        ctx.json({ message: error.message })
+      );
     }
   }),
 
@@ -91,7 +97,10 @@ export const authHandlers = [
       const result = authenticate(credentials);
       return delayedResponse(ctx.json(result));
     } catch (error) {
-      return delayedResponse(ctx.status(400), ctx.json({ message: error.message }));
+      return delayedResponse(
+        ctx.status(400),
+        ctx.json({ message: error.message })
+      );
     }
   }),
 
@@ -101,7 +110,10 @@ export const authHandlers = [
 
       return delayedResponse(ctx.json(user));
     } catch (error) {
-      return delayedResponse(ctx.status(400), ctx.json({ message: error.message }));
+      return delayedResponse(
+        ctx.status(400),
+        ctx.json({ message: error.message })
+      );
     }
   }),
 ];

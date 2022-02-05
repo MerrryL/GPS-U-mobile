@@ -1,13 +1,17 @@
 import DateText from "@/components/Elements/Text/DateText";
 import React from "react";
-import { Text, makeStyles } from "react-native-elements";
+import { FullTheme, makeStyles } from "react-native-elements";
 import ConstatationRefusalButton from "../Buttons/ConstatationRefusalButton";
-import ConstatationRequireValidationButton from "../Buttons/ConstatationRequireValidationButton";
 import ConstatationValidationButton from "../Buttons/ConstatationValidationButton";
 
-export default function ConstatationHasRequiredValidation(props) {
-  const { id, requiresValidationDate = "Inconnue" } = props;
-
+interface ConstatationHasRequiredValidationPropsType {
+  id: number;
+  requiresValidationDate?: string;
+}
+export default function ConstatationHasRequiredValidation({
+  id,
+  requiresValidationDate = "Inconnue",
+}: ConstatationHasRequiredValidationPropsType) {
   const styles = useStyles();
   return (
     <>
@@ -21,6 +25,6 @@ export default function ConstatationHasRequiredValidation(props) {
   );
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
   text: { flex: 0.5, height: "auto", marginBottom: 10 },
 }));

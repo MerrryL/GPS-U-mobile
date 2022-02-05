@@ -8,7 +8,7 @@ import { deletePictureConstatationImage } from "../api/index";
 
 type UseDeletePictureConstatationImageOptions = {
   constatationId: string;
-  imageId:string;
+  imageId: string;
   config?: MutationConfig<typeof deletePictureConstatationImage>;
 };
 
@@ -22,7 +22,7 @@ export const useDeletePictureConstatationImage = ({
     onSuccess: async (data) => {
       queryClient.refetchQueries(["constatations"]);
       queryClient.refetchQueries(["images"]);
-      
+
       addNotification({
         type: "success",
         title: "L'image a été retirée, vous pouvez en télécharger une autre",

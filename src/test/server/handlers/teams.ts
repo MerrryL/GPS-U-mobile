@@ -1,9 +1,9 @@
-import { rest } from 'msw';
+import { rest } from "msw";
 
-import { API_URL } from '@/config';
+import { API_URL } from "@/config";
 
-import { db, persistDb } from '../db';
-import { requireAuth, requireAdmin, delayedResponse } from '../utils';
+import { db, persistDb } from "../db";
+import { requireAuth, requireAdmin, delayedResponse } from "../utils";
 
 type TeamBody = {
   name: string;
@@ -25,7 +25,10 @@ export const teamsHandlers = [
 
       return delayedResponse(ctx.json(result));
     } catch (error) {
-      return delayedResponse(ctx.status(400), ctx.json({ message: error.message }));
+      return delayedResponse(
+        ctx.status(400),
+        ctx.json({ message: error.message })
+      );
     }
   }),
 
@@ -34,7 +37,10 @@ export const teamsHandlers = [
       const result = db.team.getAll();
       return delayedResponse(ctx.json(result));
     } catch (error) {
-      return delayedResponse(ctx.status(400), ctx.json({ message: error.message }));
+      return delayedResponse(
+        ctx.status(400),
+        ctx.json({ message: error.message })
+      );
     }
   }),
 
@@ -49,11 +55,14 @@ export const teamsHandlers = [
         },
         data,
       });
-      persistDb('team');
+      persistDb("team");
 
       return delayedResponse(ctx.json(result));
     } catch (error) {
-      return delayedResponse(ctx.status(400), ctx.json({ message: error.message }));
+      return delayedResponse(
+        ctx.status(400),
+        ctx.json({ message: error.message })
+      );
     }
   }),
 ];

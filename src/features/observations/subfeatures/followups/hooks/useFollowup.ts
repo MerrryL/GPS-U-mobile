@@ -2,9 +2,8 @@ import { useQuery } from "react-query";
 import { QueryConfig } from "@/lib/react-query";
 import { getFollowup } from "../api";
 
-
 type UseFollowupOptions = {
-  observationId:string;
+  observationId: string;
   followupId: string;
   config?: QueryConfig<typeof getFollowup>;
 };

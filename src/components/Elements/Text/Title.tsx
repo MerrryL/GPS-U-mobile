@@ -1,19 +1,19 @@
 import { capitalize } from "lodash";
-import React, { useState } from "react";
+import React from "react";
 import { View } from "react-native";
-import { Text, makeStyles } from "react-native-elements";
+import { FullTheme, makeStyles, Text } from "react-native-elements";
 
 type TitleProps = {
-    title: string;
-    containerStyle?: any;
-    titleStyle?: any;
-}
+  title: string;
+  containerStyle?: any;
+  titleStyle?: any;
+};
 
 type StyleProps = any;
 
 export default function Title(props: TitleProps) {
   const { title, containerStyle, titleStyle } = props;
-  const styles = useStyles({container: containerStyle, title: titleStyle});
+  const styles = useStyles({ container: containerStyle, title: titleStyle });
 
   return (
     <View style={styles.container}>
@@ -24,13 +24,15 @@ export default function Title(props: TitleProps) {
   );
 }
 
-const useStyles = makeStyles((theme, props:StyleProps) => ({
-  container: {
-    ...props.container
-  },
-  title: {
-    fontWeight: "bold", 
-    color: theme?.colors?.grey2,
-    ...props.title
-  },
-}));
+const useStyles = makeStyles(
+  (theme: Partial<FullTheme>, props: StyleProps) => ({
+    container: {
+      ...props.container,
+    },
+    title: {
+      fontWeight: "bold",
+      color: theme?.colors?.grey2,
+      ...props.title,
+    },
+  })
+);

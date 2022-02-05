@@ -1,36 +1,37 @@
-import React, { useEffect, useState } from "react";
-import SelectBox from "react-native-multi-selectbox";
-import { Text, makeStyles } from "react-native-elements";
+import {
+  RHFField,
+  RHFFormState,
+  RHFieldState,
+  SelectOption,
+} from "@/types/utilityTypes";
 import { xorBy } from "lodash";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
+import { FullTheme, makeStyles, Text } from "react-native-elements";
+import SelectBox from "react-native-multi-selectbox-typescript";
 import NormalText from "../Text/NormalText";
-import { InputedField, RHFField, RHFFormState, RHFieldState, SelectOption } from "@/types/utilityTypes";
 
 type MultiPickerInputProps = {
-  field: RHFField,
-  fieldState: RHFieldState,
-  formState: RHFFormState,
+  field: RHFField;
+  fieldState: RHFieldState;
+  formState: RHFFormState;
   label?: string;
-  defaultValue: SelectOption | [];
-  options: SelectOption[]
-}
+  defaultValue?: SelectOption | [];
+  options?: SelectOption[];
+};
 
-export default function MultiPickerInput(props:MultiPickerInputProps) {
-  
-  const {
-    field, 
-    fieldState,
-    label = field.name,
-    defaultValue = [],
-    options,
-  } = props;
-
+export default function MultiPickerInput({
+  field,
+  fieldState,
+  label = field.name,
+  defaultValue = [],
+  options,
+}: MultiPickerInputProps) {
   const { ref, ...rest } = field;
 
   const styles = useStyles();
-  
 
-  const [currentSelection, setCurrentSelection] = useState( field?.value || []);
+  const [currentSelection, setCurrentSelection] = useState(field?.value || []);
 
   useEffect(() => {
     field.onChange(currentSelection);
@@ -78,13 +79,13 @@ export default function MultiPickerInput(props:MultiPickerInputProps) {
   );
 
   function onMultiChange() {
-    return (item) => {
+    return (item: any): void => {
       setCurrentSelection(xorBy(currentSelection, [item], "id"));
     };
   }
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
   container: {
     paddingRight: "10px",
     paddingLeft: "10px",

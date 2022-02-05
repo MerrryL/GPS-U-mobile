@@ -1,9 +1,9 @@
-import { rest } from 'msw';
+import { rest } from "msw";
 
-import { API_URL } from '@/config';
+import { API_URL } from "@/config";
 
-import { db, persistDb } from '../db';
-import { requireAuth, requireAdmin, delayedResponse } from '../utils';
+import { db, persistDb } from "../db";
+import { requireAuth, requireAdmin, delayedResponse } from "../utils";
 
 type ProfileBody = {
   email: string;
@@ -26,7 +26,10 @@ export const usersHandlers = [
 
       return delayedResponse(ctx.json(result));
     } catch (error) {
-      return delayedResponse(ctx.status(400), ctx.json({ message: error.message }));
+      return delayedResponse(
+        ctx.status(400),
+        ctx.json({ message: error.message })
+      );
     }
   }),
 
@@ -42,10 +45,13 @@ export const usersHandlers = [
         },
         data,
       });
-      persistDb('user');
+      persistDb("user");
       return delayedResponse(ctx.json(result));
     } catch (error) {
-      return delayedResponse(ctx.status(400), ctx.json({ message: error.message }));
+      return delayedResponse(
+        ctx.status(400),
+        ctx.json({ message: error.message })
+      );
     }
   }),
 
@@ -64,10 +70,13 @@ export const usersHandlers = [
           },
         },
       });
-      persistDb('user');
+      persistDb("user");
       return delayedResponse(ctx.json(result));
     } catch (error) {
-      return delayedResponse(ctx.status(400), ctx.json({ message: error.message }));
+      return delayedResponse(
+        ctx.status(400),
+        ctx.json({ message: error.message })
+      );
     }
   }),
 ];

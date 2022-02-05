@@ -32,7 +32,10 @@ async function handleUserResponse(data: UserResponse) {
 
 //TODO: user is already set in previous method
 async function loadUser() {
-  if (await AsyncStorage.getItem("token") && await AsyncStorage.getItem("token") === null) {
+  if (
+    (await AsyncStorage.getItem("token")) &&
+    (await AsyncStorage.getItem("token")) === null
+  ) {
     const data = await getUserProfile();
     return data;
   }
@@ -66,9 +69,7 @@ const authConfig = {
   registerFn,
   logoutFn,
   LoaderComponent() {
-    return (
-      <Spinner/>
-    );
+    return <Spinner />;
   },
 };
 

@@ -1,26 +1,30 @@
-import React from "react";
-
 import { Task } from "@/types";
 import { useNavigation } from "@react-navigation/native";
-
-import {
-  Card,
-  Image,
-  Button,
-  Icon,
-  Divider,
-  Text,
-} from "react-native-elements";
-
+import React from "react";
 import { View } from "react-native";
+import { Button, Card, Text } from "react-native-elements";
 
 type TaskCardProps = {
   task: Task;
 };
 
-export function TaskCard(props) {
-  const { task, } = props;
-  const { created_at, deleted_at, description, followup, followup_id, id, name, operators, realisation_date, report_date, report_periodicity, task_status, task_status_id, updated_at} = task;
+export function TaskCard({ task }: TaskCardProps) {
+  const {
+    created_at,
+    deleted_at,
+    description,
+    followup,
+    followup_id,
+    id,
+    name,
+    operators,
+    realisation_date,
+    report_date,
+    report_periodicity,
+    task_status,
+    task_status_id,
+    updated_at,
+  } = task;
   const navigation = useNavigation();
 
   //console.log(task);
@@ -59,7 +63,6 @@ export function TaskCard(props) {
         <Text>Date de réalisation: {realisation_date}</Text>
         <Text>Dernière modification {updated_at}</Text>
       </View>
-
     </Card>
   );
 }

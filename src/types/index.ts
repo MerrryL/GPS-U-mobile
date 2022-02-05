@@ -1,5 +1,5 @@
 export type BaseEntity = {
-  id : string;
+  id: string;
   created_at: string;
   updated_at: string;
 };
@@ -17,6 +17,7 @@ export type Constatation = {
   dossiers: Dossier[];
   actions: Action[];
   images: Image[];
+  observations: Observation[];
   observers: User[];
   media: Media[];
 } & BaseEntity;
@@ -72,20 +73,20 @@ export type Field = {
 } & BaseEntity;
 
 export type FieldType = {
-  name:string;
-  value:string;
+  name: string;
+  value: string;
 } & BaseEntity;
 
 export type ConstFieldPivot = {
   constatation_id: string | number | null;
   field_id: string | number | null;
   value: string | number | null;
-}
+};
 
 export type Image = {
   constatation_id: string;
   name: string;
-  description:string;
+  description: string;
   media: Media[];
 } & BaseEntity;
 
@@ -126,13 +127,13 @@ export type Localization = {
 export type Marker = {
   latitude: number;
   longitude: number;
-}
+};
 
 export type User = {
   firstName: string;
   lastName: string;
   email: string;
-  role: 'ADMIN' | 'USER';
+  role: "ADMIN" | "USER";
   teamId: string;
   bio: string;
 } & BaseEntity;
@@ -143,11 +144,11 @@ export type Supervisor = User;
 export type Operator = User;
 
 export type Observation = {
-  name:string;
-  code:string;
-  short_description:string;
-  description:string;
-  fine_amount:string;
+  name: string;
+  code: string;
+  short_description: string;
+  description: string;
+  fine_amount: string;
   codex: Codex;
   observation_type: ObservationType;
   field_groups: FieldGroup[];
@@ -155,41 +156,40 @@ export type Observation = {
 } & BaseEntity;
 
 export type ObservationType = {
-  name:string;
-  description:string;
-}
+  name: string;
+  description: string;
+};
 
 export type Codex = {
-  name:string;
-  precode:string;
-  description:string;
-}
+  name: string;
+  precode: string;
+  description: string;
+};
 
 export type Followup = {
   name: string;
-  description:string;
+  description: string;
   followup_status: FollowupStatus;
   observation: Observation;
   supervisor: Supervisor;
   tasks: Task[];
 } & BaseEntity;
 
-
 export type Status = {
-  name:string;
+  name: string;
 } & BaseEntity;
 
 export type FollowupStatus = Status;
 
 export type Task = {
-  name:string;
-  description:string;
+  name: string;
+  description: string;
   realisation_date: Date;
   report_date: Date;
   report_periodicity: Date;
   task_status: TaskStatus;
   followup: Followup[];
   operators: Operator[];
-}
+};
 
 export type TaskStatus = Status;

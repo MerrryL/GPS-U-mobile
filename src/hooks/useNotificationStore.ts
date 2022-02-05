@@ -1,17 +1,17 @@
-import 'react-native-get-random-values';
-import { nanoid } from 'nanoid';
-import create from 'zustand';
+import "react-native-get-random-values";
+import { nanoid } from "nanoid";
+import create from "zustand";
 
 export type Notification = {
   id: string;
-  type: 'primary' | 'warning' | 'success' | 'error';
+  type: "primary" | "warning" | "success" | "error";
   title: string;
   message?: string;
 };
 
 type NotificationsState = {
   notifications: Notification[];
-  addNotification: (notification: Omit<Notification, 'id'>) => void;
+  addNotification: (notification: Omit<Notification, "id">) => void;
   dismissNotification: (id: string) => void;
 };
 
@@ -19,10 +19,15 @@ export const useNotificationStore = create<NotificationsState>((set) => ({
   notifications: [],
   addNotification: (notification) =>
     set((state) => ({
-      notifications: [...state.notifications, { id: nanoid(), ...notification }],
+      notifications: [
+        ...state.notifications,
+        { id: nanoid(), ...notification },
+      ],
     })),
   dismissNotification: (id) =>
     set((state) => ({
-      notifications: state.notifications.filter((notification) => notification.id !== id),
+      notifications: state.notifications.filter(
+        (notification) => notification.id !== id
+      ),
     })),
 }));

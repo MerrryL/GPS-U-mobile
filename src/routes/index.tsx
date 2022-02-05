@@ -1,6 +1,6 @@
-import React from "react";
 import { useAuth } from "@/lib/auth";
 import { lazyImport } from "@/utils/lazyImport";
+import React from "react";
 
 const { ProtectedRoutes } = lazyImport(
   () => import("./ProtectedRoutes"),

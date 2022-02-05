@@ -13,7 +13,7 @@ export const getObservationFieldGroups = ({
 };
 
 type GetObservationFieldGroupOptions = {
-  observationId: string,
+  observationId: string;
   fieldGroupId: string;
 };
 
@@ -21,13 +21,15 @@ export const getObservationFieldGroup = ({
   observationId,
   fieldGroupId,
 }: GetObservationFieldGroupOptions): Promise<FieldGroup> => {
-  return axios.get(`/observations/${observationId}/field_groups/${fieldGroupId}`);
+  return axios.get(
+    `/observations/${observationId}/field_groups/${fieldGroupId}`
+  );
 };
 
 type CreateObservationFieldGroupOptions = {
   observationId: string;
   name: string;
-  logical_operator:string;
+  logical_operator: string;
   type: string;
 };
 
@@ -35,9 +37,13 @@ export const createObservationFieldGroup = ({
   observationId,
   name,
   type,
-  logical_operator
+  logical_operator,
 }: CreateObservationFieldGroupOptions): Promise<FieldGroup> => {
-  return axios.post(`/observations/${observationId}/field_groups`, { name, type, logical_operator });
+  return axios.post(`/observations/${observationId}/field_groups`, {
+    name,
+    type,
+    logical_operator,
+  });
 };
 
 type UpdateObservationFieldGroupOptions = {
@@ -51,9 +57,12 @@ export const updateObservationFieldGroup = ({
   fieldGroupId,
   name,
   type,
-  logical_operator
+  logical_operator,
 }: UpdateObservationFieldGroupOptions): Promise<FieldGroup> => {
-  return axios.post(`/observations/${observationId}/field_groups/${fieldGroupId}`, { name, type, logical_operator });
+  return axios.post(
+    `/observations/${observationId}/field_groups/${fieldGroupId}`,
+    { name, type, logical_operator }
+  );
 };
 
 type DeleteObservationFieldGroupOptions = {
@@ -61,6 +70,11 @@ type DeleteObservationFieldGroupOptions = {
   observationId: string;
 };
 
-export const deleteObservationFieldGroup = ({ fieldGroupId, observationId }: DeleteObservationFieldGroupOptions) => {
-  return axios.delete(`/observations/${observationId}/field_groups/${fieldGroupId}`);
+export const deleteObservationFieldGroup = ({
+  fieldGroupId,
+  observationId,
+}: DeleteObservationFieldGroupOptions) => {
+  return axios.delete(
+    `/observations/${observationId}/field_groups/${fieldGroupId}`
+  );
 };

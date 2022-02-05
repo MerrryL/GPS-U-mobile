@@ -10,33 +10,35 @@ import { Constatation, Image } from "@/types";
 type UseDefineAsThumbConstatationImageOptions = {
   constatationId: string;
   imageId: string;
-  config?:  MutationConfig<typeof defineAsThumbConstatationImage>;
+  config?: MutationConfig<typeof defineAsThumbConstatationImage>;
 };
 
 export const useDefineAsThumbConstatationImage = ({
   constatationId,
   imageId,
-  config
+  config,
 }: UseDefineAsThumbConstatationImageOptions) => {
   console.log("g,", {
     constatationId,
     imageId,
-    config
+    config,
   });
   const { addNotification } = useNotificationStore();
   return useMutation({
-    onSuccess: async (updatingConstatation : Constatation) => {
+    onSuccess: async (updatingConstatation: Constatation) => {
       await queryClient.cancelQueries(["constatations"]);
 
-      const previousConstatations = queryClient.getQueryData<Constatation[]>(["constatations"]);
-      
-      let index = previousConstatations.findIndex((obj => obj.id ==  constatationId))
+      const previousConstatations = queryClient.getQueryData<Constatation[]>([
+        "constatations",
+      ]);
+
+      let index = previousConstatations.findIndex(
+        (obj) => obj.id == constatationId
+      );
 
       previousConstatations[index].media = updatingConstatation.media;
 
-      queryClient.setQueryData(["constatations"], [
-        ...previousConstatations,
-      ]);
+      queryClient.setQueryData(["constatations"], [...previousConstatations]);
 
       addNotification({
         type: "success",

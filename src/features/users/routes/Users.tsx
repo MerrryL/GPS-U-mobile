@@ -1,7 +1,7 @@
-import { ContentLayout } from '@/components/Layout';
-import { Authorization, ROLES } from '@/lib/authorization';
+import { ContentLayout } from "@/components/Layout";
+import { Authorization, ROLES } from "@/lib/authorization";
 
-import { UsersList } from '../components/UsersList';
+import { UsersList } from "../components/UsersList";
 
 export const Users = () => {
   return (

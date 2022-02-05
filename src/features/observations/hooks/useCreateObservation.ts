@@ -18,13 +18,14 @@ export const useCreateObservation = ({
     onMutate: async (newObservation) => {
       await queryClient.cancelQueries(["observations"]);
 
-      const previousObservations =
-        queryClient.getQueryData<Observation[]>(["observations"]);
-
-      queryClient.setQueryData(["observations"], [
-        ...(previousObservations || []),
-        newObservation.data,
+      const previousObservations = queryClient.getQueryData<Observation[]>([
+        "observations",
       ]);
+
+      queryClient.setQueryData(
+        ["observations"],
+        [...(previousObservations || []), newObservation.data]
+      );
 
       return { previousObservations };
     },

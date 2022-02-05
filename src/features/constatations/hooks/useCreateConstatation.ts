@@ -18,13 +18,14 @@ export const useCreateConstatation = ({
     onMutate: async (newConstatation) => {
       await queryClient.cancelQueries(["constatations"]);
 
-      const previousConstatations =
-        queryClient.getQueryData<Constatation[]>(["constatations"]);
-
-      queryClient.setQueryData(["constatations"], [
-        ...(previousConstatations || []),
-        newConstatation.data,
+      const previousConstatations = queryClient.getQueryData<Constatation[]>([
+        "constatations",
       ]);
+
+      queryClient.setQueryData(
+        ["constatations"],
+        [...(previousConstatations || []), newConstatation.data]
+      );
 
       return { previousConstatations };
     },

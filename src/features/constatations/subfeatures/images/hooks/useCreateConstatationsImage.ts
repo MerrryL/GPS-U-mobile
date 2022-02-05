@@ -20,7 +20,7 @@ export const useCreateConstatationImage = ({
     onSuccess: async (data) => {
       queryClient.refetchQueries(["constatations"]);
       queryClient.refetchQueries(["images"]);
-      
+
       addNotification({
         type: "success",
         title: "Image Créée",

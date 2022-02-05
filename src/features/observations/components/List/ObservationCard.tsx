@@ -22,9 +22,23 @@ export function ObservationCard({ observation }: observationCardProps) {
   const navigation = useNavigation();
   //console.log("observation", observation);
 
-  const {  code, codex, codex_id, created_at, deleted_at, description, field_groups,  fine_amount, followups, id, name, observation_type, observation_type_id, short_description, updated_at
+  const {
+    code,
+    codex,
+    codex_id,
+    created_at,
+    deleted_at,
+    description,
+    field_groups,
+    fine_amount,
+    followups,
+    id,
+    name,
+    observation_type,
+    observation_type_id,
+    short_description,
+    updated_at,
   } = observation;
-
 
   return (
     <Card>
@@ -51,9 +65,7 @@ export function ObservationCard({ observation }: observationCardProps) {
         />
       </View>
       <View>
-        <Text>
-          Nom: {name}
-        </Text>
+        <Text>Nom: {name}</Text>
         <Text>Code: {code}</Text>
         {/* <Text>Codex: TODO{codex}</Text> */}
         <Text>Date de création{created_at}</Text>
@@ -66,10 +78,6 @@ export function ObservationCard({ observation }: observationCardProps) {
         <Text>Description sommaire{short_description}</Text>
         <Text>Date de mise à jour{updated_at}</Text>
       </View>
-
-
-
-
     </Card>
   );
 }

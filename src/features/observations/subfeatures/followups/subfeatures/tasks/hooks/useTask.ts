@@ -2,11 +2,10 @@ import { useQuery } from "react-query";
 import { QueryConfig } from "@/lib/react-query";
 import { getTask } from "../api";
 
-
 type UseTaskOptions = {
   taskId: string;
-  observationId:string;
-  followupId:string;
+  observationId: string;
+  followupId: string;
   config?: QueryConfig<typeof getTask>;
 };
 

@@ -10,30 +10,24 @@ type UseCreateTaskOptions = {
   config?: MutationConfig<typeof createTask>;
 };
 
-export const useCreateTask = ({
-  config,
-}: UseCreateTaskOptions = {}) => {
+export const useCreateTask = ({ config }: UseCreateTaskOptions = {}) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onMutate: async (newTask) => {
       await queryClient.cancelQueries(["constatations"]);
 
-      const previousTasks =
-        queryClient.getQueryData<Task[]>(["constatations"]);
+      const previousTasks = queryClient.getQueryData<Task[]>(["constatations"]);
 
-      queryClient.setQueryData(["constatations"], [
-        ...(previousTasks || []),
-        newTask.data,
-      ]);
+      queryClient.setQueryData(
+        ["constatations"],
+        [...(previousTasks || []), newTask.data]
+      );
 
       return { previousTasks };
     },
     onError: (_, __, context: any) => {
       if (context?.previousTasks) {
-        queryClient.setQueryData(
-          ["constatations"],
-          context.previousTasks
-        );
+        queryClient.setQueryData(["constatations"], context.previousTasks);
       }
     },
     onSuccess: () => {

@@ -1,9 +1,11 @@
 import { useNavigation } from "@react-navigation/core";
 import React from "react";
-import { Button, makeStyles } from "react-native-elements";
+import { Button, FullTheme, makeStyles } from "react-native-elements";
 
-export default function DetailsButton(props) {
-  const { constatationId } = props;
+type DetailsButtonProps = {
+  constatationId: number;
+};
+export default function DetailsButton({ constatationId }: DetailsButtonProps) {
   const navigation = useNavigation();
 
   const styles = useStyles();
@@ -19,7 +21,7 @@ export default function DetailsButton(props) {
   );
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
   button: {
     marginRight: "10px",
   },

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { ScrollView } from "react-native";
 import { Card } from "react-native-elements";
-import Accordion from 'react-native-collapsible/Accordion';
+import Accordion from "react-native-collapsible/Accordion";
 
 //import { FieldGroup } from "../components/Edit/FieldGroup";
 import { CardHeader } from "../components/Edit/ConstatationEditCard";
@@ -10,12 +10,10 @@ import { ImagesPart } from "../subfeatures/images/components/ImagesPart";
 import { LocalizationPart } from "../subfeatures/localization/components/LocalizationPart";
 import { FieldGroupPart } from "../subfeatures/fieldgroups/components/FieldGroupsPart";
 
-
 import { ObserverPart } from "../subfeatures/observers/components/ObserverPart";
 import { FollowupPart } from "../../followups/components/FollowupPart";
 import { ObservationPart } from "../subfeatures/observations/components/ObserverPart";
 import { useConstatation } from "../hooks/useConstatation";
-
 
 //TODO: get rid of any
 type EditProps = {
@@ -23,43 +21,41 @@ type EditProps = {
   route: any;
 };
 
-
 export default function Edit(props: EditProps) {
-  const {navigation, route} = props;
+  const { navigation, route } = props;
   const constatationId = route?.params?.constatationId;
 
   const constatation = useConstatation({
     constatationId: constatationId,
   })?.data;
 
-
   const [activeSections, setActiveSections] = useState([0]);
 
-  const sections= [
+  const sections = [
     {
       position: 0,
-      title: 'Corps',
-      content: <CardHeader constatation={constatation} />
+      title: "Corps",
+      content: <CardHeader constatation={constatation} />,
     },
     {
       position: 1,
-      title: 'Agents constatants',
-      content: <ObserverPart constatationId={constatationId}/>
+      title: "Agents constatants",
+      content: <ObserverPart constatationId={constatationId} />,
     },
     {
       position: 2,
-      title: 'Images',
-      content: <ImagesPart constatationId={constatationId} />
+      title: "Images",
+      content: <ImagesPart constatationId={constatationId} />,
     },
     {
       position: 3,
-      title: 'Localisation',
-      content: <LocalizationPart constatationId={constatationId} />
+      title: "Localisation",
+      content: <LocalizationPart constatationId={constatationId} />,
     },
     {
       position: 4,
-      title: 'Observations',
-      content: <ObservationPart constatationId={constatationId}/>
+      title: "Observations",
+      content: <ObservationPart constatationId={constatationId} />,
     },
     // {
     //   position: 6,
@@ -81,15 +77,17 @@ export default function Edit(props: EditProps) {
     //   title: 'Suivis',
     //   content: <FollowupPart constatationId={constatationId}/>
     // }
-  ]
-  
+  ];
+
   const _renderSectionTitle = (section) => {
-    if (activeSections.includes(section.position)){
+    if (activeSections.includes(section.position)) {
       return;
     } else {
       return (
         <>
-          <Card.Title onPress={ () => _updateSections(section.position)}>{section.title}</Card.Title>
+          <Card.Title onPress={() => _updateSections(section.position)}>
+            {section.title}
+          </Card.Title>
           <Card.Divider />
         </>
       );
@@ -97,26 +95,26 @@ export default function Edit(props: EditProps) {
   };
 
   const _renderHeader = (section) => {
-    if (activeSections.includes(section.position)){
-      return <Card.Title>{section.title}</Card.Title>
+    if (activeSections.includes(section.position)) {
+      return <Card.Title>{section.title}</Card.Title>;
     } else {
       return <></>;
     }
   };
 
   const _renderContent = (section) => {
-    return section.content;   
+    return section.content;
   };
 
   const _updateSections = (activeSections) => {
-    setActiveSections([activeSections ] );
+    setActiveSections([activeSections]);
   };
 
   return (
     <ScrollView>
       <Card>
         <Card.Title h2>Constatation n°{constatationId}</Card.Title>
-        <Card.Divider/>
+        <Card.Divider />
 
         <Accordion
           activeSections={activeSections}
@@ -126,11 +124,9 @@ export default function Edit(props: EditProps) {
           renderContent={_renderContent}
           onChange={_updateSections}
         />
-        
+
         {/* Actions, dossier */}
         {/* Suivis */}
-
-
       </Card>
     </ScrollView>
   );

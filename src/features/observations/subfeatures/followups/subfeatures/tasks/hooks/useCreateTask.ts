@@ -29,13 +29,13 @@ export const useCreateTask = ({
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {
-    queryClient.refetchQueries(["observations"]);
-    queryClient.refetchQueries(["followups"]);
-    queryClient.refetchQueries(["fields"]);
-    addNotification({
-      type: "success",
-      title: "Tâche créé",
-    });
+      queryClient.refetchQueries(["observations"]);
+      queryClient.refetchQueries(["followups"]);
+      queryClient.refetchQueries(["fields"]);
+      addNotification({
+        type: "success",
+        title: "Tâche créé",
+      });
     },
     ...config,
     mutationFn: createTask,

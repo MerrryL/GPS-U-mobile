@@ -1,11 +1,11 @@
-import { rest } from 'msw';
-import 'react-native-get-random-values';
-import { nanoid } from 'nanoid';
+import { rest } from "msw";
+import "react-native-get-random-values";
+import { nanoid } from "nanoid";
 
-import { API_URL } from '@/config';
+import { API_URL } from "@/config";
 
-import { db, persistDb } from '../db';
-import { requireAuth, requireAdmin, delayedResponse } from '../utils';
+import { db, persistDb } from "../db";
+import { requireAuth, requireAdmin, delayedResponse } from "../utils";
 
 type DiscussionBody = {
   title: string;
@@ -25,7 +25,10 @@ export const discussionsHandlers = [
       });
       return delayedResponse(ctx.json(result));
     } catch (error) {
-      return delayedResponse(ctx.status(400), ctx.json({ message: error.message }));
+      return delayedResponse(
+        ctx.status(400),
+        ctx.json({ message: error.message })
+      );
     }
   }),
 
@@ -45,7 +48,10 @@ export const discussionsHandlers = [
       });
       return delayedResponse(ctx.json(result));
     } catch (error) {
-      return delayedResponse(ctx.status(400), ctx.json({ message: error.message }));
+      return delayedResponse(
+        ctx.status(400),
+        ctx.json({ message: error.message })
+      );
     }
   }),
 
@@ -60,36 +66,45 @@ export const discussionsHandlers = [
         createdAt: Date.now(),
         ...data,
       });
-      persistDb('discussion');
+      persistDb("discussion");
       return delayedResponse(ctx.json(result));
     } catch (error) {
-      return delayedResponse(ctx.status(400), ctx.json({ message: error.message }));
+      return delayedResponse(
+        ctx.status(400),
+        ctx.json({ message: error.message })
+      );
     }
   }),
 
-  rest.patch<DiscussionBody>(`${API_URL}/discussions/:discussionId`, (req, res, ctx) => {
-    try {
-      const user = requireAuth(req);
-      const data = req.body;
-      const { discussionId } = req.params;
-      requireAdmin(user);
-      const result = db.discussion.update({
-        where: {
-          teamId: {
-            equals: user.teamId,
+  rest.patch<DiscussionBody>(
+    `${API_URL}/discussions/:discussionId`,
+    (req, res, ctx) => {
+      try {
+        const user = requireAuth(req);
+        const data = req.body;
+        const { discussionId } = req.params;
+        requireAdmin(user);
+        const result = db.discussion.update({
+          where: {
+            teamId: {
+              equals: user.teamId,
+            },
+            id: {
+              equals: discussionId,
+            },
           },
-          id: {
-            equals: discussionId,
-          },
-        },
-        data,
-      });
-      persistDb('discussion');
-      return delayedResponse(ctx.json(result));
-    } catch (error) {
-      return delayedResponse(ctx.status(400), ctx.json({ message: error.message }));
+          data,
+        });
+        persistDb("discussion");
+        return delayedResponse(ctx.json(result));
+      } catch (error) {
+        return delayedResponse(
+          ctx.status(400),
+          ctx.json({ message: error.message })
+        );
+      }
     }
-  }),
+  ),
 
   rest.delete(`${API_URL}/discussions/:discussionId`, (req, res, ctx) => {
     try {
@@ -103,10 +118,13 @@ export const discussionsHandlers = [
           },
         },
       });
-      persistDb('discussion');
+      persistDb("discussion");
       return delayedResponse(ctx.json(result));
     } catch (error) {
-      return delayedResponse(ctx.status(400), ctx.json({ message: error.message }));
+      return delayedResponse(
+        ctx.status(400),
+        ctx.json({ message: error.message })
+      );
     }
   }),
 ];
