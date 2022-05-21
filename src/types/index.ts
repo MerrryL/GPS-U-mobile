@@ -55,6 +55,8 @@ export type DossierPivot = {
 export type FieldGroup = {
   constatation_id: string;
   name: string;
+  title: string;
+  description: string;
   type: string;
   logical_operator: string;
   fields: Field[];
@@ -150,7 +152,9 @@ export type Observation = {
   description: string;
   fine_amount: string;
   codex: Codex;
+  codex_id: string;
   observation_type: ObservationType;
+  observation_type_id: string;
   field_groups: FieldGroup[];
   images: Image[];
 } & BaseEntity;
@@ -161,6 +165,7 @@ export type ObservationType = {
 };
 
 export type Codex = {
+  id: string;
   name: string;
   precode: string;
   description: string;

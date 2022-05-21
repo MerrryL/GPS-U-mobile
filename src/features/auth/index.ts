@@ -1,2 +1,2 @@
-export * from "./api";
+export * from "./components/api";
 export * from "./routes";

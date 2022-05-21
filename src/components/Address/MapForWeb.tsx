@@ -1,6 +1,7 @@
 import React from "react";
 import { Dimensions, View } from "react-native";
 import { FullTheme, makeStyles } from "react-native-elements";
+import { LatLng, Region } from "react-native-maps";
 import MapView, { Marker } from "react-native-web-maps";
 
 type Marker = {
@@ -10,20 +11,20 @@ type Marker = {
 
 type MapProps = {
   markers?: Marker[];
-  onChange: any;
+  onChange: (coords:LatLng)=>void;
 };
 export default function MapForWeb({ markers, onChange }: MapProps) {
   const styles = useStyles();
 
   //TODO:the initialRegion should adapt the latitude/long Delta?
-  const defaultCoords = {
-    latitude: "50.509317",
-    longitude: "3.590973",
+  const defaultCoords:LatLng = {
+    latitude: 50.509317,
+    longitude: 3.590973,
   };
 
-  const initialRegion = {
-    latitude: parseFloat(defaultCoords.latitude),
-    longitude: parseFloat(defaultCoords.longitude),
+  const initialRegion:Region = {
+    latitude: defaultCoords.latitude,
+    longitude: defaultCoords.longitude,
     latitudeDelta: 0.002,
     longitudeDelta: 0.001,
   };
@@ -39,12 +40,12 @@ export default function MapForWeb({ markers, onChange }: MapProps) {
     <View style={styles.container}>
       <MapView style={styles.map} initialRegion={initialRegion}>
         {markers &&
-          markers.map((marker, index) => (
+          markers.map((marker:Marker, index:number):JSX.Element => (
             <MapView.Marker
               key={index}
               coordinate={{
-                latitude: marker?.latitude != null ? parseFloat(marker?.latitude?.toString()) : initialRegion.latitude,
-                longitude: marker?.longitude != null ? parseFloat(marker?.longitude?.toString()) : initialRegion.longitude,
+                latitude: marker.latitude != null ? marker.latitude : initialRegion.latitude,
+                longitude: marker.longitude != null ? marker.longitude : initialRegion.longitude,
               }}
               draggable
               onDragEnd={onDragEnd}

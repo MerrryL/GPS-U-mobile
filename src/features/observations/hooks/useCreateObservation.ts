@@ -1,27 +1,24 @@
-import { useMutation } from "react-query";
-
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
-
+import { useMutation } from "react-query";
 import { createObservation } from "../api";
-import { Observation } from "@/types";
 
 type UseCreateObservationOptions = {
   config?: MutationConfig<typeof createObservation>;
 };
 
-export const useCreateObservation = ({ config }: UseCreateObservationOptions = {}) => {
+export const useCreateObservation = () => {
   const { addNotification } = useNotificationStore();
   return useMutation({
-    onMutate: async (newObservation) => {
-      await queryClient.cancelQueries(["observations"]);
+    // onMutate: async (newObservation) => {
+    //   await queryClient.cancelQueries(["observations"]);
 
-      const previousObservations = queryClient.getQueryData<Observation[]>(["observations"]);
+    //   const previousObservations = queryClient.getQueryData<Observation[]>(["observations"]);
 
-      queryClient.setQueryData(["observations"], [...(previousObservations || []), newObservation.data]);
+    //   queryClient.setQueryData(["observations"], [...(previousObservations || []), newObservation.data]);
 
-      return { previousObservations };
-    },
+    //   return { previousObservations };
+    // },
     onError: (_, __, context: any) => {
       if (context?.previousObservations) {
         queryClient.setQueryData(["observations"], context.previousObservations);
@@ -34,7 +31,6 @@ export const useCreateObservation = ({ config }: UseCreateObservationOptions = {
         title: "Observation Créée",
       });
     },
-    ...config,
     mutationFn: createObservation,
   });
 };

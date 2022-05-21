@@ -7,7 +7,7 @@ type LayoutProps = {
   title: string;
 };
 
-export const Layout = ({ children, title }: LayoutProps) => {
+export const Layout = ({ children, title }: LayoutProps):JSX.Element => {
   return (
     <>
       <Header

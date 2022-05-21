@@ -8,13 +8,15 @@ import Constants from "expo-constants";
 import * as React from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { View } from "react-native";
-import { useColorScheme } from "react-native-appearance";
+import { ColorSchemeName, useColorScheme } from "react-native-appearance";
 import { Text, ThemeProvider } from "react-native-elements";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
-const ErrorFallback = (props: { error: Error }) => {
+const ErrorFallback: (props: {
+    error: Error;
+}) => JSX.Element = (props: { error: Error }):JSX.Element => {
   // const navigation= useNavigation();
   return (
     <View>
@@ -30,8 +32,8 @@ type AppProviderProps = {
   children: React.ReactNode;
 };
 
-export const AppProvider = ({ children }: AppProviderProps) => {
-  const colorScheme = useColorScheme();
+export const AppProvider: ({ children }: AppProviderProps) => JSX.Element = ({ children }: AppProviderProps):JSX.Element => {
+  const colorScheme:ColorSchemeName = useColorScheme();
 
   const theme = {
     colors: {
@@ -42,7 +44,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       ivory: "#EEEDE7",
     },
   };
-  const Context = React.createContext(null);
+  // const Context = React.createContext(null);
 
   return (
     <ThemeProvider theme={theme} useDark={colorScheme === "dark"}>

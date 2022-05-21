@@ -1,7 +1,7 @@
 import React from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 
-export default function Spinner() {
+export default function Spinner():JSX.Element {
   return (
     <View style={[styles.container, styles.horizontal]}>
       <ActivityIndicator size="large" />

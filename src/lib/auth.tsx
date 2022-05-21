@@ -1,10 +1,10 @@
-import { initReactQueryAuth } from "react-query-auth";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-import { loginWithEmailAndPassword, getUserProfile, registerWithEmailAndPassword, UserResponse, LoginCredentials, RegisterCredentials, AuthUser } from "@/features/auth";
-import React from "react";
-import { axios } from "@/lib/axios";
 import Spinner from "@/components/Elements/Spinner";
+import { AuthUser, getUserProfile, LoginCredentials, loginWithEmailAndPassword, RegisterCredentials, registerWithEmailAndPassword, UserResponse } from "@/features/auth";
+import { axios } from "@/lib/axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React from "react";
+import { initReactQueryAuth } from "react-query-auth";
+
 
 async function handleUserResponse(data: UserResponse) {
   const { token, user } = data;
@@ -57,7 +57,7 @@ const authConfig = {
   loginFn,
   registerFn,
   logoutFn,
-  LoaderComponent() {
+  LoaderComponent():JSX.Element {
     return <Spinner />;
   },
 };

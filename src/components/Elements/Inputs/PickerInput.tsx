@@ -1,4 +1,4 @@
-import { RHFField, RHFFormState, RHFieldState, SelectOption } from "@/types/utilityTypes";
+import { PickerItem, RHFField, RHFFormState, RHFieldState } from "@/types/utilityTypes";
 import { Picker } from "@react-native-picker/picker";
 import React from "react";
 import { View } from "react-native";
@@ -11,7 +11,7 @@ type PickerInputProps = {
   formState: RHFFormState;
 };
 
-export default function PickerInput(props: PickerInputProps) {
+export default function PickerInput(props: PickerInputProps):JSX.Element {
   const { field, fieldState } = props;
 
   const { name, label, defaultValue, control, options } = field;
@@ -24,7 +24,7 @@ export default function PickerInput(props: PickerInputProps) {
     <View style={styles.container}>
       <NormalText boldText={label} />
       <Picker style={styles.picker} {...field}>
-        {field.options?.map((option: SelectOption) => {
+        {field.options?.map((option: PickerItem):JSX.Element => {
           return <Picker.Item label={option.item} value={option.id} key={option.id} />;
         })}
       </Picker>

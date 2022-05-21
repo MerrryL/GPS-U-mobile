@@ -1,12 +1,12 @@
-import React from "react";
+import { useAuth } from "@/lib/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
+import React from "react";
+import { Controller, useForm } from "react-hook-form";
+import { ActivityIndicator, View } from "react-native";
+import { Button, Input, Text } from "react-native-elements";
+import Icon from "react-native-vector-icons/FontAwesome";
 import * as yup from "yup";
 
-import Icon from "react-native-vector-icons/FontAwesome";
-import { View, ActivityIndicator } from "react-native";
-import { Button, Text, Input } from "react-native-elements";
-import { useForm, Controller } from "react-hook-form";
-import { useAuth } from "@/lib/auth";
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -22,7 +22,7 @@ type LoginFormProps = {
   onSuccess: () => void;
 };
 
-export const LoginForm = ({ onSuccess }: LoginFormProps) => {
+export const LoginForm = ({ onSuccess }: LoginFormProps):JSX.Element => {
   const { login, isLoggingIn } = useAuth();
 
   const {
@@ -45,7 +45,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }) => <Input onBlur={onBlur} onChangeText={onChange} value={value} autoCompleteType="email" keyboardType="default" textContentType="emailAddress" leftIcon={<Icon name="at" size={24} color="black" />} placeholder="Adresse e-mail" />}
+        render={({ field: { onChange, onBlur, value } }):JSX.Element => <Input onBlur={onBlur} onChangeText={onChange} value={value} autoCompleteType="email" keyboardType="default" textContentType="emailAddress" leftIcon={<Icon name="at" size={24} color="black" />} placeholder="Adresse e-mail" />}
         name="email"
         defaultValue=""
       />
@@ -56,7 +56,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }) => <Input onBlur={onBlur} onChangeText={onChange} value={value} autoCompleteType="password" keyboardType="email-address" textContentType="password" secureTextEntry={true} leftIcon={<Icon name="lock" size={24} color="black" />} placeholder="Mot de passe" />}
+        render={({ field: { onChange, onBlur, value } }):JSX.Element => <Input onBlur={onBlur} onChangeText={onChange} value={value} autoCompleteType="password" keyboardType="email-address" textContentType="password" secureTextEntry={true} leftIcon={<Icon name="lock" size={24} color="black" />} placeholder="Mot de passe" />}
         name="password"
         defaultValue=""
       />

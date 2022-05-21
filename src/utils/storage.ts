@@ -1,13 +1,13 @@
-const storagePrefix = "bulletproof_react_";
+const storagePrefix = "GPS_U";
 
 const storage = {
-  getToken: () => {
+  getToken: ():string => {
     return JSON.parse(window.localStorage.getItem(`${storagePrefix}token`) as string);
   },
-  setToken: (token: string) => {
+  setToken: (token: string):void => {
     window.localStorage.setItem(`${storagePrefix}token`, JSON.stringify(token));
   },
-  clearToken: () => {
+  clearToken: ():void => {
     window.localStorage.removeItem(`${storagePrefix}token`);
   },
 };

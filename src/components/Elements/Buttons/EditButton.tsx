@@ -2,8 +2,10 @@ import { useNavigation } from "@react-navigation/core";
 import React from "react";
 import { Button, FullTheme, makeStyles } from "react-native-elements";
 
-export default function EditButton(props) {
-  const { constatationId } = props;
+interface EditButtonProps {
+  constatationId: string;
+}
+export default function EditButton({ constatationId }: EditButtonProps) {
   const navigation = useNavigation();
 
   const styles = useStyles();

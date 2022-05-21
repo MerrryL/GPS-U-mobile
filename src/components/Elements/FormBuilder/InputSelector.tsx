@@ -1,50 +1,45 @@
-import CheckBoxInput from "@/components/Elements/Inputs/CheckBoxInput";
 import MultiPickerInput from "@/components/Elements/Inputs/MultiPickerInput";
 import PickerInput from "@/components/Elements/Inputs/PickerInput";
 import TextInput from "@/components/Elements/Inputs/TextInput";
-import { InputedField } from "@/types/utilityTypes";
+import { InputedField, InputType, MultiSelectInputedField, SelectInputedField, TextInputedField } from "@/types/utilityTypes";
 import React from "react";
-import { useController } from "react-hook-form";
+import { Control, FieldValues, useController, UseControllerReturn } from "react-hook-form";
+import { View } from "react-native";
 
 type InputFromFieldProps = {
   f: InputedField;
   key: React.Key;
-  control: any;
+  control: Control<FieldValues, object>;
 };
 
-export default function InputSelector(props: InputFromFieldProps) {
-  const { f, control } = props;
-
-  const { field, fieldState, formState } = useController({
+export default function InputSelector({ f, control }: InputFromFieldProps):JSX.Element {
+  const { field, fieldState, formState }:UseControllerReturn<FieldValues, string> = useController<FieldValues, string>({
     control: control,
     name: f.name,
     defaultValue: f.value || f.defaultValue,
   });
 
-  // console.log("F", f, field);
-
   const inputProps = {
     field: field,
     fieldState: fieldState,
     formState: formState,
-    ...f,
   };
 
-  if (["text", "password", "email"].includes(f.type)) {
-    return <TextInput {...inputProps} />;
+  if ([InputType.Text, InputType.Password, InputType.Email].includes(f.type)) {
+    return <TextInput {...inputProps} {...f as TextInputedField}/>;
   }
 
-  if (f.type === "select") {
-    return <PickerInput {...inputProps} />;
+  if (f.type === InputType.Select) {
+    return <PickerInput {...inputProps} {...f as SelectInputedField}/>;
   }
 
-  if (f.type === "multi-select") {
-    return <MultiPickerInput {...inputProps} />;
+  if (f.type === InputType.Multiselect) {
+    return <MultiPickerInput {...inputProps} {...f as MultiSelectInputedField}/>;
   }
 
-  if (f.type === "checkbox") {
-    return <CheckBoxInput {...inputProps} />;
-  }
+  // if (f.type === InputType.CheckBox) {
+  //   return <CheckBoxInput {...inputProps} />;
+  // }
 
   // if (f.type === 'radio') {
   //     return (
@@ -65,5 +60,5 @@ export default function InputSelector(props: InputFromFieldProps) {
   //     )
   // }
 
-  return null;
+  return <View>ERROR</View>
 }

@@ -11,10 +11,10 @@ type OpenCoordsProps = {
   coordsStyle?: any;
 };
 
-export default function OpenCoords(props: OpenCoordsProps) {
+export default function OpenCoords(props: OpenCoordsProps):JSX.Element {
   const { latitude, longitude, containerStyle = null, coordsStyle = null } = props;
 
-  const url = "https://www.google.com/maps/place/" + latitude.toString() + "," + longitude.toString();
+  const url = "https://www.google.com/maps/place/" + latitude + "," + longitude;
 
   const styles = useStyles();
 

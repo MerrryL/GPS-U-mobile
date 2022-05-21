@@ -1,38 +1,37 @@
 import React from "react";
 import { Dimensions, View } from "react-native";
 import { FullTheme, makeStyles } from "react-native-elements";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { LatLng, MapEvent, Marker, Region } from "react-native-maps";
 
 type MarkerType = {
-  latitude: string | number;
-  longitude: string | number;
+  latitude: number;
+  longitude: number;
 };
 
 type MapProps = {
   markers?: MarkerType[];
-  onChange: any;
+  onChange: (coords:LatLng)=>void;
 };
-export default function MapForMobile({ markers, onChange }: MapProps) {
+export default function MapForMobile({ markers, onChange }: MapProps):JSX.Element {
   const styles = useStyles();
 
   //TODO:the initialRegion should adapt the latitude/long Delta?
-  const defaultCoords = {
-    latitude: "50.509317",
-    longitude: "3.590973",
+  const defaultCoords:LatLng = {
+    latitude: 50.509317,
+    longitude: 3.590973,
   };
 
-  const initialRegion = {
-    latitude: parseFloat(defaultCoords.latitude),
-    longitude: parseFloat(defaultCoords.longitude),
+  const initialRegion:Region = {
+    latitude: defaultCoords.latitude,
+    longitude: defaultCoords.longitude,
     latitudeDelta: 0.002,
     longitudeDelta: 0.001,
   };
 
-  const onDragEnd = (marker) => {
-    console.log("props", marker);
+  const onDragEnd:(event:MapEvent)=>void = (event:MapEvent):void => {
     onChange({
-      latitude: marker.coordinate.lat() as number,
-      longitude: marker.coordinate.lng() as number,
+      latitude: event.nativeEvent.coordinate.latitude,
+      longitude: event.nativeEvent.coordinate.longitude,
     });
   };
 
@@ -40,12 +39,12 @@ export default function MapForMobile({ markers, onChange }: MapProps) {
     <View style={styles.container}>
       <MapView style={styles.map} initialRegion={initialRegion}>
         {markers &&
-          markers.map((marker, index) => (
+          markers.map((marker:MarkerType, index:number):JSX.Element => (
             <Marker
               key={index}
               coordinate={{
-                latitude: marker?.latitude != null ? parseFloat(marker?.latitude?.toString()) : initialRegion.latitude,
-                longitude: marker?.longitude != null ? parseFloat(marker?.longitude?.toString()) : initialRegion.longitude,
+                latitude: marker.latitude != null ? marker.latitude : initialRegion.latitude,
+                longitude: marker.longitude != null ? marker.longitude : initialRegion.longitude,
               }}
               draggable
               onDragEnd={onDragEnd}

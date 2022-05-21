@@ -8,7 +8,7 @@ type TextInputProps = {
   formState: RHFFormState;
 };
 
-export default function TextInput({ field, fieldState, formState }: TextInputProps) {
+export default function TextInput({ field, fieldState, formState }: TextInputProps):JSX.Element {
   let label: string = field.label ? field.label : field.name || "Label";
   label = label.charAt(0).toUpperCase() + label.slice(1);
 

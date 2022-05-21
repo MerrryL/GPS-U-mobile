@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { AntDesign, Ionicons } from "@expo/vector-icons";
-import { Text, View } from "react-native";
-import { Button, Badge, Overlay } from "react-native-elements";
+import { Ionicons } from "@expo/vector-icons";
 import Modal from "modal-react-native-web";
+import React, { useEffect } from "react";
+import { Text } from "react-native";
+import { Badge, Button, Overlay } from "react-native-elements";
 
 const icons = {
   primary: <Ionicons name="information-outline" />,
@@ -22,9 +22,9 @@ export type NotificationProps = {
 };
 
 export const Notification = ({ notification: { id, type, title, message }, onDismiss }: NotificationProps) => {
-  useEffect(() => {
-    const timer = setTimeout(() => onDismiss(id), 3000);
-    return () => clearTimeout(timer);
+  useEffect(():()=>void => {
+    const timer: NodeJS.Timeout = setTimeout(():void => onDismiss(id), 3000);
+    return ():void => clearTimeout(timer);
   }, []);
 
   return (

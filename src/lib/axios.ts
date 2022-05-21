@@ -1,25 +1,25 @@
-import Axios, { AxiosRequestConfig } from "axios";
-
-import Constants from "expo-constants";
-
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import storage from "@/utils/storage";
+import Axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import Constants from "expo-constants";
+
+
 
 function authRequestInterceptor(config: AxiosRequestConfig) {
-  const token = storage.getToken();
-  if (token) {
+  const token:string = storage.getToken();
+  if (token && config.headers) {
     config.headers.authorization = `${token}`;
+    config.headers.Accept = "application/json";
   }
-  config.headers.Accept = "application/json";
   return config;
 }
 
-export const axios = Axios.create({
-  baseURL: Constants.manifest.extra.API_URL + "api/",
+export const axios:AxiosInstance = Axios.create({
+  baseURL: Constants?.manifest?.extra?.API_URL + "api/",
   withCredentials: true,
 });
 
-const notifyErrors = (error) => {
+const notifyErrors = (error:any) => {
   const message = error.response?.data?.message || error.message;
   const errors = error.response?.data?.errors || error?.errors;
 
@@ -42,6 +42,6 @@ const notifyErrors = (error) => {
 };
 
 axios.interceptors.request.use(authRequestInterceptor, notifyErrors);
-axios.interceptors.response.use((response) => {
+axios.interceptors.response.use((response:AxiosResponse):unknown => {
   return response.data;
 }, notifyErrors);

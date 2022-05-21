@@ -5,7 +5,7 @@ type LayoutProps = {
   children: React.ReactNode;
 };
 
-export const Layout = () => {
+export const Layout:()=>JSX.Element = ():JSX.Element => {
   const title = "testss";
 
   return (

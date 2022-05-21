@@ -1,27 +1,25 @@
-import { useMutation } from "react-query";
-
 import { useNotificationStore } from "@/hooks/useNotificationStore";
-import { MutationConfig, queryClient } from "@/lib/react-query";
-
+import { queryClient } from "@/lib/react-query";
+import { useMutation } from "react-query";
 import { createConstatation } from "../api";
-import { Constatation } from "@/types";
 
-type UseCreateConstatationOptions = {
-  config?: MutationConfig<typeof createConstatation>;
-};
+// type UseCreateConstatationOptions = {
+//   config?: MutationConfig<typeof createConstatation>;
+//   data: Constatation;
+// };
 
-export const useCreateConstatation = ({ config }: UseCreateConstatationOptions = {}) => {
+export const useCreateConstatation = () => {
   const { addNotification } = useNotificationStore();
   return useMutation({
-    onMutate: async (newConstatation) => {
-      await queryClient.cancelQueries(["constatations"]);
+    // onMutate: async (newConstatation: UseCreateConstatationOptions) => {
+    //   await queryClient.cancelQueries(["constatations"]);
 
-      const previousConstatations = queryClient.getQueryData<Constatation[]>(["constatations"]);
+    //   const previousConstatations: Constatation[] | undefined = queryClient.getQueryData<Constatation[]>(["constatations"]);
 
-      queryClient.setQueryData(["constatations"], [...(previousConstatations || []), newConstatation.data]);
+    //   queryClient.setQueryData(["constatations"], [...(previousConstatations || []), newConstatation.data]);
 
-      return { previousConstatations };
-    },
+    //   return { previousConstatations };
+    // },
     onError: (_, __, context: any) => {
       if (context?.previousConstatations) {
         queryClient.setQueryData(["constatations"], context.previousConstatations);
@@ -34,7 +32,6 @@ export const useCreateConstatation = ({ config }: UseCreateConstatationOptions =
         title: "Constatation Créée",
       });
     },
-    ...config,
     mutationFn: createConstatation,
   });
 };

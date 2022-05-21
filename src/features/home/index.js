@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-
-import { Image, View, Platform } from "react-native";
+import React from "react";
 import { Button } from "react-native-elements";
+
 
 function Home({ navigation }) {
   return (

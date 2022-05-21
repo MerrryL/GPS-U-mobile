@@ -1,4 +1,4 @@
-import { RHFField, RHFFormState, RHFieldState, SelectOption } from "@/types/utilityTypes";
+import { PickerItem, RHFField, RHFFormState, RHFieldState } from "@/types/utilityTypes";
 import { xorBy } from "lodash";
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
@@ -11,18 +11,18 @@ type MultiPickerInputProps = {
   fieldState: RHFieldState;
   formState: RHFFormState;
   label?: string;
-  defaultValue?: SelectOption | [];
-  options?: SelectOption[];
+  defaultValue?: PickerItem[];
+  options: PickerItem[];
 };
 
-export default function MultiPickerInput({ field, fieldState, label = field.name, defaultValue = [], options }: MultiPickerInputProps) {
+export default function MultiPickerInput({ field, fieldState, label = field.name, defaultValue = [], options }: MultiPickerInputProps):JSX.Element {
   const { ref, ...rest } = field;
 
   const styles = useStyles();
 
   const [currentSelection, setCurrentSelection] = useState(field?.value || []);
 
-  useEffect(() => {
+  useEffect((): void => {
     field.onChange(currentSelection);
   }, [currentSelection]);
 
@@ -44,7 +44,7 @@ export default function MultiPickerInput({ field, fieldState, label = field.name
     ...rest,
     label: "",
     options: options,
-    selectedValues: currentSelection,
+    selectedValues: currentSelection ?? defaultValue,
     onMultiSelect: onMultiChange(),
     onTapClose: onMultiChange(),
     inputPlaceholder: "Choisissez une/des " + label?.toLowerCase(),
@@ -64,8 +64,8 @@ export default function MultiPickerInput({ field, fieldState, label = field.name
     </View>
   );
 
-  function onMultiChange() {
-    return (item: any): void => {
+  function onMultiChange():(item:PickerItem)=> void {
+    return (item: PickerItem): void => {
       setCurrentSelection(xorBy(currentSelection, [item], "id"));
     };
   }

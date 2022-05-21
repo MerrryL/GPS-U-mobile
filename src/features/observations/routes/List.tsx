@@ -1,22 +1,26 @@
+import { Observation } from "@/types";
+import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
+import { FAB, Text } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
-import { Text } from "react-native-elements";
-import { FAB } from "react-native-elements";
-
+import { ObservationStackParamList } from ".";
 import { ObservationCard } from "../components/List/ObservationCard";
-import { useObservations } from "../hooks/useObservations";
-import { useNavigation } from "@react-navigation/native";
 import { useCreateObservation } from "../hooks/useCreateObservation";
+import { useObservations } from "../hooks/useObservations";
 
-export default function List({ route, navigation }) {
+type ObservationListProps = {
+  navigation: StackNavigationProp<ObservationStackParamList, "Liste">;
+  route: RouteProp<ObservationStackParamList, "Liste">;
+};
+
+export default function List({ route, navigation }: ObservationListProps) {
   const observationsQuery = useObservations();
 
   const createObservationMutation = useCreateObservation();
 
-  const handleCreation = async (values) => {
-    const newObservation = await createObservationMutation.mutateAsync({
-      data: null,
-    });
+  const handleCreation = async () => {
+    const newObservation: Observation = await createObservationMutation.mutateAsync();
   };
 
   if (observationsQuery.isLoading) {
@@ -35,7 +39,7 @@ export default function List({ route, navigation }) {
           <ObservationCard observation={observation} key={index} />
         ))}
       </ScrollView>
-      <FAB title="+" placement="right" size="large" onPress={() => handleCreation(null)} />
+      <FAB title="+" placement="right" size="large" onPress={() => handleCreation()} />
     </>
   );
 }

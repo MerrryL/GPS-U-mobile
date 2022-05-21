@@ -1,12 +1,13 @@
-import React from "react";
+import { Constatation } from "@/types";
 import { useNavigation } from "@react-navigation/native";
-
-import { FlatList, View } from "react-native";
-import { Card, Button, Icon, Text, Input } from "react-native-elements";
-
+import React from "react";
+import { Button, Card, Icon, Text } from "react-native-elements";
+import { UseQueryResult } from "react-query";
 import { useConstatation } from "../hooks/useConstatation";
-
 import imageURL from "../utils/ImageURL";
+
+
+
 
 type Params = {
   constatationId: string;
@@ -20,8 +21,8 @@ type Route = {
   params: Params;
 };
 
-export default function Details({ route }: DetailsProps) {
-  const constatationQuery = useConstatation({
+export default function Details({ route }: DetailsProps):JSX.Element {
+  const constatationQuery: UseQueryResult<Constatation, unknown> = useConstatation({
     constatationId: route.params.constatationId,
   });
 

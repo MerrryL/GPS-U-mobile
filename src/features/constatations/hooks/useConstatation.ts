@@ -1,7 +1,6 @@
-import { useQuery } from "react-query";
-
 import { QueryConfig } from "@/lib/react-query";
-
+import { Constatation } from "@/types";
+import { useQuery } from "react-query";
 import { getConstatation } from "../api";
 
 type UseConstatationOptions = {
@@ -10,7 +9,7 @@ type UseConstatationOptions = {
 };
 
 export const useConstatation = ({ constatationId, config }: UseConstatationOptions) => {
-  return useQuery({
+  return useQuery<Constatation>({
     ...config,
     queryKey: ["constatations", constatationId],
     queryFn: () => getConstatation({ constatationId }),

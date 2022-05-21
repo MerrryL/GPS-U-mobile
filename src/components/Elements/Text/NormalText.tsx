@@ -1,25 +1,25 @@
 import { capitalize } from "lodash";
 import React from "react";
-import { View } from "react-native";
+import { StyleProp, TextStyle, View, ViewStyle } from "react-native";
 import { FullTheme, makeStyles, Text } from "react-native-elements";
 
-type NormalTextProps = {
+type TextProps = {
   boldText?: string;
   text?: string;
-  containerStyle?: any;
-  boldTextStyle?: any;
-  textStyle?: any;
 };
 
-type StyleProps = any;
+type StyleProps = {
+  containerStyle?: StyleProp<ViewStyle>;
+  boldTextStyle?: StyleProp<TextStyle>;
+  textStyle?:StyleProp<TextStyle>;
+};
 
-export default function NormalText(props: NormalTextProps) {
-  const { boldText = null, text = null, containerStyle = null, boldTextStyle = null, textStyle = null } = props;
+export default function NormalText({ boldText = undefined, text = undefined, containerStyle = undefined, boldTextStyle = undefined, textStyle = undefined}:TextProps & StyleProps):JSX.Element {
 
   const styles = useStyles({
-    container: containerStyle,
-    text: textStyle,
-    boldText: boldTextStyle,
+    containerStyle: containerStyle,
+    textStyle: textStyle,
+    boldTextStyle: boldTextStyle,
   });
 
   return (
@@ -30,23 +30,23 @@ export default function NormalText(props: NormalTextProps) {
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>, props: StyleProps) => ({
+const useStyles = makeStyles((theme: Partial<FullTheme>, { containerStyle, boldTextStyle, textStyle}: StyleProps) => ({
   container: {
     alignItems: "baseline",
     paddingLeft: "10px",
     paddingRight: "10px",
-    ...props.container,
+    containerStyle,
   },
   boldText: {
-    fontSize: "16px",
+    fontSize: 16,
     fontWeight: "bold",
     marginTop: "10px",
     marginBottom: "5px",
     color: theme?.colors?.grey3,
-    ...props.boldText,
+    boldTextStyle,
   },
   text: {
     marginBottom: "5px",
-    ...props.text,
+    textStyle,
   },
 }));

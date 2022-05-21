@@ -1,10 +1,9 @@
-import { useQuery } from "react-query";
 import { axios } from "@/lib/axios";
-
 import { QueryConfig } from "@/lib/react-query";
-
-import { getObservations } from "../features/constatations/api";
 import { FieldType } from "@/types";
+import { useQuery } from "react-query";
+
+
 
 export const getFieldTypes = (): Promise<FieldType[]> => {
   return axios.get("field_types");

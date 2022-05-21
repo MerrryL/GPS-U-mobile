@@ -1,18 +1,20 @@
 import { Observation } from "@/types";
 import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
 import { View } from "react-native";
 import { Button, Card, Text } from "react-native-elements";
+import { ObservationStackParamList } from "../..";
 
 type observationCardProps = {
   observation: Observation;
 };
 
 export function ObservationCard({ observation }: observationCardProps) {
-  const navigation = useNavigation();
-  //console.log("observation", observation);
+  const navigation = useNavigation<StackNavigationProp<ObservationStackParamList, "Liste">>();
 
-  const { code, codex, codex_id, created_at, deleted_at, description, field_groups, fine_amount, followups, id, name, observation_type, observation_type_id, short_description, updated_at } = observation;
+  const { code, codex, codex_id, created_at, description, field_groups, fine_amount, id, name, observation_type, observation_type_id, short_description, updated_at } = observation;
+  console.log("here", observation);
 
   return (
     <Card>
@@ -31,7 +33,6 @@ export function ObservationCard({ observation }: observationCardProps) {
         <Text>Code: {code}</Text>
         {/* <Text>Codex: TODO{codex}</Text> */}
         <Text>Date de création{created_at}</Text>
-        <Text>Date de suppression {deleted_at}</Text>
         <Text>Description: {description}</Text>
         {/* <Text>Groupes de champs TODO{field_groups}</Text> */}
         <Text>Montant de l&apos;amende: {fine_amount}</Text>

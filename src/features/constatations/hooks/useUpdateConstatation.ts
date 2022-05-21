@@ -1,12 +1,12 @@
-import { useMutation } from "react-query";
-
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
-
-import { updateConstatation } from "../api";
 import { Constatation } from "@/types";
+import { useMutation } from "react-query";
+import { updateConstatation } from "../api";
 
-type UseUpdateConstatationOptions = {
+
+
+export interface UseUpdateConstatationOptions {
   config?: MutationConfig<typeof updateConstatation>;
 };
 

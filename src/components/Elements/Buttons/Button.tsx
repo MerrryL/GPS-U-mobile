@@ -1,5 +1,5 @@
 type ButtonProps = any;
 
-export default function Button(props: ButtonProps) {
+export default function Button(props: ButtonProps):JSX.Element {
   return <></>;
 }

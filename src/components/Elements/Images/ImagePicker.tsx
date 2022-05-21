@@ -18,15 +18,15 @@ type PickerStyleProps = {
   height: number;
 };
 
-export default function ImagePicker({ image, onChange, onSubmit, displayPlaceholder = true }: ImagePickerProps) {
+export default function ImagePicker({ image, onChange, onSubmit, displayPlaceholder = true }: ImagePickerProps):JSX.Element {
   const { addNotification } = useNotificationStore();
 
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   const styles = useStyles({ width: windowWidth, height: windowHeight });
 
-  useEffect(() => {
-    (async () => {
+  useEffect(():void => {
+    (async ():Promise<void> => {
       if (Platform.OS !== "web") {
         const { status } = await ExpoImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== "granted") {
@@ -39,7 +39,7 @@ export default function ImagePicker({ image, onChange, onSubmit, displayPlacehol
     })();
   }, []);
 
-  const pickImage = async () => {
+  const pickImage:() => Promise<void> = async ():Promise<void> => {
     const result: ExpoImagePicker.ImagePickerResult = await ExpoImagePicker.launchImageLibraryAsync({
       mediaTypes: ExpoImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,

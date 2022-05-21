@@ -25,8 +25,8 @@ export type AuthUser = {
 };
 
 export type UserResponse = {
-  crsfToken: string;
-  currentUser: AuthUser;
+  token: string;
+  user: AuthUser;
 };
 
 export const loginWithEmailAndPassword = (data: LoginCredentials): Promise<UserResponse> => {

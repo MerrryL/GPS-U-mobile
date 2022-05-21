@@ -1,5 +1,4 @@
 import { axios } from "@/lib/axios";
-
 import { Observation } from "@/types";
 
 //Observations part
@@ -23,13 +22,8 @@ type ObservationBody = {
   comment: string;
 };
 
-type CreateObservationOptions = {
-  //localization: Localization;
-  data: ObservationBody;
-};
-
-export const createObservation = ({ data }: CreateObservationOptions): Promise<Observation> => {
-  return axios.post("observations", { data });
+export const createObservation = (): Promise<Observation> => {
+  return axios.post("observations");
 };
 
 type UpdateObservationOptions = {

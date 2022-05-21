@@ -8,7 +8,7 @@ type CheckBoxInputType = {
   formState: RHFFormState;
 };
 
-export default function CheckBoxInput(props: CheckBoxInputType) {
+export default function CheckBoxInput(props: CheckBoxInputType):JSX.Element {
   const { field, fieldState } = props;
 
   const [isSelected, setSelection] = useState(field.value || field.defaultValue || false);

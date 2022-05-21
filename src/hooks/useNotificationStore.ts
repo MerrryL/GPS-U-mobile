@@ -1,6 +1,6 @@
-import "react-native-get-random-values";
 import { nanoid } from "nanoid";
-import create from "zustand";
+import "react-native-get-random-values";
+import create, { SetState, StoreApi, UseBoundStore } from "zustand";
 
 export type Notification = {
   id: string;
@@ -15,14 +15,14 @@ type NotificationsState = {
   dismissNotification: (id: string) => void;
 };
 
-export const useNotificationStore = create<NotificationsState>((set) => ({
+export const useNotificationStore: UseBoundStore<NotificationsState, StoreApi<NotificationsState>> = create<NotificationsState>((set:SetState<NotificationsState>) => ({
   notifications: [],
-  addNotification: (notification) =>
-    set((state) => ({
+  addNotification: (notification: Omit<Notification, "id">):void =>
+    set((state:NotificationsState):{notifications:Notification[]} => ({
       notifications: [...state.notifications, { id: nanoid(), ...notification }],
     })),
-  dismissNotification: (id) =>
-    set((state) => ({
-      notifications: state.notifications.filter((notification) => notification.id !== id),
+  dismissNotification: (id:string):void =>
+    set((state:NotificationsState):{notifications:Notification[]} => ({
+      notifications: state.notifications.filter((notification:Notification):boolean => notification.id !== id),
     })),
 }));

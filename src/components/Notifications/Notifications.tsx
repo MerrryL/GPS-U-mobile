@@ -1,11 +1,11 @@
-import React from "react";
 import { useNotificationStore } from "@/hooks/useNotificationStore";
-
+import React from "react";
+import { View } from "react-native";
 import { Notification } from "./Notification";
 
-import { View } from "react-native";
 
-export const Notifications = () => {
+
+export const Notifications:() => JSX.Element = ():JSX.Element => {
   const { notifications, dismissNotification } = useNotificationStore();
 
   {
@@ -14,7 +14,7 @@ export const Notifications = () => {
     } else {
       return (
         <View>
-          {notifications.map((notification) => (
+          {notifications.map((notification):JSX.Element => (
             <Notification key={notification.id} notification={notification} onDismiss={dismissNotification} />
           ))}
         </View>

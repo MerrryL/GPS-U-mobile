@@ -1,13 +1,18 @@
-import React from "react";
-
 import { createStackNavigator } from "@react-navigation/stack";
-
-import List from "./List";
-import Details from "./Details";
+import React from "react";
 import Create from "./Create";
+import Details from "./Details";
 import Edit from "./Edit";
+import List from "./List";
 
-const ObservationsStack = createStackNavigator();
+export type ObservationStackParamList = {
+  Liste: undefined;
+  Details: { observationId: string };
+  Edition: { observationId: string };
+  Nouvelle: undefined;
+};
+
+const ObservationsStack = createStackNavigator<ObservationStackParamList>();
 
 export default function ObservationStackScreen() {
   return (

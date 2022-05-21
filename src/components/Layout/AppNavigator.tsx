@@ -2,12 +2,12 @@
 import AboutScreen from "@/features/about";
 import ConstatationStackScreen from "@/features/constatations/routes/Index";
 import FollowupStackScreen from "@/features/followups/routes";
-import HomeScreen from "@/features/home";
 import ObservationStackScreen from "@/features/observations/routes";
 import { ParametersScreen } from "@/features/parameters";
 import TaskStackScreen from "@/features/tasks/routes";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { ParamListBase, RouteProp } from "@react-navigation/native";
 import React from "react";
 
 export type RootStackParamList = {
@@ -20,23 +20,25 @@ export type RootStackParamList = {
   Parameters: undefined;
   About: undefined;
 };
+interface TabBarIconProps{ color?:string, focused?:boolean, size?:number }
+// type NavigationProps = NativeStackScreenProps<RootStackParamList, "Profile">;
 
-const Tab = createMaterialBottomTabNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator();
 
-function AppNavigator() {
+function AppNavigator():JSX.Element {
   return (
     <Tab.Navigator
       initialRouteName="Feed"
-      tabBarOptions={{
-        activeTintColor: "#e91e63",
-      }}
+      screenOptions={({ route }: { route: RouteProp<ParamListBase> }) => ({
+        tabBarActiveTintColor: "#e91e63",
+      })}
     >
       <Tab.Screen
         name="Constatations"
         component={ConstatationStackScreen}
         options={{
           tabBarLabel: "Constatations",
-          tabBarIcon: ({ color, focused }) => <AntDesign name="database" color={color} focused={focused} />,
+          tabBarIcon: ({ color, focused, size }:TabBarIconProps):JSX.Element => <AntDesign name="database" color={color} focused={focused} size={size} />,
         }}
       />
       <Tab.Screen
@@ -44,7 +46,7 @@ function AppNavigator() {
         component={ObservationStackScreen}
         options={{
           tabBarLabel: "Observations",
-          tabBarIcon: ({ color, focused }) => <AntDesign name="database" color={color} focused={focused} />,
+          tabBarIcon: ({ color, focused, size }:TabBarIconProps):JSX.Element => <AntDesign name="database" color={color} focused={focused} size={size} />,
         }}
       />
       <Tab.Screen
@@ -52,7 +54,7 @@ function AppNavigator() {
         component={FollowupStackScreen}
         options={{
           tabBarLabel: "Suivis",
-          tabBarIcon: ({ color, focused }) => <AntDesign name="database" color={color} focused={focused} />,
+          tabBarIcon: ({ color, focused, size }:TabBarIconProps):JSX.Element => <AntDesign name="database" color={color} focused={focused} size={size} />,
         }}
       />
       <Tab.Screen
@@ -60,24 +62,24 @@ function AppNavigator() {
         component={TaskStackScreen}
         options={{
           tabBarLabel: "Tâches",
-          tabBarIcon: ({ color, focused }) => <AntDesign name="database" color={color} focused={focused} />,
+          tabBarIcon: ({ color, focused, size }:TabBarIconProps):JSX.Element => <AntDesign name="database" color={color} focused={focused} size={size} />,
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
           tabBarLabel: "Home",
-          tabBarIcon: ({ color, focused }) => <Ionicons name="home" color={color} focused={focused} />,
+          tabBarIcon: ({ color, focused, size }:TabBarIconProps):JSX.Element => <Ionicons name="home" color={color} focused={focused} size={size} />,
         }}
-      />
+      /> */}
       {/* <Tab.Screen
         name="Users"
         component={UserScreen}
         options={{
           tabBarLabel: "Utilisateur",
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons name="people-outline" color={color} focused={focused} />
+          tabBarIcon: ({ color, focused, size }) => (
+            <Ionicons name="people-outline" color={color} focused={focused} size={size}/>
           ),
         }}
       /> */}
@@ -86,7 +88,7 @@ function AppNavigator() {
         component={ParametersScreen}
         options={{
           tabBarLabel: "Paramètres",
-          tabBarIcon: ({ color, focused }) => <Ionicons name="settings" color={color} focused={focused} />,
+          tabBarIcon: ({ color, focused, size }:TabBarIconProps):JSX.Element => <Ionicons name="settings" color={color} focused={focused} size={size} />,
         }}
       />
 
@@ -95,7 +97,7 @@ function AppNavigator() {
         component={AboutScreen}
         options={{
           tabBarLabel: "A propos",
-          tabBarIcon: ({ color, focused }) => <Ionicons name="help-outline" color={color} focused={focused} />,
+          tabBarIcon: ({ color, focused, size }:TabBarIconProps):JSX.Element => <Ionicons name="help-outline" color={color} focused={focused} size={size} />,
         }}
       />
     </Tab.Navigator>

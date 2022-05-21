@@ -1,32 +1,23 @@
-import React, { useState } from "react";
-
-import { ScrollView } from "react-native";
-import { Card } from "react-native-elements";
-
-//import { FieldGroup } from "../components/Edit/FieldGroup";
+import { Constatation } from "@/types";
+import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import React from "react";
+import { Card } from "react-native-elements/dist/card/Card";
+import { ConstatationStackParamList } from "..";
 import { ConstatationEditCard } from "../components/Edit/ConstatationEditCard";
-import { ImagesPart } from "../subfeatures/images/components/ImagesPart";
-import { LocalizationPart } from "../subfeatures/localization/components/LocalizationPart";
-import { FieldGroupPart } from "../subfeatures/fieldgroups/components/FieldGroupsPart";
-
-import { ObserverPart } from "../subfeatures/observers/components/ObserverPart";
-import { FollowupPart } from "../../followups/components/FollowupPart";
-import { ObservationPart } from "../subfeatures/observations/components/ObserverPart";
 import { useConstatation } from "../hooks/useConstatation";
 
-//TODO: get rid of any
-type EditProps = {
-  navigation: any;
-  route: any;
+type ConstatationEditProps = {
+  navigation: StackNavigationProp<ConstatationStackParamList, "Edition">;
+  route: RouteProp<ConstatationStackParamList, "Edition">;
 };
 
-export default function Edit(props: EditProps) {
-  const { navigation, route } = props;
+export default function Edit({ route, navigation }: ConstatationEditProps):JSX.Element {
   const constatationId = route?.params?.constatationId;
 
-  const constatation = useConstatation({
+  const constatation:Constatation | undefined = useConstatation({
     constatationId: constatationId,
   })?.data;
 
-  return <ConstatationEditCard constatation={constatation} />;
+  return constatation !== undefined ? <ConstatationEditCard constatation={constatation} /> : <Card>Error</Card>;
 }

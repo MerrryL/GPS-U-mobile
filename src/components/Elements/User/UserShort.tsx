@@ -18,7 +18,7 @@ type UserShortProps = {
 // bio: string;
 
 //Todo: add functionnalities
-export default function UserShort(props: UserShortProps) {
+export default function UserShort(props: UserShortProps):JSX.Element {
   const { user, containerStyle, userNameStyle } = props;
   const styles = useStyles();
 

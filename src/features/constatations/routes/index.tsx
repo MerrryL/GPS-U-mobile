@@ -1,15 +1,20 @@
-import React from "react";
-
 import { createStackNavigator } from "@react-navigation/stack";
-
-import List from "./List";
-import Details from "./Details";
+import React from "react";
 import Create from "./Create";
+import Details from "./Details";
 import Edit from "./Edit";
+import List from "./List";
 
-const ConstatationsStack = createStackNavigator();
+export type ConstatationStackParamList = {
+  Liste: undefined;
+  Details: { constatationId: string };
+  Edition: { constatationId: string };
+  Nouvelle: undefined;
+};
 
-export default function ConstatationStackScreen() {
+const ConstatationsStack = createStackNavigator<ConstatationStackParamList>();
+
+export default function ConstatationStackScreen():JSX.Element {
   return (
     <ConstatationsStack.Navigator>
       <ConstatationsStack.Screen name="Liste" component={List} />

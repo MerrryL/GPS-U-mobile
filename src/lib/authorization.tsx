@@ -1,9 +1,8 @@
+import { User } from "@/types";
 import * as React from "react";
-
-import { Comment } from "@/features/comments";
-import { User } from "@/features/users";
-
 import { useAuth } from "./auth";
+
+
 
 export enum ROLES {
   ADMIN = "ADMIN",
@@ -13,12 +12,8 @@ export enum ROLES {
 type RoleTypes = keyof typeof ROLES;
 
 export const POLICIES = {
-  "comment:delete": (user: User, comment: Comment) => {
+  "comment:delete": (user: User):boolean => {
     if (user.role === "ADMIN") {
-      return true;
-    }
-
-    if (user.role === "USER" && comment.authorId === user.id) {
       return true;
     }
 
@@ -34,7 +29,7 @@ export const useAuthorization = () => {
   }
 
   const checkAccess = React.useCallback(
-    ({ allowedRoles }: { allowedRoles: RoleTypes[] }) => {
+    ({ allowedRoles }: { allowedRoles: RoleTypes[] }):boolean => {
       if (allowedRoles && allowedRoles.length > 0) {
         return allowedRoles?.includes(user.role);
       }
@@ -61,7 +56,7 @@ type AuthorizationProps = {
     }
 );
 
-export const Authorization = ({ policyCheck, allowedRoles, forbiddenFallback = null, children }: AuthorizationProps) => {
+export const Authorization = ({ policyCheck, allowedRoles, forbiddenFallback = null, children }: AuthorizationProps):JSX.Element => {
   const { checkAccess } = useAuthorization();
 
   let canAccess = false;
