@@ -1,9 +1,9 @@
-import { useQuery } from "react-query";
 import { QueryConfig } from "@/lib/react-query";
+import { useQuery } from "react-query";
 import { getLocalization } from "../api";
 
 type UseLocalizationOptions = {
-  constatationId: string | number;
+  constatationId: number | number;
   config?: QueryConfig<typeof getLocalization>;
 };
 

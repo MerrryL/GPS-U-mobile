@@ -23,7 +23,7 @@ export const getField = ({ fieldId }: GetFieldOptions): Promise<Field> => {
 };
 
 type CreateFieldOptions = {
-  constatationId: string;
+  constatationId: number;
   fieldGroupId: string;
   name: string;
   type: string;
@@ -45,7 +45,7 @@ export const createField = ({ constatationId, fieldGroupId, name, type, isDefaul
 type DeleteFieldOptions = {
   fieldId: string;
   fieldGroupId: string;
-  constatationId: string;
+  constatationId: number;
 };
 
 export const deleteField = ({ fieldId, fieldGroupId, constatationId }: DeleteFieldOptions) => {

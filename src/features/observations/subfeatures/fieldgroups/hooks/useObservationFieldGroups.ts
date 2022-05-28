@@ -1,11 +1,11 @@
-import { useQuery } from "react-query";
-
 import { QueryConfig } from "@/lib/react-query";
-
+import { useQuery } from "react-query";
 import { getObservationFieldGroups } from "../api";
 
+
+
 type UseObservationFieldGroupsOptions = {
-  observationId: string;
+  observationId: number;
   config?: QueryConfig<typeof getObservationFieldGroups>;
 };
 

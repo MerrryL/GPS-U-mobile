@@ -1,14 +1,14 @@
-import React from "react";
-import { FAB, Card, Text, Button, Input } from "react-native-elements";
-import { View } from "react-native";
-import { useDeleteTask } from "../hooks/useDeleteTask";
 import { Task } from "@/types";
+import React from "react";
+import { View } from "react-native";
+import { Button, Card, Text } from "react-native-elements";
+import { useDeleteTask } from "../hooks/useDeleteTask";
 import { useTask } from "../hooks/useTask";
 
 type TaskCardProps = {
   task: Task;
   followupId: string;
-  constatationId: string;
+  constatationId: number;
 };
 
 export function TaskCard({ taskId, followupId, observationId }: TaskCardProps) {

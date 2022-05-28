@@ -1,9 +1,9 @@
 import { axios } from "@/lib/axios";
-
 import { Localization } from "@/types";
 
+
 type GetLocalizationOptions = {
-  constatationId: string | number;
+  constatationId: number | number;
 };
 
 export const getLocalization = ({ constatationId }: GetLocalizationOptions): Promise<Localization> => {
@@ -12,7 +12,7 @@ export const getLocalization = ({ constatationId }: GetLocalizationOptions): Pro
 
 type UpdateLocalizationOptions = {
   localization: Localization;
-  constatationId: string;
+  constatationId: number;
 };
 
 export const updateLocalization = ({ localization, constatationId }: UpdateLocalizationOptions): Promise<Localization> => {

@@ -1,21 +1,18 @@
-import { getAddressForCoordinates, getCoordinatesForAddress, getCurrentLocationFromSensors } from "@/lib/localization";
-//TODO:later replace addressinput
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import React, { useState, useEffect } from "react";
-import { FAB, Text, Button, Input } from "react-native-elements";
-import { AntDesign, FontAwesome, FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
-
-import { StyleSheet, View, Dimensions, Linking, TouchableOpacity } from "react-native";
-import MapView, { Marker } from "react-native-web-maps";
-
-import { Localization } from "@/types";
-import { useUpdateLocalization } from "../hooks/useUpdateLocalization";
 import Map from "@/components/Address/Map";
+import { getAddressForCoordinates, getCoordinatesForAddress, getCurrentLocationFromSensors } from "@/lib/localization";
+import { Localization } from "@/types";
+import { AntDesign, FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
+import React, { useEffect, useState } from "react";
+import { Dimensions, Linking, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Button, Text } from "react-native-elements";
+import { useUpdateLocalization } from "../hooks/useUpdateLocalization";
 import LocalizationForm from "./LocalizationForm";
+
+
 
 type LocalizationPartProps = {
   localization: Localization;
-  constatationId: string;
+  constatationId: number;
 };
 
 export default function LocalizationPart({ localization, constatationId }: LocalizationPartProps) {

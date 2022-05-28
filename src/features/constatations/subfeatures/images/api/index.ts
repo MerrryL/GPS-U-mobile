@@ -1,7 +1,6 @@
 import { axios } from "@/lib/axios";
-import { LocationActivityType } from "expo-location";
-
 import { Constatation, Image } from "@/types";
+
 
 type ImageToSend = {
   name: string;
@@ -13,7 +12,7 @@ type ImageToSend = {
 };
 
 type GetConstatationImagesOptions = {
-  constatationId: string;
+  constatationId: number;
 };
 
 export const getConstatationImages = ({ constatationId }: GetConstatationImagesOptions): Promise<Image[]> => {
@@ -21,7 +20,7 @@ export const getConstatationImages = ({ constatationId }: GetConstatationImagesO
 };
 
 type GetConstatationImageOptions = {
-  constatationId: string;
+  constatationId: number;
   imageId: string;
 };
 
@@ -30,7 +29,7 @@ export const getConstatationImage = ({ constatationId, imageId }: GetConstatatio
 };
 
 type CreateConstatationImageOptions = {
-  constatationId: string;
+  constatationId: number;
   name: string;
 };
 
@@ -41,7 +40,7 @@ export const createConstatationImage = ({ constatationId, name }: CreateConstata
 
 type DeleteConstatationImageOptions = {
   imageId: string;
-  constatationId: string;
+  constatationId: number;
 };
 
 export const deleteConstatationImage = ({ imageId, constatationId }: DeleteConstatationImageOptions) => {
@@ -49,7 +48,7 @@ export const deleteConstatationImage = ({ imageId, constatationId }: DeleteConst
 };
 
 type UploadConstatationOtherImageOptions = {
-  constatationId: string;
+  constatationId: number;
   image: ImageToSend;
 };
 
@@ -61,7 +60,7 @@ export const uploadConstatationOtherImage = ({ image, constatationId }: UploadCo
 
 type UploadConstatationImageOptions = {
   imageId?: string;
-  constatationId: string;
+  constatationId: number;
   image: ImageToSend;
 };
 
@@ -71,7 +70,7 @@ export const uploadConstatationImage = ({ image, constatationId, imageId }: Uplo
 
 type DeletePictureConstatationImageOptions = {
   imageId: string;
-  constatationId: string;
+  constatationId: number;
 };
 
 export const deletePictureConstatationImage = ({ imageId, constatationId }: DeletePictureConstatationImageOptions): Promise<Constatation> => {
@@ -79,7 +78,7 @@ export const deletePictureConstatationImage = ({ imageId, constatationId }: Dele
 };
 
 type DefineAsThumbOptions = {
-  constatationId: string;
+  constatationId: number;
   imageId: string;
 };
 

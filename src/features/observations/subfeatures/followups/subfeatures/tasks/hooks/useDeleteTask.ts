@@ -1,16 +1,15 @@
-import { useMutation } from "react-query";
-
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
-
+import { useMutation } from "react-query";
 import { deleteTask } from "../api";
 
-import { Constatation, Followup, Task } from "@/types";
+
+
 
 type UseDeleteTaskOptions = {
   fieldId: string;
   followupId: string;
-  constatationId: string;
+  constatationId: number;
   config?: MutationConfig<typeof deleteTask>;
 };
 

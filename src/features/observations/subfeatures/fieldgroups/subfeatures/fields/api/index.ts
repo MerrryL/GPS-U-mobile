@@ -2,8 +2,8 @@ import { axios } from "@/lib/axios";
 import { Field } from "@/types";
 
 type GetFieldsOptions = {
-  observationId: string;
-  fieldGroupId: string;
+  observationId: number;
+  fieldGroupId: number;
 };
 
 //TODO: this points to Index on the api instead of a "show"
@@ -12,8 +12,8 @@ export const getFields = ({ observationId, fieldGroupId }: GetFieldsOptions): Pr
 };
 
 type GetFieldOptions = {
-  observationId: string;
-  fieldGroupId: string;
+  observationId: number;
+  fieldGroupId: number;
   fieldId: string;
 };
 
@@ -22,10 +22,10 @@ export const getField = ({ observationId, fieldGroupId, fieldId }: GetFieldOptio
 };
 
 type CreateFieldOptions = {
-  observationId: string;
-  fieldGroupId: string;
+  observationId: number;
+  fieldGroupId: number;
   name: string;
-  type_id: string;
+  type_id: number;
   defaultValue: string;
   isRequired: boolean;
 };
@@ -35,9 +35,9 @@ export const createField = ({ observationId, fieldGroupId, name, type_id, defaul
 };
 
 type DeleteFieldOptions = {
-  fieldId: string;
-  fieldGroupId: string;
-  observationId: string;
+  fieldId: number;
+  fieldGroupId: number;
+  observationId: number;
 };
 
 export const deleteField = ({ fieldId, fieldGroupId, observationId }: DeleteFieldOptions) => {

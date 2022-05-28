@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-
-import { View, Platform } from "react-native";
-
-import { Card, Button, Icon, Text, Input, Switch } from "react-native-elements";
-import { useCreateField } from "../hooks/useCreateField";
 import SwitchInput from "@/components/Elements/Inputs/CheckBoxInput";
-import TextInput from "@/components/Elements/Inputs/TextInput";
 import PickerInput from "@/components/Elements/Inputs/PickerInput";
+import TextInput from "@/components/Elements/Inputs/TextInput";
 import { useFieldTypes } from "@/hooks/useFieldTypes";
+import { FieldGroup, Observation } from "@/types";
+import { yupResolver } from "@hookform/resolvers/yup";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { View } from "react-native";
+import { Button } from "react-native-elements";
+import * as yup from "yup";
+import { useCreateField } from "../hooks/useCreateField";
 
 type FieldsValues = {
   name: string;
@@ -29,12 +28,12 @@ const schema = yup.object().shape({
 });
 
 type FieldsAddProps = {
-  fieldGroupId: string;
-  observationId: string;
+  fieldGroup: FieldGroup;
+  observation: Observation;
 };
 
-export function FieldsAdd({ fieldGroupId, observationId }: FieldsAddProps) {
-  const fieldCreateMutation = useCreateField({ observationId, fieldGroupId });
+export function FieldsAdd({ fieldGroup, observation }: FieldsAddProps) {
+  const fieldCreateMutation = useCreateField({ observationId: observation.id, fieldGroupId: fieldGroup.id });
 
   const fieldTypesOptions = useFieldTypes()?.data?.map((field) => {
     return { item: field.name, id: field.id };
@@ -58,8 +57,8 @@ export function FieldsAdd({ fieldGroupId, observationId }: FieldsAddProps) {
       options: values.options,
       defaultValue: values.defaultValue,
       isRequired: values.isRequired,
-      observationId: observationId,
-      fieldGroupId: fieldGroupId,
+      observationId: observation.id,
+      fieldGroupId: fieldGroup.id,
     });
   };
 

@@ -1,14 +1,14 @@
-import React from "react";
-import { FAB, Card, Text, Button, Input } from "react-native-elements";
-import { View } from "react-native";
-import { useDeleteField } from "../hooks/useDeleteField";
 import { Field } from "@/types";
+import React from "react";
+import { View } from "react-native";
+import { Button, Card, Text } from "react-native-elements";
+import { useDeleteField } from "../hooks/useDeleteField";
 import { useField } from "../hooks/useField";
 
 type FieldCardProps = {
   field: Field;
   fieldGroupId: string;
-  constatationId: string;
+  constatationId: number;
 };
 
 export function FieldCard({ fieldId, fieldGroupId, observationId }: FieldCardProps) {

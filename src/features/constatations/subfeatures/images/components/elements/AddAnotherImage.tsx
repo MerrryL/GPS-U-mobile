@@ -6,7 +6,7 @@ import { makeStyles } from "react-native-elements";
 import { useUploadConstatationOtherImage } from "../../hooks/useUploadConstatationOtherImage";
 
 type AddAnotherImageProps = {
-  constatationId: string;
+  constatationId: number;
 };
 
 export default function AddAnotherImage({ constatationId }: AddAnotherImageProps) {

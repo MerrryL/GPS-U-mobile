@@ -1,15 +1,15 @@
-import { useMutation } from "react-query";
-
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
-
+import { Constatation, FieldGroup } from "@/types";
+import { useMutation } from "react-query";
 import { deleteFieldGroup } from "../api";
 
-import { Constatation, FieldGroup } from "@/types";
+
+
 
 type UseDeleteFieldGroupOptions = {
   fieldGroupId: string;
-  constatationId: string;
+  constatationId: number;
   config?: MutationConfig<typeof deleteFieldGroup>;
 };
 

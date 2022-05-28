@@ -1,33 +1,25 @@
 import FormBuilder from "@/components/Elements/FormBuilder/FormBuilder";
 import DateText from "@/components/Elements/Text/DateText";
 import { Constatation, Observation, User } from "@/types";
-import { ConstatationValues, InputedField, InputType, PickerItem } from "@/types/utilityTypes";
+import { InputedField, InputedFieldSchema, InputType, PickerItem } from "@/types/utilityTypes";
 import { getObservationsOptions, getObserversOptions } from "@/utils/getOptions";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { AxiosError } from "axios";
 import React from "react";
-import { UnpackNestedValue, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler } from "react-hook-form";
 import { ScrollView, View } from "react-native";
 import { Card, FullTheme, makeStyles } from "react-native-elements";
 import { UseMutationResult } from "react-query";
 import * as yup from "yup";
 import { UpdateConstatationOptions } from "../../api";
 import { useUpdateConstatation } from "../../hooks/useUpdateConstatation";
+import ImagesPart from "../../subfeatures/images/components/ImagesPart";
 import ConstatationValidationStatus from "./elements/ValidationStatus/ConstatationValidationStatus";
 
 type ConstatationEditCardProps = {
   constatation: Constatation;
 };
 
-// const schema = yup.object().shape({
-//   description: yup.string().defined(),
-//   observations: yup.array().min(1).defined(),
-//   observers: yup.array().min(1).defined(),
-// });
-
-// type ConstSchema = InferType<typeof schema>;
-
-export function ConstatationEditCard({ constatation }: ConstatationEditCardProps):JSX.Element {
+export function ConstatationEditCard({ constatation }: ConstatationEditCardProps): JSX.Element {
   const { actions, created_at, description, dossiers, field_groups, id, images, isValidated, localization, media, modelType, observations, observers, requiresValidation, requiresValidationDate, updated_at, validationDate } = constatation;
 
   const styles = useStyles();
@@ -49,7 +41,7 @@ export function ConstatationEditCard({ constatation }: ConstatationEditCardProps
         .array()
         .of(
           yup.object({
-            id: yup.string().required(),
+            id: yup.number().required(),
             item: yup.string().required(),
           })
         )
@@ -67,21 +59,22 @@ export function ConstatationEditCard({ constatation }: ConstatationEditCardProps
       value: constatation?.observers?.map((obs: User): PickerItem => {
         return { id: obs.id, item: obs.lastName + " " + obs.firstName };
       }),
-      schema: yup.array().min(1).defined(),
+      schema: yup
+        .array()
+        .of(
+          yup.object({
+            id: yup.number().required(),
+            item: yup.string().required(),
+          })
+        )
+        .min(1)
+        .defined(),
       options: getObserversOptions() || [],
     },
   ];
   const schema = yup.object().shape(constatationForm.reduce((a, iField: InputedField) => ({ ...a, [iField.name]: iField.schema }), {}));
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ConstatationValues>({
-    resolver: yupResolver(schema),
-  });
-
-  const onSubmit: (values: ConstatationValues) => Promise<void> = async ({ description, observers, observations }: UnpackNestedValue<ConstatationValues>): Promise<void> => {
+  const onSubmit: SubmitHandler<FieldValues> = async ({ description, observers, observations }: FieldValues): Promise<void> => {
     await updateConstatationMutation.mutateAsync({
       description,
       observers,
@@ -101,11 +94,13 @@ export function ConstatationEditCard({ constatation }: ConstatationEditCardProps
 
         <Card.Divider />
 
-        <FormBuilder title="test" description="test test" schema={schema} fields={constatationForm} onSubmit={onSubmit} />
+        <FormBuilder title="Première étape" description="Remplissez les informations requises avant de poursuivre la rédaction de cette constatation" schema={schema} fields={constatationForm} onSubmit={onSubmit} />
 
         <Card.Divider />
 
-        <View style={styles.images}>{/* <ImagesPart cover={media?.[0]} images={images} constatationId={id} /> */}</View>
+        <View style={styles.images}>
+          <ImagesPart cover={media?.[0]} images={images} constatationId={id} />
+        </View>
 
         <Card.Divider />
 
@@ -120,7 +115,6 @@ export function ConstatationEditCard({ constatation }: ConstatationEditCardProps
     </ScrollView>
   );
 }
-
 
 const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
   container: {},

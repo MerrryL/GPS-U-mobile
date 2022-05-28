@@ -9,7 +9,7 @@ import { useConstatationObservers } from "../hooks/useConstatationObservers";
 import { useUpdateConstatationObservers } from "../hooks/useUpdateConstatationObservers";
 
 type ObserverPartProps = {
-  constatationId: string;
+  constatationId: number;
 };
 
 type ObserverToSend = {

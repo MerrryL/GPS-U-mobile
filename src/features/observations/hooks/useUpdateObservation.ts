@@ -1,12 +1,11 @@
-import { useMutation } from "react-query";
-
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
-
-import { updateObservation } from "../api";
 import { Observation } from "@/types";
+import { useMutation } from "react-query";
+import { updateObservation } from "../api";
 
-type UseUpdateObservationOptions = {
+
+export type UseUpdateObservationOptions = {
   config?: MutationConfig<typeof updateObservation>;
 };
 

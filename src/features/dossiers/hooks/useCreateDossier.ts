@@ -1,14 +1,14 @@
-import { useMutation } from "react-query";
-
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
-
+import { Constatation, Dossier } from "@/types";
+import { useMutation } from "react-query";
 import { createDossier } from "../api";
 
-import { Constatation, Dossier } from "@/types";
+
+
 
 type UseCreateDossierOptions = {
-  constatationId: string;
+  constatationId: number;
   config?: MutationConfig<typeof createDossier>;
 };
 

@@ -11,7 +11,7 @@ import TabOfRemainingImages from "./elements/TabOfRemainingImages";
 type ImagesPartProps = {
   cover: Media;
   images: Image[];
-  constatationId: string;
+  constatationId: number;
 };
 
 export default function ImagesPart(props: ImagesPartProps) {

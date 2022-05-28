@@ -1,13 +1,13 @@
 import { axios } from "@/lib/axios";
-
 import { Observer } from "@/types";
+
 
 export const getObservers = (): Promise<Observer[]> => {
   return axios.get("/observers");
 };
 
 type GetConstatationObserversOptions = {
-  constatationId: string;
+  constatationId: number;
 };
 
 export const getConstatationObservers = ({ constatationId }: GetConstatationObserversOptions): Promise<Observer[]> => {
@@ -19,7 +19,7 @@ type ObserverToSend = {
 };
 
 type CreateObserverOptions = {
-  constatationId: string;
+  constatationId: number;
   observers: ObserverToSend[];
 };
 

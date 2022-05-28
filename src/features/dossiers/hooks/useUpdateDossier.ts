@@ -10,7 +10,7 @@
 // import { Constatation, Dossier } from "@/types";
 
 // type UseUpdateDossierOptions = {
-//   constatationId: string;
+//   constatationId: number;
 //   config?: MutationConfig<typeof updateDossier>;
 // };
 

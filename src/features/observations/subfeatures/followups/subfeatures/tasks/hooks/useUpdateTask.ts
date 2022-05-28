@@ -10,7 +10,7 @@
 // import { Constatation, Task } from "@/types";
 
 // type UseUpdateTaskOptions = {
-//   constatationId: string;
+//   constatationId: number;
 //   config?: MutationConfig<typeof updateTask>;
 // };
 

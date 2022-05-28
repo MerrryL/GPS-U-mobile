@@ -19,7 +19,7 @@ export const getDossier = ({ dossierId }: GetDossierOptions): Promise<Dossier> =
 };
 
 type CreateDossierOptions = {
-  constatationId: string;
+  constatationId: number;
   name: string;
   type: string;
   isDefault: boolean;
@@ -38,7 +38,7 @@ export const createDossier = ({ constatationId, name, type, isDefault, value }: 
 
 type DeleteDossierOptions = {
   dossierId: string;
-  constatationId: string;
+  constatationId: number;
 };
 
 export const deleteDossier = ({ dossierId }: DeleteDossierOptions) => {

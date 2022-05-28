@@ -3,7 +3,7 @@ import AddressText from "@/components/Elements/Text/AddressText";
 import { Localization } from "@/types";
 import React from "react";
 import { View } from "react-native";
-import { makeStyles } from "react-native-elements";
+import { FullTheme, makeStyles } from "react-native-elements";
 
 type ConstatationAddressProps = {
   localization: Localization;

@@ -1,16 +1,16 @@
-import React from "react";
-import { FAB, Card, Text, Button, Input } from "react-native-elements";
-import { View } from "react-native";
 import { FieldGroup } from "@/types";
-import { useFieldGroup } from "../hooks/useFieldGroup";
+import React from "react";
+import { View } from "react-native";
+import { Button, Card, Text } from "react-native-elements";
 import { FieldsAdd } from "../../fields/components/FieldAdd";
 import { FieldCard } from "../../fields/components/FieldCard";
-import { useDeleteFieldGroup } from "../hooks/useDeleteFieldGroups";
 import { useFields } from "../../fields/hooks/useFields";
+import { useDeleteFieldGroup } from "../hooks/useDeleteFieldGroups";
+import { useFieldGroup } from "../hooks/useFieldGroup";
 
 type FieldGroupCardProps = {
   fieldGroup: FieldGroup;
-  constatationId: string;
+  constatationId: number;
 };
 
 export function FieldGroupCard({ fieldGroup, constatationId }: FieldGroupCardProps) {

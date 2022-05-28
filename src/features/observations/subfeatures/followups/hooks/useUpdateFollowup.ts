@@ -10,7 +10,7 @@
 // import { Constatation, Followup } from "@/types";
 
 // type UseUpdateFollowupOptions = {
-//   constatationId: string;
+//   constatationId: number;
 //   config?: MutationConfig<typeof updateFollowup>;
 // };
 

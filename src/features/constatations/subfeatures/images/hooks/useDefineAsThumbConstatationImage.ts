@@ -1,14 +1,14 @@
-import { useMutation } from "react-query";
-
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
-
+import { Constatation } from "@/types";
+import { useMutation } from "react-query";
 import { defineAsThumbConstatationImage } from "../api";
 
-import { Constatation, Image } from "@/types";
+
+
 
 type UseDefineAsThumbConstatationImageOptions = {
-  constatationId: string;
+  constatationId: number;
   imageId: string;
   config?: MutationConfig<typeof defineAsThumbConstatationImage>;
 };

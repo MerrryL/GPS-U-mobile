@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import FormBuilder from "@/components/Elements/FormBuilder/FormBuilder";
+import { Observation } from "@/types";
+import { InputedField, InputType, yupPickerItem } from "@/types/utilityTypes";
+import React from "react";
+import { ScrollView } from "react-native";
+import { Card, FullTheme, makeStyles } from "react-native-elements";
 import * as yup from "yup";
-
-import { View, Platform } from "react-native";
-
-import { Card, Button, Icon, Text, Input } from "react-native-elements";
 import { useCreateObservationFieldGroup } from "../hooks/useCreateObservationFieldGroup";
-import TextInput from "@/components/Elements/Inputs/TextInput";
 
 type FieldGroupsValues = {
   name: string;
@@ -21,106 +19,68 @@ const schema = yup.object().shape({
   logical_operator: yup.string().required(),
 });
 
-type FieldGroupAddProps = {
-  observationId: string;
-};
+interface FieldGroupAddProps {
+  observation: Observation;
+}
 
-export function FieldGroupsAdd({ observationId }: FieldGroupAddProps) {
-  const field_groupCreateMutation = useCreateObservationFieldGroup({
-    observationId,
-  });
+export function FieldGroupsAdd({ observation }: FieldGroupAddProps): JSX.Element {
+  const fieldGroupCreateMutation = useCreateObservationFieldGroup();
+  const styles = useStyles();
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FieldGroupsValues>({
-    resolver: yupResolver(schema),
-  });
+  const newFieldGroupForm: InputedField[] = [
+    {
+      name: "name",
+      label: "nom",
+      type: InputType.Text,
+      schema: yup.string().min(5).defined(),
+      defaultValue: "",
+    },
+    {
+      name: "type",
+      label: "description du questionnaire",
+      type: InputType.Text,
+      schema: yup.string().min(5).defined(),
+      defaultValue: "",
+    },
+    {
+      name: "logical_operator",
+      label: "Conditions",
+      type: InputType.Select,
+      schema: yupPickerItem(),
+      options: [{ id: 1, item: "Ou" }],
+    },
+  ];
 
-  const onSubmit = async (values) => {
-    console.log("values", values);
-    await field_groupCreateMutation.mutateAsync({
+  const onSubmit = async (values: any) => {
+    await fieldGroupCreateMutation.mutateAsync({
       name: values.name,
       type: values.type,
-      logical_operator: values.logical_operator,
-      observationId: observationId,
+      logical_operator: values.logical_operator.item,
+      observationId: observation.id,
     });
 
     //onSuccess();
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        margin: "10px",
-      }}
-    >
-      <TextInput name="name" defaultValue="" label="Nom" control={control} />
-
-      <TextInput name="type" defaultValue="" label="Type" control={control} />
-
-      <TextInput name="logical_operator" defaultValue="" label="Opérateur logique" control={control} />
-
-      {/* <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Input
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-                placeholder="Nom"
-              />
-            )}
-            name="name"
-            defaultValue=""
-          />
-          <Text>{errors.name?.message}</Text>
-
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Input
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-                placeholder="Type"
-              />
-            )}
-            name="type"
-            defaultValue=""
-          />
-          <Text>{errors.type?.message}</Text>
-
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Input
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-                placeholder="Opérateur logique"
-              />
-            )}
-            name="logical_operator"
-            defaultValue=""
-          />
-          <Text>{errors.logical_operator?.message}</Text>
- */}
-
-      <Button title="Nouveau Groupe" onPress={handleSubmit(onSubmit)} />
-    </View>
+    <ScrollView style={styles.container}>
+      <Card>
+        <FormBuilder title="Nouveau questionnaire" description="Crée un nouveau questionnaire à populer de questions" fields={newFieldGroupForm} onSubmit={onSubmit} />
+      </Card>
+    </ScrollView>
   );
 }
+
+const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+  container: {},
+  dateContainer: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignItems: "flex-end",
+  },
+  body: {},
+  images: {},
+  localization: {},
+  fields: {},
+}));

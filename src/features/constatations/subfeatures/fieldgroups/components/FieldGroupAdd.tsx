@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import React from "react";
+import { Controller, useForm } from "react-hook-form";
+import { View } from "react-native";
+import { Button, Input, Text } from "react-native-elements";
 import * as yup from "yup";
-
-import { View, Platform } from "react-native";
-
-import { Card, Button, Icon, Text, Input } from "react-native-elements";
 import { useCreateFieldGroup } from "../hooks/useCreateFieldGroup";
+
+
 
 type FieldGroupsValues = {
   name: string;
@@ -21,7 +21,7 @@ const schema = yup.object().shape({
 });
 
 type FieldGroupAddProps = {
-  constatationId: string;
+  constatationId: number;
 };
 
 export function FieldGroupsAdd({ constatationId }: FieldGroupAddProps) {

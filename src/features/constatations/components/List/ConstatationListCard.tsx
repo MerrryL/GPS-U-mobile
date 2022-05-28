@@ -4,7 +4,7 @@ import DateText from "@/components/Elements/Text/DateText";
 import { Constatation } from "@/types";
 import React from "react";
 import { View } from "react-native";
-import { Card, makeStyles, Text } from "react-native-elements";
+import { Card, FullTheme, makeStyles, Text } from "react-native-elements";
 import ConstatationCover from "../elements/ConstatationCover";
 import ConstatationAddress from "./elements/ConstatationAddress";
 import ConstatationDescription from "./elements/ConstatationDescription";
@@ -18,17 +18,16 @@ type constatationCardProps = {
 
 export function ConstatationListCard(props: constatationCardProps) {
   const { constatation } = props;
-  const styles = useStyles();
+  
+  const { actions, created_at, description, dossiers, field_groups, id, images, isValidated, localization, media, modelType, observations, observers, requiresValidation, requiresValidationDate, updated_at, validationDate } = constatation || {};
+  const styles = useStyles({isValidated:isValidated, requiresValidation:requiresValidation});
 
-  const { actions, created_at, description, dossiers, fields, id, images, isValidated, localization, media, modelType, observations, observers, requiresValidation, requiresValidationDate, updated_at, validationDate } = constatation || {};
-
-  const backGroundColor = isValidated == 1 ? "#d6ffdb" : requiresValidation == 1 ? "#ffd7d6" : "#aaa";
   const statusText = isValidated == 1 ? "Validée" : requiresValidation == 1 ? "A valider" : "Brouillon";
 
   return (
     <Card containerStyle={styles.container}>
-      <View style={[styles.header, { backgroundColor: backGroundColor }]}>
-        <Card.Title h2 style={styles.cardTitle}>
+      <View style={[styles.header]}>
+        <Card.Title h4 style={styles.cardTitle}>
           Constatation n°{id}
         </Card.Title>
         <View style={styles.buttonContainer}>
@@ -48,14 +47,11 @@ export function ConstatationListCard(props: constatationCardProps) {
         </View>
       </View>
       <ConstatationDescription description={description} />
-
-      {/* TODO: Not implemented
-      <ConstatationActions actions={actions} />
-      <ConstatationDossiers dossiers={dossiers} /> */}
+      
       <View style={styles.details}>
         <ConstatationObservations observations={observations} />
         <ConstatationObservers observers={observers} />
-        <ConstatationFields fields={fields} />
+        <ConstatationFields field_groups={field_groups} />
       </View>
 
       <DateText boldText="Dernière m-a-j" date={updated_at} dateStyle={{ alignSelf: "flex-end" }} containerStyle={{ flexDirection: "column", alignItems: "flex-end" }} />
@@ -63,7 +59,7 @@ export function ConstatationListCard(props: constatationCardProps) {
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme: Partial<FullTheme>, props:{isValidated: number, requiresValidation:number}) => ({
   container: {
     // backgroundColor: theme.colors.ivory,
   },
@@ -73,9 +69,11 @@ const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
     justifyContent: "space-between",
     height: "auto",
     padding: "10px",
+    backGroundColor: props.isValidated == 1 ? theme.colors!.success : props.requiresValidation == 1 ? theme.colors!.error : theme.colors!.greyOutline,
   },
   cardTitle: {
     alignSelf: "stretch",
+    marginBottom: 0
   },
   buttonContainer: {
     flex: 1,
@@ -95,12 +93,9 @@ const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
   },
   headerInfos: {
     flexDirection: "column",
-    alignItems: "flex-end",
+    alignItems: "flex-start",
   },
   cover: {
-    alignSelf: "flex-start",
-  },
-  cardTitle: {
     alignSelf: "flex-start",
   },
 }));

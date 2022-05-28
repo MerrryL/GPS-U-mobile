@@ -1,19 +1,14 @@
 import React, { useState } from "react";
-
 import { ScrollView } from "react-native";
-import { Card } from "react-native-elements";
 import Accordion from "react-native-collapsible/Accordion";
-
+import { Card } from "react-native-elements";
 //import { FieldGroup } from "../components/Edit/FieldGroup";
 import { CardHeader } from "../components/Edit/ConstatationEditCard";
+import { useConstatation } from "../hooks/useConstatation";
 import { ImagesPart } from "../subfeatures/images/components/ImagesPart";
 import { LocalizationPart } from "../subfeatures/localization/components/LocalizationPart";
-import { FieldGroupPart } from "../subfeatures/fieldgroups/components/FieldGroupsPart";
-
-import { ObserverPart } from "../subfeatures/observers/components/ObserverPart";
-import { FollowupPart } from "../../followups/components/FollowupPart";
 import { ObservationPart } from "../subfeatures/observations/components/ObserverPart";
-import { useConstatation } from "../hooks/useConstatation";
+import { ObserverPart } from "../subfeatures/observers/components/ObserverPart";
 
 //TODO: get rid of any
 type EditProps = {

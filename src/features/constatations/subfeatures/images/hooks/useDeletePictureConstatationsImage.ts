@@ -1,13 +1,12 @@
-import { useMutation } from "react-query";
-
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
-
-import { Constatation, Image } from "@/types";
+import { useMutation } from "react-query";
 import { deletePictureConstatationImage } from "../api/index";
 
+
+
 type UseDeletePictureConstatationImageOptions = {
-  constatationId: string;
+  constatationId: number;
   imageId: string;
   config?: MutationConfig<typeof deletePictureConstatationImage>;
 };

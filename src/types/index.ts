@@ -1,34 +1,34 @@
 export type BaseEntity = {
-  id: string;
+  id: number;
   created_at: string;
   updated_at: string;
 };
 
 export type Constatation = {
+  actions: Action[];
   description: string;
-  modelType: null;
+  dossiers: Dossier[];
+  field_groups: FieldGroup[];
+  images: Image[];
   isValidated: number;
-  validationDate: string;
+  localization: Localization;
+  media: Media[];
+  modelType: null;
+  observations: Observation[];
+  observers: User[];
   requiresValidation: number;
   requiresValidationDate: string;
   updated_at: string;
-  field_groups: FieldGroup[];
-  localization: Localization;
-  dossiers: Dossier[];
-  actions: Action[];
-  images: Image[];
-  observations: Observation[];
-  observers: User[];
-  media: Media[];
+  validationDate: string;
 } & BaseEntity;
 
 export type ImageToSend = {
-  name: string;
+  base64: string;
   height: number;
-  width: number;
+  name: string;
   type: string;
   uri: string;
-  base64: string;
+  width: number;
 } & BaseEntity;
 
 export type Action = {
@@ -37,8 +37,8 @@ export type Action = {
 } & BaseEntity;
 
 export type ActionPivot = {
-  constatation_id: string;
   action_id: string;
+  constatation_id: string;
 } & BaseEntity;
 
 export type Dossier = {
@@ -54,24 +54,24 @@ export type DossierPivot = {
 
 export type FieldGroup = {
   constatation_id: string;
+  description: string;
+  fields: Field[];
+  logical_operator: string;
   name: string;
   title: string;
-  description: string;
   type: string;
-  logical_operator: string;
-  fields: Field[];
 } & BaseEntity;
 
 export type Field = {
-  name: string;
-  type_id: string;
-  type: FieldType;
-  options: string;
   defaultValue: string;
-  isRequired: boolean;
   field_group_id: string;
   field_group: FieldGroup;
+  isRequired: boolean;
+  name: string;
+  options: string;
   pivot: ConstFieldPivot;
+  type_id: string;
+  type: FieldType;
 } & BaseEntity;
 
 export type FieldType = {
@@ -93,29 +93,29 @@ export type Image = {
 } & BaseEntity;
 
 export type Media = {
-  model_type: string;
-  model_id: string;
-  uuid: string;
-  name: string;
-  file_name: string;
-  mime_type: string;
-  size: string;
-  manipulations: any[];
   custom_properties: any[];
+  file_name: string;
   generated_conversions: GeneratedConversions;
-  responsive_images: any[];
+  manipulations: any[];
+  mime_type: string;
+  model_id: string;
+  model_type: string;
+  name: string;
   order_column: string;
+  responsive_images: any[];
+  size: string;
+  uuid: string;
 } & BaseEntity;
 
 export interface GeneratedConversions {
   thumb: boolean;
 }
 export type Localization = {
-  constatation_id: string;
   accuracy: any;
   address_components: any;
   altitude: any;
   altitudeAccuracy: any;
+  constatation_id: string;
   formatted_address: any;
   given_name: string;
   heading: any;
@@ -132,12 +132,12 @@ export type Marker = {
 };
 
 export type User = {
+  bio: string;
+  email: string;
   firstName: string;
   lastName: string;
-  email: string;
   role: "ADMIN" | "USER";
   teamId: string;
-  bio: string;
 } & BaseEntity;
 
 //TODO: Find out what is the best pattern
@@ -145,36 +145,38 @@ export type Observer = User;
 export type Supervisor = User;
 export type Operator = User;
 
-export type Observation = {
-  name: string;
+export interface Observation{
   code: string;
-  short_description: string;
-  description: string;
-  fine_amount: string;
+  codex_id: number;
   codex: Codex;
-  codex_id: string;
-  observation_type: ObservationType;
-  observation_type_id: string;
+  description: string;
   field_groups: FieldGroup[];
+  fine_amount: string;
   images: Image[];
-} & BaseEntity;
+  name: string;
+  observation_type_id: number;
+  observation_type: ObservationType;
+  short_description: string;
+    id: number;
+  created_at: string;
+  updated_at: string;
+}
 
 export type ObservationType = {
   name: string;
   description: string;
-};
+} & BaseEntity;
 
 export type Codex = {
-  id: string;
+  description: string;
   name: string;
   precode: string;
-  description: string;
-};
+} & BaseEntity;
 
 export type Followup = {
-  name: string;
   description: string;
   followup_status: FollowupStatus;
+  name: string;
   observation: Observation;
   supervisor: Supervisor;
   tasks: Task[];
@@ -187,14 +189,14 @@ export type Status = {
 export type FollowupStatus = Status;
 
 export type Task = {
-  name: string;
   description: string;
+  followup: Followup[];
+  name: string;
+  operators: Operator[];
   realisation_date: Date;
   report_date: Date;
   report_periodicity: Date;
   task_status: TaskStatus;
-  followup: Followup[];
-  operators: Operator[];
 };
 
 export type TaskStatus = Status;

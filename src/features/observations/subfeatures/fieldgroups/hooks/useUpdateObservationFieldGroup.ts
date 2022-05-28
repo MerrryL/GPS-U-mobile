@@ -10,7 +10,7 @@
 // import { Constatation, ObservationFieldGroup } from "@/types";
 
 // type UseUpdateObservationFieldGroupOptions = {
-//   constatationId: string;
+//   constatationId: number;
 //   config?: MutationConfig<typeof updateObservationFieldGroup>;
 // };
 

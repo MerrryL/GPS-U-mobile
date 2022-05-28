@@ -1,9 +1,9 @@
-import { useMutation } from "react-query";
-
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
-
+import { useMutation } from "react-query";
 import { updateConstatationObservations } from "../api";
+
+
 
 type ObservationToSend = {
   id: string | number;
@@ -11,7 +11,7 @@ type ObservationToSend = {
 };
 
 type UseUpdateObservationOptions = {
-  constatationId: string;
+  constatationId: number;
   Observations: ObservationToSend[];
   config?: MutationConfig<typeof updateConstatationObservations>;
 };

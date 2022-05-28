@@ -4,7 +4,7 @@ import { View } from "react-native";
 
 type LocalizationPickerProps = {
   localization: Localization;
-  constatationId: string;
+  constatationId: number;
 };
 
 export default function LocalizationPicker({ localization, constatationId }: LocalizationPickerProps):JSX.Element {

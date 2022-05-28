@@ -10,7 +10,7 @@ import imageURL from "../utils/ImageURL";
 
 
 type Params = {
-  constatationId: string;
+  constatationId: number;
 };
 
 type DetailsProps = {

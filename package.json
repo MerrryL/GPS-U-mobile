@@ -11,7 +11,8 @@
   "scripts": {
     "dev": "tsc --watch",
     "lint": "eslint --ext .js,.ts,.tsx,.jsx .",
-    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|jsx|tsx|json)\""
+    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|jsx|tsx|json)\"",
+    "start": "expo start"
   },
   "dependencies": {
     "@expo/webpack-config": "^0.16.19",
@@ -23,6 +24,7 @@
     "@react-navigation/bottom-tabs": "^6.3.1",
     "@react-navigation/material-bottom-tabs": "^6.2.1",
     "@react-navigation/native": "^6.0.10",
+    "@react-navigation/native-stack": "^6.6.2",
     "@react-navigation/stack": "^6.2.1",
     "@types/react-native": "^0.67.7",
     "axios": "^0.27.2",
@@ -49,6 +51,7 @@
     "react-hook-form": "^7.31.2",
     "react-native": "^0.68.2",
     "react-native-anchor-carousel": "^4.0.1",
+    "react-native-animation-library": "^0.0.8",
     "react-native-appearance": "^0.2.1",
     "react-native-collapsible": "^1.6.0",
     "react-native-elements": "^3.4.2",

@@ -1,8 +1,9 @@
+import NormalText from "@/components/Elements/Text/NormalText";
 import Title from "@/components/Elements/Text/Title";
 import { Observation } from "@/types";
 import React from "react";
 import { View } from "react-native";
-import { makeStyles, Text } from "react-native-elements";
+import { FullTheme, makeStyles } from "react-native-elements";
 
 type ConstatationObservationsProps = {
   observations: Observation[];
@@ -30,7 +31,7 @@ export default function ConstatationObservations(props: ConstatationObservations
 
       {observations &&
         observations.map((observation: Observation, index) => {
-          return <Text key={index} boldText={observation?.codex?.precode + " " + observation?.code + " du " + observation.codex.name} text={observation?.name} />;
+          return <NormalText key={index} boldText={observation?.codex?.precode + " " + observation?.code + " du " + observation.codex.name} text={observation?.name} />;
         })}
     </View>
   );

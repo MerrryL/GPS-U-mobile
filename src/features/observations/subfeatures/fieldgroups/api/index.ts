@@ -1,32 +1,32 @@
 import { axios } from "@/lib/axios";
+import { FieldGroup } from "@/types";
 
-import { Observation, FieldGroup } from "@/types";
 
-type GetObservationFieldGroupsOptions = {
-  observationId: string;
+export interface  GetObservationFieldGroupsOptions  {
+  observationId: number;
 };
 
 export const getObservationFieldGroups = ({ observationId }: GetObservationFieldGroupsOptions): Promise<FieldGroup[]> => {
   return axios.get(`/observations/${observationId}/field_groups`);
 };
 
-type GetObservationFieldGroupOptions = {
-  observationId: string;
-  fieldGroupId: string;
+export interface  GetObservationFieldGroupOptions {
+  observationId: number;
+  fieldGroupId: number;
 };
 
 export const getObservationFieldGroup = ({ observationId, fieldGroupId }: GetObservationFieldGroupOptions): Promise<FieldGroup> => {
   return axios.get(`/observations/${observationId}/field_groups/${fieldGroupId}`);
 };
 
-type CreateObservationFieldGroupOptions = {
-  observationId: string;
+export interface CreateObservationFieldGroupOptions  {
+  observationId: number;
   name: string;
   logical_operator: string;
   type: string;
 };
 
-export const createObservationFieldGroup = ({ observationId, name, type, logical_operator }: CreateObservationFieldGroupOptions): Promise<FieldGroup> => {
+export const createObservationFieldGroup: (data: CreateObservationFieldGroupOptions) => Promise<FieldGroup> = ({observationId, name, type, logical_operator }:CreateObservationFieldGroupOptions):Promise<FieldGroup> =>{
   return axios.post(`/observations/${observationId}/field_groups`, {
     name,
     type,
@@ -34,8 +34,10 @@ export const createObservationFieldGroup = ({ observationId, name, type, logical
   });
 };
 
-type UpdateObservationFieldGroupOptions = {
-  observationId: string;
+export interface UpdateObservationFieldGroupOptions  {
+  observationId: number;
+  fieldGroupId: number;
+  logical_operator: string;
   name: string;
   type: string;
 };
@@ -44,9 +46,9 @@ export const updateObservationFieldGroup = ({ observationId, fieldGroupId, name,
   return axios.post(`/observations/${observationId}/field_groups/${fieldGroupId}`, { name, type, logical_operator });
 };
 
-type DeleteObservationFieldGroupOptions = {
-  fieldGroupId: string;
-  observationId: string;
+export interface DeleteObservationFieldGroupOptions  {
+  fieldGroupId: number;
+  observationId: number;
 };
 
 export const deleteObservationFieldGroup = ({ fieldGroupId, observationId }: DeleteObservationFieldGroupOptions) => {

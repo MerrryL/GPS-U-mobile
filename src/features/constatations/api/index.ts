@@ -1,5 +1,6 @@
 import { axios } from "@/lib/axios";
 import { Constatation, Observation } from "@/types";
+import { PickerItem } from "@/types/utilityTypes";
 
 export const getObservations: () => Promise<Observation[]> = (): Promise<Observation[]> => {
   return axios.get("observations");
@@ -11,7 +12,7 @@ export const getConstatations: () => Promise<Constatation[]> = (): Promise<Const
 };
 
 type GetConstatationOptions = {
-  constatationId: string;
+  constatationId: number;
 };
 
 export const getConstatation: (data: GetConstatationOptions) => Promise<Constatation> = ({ constatationId }: GetConstatationOptions): Promise<Constatation> => {
@@ -28,14 +29,13 @@ export const createConstatation: () => Promise<Constatation> = (): Promise<Const
 };
 
 export interface UpdateConstatationOptions {
-  constatationId: string;
+  constatationId: number;
   description: string;
-  observers: any;
-  observations: any;
+  observers: PickerItem[];
+  observations: PickerItem[];
 };
 
 export const updateConstatation:(data:UpdateConstatationOptions)=> Promise<Constatation> = ({ description, observers, observations, constatationId }: UpdateConstatationOptions): Promise<Constatation> => {
-  console.log(description, observers, observations);
   return axios.patch(`constatations/${constatationId}`, {
     description,
     observers,
@@ -44,7 +44,7 @@ export const updateConstatation:(data:UpdateConstatationOptions)=> Promise<Const
 };
 
 type RequireValidationOptions = {
-  constatationId: string;
+  constatationId: number;
 };
 
 export const requireValidation: (data: RequireValidationOptions) => Promise<Constatation> = ({ constatationId }: RequireValidationOptions): Promise<Constatation> => {
@@ -52,7 +52,7 @@ export const requireValidation: (data: RequireValidationOptions) => Promise<Cons
 };
 
 type RefuseValidationOptions = {
-  constatationId: string;
+  constatationId: number;
 };
 
 export const refuseValidation: (data: RefuseValidationOptions) => Promise<Constatation> = ({ constatationId }: RefuseValidationOptions): Promise<Constatation> => {
@@ -60,7 +60,7 @@ export const refuseValidation: (data: RefuseValidationOptions) => Promise<Consta
 };
 
 type ValidateConstatationOptions = {
-  constatationId: string;
+  constatationId: number;
 };
 
 export const validateConstatation: (data: ValidateConstatationOptions) => Promise<Constatation> = ({ constatationId }: ValidateConstatationOptions): Promise<Constatation> => {
@@ -68,7 +68,7 @@ export const validateConstatation: (data: ValidateConstatationOptions) => Promis
 };
 
 type DeleteConstatationOptions = {
-  constatationId: string;
+  constatationId: number;
 };
 
 export const deleteConstatation: (data: DeleteConstatationOptions) => Promise<void> = ({ constatationId }: DeleteConstatationOptions):Promise<void> => {

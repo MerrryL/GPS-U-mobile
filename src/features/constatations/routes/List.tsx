@@ -19,7 +19,7 @@ type ConstatationListProps = {
 export default function List({ route, navigation }: ConstatationListProps):JSX.Element {
   const constatationsQuery: UseQueryResult<Constatation[], unknown> = useConstatations();
 
-  const createConstatationMutation: UseMutationResult<Constatation, unknown, void, any> = useCreateConstatation();
+  const createConstatationMutation: UseMutationResult<Constatation, unknown, void, void> = useCreateConstatation();
 
   const handleCreation:()=>Promise<void> = async ():Promise<void> => {
     const newConstatation:Constatation = await createConstatationMutation.mutateAsync();

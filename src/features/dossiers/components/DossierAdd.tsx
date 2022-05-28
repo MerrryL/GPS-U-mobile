@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import React from "react";
+import { Controller, useForm } from "react-hook-form";
+import { View } from "react-native";
+import { Button, Input, Switch, Text } from "react-native-elements";
 import * as yup from "yup";
-
-import { View, Platform } from "react-native";
-
-import { Card, Button, Icon, Text, Input, Switch } from "react-native-elements";
 import { useCreateDossier } from "../hooks/useCreateDossier";
+
+
 
 type DossiersValues = {
   name: string;
@@ -24,7 +24,7 @@ const schema = yup.object().shape({
 
 type DossiersAddProps = {
   dossierGroupId: string;
-  constatationId: string;
+  constatationId: number;
 };
 
 export function DossiersAdd({ dossierGroupId, constatationId }: DossiersAddProps) {

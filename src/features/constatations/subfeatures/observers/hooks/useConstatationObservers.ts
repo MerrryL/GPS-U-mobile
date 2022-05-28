@@ -1,11 +1,11 @@
-import { useQuery } from "react-query";
-
 import { QueryConfig } from "@/lib/react-query";
-
+import { useQuery } from "react-query";
 import { getConstatationObservers } from "../api";
 
+
+
 type UseConstatationObserversOptions = {
-  constatationId: string;
+  constatationId: number;
   config?: QueryConfig<typeof getConstatationObservers>;
 };
 

@@ -8,7 +8,7 @@ import { useObservations } from "../hooks/useObservations";
 import { useUpdateConstatationObservations } from "../hooks/useUpdateConstatationObservations";
 
 type ObservationPartProps = {
-  constatationId: string;
+  constatationId: number;
 };
 
 type ObservationToSend = {

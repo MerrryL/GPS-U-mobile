@@ -10,7 +10,7 @@
 // import { Constatation, Field } from "@/types";
 
 // type UseUpdateFieldOptions = {
-//   constatationId: string;
+//   constatationId: number;
 //   config?: MutationConfig<typeof updateField>;
 // };
 

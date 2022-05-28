@@ -29,7 +29,7 @@ const schema = yup.object().shape({
 });
 
 interface CardHeaderProps {
-  observationId: string;
+  observationId: number;
 }
 
 export function CardHeader({ observationId }: CardHeaderProps) {

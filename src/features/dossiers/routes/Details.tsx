@@ -1,16 +1,16 @@
-import React from "react";
+import imageURL from "@/features/constatations/utils/ImageURL";
 import { useNavigation } from "@react-navigation/native";
-
-import { FlatList, View } from "react-native";
-import { Card, Button, Icon, Text, Input } from "react-native-elements";
-
+import React from "react";
+import { FlatList } from "react-native";
+import { Button, Card, Icon, Text } from "react-native-elements";
+import { FieldGroup } from "../components/Edit/FieldGroup";
 import { useConstatation } from "../hooks/useConstatation";
 
-import { FieldGroup } from "../components/Edit/FieldGroup";
-import imageURL from "@/features/constatations/utils/ImageURL";
+
+
 
 type Params = {
-  constatationId: string;
+  constatationId: number;
 };
 
 type DetailsProps = {

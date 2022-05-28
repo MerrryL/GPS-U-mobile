@@ -12,7 +12,7 @@ import useFieldGroupBy from "../utils/useFieldGroupBy";
 
 type FieldPartProps = {
   fields: Field[];
-  constatationId: string;
+  constatationId: number;
 };
 
 type Grouped = {

@@ -1,14 +1,14 @@
-import { useMutation } from "react-query";
-
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
-
+import { Constatation, FieldGroup } from "@/types";
+import { useMutation } from "react-query";
 import { createFieldGroup } from "../api";
 
-import { Constatation, FieldGroup } from "@/types";
+
+
 
 type UseCreateFieldGroupOptions = {
-  constatationId: string;
+  constatationId: number;
   name: string;
   type: string;
   logical_operator: string;

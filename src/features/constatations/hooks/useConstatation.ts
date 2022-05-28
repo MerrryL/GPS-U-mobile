@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import { getConstatation } from "../api";
 
 type UseConstatationOptions = {
-  constatationId: string;
+  constatationId: number;
   config?: QueryConfig<typeof getConstatation>;
 };
 

@@ -1,11 +1,11 @@
-import { useMutation } from "react-query";
-
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
-
+import { Constatation, Image } from "@/types";
+import { useMutation } from "react-query";
 import { uploadConstatationImage } from "../api";
 
-import { Constatation, Image } from "@/types";
+
+
 
 type ImageToSend = {
   name: string;
@@ -18,7 +18,7 @@ type ImageToSend = {
 
 type UseUploadConstatationImageOptions = {
   imageId: string;
-  constatationId: string;
+  constatationId: number;
   image: ImageToSend;
   config?: MutationConfig<typeof uploadConstatationImage>;
 };

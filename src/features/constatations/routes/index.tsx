@@ -7,8 +7,8 @@ import List from "./List";
 
 export type ConstatationStackParamList = {
   Liste: undefined;
-  Details: { constatationId: string };
-  Edition: { constatationId: string };
+  Details: { constatationId: number };
+  Edition: { constatationId: number };
   Nouvelle: undefined;
 };
 

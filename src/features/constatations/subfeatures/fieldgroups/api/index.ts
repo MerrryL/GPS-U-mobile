@@ -1,7 +1,6 @@
 import { axios } from "@/lib/axios";
-import { LocationActivityType } from "expo-location";
-
 import { FieldGroup } from "@/types";
+
 
 //FieldGroupsPart
 
@@ -27,7 +26,7 @@ export const getFieldGroup = ({ fieldGroupId }: GetFieldGroupOptions): Promise<F
 };
 
 type CreateFieldGroupOptions = {
-  constatationId: string;
+  constatationId: number;
   name: string;
   type: string;
   logical_operator: string;
@@ -44,7 +43,7 @@ export const createFieldGroup = ({ constatationId, name, type, logical_operator 
 
 type DeleteFieldGroupOptions = {
   fieldGroupId: string;
-  constatationId: string;
+  constatationId: number;
 };
 
 export const deleteFieldGroup = ({ fieldGroupId, constatationId }: DeleteFieldGroupOptions) => {

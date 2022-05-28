@@ -7,8 +7,8 @@ import List from "./List";
 
 export type ObservationStackParamList = {
   Liste: undefined;
-  Details: { observationId: string };
-  Edition: { observationId: string };
+  Details: { observationId: number };
+  Edition: { observationId: number };
   Nouvelle: undefined;
 };
 

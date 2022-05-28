@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { getObservation } from "../api";
 
 type UseObservationOptions = {
-  observationId: string;
+  observationId: number;
   config?: QueryConfig<typeof getObservation>;
 };
 
