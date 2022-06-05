@@ -1,18 +1,18 @@
-import { useQuery } from "react-query";
-
 import { QueryConfig } from "@/lib/react-query";
+import { useQuery } from "react-query";
+import { getObservationImageRequests } from "../api";
 
-import { getObservationImages } from "../api";
+
 
 type UseObservationImagesOptions = {
-  observationId?: string;
-  config?: QueryConfig<typeof getObservationImages>;
+  observationId: number;
+  config?: QueryConfig<typeof getObservationImageRequests>;
 };
 
-export const useImages = ({ config, observationId = null }: UseObservationImagesOptions) => {
+export const useImages = ({ config, observationId}: UseObservationImagesOptions) => {
   return useQuery({
-    ...config,
     queryKey: ["images"],
-    queryFn: () => getObservationImages({ observationId }),
+    queryFn: () => getObservationImageRequests({ observationId }),
+    ...config,
   });
 };

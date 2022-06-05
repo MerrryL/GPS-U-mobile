@@ -1,55 +1,87 @@
-import React, { useState, useEffect } from "react";
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import AddButton from "@/components/Elements/Buttons/AddButton";
+import { FloatingButtonStack } from "@/components/Elements/Buttons/ButtonStack";
+import CollapseButton from "@/components/Elements/Buttons/CollapseButton";
+import FormBuilder from "@/components/Elements/FormBuilder/FormBuilder";
+import { Observation } from "@/types";
+import { InputedField, InputType } from "@/types/utilityTypes";
+import React, { useState } from "react";
+import { StyleProp, View, ViewStyle } from "react-native";
+import { Card, FullTheme, makeStyles } from "react-native-elements";
 import * as yup from "yup";
-
-import { Image, View, Platform } from "react-native";
-
-import { Card, Button, Icon, Text, Input } from "react-native-elements";
 import { useCreateObservationImage } from "../hooks/useCreateObservationImage";
-import TextInput from "@/components/Elements/Inputs/TextInput";
+import ImagePartSelector from "./ImagePartSelector";
 
-type ImagesValues = {
-  name: string;
-};
+interface ImagesPartAddProps {
+  observation: Observation;
+}
 
-const schema = yup.object().shape({
-  name: yup.string().required(),
-  description: yup.string().required(),
-});
+interface StyleProps {
+  container: StyleProp<ViewStyle>;
+  children: StyleProp<ViewStyle>;
+}
 
-export default function ImagesPartAdd({ observationId }) {
-  const imageCreateMutation = useCreateObservationImage({ observationId });
+export default function ImagesPartAdd({ observation }: ImagesPartAddProps): JSX.Element {
+  const styles: StyleProps = useStyles();
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ImagesValues>({
-    resolver: yupResolver(schema),
-  });
+  const [isExpanded, toggle] = useState<boolean>(false);
 
-  const onSubmit = async (values) => {
+  const imageCreateMutation = useCreateObservationImage();
+
+  const newImageForm: InputedField[] = [
+    {
+      name: "name",
+      label: "nom",
+      type: InputType.Text,
+      schema: yup.string().min(5).defined(),
+      defaultValue: "",
+    },
+    {
+      name: "description",
+      label: "description de l'image",
+      type: InputType.Text,
+      schema: yup.string().min(5).defined(),
+      defaultValue: "",
+    },
+  ];
+
+  const onSubmit = async (values: any) => {
+    console.log("values", values);
     await imageCreateMutation.mutateAsync({
       name: values.name,
       description: values.description,
-      observationId: observationId,
+      observationId: observation.id,
     });
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        margin: "10px",
-      }}
-    >
-      <TextInput name="name" defaultValue="" label="Nom" control={control} />
-      <TextInput name="description" defaultValue="" label="Description" control={control} />
-
-      <Button title="Nouvelle image" onPress={handleSubmit(onSubmit)} />
-    </View>
+    <Card containerStyle={styles.container}>
+      {isExpanded ? (
+        <>
+          <FloatingButtonStack>
+            <CollapseButton callBack={() => toggle((prevState: boolean): boolean => !prevState)}></CollapseButton>
+          </FloatingButtonStack>
+          <ImagePartSelector observation={observation}></ImagePartSelector>
+          <View style={styles.children}>
+            <FormBuilder title="Nouvelle image" description="Crée une nouvelle image d'illustration" fields={newImageForm} onSubmit={onSubmit} />
+          </View>
+        </>
+      ) : (
+        <AddButton callBack={() => toggle((prevState: boolean): boolean => !prevState)}></AddButton>
+      )}
+    </Card>
   );
 }
+
+const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+  container: {
+    minHeight: "50px",
+    padding: 3,
+    margin: 3,
+  },
+  children: {
+    minHeight: "50px",
+    padding: 0,
+    margin: 0,
+    marginTop: "50px",
+  },
+}));

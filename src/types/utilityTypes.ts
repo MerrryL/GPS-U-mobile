@@ -1,9 +1,5 @@
 import { FieldValues } from "react-hook-form";
 import * as yup from "yup";
-import { RequiredNumberSchema } from "yup/lib/number";
-import { RequiredObjectSchema } from "yup/lib/object";
-import { RequiredStringSchema } from "yup/lib/string";
-import { AnyObject } from "yup/lib/types";
 
 export enum InputType {
   Text = "text",
@@ -43,7 +39,14 @@ export interface MultiSelectInputedField extends BaseInputField {
   schema:   yup.SchemaOf<PickerItem[]>
 }
 
-export type InputedField = MultiSelectInputedField | SelectInputedField | TextInputedField;
+export interface CheckBoxInputedField extends BaseInputField {
+  type: InputType.CheckBox;
+  value?: boolean;
+  defaultValue?: boolean;
+  schema:   yup.BooleanSchema
+}
+
+export type InputedField = MultiSelectInputedField | SelectInputedField | TextInputedField |  CheckBoxInputedField;
 
 export interface ConstatationValues extends FieldValues {
   description: string;
@@ -62,7 +65,3 @@ export type PickerItem = {
   id: number;
   item: string;
 };
-
-export type RHFField = any;
-export type RHFieldState = any;
-export type RHFFormState = any;

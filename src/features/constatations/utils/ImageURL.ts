@@ -1,12 +1,13 @@
-import Constants from "expo-constants";
 import { Media } from "@/types/";
+import Constants from "expo-constants";
+import { ImageSourcePropType } from "react-native";
 
 type ImageURLProps = {
-  image: Media | null;
+  image: Media | undefined;
 };
 
-export default function imageURL({ image }: ImageURLProps) {
-  const { file_name = null, name = null, id } = image || {};
+export default function imageURL({ image }: ImageURLProps):ImageSourcePropType {
+  const { file_name, name, id } = image || {};
 
   if (!file_name || !name) {
     return require("@/assets/images/empty.svg");

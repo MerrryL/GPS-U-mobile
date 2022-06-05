@@ -1,60 +1,70 @@
-import SwitchInput from "@/components/Elements/Inputs/CheckBoxInput";
-import PickerInput from "@/components/Elements/Inputs/PickerInput";
-import TextInput from "@/components/Elements/Inputs/TextInput";
-import { useFieldTypes } from "@/hooks/useFieldTypes";
+import AddButton from "@/components/Elements/Buttons/AddButton";
+import { FloatingButtonStack } from "@/components/Elements/Buttons/ButtonStack";
+import CollapseButton from "@/components/Elements/Buttons/CollapseButton";
+import FormBuilder from "@/components/Elements/FormBuilder/FormBuilder";
 import { FieldGroup, Observation } from "@/types";
-import { yupResolver } from "@hookform/resolvers/yup";
-import React from "react";
-import { useForm } from "react-hook-form";
-import { View } from "react-native";
-import { Button } from "react-native-elements";
+import { InputedField, InputType, yupPickerItem } from "@/types/utilityTypes";
+import { getFieldTypesOptions } from "@/utils/getOptions";
+import React, { useState } from "react";
+import { StyleProp, View, ViewStyle } from "react-native";
+import { Card, FullTheme, makeStyles } from "react-native-elements";
 import * as yup from "yup";
 import { useCreateField } from "../hooks/useCreateField";
 
-type FieldsValues = {
-  name: string;
-  type_id: string;
-  options: string;
-  defaultValue: string;
-  isRequired: boolean;
-};
+interface StyleProps {
+  container: StyleProp<ViewStyle>;
+  children: StyleProp<ViewStyle>;
+}
 
-const schema = yup.object().shape({
-  name: yup.string().required(),
-  type_id: yup.string().required(),
-  options: yup.string().required(),
-  defaultValue: yup.string().required(),
-  isRequired: yup.boolean().required(),
-});
-
-type FieldsAddProps = {
+interface FieldsAddProps {
   fieldGroup: FieldGroup;
   observation: Observation;
-};
+}
 
 export function FieldsAdd({ fieldGroup, observation }: FieldsAddProps) {
   const fieldCreateMutation = useCreateField({ observationId: observation.id, fieldGroupId: fieldGroup.id });
+  const styles: StyleProps = useStyles();
 
-  const fieldTypesOptions = useFieldTypes()?.data?.map((field) => {
-    return { item: field.name, id: field.id };
-  });
+  const [isExpanded, toggle] = useState<boolean>(false);
 
-  console.log("field_types", fieldTypesOptions);
+  const newFieldForm: InputedField[] = [
+    {
+      name: "name",
+      label: "nom",
+      type: InputType.Text,
+      schema: yup.string().min(5).defined(),
+      defaultValue: "",
+    },
+    {
+      name: "type",
+      label: "type",
+      type: InputType.Select,
+      schema: yupPickerItem(),
+      defaultValue: undefined,
+      options: getFieldTypesOptions() || [],
+    },
+    {
+      name: "defaultValue",
+      label: "Valeur par défaut",
+      type: InputType.Text,
+      schema: yup.string().min(0).defined(),
+      defaultValue: "",
+    },
+    {
+      name: "isRequired",
+      label: "Champ obligatoire?",
+      type: InputType.CheckBox,
+      schema: yup.boolean().defined(),
+      defaultValue: false,
+    },
+  ];
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FieldsValues>({
-    resolver: yupResolver(schema),
-  });
-
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: any) => {
     console.log("values", values);
     await fieldCreateMutation.mutateAsync({
       name: values.name,
-      type_id: values.type_id,
-      options: values.options,
+      field_type_id: values.type.id,
+      // options: values.options,
       defaultValue: values.defaultValue,
       isRequired: values.isRequired,
       observationId: observation.id,
@@ -63,21 +73,33 @@ export function FieldsAdd({ fieldGroup, observation }: FieldsAddProps) {
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "flex-start",
-        justifyContent: "center",
-        margin: "10px",
-      }}
-    >
-      <TextInput name="name" defaultValue="" label="Nom" control={control} />
-      <TextInput name="options" defaultValue="" label="Nom" control={control} />
-      <PickerInput name="type_id" defaultValue={0} label="Type" options={fieldTypesOptions} control={control} />
-
-      <SwitchInput name="isDefault" defaultValue={false} label="Champ obligatoire?" control={control} />
-
-      <Button title="Nouveau Champ" onPress={handleSubmit(onSubmit)} />
-    </View>
+    <Card containerStyle={styles.container}>
+      {isExpanded ? (
+        <>
+          <FloatingButtonStack>
+            <CollapseButton callBack={() => toggle((prevState: boolean): boolean => !prevState)}></CollapseButton>
+          </FloatingButtonStack>
+          <View style={styles.children}>
+            <FormBuilder title="Nouvelle question" description="Crée un nouvelle question" fields={newFieldForm} onSubmit={onSubmit} />
+          </View>
+        </>
+      ) : (
+        <AddButton callBack={() => toggle((prevState: boolean): boolean => !prevState)}></AddButton>
+      )}
+    </Card>
   );
 }
+
+const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+  container: {
+    minHeight: "50px",
+    padding: 3,
+    margin: 3,
+  },
+  children: {
+    minHeight: "50px",
+    padding: 0,
+    margin: 0,
+    marginTop: "50px",
+  },
+}));

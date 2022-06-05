@@ -9,6 +9,7 @@ module.exports = async function (env, argv) {
         dangerouslyAddModulePathsToTranspile: ["@codler/react-native-keyboard-aware-scroll-view"],
       },
     },
+    
     argv,
   );
   return config;

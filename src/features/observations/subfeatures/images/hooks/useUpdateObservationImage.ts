@@ -1,15 +1,14 @@
-import { useMutation } from "react-query";
-
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
+import { useMutation } from "react-query";
+import { updateObservationImageRequest } from "../api";
 
-import { updateObservationImage } from "../api";
-import { Observation, Image } from "@/types";
+
 
 type UseUpdateObservationImageOptions = {
   observationId: string;
   imageId: string;
-  config?: MutationConfig<typeof updateObservationImage>;
+  config?: MutationConfig<typeof updateObservationImageRequest>;
 };
 
 export const useUpdateObservationImage = ({ observationId, imageId, config }: UseUpdateObservationImageOptions) => {
@@ -25,6 +24,6 @@ export const useUpdateObservationImage = ({ observationId, imageId, config }: Us
       });
     },
     ...config,
-    mutationFn: updateObservationImage,
+    mutationFn: updateObservationImageRequest,
   });
 };

@@ -1,8 +1,9 @@
 import { useCodexes } from "@/features/observations/hooks/useCodexes";
 import { useObservationTypes } from "@/features/observations/hooks/useObservationTypes";
+import { useFieldTypes } from "@/hooks/useFieldTypes";
 import { useObservations } from "@/hooks/useObservations";
 import { useObservers } from "@/hooks/useObservers";
-import { Codex, Observation, ObservationType, User } from "@/types";
+import { Codex, FieldType, Observation, ObservationType, User } from "@/types";
 import { PickerItem } from "@/types/utilityTypes";
 import { UseQueryResult } from "react-query";
 
@@ -41,6 +42,15 @@ export function getObservationTypesOptions(): PickerItem[]  | undefined {
     (observationType: ObservationType): PickerItem => ({
       item: observationType.name?.toUpperCase(),
       id: observationType.id,
+    })
+  );
+}
+
+export function getFieldTypesOptions(): PickerItem[] | undefined {
+  const allFieldTypesQuery: UseQueryResult<FieldType[], unknown> = useFieldTypes();
+  return allFieldTypesQuery?.data?.map((fieldType:FieldType):PickerItem => ({
+     item: fieldType.name, 
+     id: fieldType.id
     })
   );
 }

@@ -1,55 +1,70 @@
 import { axios } from "@/lib/axios";
+import { ImageRequest } from "@/types";
 
-import { Observation, Image } from "@/types";
 
-type GetObservationImagesOptions = {
-  observationId: string;
+export const getImageRequests = (): Promise<ImageRequest[]> => {
+  return axios.get(`/image_requests`);
 };
 
-export const getObservationImages = ({ observationId }: GetObservationImagesOptions): Promise<Image[]> => {
-  return axios.get(`/observations/${observationId}/images`);
+interface GetObservationImageRequestsOptions {
+  observationId: number;
 };
 
-type GetObservationImageOptions = {
-  observationId: string;
-  imageId: string;
+export const getObservationImageRequests = ({ observationId }: GetObservationImageRequestsOptions): Promise<ImageRequest[]> => {
+  return axios.get(`/observations/${observationId}/image_requests`);
 };
 
-export const getObservationImage = ({ observationId, imageId }: GetObservationImageOptions): Promise<Image> => {
-  return axios.get(`/observations/${observationId}/images/${imageId}`);
+interface GetObservationImageRequestOptions {
+  observationId: number;
+  imageRequestId: number;
 };
 
-type CreateObservationImageOptions = {
-  observationId: string;
+export const getObservationImageRequest = ({ observationId, imageRequestId }: GetObservationImageRequestOptions): Promise<ImageRequest> => {
+  return axios.get(`/observations/${observationId}/image_requests/${imageRequestId}`);
+};
+
+interface CreateObservationImageRequestOptions {
+  observationId: number;
   name: string;
   description: string;
 };
 
-export const createObservationImage = ({ observationId, name, description }: CreateObservationImageOptions): Promise<Image> => {
-  return axios.post(`/observations/${observationId}/images`, {
+export const createObservationImageRequest = ({ observationId, name, description }: CreateObservationImageRequestOptions): Promise<ImageRequest> => {
+  return axios.post(`/observations/${observationId}/image_requests`, {
     name,
     description,
   });
 };
 
-type UpdateObservationImageOptions = {
-  observationId: string;
+interface AttachObservationToImageRequestOptions{
+  observationId: number;
+  imageRequestId: number;
+}
+
+
+export const attachObservationToImageRequest= ({ observationId, imageRequestId}:AttachObservationToImageRequestOptions) => {
+    return axios.post(`/observations/${observationId}/image_requests/${imageRequestId}/attach`);
+}
+
+interface UpdateObservationImageRequestOptions {
+  observationId: number;
+  imageRequestId: number;
   name: string;
   description: string;
 };
 
-export const updateObservationImage = ({ observationId, imageId, name, description }: UpdateObservationImageOptions): Promise<Image> => {
-  return axios.post(`/observations/${observationId}/images/${imageId}`, {
+export const updateObservationImageRequest = ({ observationId, imageRequestId, name, description }: UpdateObservationImageRequestOptions): Promise<ImageRequest> => {
+  return axios.post(`/observations/${observationId}/image_requests/${imageRequestId}`, {
     name,
     description,
   });
 };
 
-type DeleteObservationImageOptions = {
-  imageId: string;
-  observationId: string;
+interface DeleteObservationImageRequestOptions {
+  imageRequestId: number;
+  observationId: number;
 };
 
-export const deleteObservationImage = ({ imageId, observationId }: DeleteObservationImageOptions) => {
-  return axios.delete(`/observations/${observationId}/images/${imageId}`);
+export const deleteObservationImageRequest = ({ imageRequestId, observationId }: DeleteObservationImageRequestOptions) => {
+  return axios.delete(`/observations/${observationId}/image_requests/${imageRequestId}`);
 };

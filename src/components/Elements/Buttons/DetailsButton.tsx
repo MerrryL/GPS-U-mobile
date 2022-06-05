@@ -1,24 +1,20 @@
-import { ConstatationStackParamList } from '@/features/constatations';
-import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from "@react-navigation/core";
-import { StackNavigationProp } from '@react-navigation/stack';
+import { Ionicons } from "@expo/vector-icons";
 import React from "react";
+import { StyleProp, ViewStyle } from "react-native";
 import { Button, FullTheme, makeStyles } from "react-native-elements";
 
-type DetailsButtonProps = {
-  constatationId: number;
-};
-export default function DetailsButton({ constatationId }: DetailsButtonProps) {
-  const navigation: StackNavigationProp<ConstatationStackParamList, keyof ConstatationStackParamList, undefined> = useNavigation<StackNavigationProp<ConstatationStackParamList>>();
+interface DetailsButtonProps {
+  callBack: () => void;
+}
 
-  const styles = useStyles();
+interface StyleProps {
+  button: StyleProp<ViewStyle>;
+}
 
-  return <Button 
-  icon={<Ionicons name="eye-outline" size={24} color="white" />} 
-  type="outline" 
-  style={styles.button} 
-  onPress={() => navigation.navigate("Details", { constatationId: constatationId })}
-  />;
+export default function DetailsButton({ callBack }: DetailsButtonProps): JSX.Element {
+  const styles: StyleProps = useStyles();
+
+  return <Button icon={<Ionicons name="eye-outline" size={18} color="blue" />} type="outline" buttonStyle={styles.button} onPress={() => callBack()} />;
 }
 
 const useStyles = makeStyles((theme: Partial<FullTheme>) => ({

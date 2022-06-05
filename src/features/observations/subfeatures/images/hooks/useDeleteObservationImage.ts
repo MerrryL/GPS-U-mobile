@@ -1,19 +1,15 @@
-import { useMutation } from "react-query";
-
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
+import { useMutation } from "react-query";
+import { deleteObservationImageRequest } from "../api";
 
-import { deleteObservationImage } from "../api";
-
-import { Observation, Image } from "@/types";
-
-type UseDeleteObservationImageOptions = {
-  imageId: string;
-  observationId: string;
-  config?: MutationConfig<typeof deleteObservationImage>;
+interface UseDeleteObservationImageOptions {
+  imageRequestId: number;
+  observationId: number;
+  config?: MutationConfig<typeof deleteObservationImageRequest>;
 };
 
-export const useDeleteObservationImage = ({ imageId, observationId, config }: UseDeleteObservationImageOptions) => {
+export const useDeleteObservationImage = ({ imageRequestId, observationId, config }: UseDeleteObservationImageOptions) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {
@@ -26,6 +22,6 @@ export const useDeleteObservationImage = ({ imageId, observationId, config }: Us
       });
     },
     ...config,
-    mutationFn: deleteObservationImage,
+    mutationFn: deleteObservationImageRequest,
   });
 };

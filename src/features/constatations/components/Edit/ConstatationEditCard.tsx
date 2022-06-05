@@ -1,30 +1,38 @@
+import { FloatingButtonStack } from "@/components/Elements/Buttons/ButtonStack";
 import FormBuilder from "@/components/Elements/FormBuilder/FormBuilder";
 import DateText from "@/components/Elements/Text/DateText";
 import { Constatation, Observation, User } from "@/types";
-import { InputedField, InputedFieldSchema, InputType, PickerItem } from "@/types/utilityTypes";
+import { InputedField, InputType, PickerItem } from "@/types/utilityTypes";
 import { getObservationsOptions, getObserversOptions } from "@/utils/getOptions";
 import { AxiosError } from "axios";
 import React from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import { ScrollView, View } from "react-native";
+import { StyleProp, View, ViewStyle } from "react-native";
 import { Card, FullTheme, makeStyles } from "react-native-elements";
 import { UseMutationResult } from "react-query";
 import * as yup from "yup";
 import { UpdateConstatationOptions } from "../../api";
 import { useUpdateConstatation } from "../../hooks/useUpdateConstatation";
-import ImagesPart from "../../subfeatures/images/components/ImagesPart";
 import ConstatationValidationStatus from "./elements/ValidationStatus/ConstatationValidationStatus";
 
-type ConstatationEditCardProps = {
+interface ConstatationEditCardProps {
   constatation: Constatation;
-};
+}
+
+interface StyleProps {
+  container: StyleProp<ViewStyle>;
+  cardTitle: StyleProp<ViewStyle>;
+  body: StyleProp<ViewStyle>;
+}
 
 export function ConstatationEditCard({ constatation }: ConstatationEditCardProps): JSX.Element {
+  const styles: StyleProps = useStyles();
+
   const { actions, created_at, description, dossiers, field_groups, id, images, isValidated, localization, media, modelType, observations, observers, requiresValidation, requiresValidationDate, updated_at, validationDate } = constatation;
 
-  const styles = useStyles();
-
   const updateConstatationMutation: UseMutationResult<Constatation, AxiosError<any, any>, UpdateConstatationOptions, any> = useUpdateConstatation();
+
+  const statusText = isValidated == 1 ? "Validée" : requiresValidation == 1 ? "A valider" : "Brouillon";
 
   const constatationForm: InputedField[] = [
     {
@@ -72,7 +80,6 @@ export function ConstatationEditCard({ constatation }: ConstatationEditCardProps
       options: getObserversOptions() || [],
     },
   ];
-  const schema = yup.object().shape(constatationForm.reduce((a, iField: InputedField) => ({ ...a, [iField.name]: iField.schema }), {}));
 
   const onSubmit: SubmitHandler<FieldValues> = async ({ description, observers, observations }: FieldValues): Promise<void> => {
     await updateConstatationMutation.mutateAsync({
@@ -83,49 +90,44 @@ export function ConstatationEditCard({ constatation }: ConstatationEditCardProps
     });
   };
   return (
-    <ScrollView style={styles.container}>
-      <Card>
-        <Card.Title h2>Constatation n°{id}</Card.Title>
-        <View style={styles.dateContainer}>
-          <DateText boldText="Création" date={created_at} />
-          <DateText boldText="Dernière Modification" date={created_at} />
-          <ConstatationValidationStatus id={id} isValidated={isValidated} validationDate={validationDate} requiresValidation={requiresValidation} requiresValidationDate={requiresValidationDate} />
-        </View>
+    <Card containerStyle={styles.container}>
+      <FloatingButtonStack>
+        {/* <EditButton callBack={() => navigation.navigate("Edition", { observationId: observation?.id })}></EditButton>
+          <DetailsButton callBack={() => navigation.navigate("Details", { observationId: observation?.id })}></DetailsButton> */}
+        <ConstatationValidationStatus id={id} isValidated={isValidated} validationDate={validationDate} requiresValidation={requiresValidation} requiresValidationDate={requiresValidationDate} />
+      </FloatingButtonStack>
+      <Card.FeaturedTitle style={styles.cardTitle}>Constatation n°{id}</Card.FeaturedTitle>
+      <Card.FeaturedSubtitle style={styles.cardTitle}>{statusText}</Card.FeaturedSubtitle>
 
-        <Card.Divider />
+      <View style={styles.body}>
+        <DateText boldText="Création" date={created_at} />
+        <DateText boldText="Dernière Modification" date={created_at} />
+      </View>
 
-        <FormBuilder title="Première étape" description="Remplissez les informations requises avant de poursuivre la rédaction de cette constatation" schema={schema} fields={constatationForm} onSubmit={onSubmit} />
+      <Card.Divider />
 
-        <Card.Divider />
+      <FormBuilder title="Informations administratives" description="Informations minimales pour la rédaction d'une constatation" fields={constatationForm} onSubmit={onSubmit} />
 
-        <View style={styles.images}>
-          <ImagesPart cover={media?.[0]} images={images} constatationId={id} />
-        </View>
+      {/* <View style={styles.images}>
+        <ImagesPart cover={media?.[0]} images={images} constatationId={id} />
+      </View> */}
 
-        <Card.Divider />
+      {/* <View style={styles.localization}><LocalizationPart localization={localization} constatationId={id} /></View> */}
 
-        <View style={styles.localization}>{/* <LocalizationPart localization={localization} constatationId={id} /> */}</View>
-
-        <Card.Divider />
-
-        <View style={styles.fields}>{/* <FieldPart fields={fields} constatationId={id}/> */}</View>
-
-        <Card.Divider />
-      </Card>
-    </ScrollView>
+      {/* <View style={styles.fields}><FieldPart fields={fields} constatationId={deleteid}/></View> */}
+    </Card>
   );
 }
 
 const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
-  container: {},
-  dateContainer: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-around",
-    alignItems: "flex-end",
+  container: {
+    backgroundColor: theme.colors?.grey5,
+  },
+  cardTitle: {
+    alignSelf: "stretch",
+    padding: 2,
+    marginBottom: 0,
+    backgroundColor: theme.colors?.primary,
   },
   body: {},
-  images: {},
-  localization: {},
-  fields: {},
 }));

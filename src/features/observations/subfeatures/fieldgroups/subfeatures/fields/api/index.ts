@@ -14,24 +14,24 @@ export const getFields = ({ observationId, fieldGroupId }: GetFieldsOptions): Pr
 type GetFieldOptions = {
   observationId: number;
   fieldGroupId: number;
-  fieldId: string;
+  fieldId: number;
 };
 
 export const getField = ({ observationId, fieldGroupId, fieldId }: GetFieldOptions): Promise<Field> => {
   return axios.get(`/observations/${observationId}/field_groups/${fieldGroupId}/fields/${fieldId}`);
 };
 
-type CreateFieldOptions = {
+interface CreateFieldOptions {
   observationId: number;
   fieldGroupId: number;
   name: string;
-  type_id: number;
+  field_type_id: number;
   defaultValue: string;
   isRequired: boolean;
 };
 
-export const createField = ({ observationId, fieldGroupId, name, type_id, defaultValue, isRequired }: CreateFieldOptions): Promise<Field> => {
-  return axios.post(`/observations/${observationId}/field_groups/${fieldGroupId}/fields/`, { name, type_id, defaultValue, isRequired });
+export const createField = ({ observationId, fieldGroupId, name, field_type_id, defaultValue, isRequired }: CreateFieldOptions): Promise<Field> => {
+  return axios.post(`/observations/${observationId}/field_groups/${fieldGroupId}/fields/`, { name, field_type_id, defaultValue, isRequired });
 };
 
 type DeleteFieldOptions = {

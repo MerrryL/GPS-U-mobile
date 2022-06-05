@@ -1,20 +1,30 @@
+import { FloatingButtonStack } from "@/components/Elements/Buttons/ButtonStack";
+import DeleteButton from "@/components/Elements/Buttons/DeleteButton";
 import { Field } from "@/types";
 import React from "react";
-import { View } from "react-native";
-import { Button, Card, Text } from "react-native-elements";
+import { StyleProp, ViewStyle } from "react-native";
+import { Card, FullTheme, makeStyles, Text } from "react-native-elements";
 import { useDeleteField } from "../hooks/useDeleteField";
 import { useField } from "../hooks/useField";
 
-type FieldCardProps = {
+interface FieldCardProps {
   field: Field;
-  fieldGroupId: string;
-  constatationId: number;
-};
+  fieldGroupId: number;
+  observationId: number;
+}
 
-export function FieldCard({ fieldId, fieldGroupId, observationId }: FieldCardProps) {
-  const FieldQuery = useField({ fieldId, observationId, fieldGroupId });
+interface StyleProps {
+  container: StyleProp<ViewStyle>;
+  cardTitle: StyleProp<ViewStyle>;
+  body: StyleProp<ViewStyle>;
+}
+
+export function FieldCard({ field, fieldGroupId, observationId }: FieldCardProps) {
+  const styles: StyleProps = useStyles();
+
+  const FieldQuery = useField({ fieldId: field.id, observationId, fieldGroupId });
   const fieldDeleteMutation = useDeleteField({
-    fieldId,
+    fieldId: field.id,
     observationId,
     fieldGroupId,
   });
@@ -22,19 +32,32 @@ export function FieldCard({ fieldId, fieldGroupId, observationId }: FieldCardPro
   const onDeleteSubmit = async () => {
     //todo: pause
     await fieldDeleteMutation.mutateAsync({
-      fieldId,
+      fieldId: field.id,
       observationId,
       fieldGroupId,
     });
   };
   return (
-    <View style={{ margin: 10 }}>
-      <Card>
-        <Card.Title>{FieldQuery?.data?.name}</Card.Title>
-        <Text h4>Type: {FieldQuery?.data?.type}</Text>
-        <Text h5>{FieldQuery?.data?.isDefault ? "Champ obligatoire" : "Champ non obligatoire"}</Text>
-        <Button title="Supprimer le champ" onPress={onDeleteSubmit} />
-      </Card>
-    </View>
+    <Card containerStyle={styles.container}>
+      <FloatingButtonStack>
+        <DeleteButton callBack={onDeleteSubmit} />
+      </FloatingButtonStack>
+      <Card.FeaturedTitle style={styles.cardTitle}>{FieldQuery?.data?.name}</Card.FeaturedTitle>
+      <Card.FeaturedSubtitle style={styles.cardTitle}>Type: {FieldQuery?.data?.type}</Card.FeaturedSubtitle>
+      <Text h4>{FieldQuery?.data?.isRequired ? "Champ obligatoire" : "Champ non obligatoire"}</Text>
+    </Card>
   );
 }
+
+const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+  container: {
+    backgroundColor: theme.colors?.grey5,
+  },
+  cardTitle: {
+    alignSelf: "stretch",
+    padding: 2,
+    marginBottom: 0,
+    backgroundColor: theme.colors?.primary,
+  },
+  body: {},
+}));

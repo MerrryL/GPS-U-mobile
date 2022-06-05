@@ -1,20 +1,30 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
+import CheckBoxInput from "@/components/Elements/Inputs/CheckboxInput";
 import MultiPickerInput from "@/components/Elements/Inputs/MultiPickerInput";
 import PickerInput from "@/components/Elements/Inputs/PickerInput";
 import TextInput from "@/components/Elements/Inputs/TextInput";
 import { InputedField, InputType } from "@/types/utilityTypes";
 import React from "react";
 import { Control, useController } from "react-hook-form";
-import { View } from "react-native";
+import { Card, FullTheme, makeStyles, Text } from "react-native-elements";
+import NormalText from "../Text/NormalText";
 
-type InputFromFieldProps<TFieldValues> = {
+interface InputFromFieldProps<TFieldValues> {
   f: InputedField;
   key: React.Key;
   control: Control<TFieldValues>;
-};
+}
+
+interface StyleProps {
+  container: StyleProp<ViewStyle>;
+  errorText: StyleProp<TextStyle>;
+  border: StyleProp<TextStyle>;
+}
 
 export default function InputSelector<TFieldValues>({ f, control }: InputFromFieldProps<TFieldValues>): JSX.Element {
+  const styles: StyleProps = useStyles();
+
   const { field, fieldState, formState } = useController({
     control: control,
     name: f.name,
@@ -25,42 +35,30 @@ export default function InputSelector<TFieldValues>({ f, control }: InputFromFie
     field: field,
     fieldState: fieldState,
     formState: formState,
+    ...f,
   };
 
-  if ([InputType.Text, InputType.Password, InputType.Email].includes(f.type)) {
-    return <TextInput {...inputProps} {...f} />;
-  }
+  return (
+    <Card containerStyle={styles.container}>
+      <NormalText boldText={f.label ?? field.name} />
 
-  if (f.type === InputType.Select) {
-    return <PickerInput {...inputProps} {...f} />;
-  }
+      {[InputType.Text, InputType.Password, InputType.Email].includes(f.type) && <TextInput {...inputProps} {...f} />}
+      {f.type === InputType.Select && <PickerInput {...inputProps} />}
+      {f.type === InputType.Multiselect && <MultiPickerInput {...inputProps} />}
+      {f.type === InputType.CheckBox && <CheckBoxInput {...inputProps} />}
 
-  if (f.type === InputType.Multiselect) {
-    return <MultiPickerInput {...inputProps} {...f} />;
-  }
-
-  // if (f.type === InputType.CheckBox) {
-  //   return <CheckBoxInput {...inputProps} />;
-  // }
-
-  // if (f.type === 'radio') {
-  //     return (
-  //     )
-  // }
-
-  //Todo: image picker?
-  // if (f.type === 'image') {
-  //     return (
-  //     )
-  // }
-
-  // if(f.type.value = 'date'){
-  //     return (
-  //         <DatePicker
-
-  //         />
-  //     )
-  // }
-
-  return <View>ERROR</View>;
+      {fieldState.error?.message && <Text style={styles.errorText}>{fieldState.error.message}</Text>}
+    </Card>
+  );
 }
+const useStyles: (props?: unknown) => StyleProps = makeStyles((theme: Partial<FullTheme>) => ({
+  container: {
+    backgroundColor: theme.colors?.white,
+    marginBottom: "6px",
+    padding: 3,
+    margin: 3,
+  },
+  errorText: {
+    color: theme.colors.error,
+  },
+}));

@@ -4,19 +4,14 @@ import { Notifications } from "@/components/Notifications";
 import { AuthProvider } from "@/lib/auth";
 import { queryClient } from "@/lib/react-query";
 import { NavigationContainer } from "@react-navigation/native";
-import Constants from "expo-constants";
 import * as React from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { View } from "react-native";
-import { ColorSchemeName, useColorScheme } from "react-native-appearance";
 import { Text, ThemeProvider } from "react-native-elements";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
 
-const ErrorFallback: (props: {
-    error: Error;
-}) => JSX.Element = (props: { error: Error }):JSX.Element => {
+const ErrorFallback: (props: { error: Error }) => JSX.Element = (props: { error: Error }): JSX.Element => {
   // const navigation= useNavigation();
   return (
     <View>
@@ -32,9 +27,7 @@ type AppProviderProps = {
   children: React.ReactNode;
 };
 
-export const AppProvider: ({ children }: AppProviderProps) => JSX.Element = ({ children }: AppProviderProps):JSX.Element => {
-  const colorScheme:ColorSchemeName = useColorScheme();
-
+export const AppProvider: ({ children }: AppProviderProps) => JSX.Element = ({ children }: AppProviderProps): JSX.Element => {
   const theme = {
     colors: {
       tifannyBlue: "#A0E7E5",
@@ -44,14 +37,13 @@ export const AppProvider: ({ children }: AppProviderProps) => JSX.Element = ({ c
       ivory: "#EEEDE7",
     },
   };
-  // const Context = React.createContext(null);
 
   return (
-    <ThemeProvider theme={theme} useDark={colorScheme === "dark"}>
+    // <ThemeProvider theme={theme} useDark={colorScheme === "dark"}>
+    <ThemeProvider theme={theme} useDark={false}>
       <React.Suspense fallback={<Spinner />}>
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <QueryClientProvider client={queryClient}>
-            {Constants?.manifest?.extra?.ENV === "test" && <ReactQueryDevtools initialIsOpen={false} />}
             <Notifications />
             <AuthProvider>
               <SafeAreaProvider>

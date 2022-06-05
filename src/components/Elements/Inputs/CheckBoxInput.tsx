@@ -1,36 +1,32 @@
-import { RHFField, RHFFormState, RHFieldState } from "@/types/utilityTypes";
-import React, { useState } from "react";
-import { CheckBox, Text } from "react-native-elements";
+import { PickerItem } from "@/types/utilityTypes";
+import React, { useEffect, useState } from "react";
+import { ControllerFieldState, ControllerRenderProps, FieldValues, UseFormStateReturn } from "react-hook-form";
+import { StyleProp, ViewStyle } from "react-native";
+import { CheckBox, FullTheme, makeStyles } from "react-native-elements";
 
-type CheckBoxInputType = {
-  field: RHFField;
-  fieldState: RHFieldState;
-  formState: RHFFormState;
-};
-
-export default function CheckBoxInput(props: CheckBoxInputType):JSX.Element {
-  const { field, fieldState } = props;
-
-  const [isSelected, setSelection] = useState(field.value || field.defaultValue || false);
-
-  const { ref, ...field2 } = field;
-
-  const inputConfig = {
-    ...field2,
-    checked: isSelected,
-    title: field.label,
-    placeholder: field.label,
-    onPress: () => {
-      setSelection(!isSelected);
-      field.onChange(!isSelected);
-    },
-  };
-
-  return (
-    <>
-      <CheckBox {...inputConfig} />
-      {/* <Text>{formState.isDirty ? "modifié" : "pas modifié"}</Text> */}
-      <Text>{fieldState?.error?.message}</Text>
-    </>
-  );
+interface CheckBoxInputProps {
+  field: ControllerRenderProps<FieldValues>;
+  fieldState: ControllerFieldState;
+  formState: UseFormStateReturn<FieldValues>;
+  label?: string;
+  options: PickerItem[];
+  defaultValue?: PickerItem;
 }
+
+interface StyleProps {
+  checkbox: StyleProp<ViewStyle>;
+}
+export default function CheckBoxInput(props: CheckBoxInputProps): JSX.Element {
+  const styles: StyleProps = useStyles();
+
+  const [isChecked, toggle] = useState<boolean>(props.field.value || props.defaultValue || false);
+
+  useEffect((): void => {
+    props.field.onChange(isChecked);
+  }, [isChecked]);
+
+  return <CheckBox checked={isChecked} style={styles.checkbox} onPress={() => toggle((prevState: boolean): boolean => !prevState)} />;
+}
+const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+  checkbox: {},
+}));

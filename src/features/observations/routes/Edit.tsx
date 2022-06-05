@@ -1,10 +1,14 @@
+import { ImagesPart } from "@/features/observations/subfeatures/images/components/ImagesPart";
+import { Fontisto, MaterialCommunityIcons } from "@expo/vector-icons";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
-import { Card } from "react-native-elements";
+import { ScrollView } from "react-native";
+import { Card, Tab, TabView } from "react-native-elements";
 import { ObservationStackParamList } from "..";
 import { ObservationEditCard } from "../components/Edit/ObservationEditCard";
 import { useObservation } from "../hooks/useObservation";
+import { FieldGroupsPart } from "../subfeatures/fieldgroups/components/FieldGroupsPart";
 
 interface ObservationEditProps {
   navigation: StackNavigationProp<ObservationStackParamList, "Edition">;
@@ -19,5 +23,43 @@ export default function Edit(props: ObservationEditProps) {
   });
   const observation = observationQuery?.data;
 
-  return observation !== undefined ? <ObservationEditCard observation={observation} /> : <Card>Error</Card>;
+  // return observation !== undefined ? <ObservationEditCard observation={observation} /> : <Card>Error</Card>;
+  const [index, setIndex] = React.useState<number>(0);
+  return observation !== undefined ? (
+    <>
+      <Tab
+        value={index}
+        onChange={(e: number) => setIndex(e)}
+        indicatorStyle={{
+          backgroundColor: "white",
+          height: 2,
+        }}
+        variant="primary"
+      >
+        <Tab.Item title="Administratif" titleStyle={{ fontSize: 12 }} icon={<MaterialCommunityIcons name="folder-information-outline" size={16} color="white" />} />
+        <Tab.Item title="Images" titleStyle={{ fontSize: 12 }} icon={<Fontisto name="photograph" size={16} color="white" />} />
+        <Tab.Item title="Questionnaires" titleStyle={{ fontSize: 12 }} icon={<MaterialCommunityIcons name="file-document-multiple-outline" size={16} color="white" />} />
+      </Tab>
+
+      <TabView value={index} onChange={setIndex} animationType="spring">
+        <TabView.Item style={{ width: "100%" }}>
+          <ScrollView>
+            <ObservationEditCard observation={observation} />
+          </ScrollView>
+        </TabView.Item>
+        <TabView.Item style={{ width: "100%" }}>
+          <ScrollView>
+            <ImagesPart observation={observation}></ImagesPart>
+          </ScrollView>
+        </TabView.Item>
+        <TabView.Item style={{ width: "100%" }}>
+          <ScrollView>
+            <FieldGroupsPart observation={observation} />
+          </ScrollView>
+        </TabView.Item>
+      </TabView>
+    </>
+  ) : (
+    <Card>Error</Card>
+  );
 }

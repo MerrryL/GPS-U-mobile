@@ -1,3 +1,4 @@
+
 export type BaseEntity = {
   id: number;
   created_at: string;
@@ -5,9 +6,7 @@ export type BaseEntity = {
 };
 
 export type Constatation = {
-  actions: Action[];
   description: string;
-  dossiers: Dossier[];
   field_groups: FieldGroup[];
   images: Image[];
   isValidated: number;
@@ -31,35 +30,12 @@ export type ImageToSend = {
   width: number;
 } & BaseEntity;
 
-export type Action = {
-  name: string;
-  pivot: ActionPivot;
-} & BaseEntity;
-
-export type ActionPivot = {
-  action_id: string;
-  constatation_id: string;
-} & BaseEntity;
-
-export type Dossier = {
-  name: string;
-  isCurrent: string;
-  pivot: DossierPivot;
-} & BaseEntity;
-
-export type DossierPivot = {
-  constatation_id: string;
-  dossier_id: string;
-} & BaseEntity;
-
 export type FieldGroup = {
   constatation_id: string;
   description: string;
   fields: Field[];
-  logical_operator: string;
   name: string;
   title: string;
-  type: string;
 } & BaseEntity;
 
 export type Field = {
@@ -70,8 +46,6 @@ export type Field = {
   name: string;
   options: string;
   pivot: ConstFieldPivot;
-  type_id: string;
-  type: FieldType;
 } & BaseEntity;
 
 export type FieldType = {
@@ -110,26 +84,43 @@ export type Media = {
 export interface GeneratedConversions {
   thumb: boolean;
 }
-export type Localization = {
-  accuracy: any;
-  address_components: any;
-  altitude: any;
-  altitudeAccuracy: any;
-  constatation_id: string;
-  formatted_address: any;
-  given_name: string;
-  heading: any;
-  latitude: number;
-  longitude: number;
-  place_id: any;
-  speed: any;
-  viewport: any;
-} & BaseEntity;
 
-export type Marker = {
-  latitude: number;
-  longitude: number;
-};
+export interface Northeast {
+    lat: number;
+    lng: number;
+}
+
+export interface Southwest {
+    lat: number;
+    lng: number;
+}
+
+export interface Viewport {
+    northeast: Northeast;
+    southwest: Southwest;
+}
+
+export interface AddressComponent {
+    long_name: string;
+    short_name: string;
+    types: string[];
+}
+
+export type Localization = {
+  accuracy?: number | null;
+  address_components?: AddressComponent[];
+  altitude?:  number | null;
+  altitudeAccuracy?: number | null;
+  constatation_id?: number;
+  formatted_address?: string;
+  given_name?: string;
+  heading?: number | null;
+  latitude?: number | null;
+  longitude?: number | null;
+  place_id?: number;
+  speed?: number | null;
+  viewport?: Viewport;
+} & Partial<BaseEntity>;
 
 export type User = {
   bio: string;
@@ -152,14 +143,22 @@ export interface Observation{
   description: string;
   field_groups: FieldGroup[];
   fine_amount: string;
-  images: Image[];
+  image_requests: ImageRequest[];
   name: string;
   observation_type_id: number;
   observation_type: ObservationType;
   short_description: string;
-    id: number;
+  id: number;
   created_at: string;
   updated_at: string;
+}
+
+export interface ImageRequest{
+  id: number;
+  created_at: string;
+  updated_at: string;
+  name: string;
+  description: string;
 }
 
 export type ObservationType = {
@@ -173,30 +172,3 @@ export type Codex = {
   precode: string;
 } & BaseEntity;
 
-export type Followup = {
-  description: string;
-  followup_status: FollowupStatus;
-  name: string;
-  observation: Observation;
-  supervisor: Supervisor;
-  tasks: Task[];
-} & BaseEntity;
-
-export type Status = {
-  name: string;
-} & BaseEntity;
-
-export type FollowupStatus = Status;
-
-export type Task = {
-  description: string;
-  followup: Followup[];
-  name: string;
-  operators: Operator[];
-  realisation_date: Date;
-  report_date: Date;
-  report_periodicity: Date;
-  task_status: TaskStatus;
-};
-
-export type TaskStatus = Status;

@@ -1,19 +1,29 @@
+import { FloatingButtonStack } from "@/components/Elements/Buttons/ButtonStack";
 import DeleteButton from "@/components/Elements/Buttons/DeleteButton";
-import { Observation } from "@/types";
+import { Field, FieldGroup, Observation } from "@/types";
 import React from "react";
-import { View } from "react-native";
-import { Card, Text } from "react-native-elements";
+import { StyleProp, ViewStyle } from "react-native";
+import { Card, FullTheme, makeStyles } from "react-native-elements";
 import { useDeleteObservationFieldGroup } from "../hooks/useDeleteObservationFieldGroups";
 import { useObservationFieldGroup } from "../hooks/useObservationFieldGroup";
+import { FieldsAdd } from "../subfeatures/fields/components/FieldAdd";
+import { FieldCard } from "../subfeatures/fields/components/FieldCard";
 
-type ObservationFieldGroupCardProps = {
+interface ObservationFieldGroupCardProps {
   fieldGroupId: number;
   observation: Observation;
-};
+}
 
-export function FieldGroupCard({ fieldGroupId, observation }: ObservationFieldGroupCardProps) {
+interface StyleProps {
+  container: StyleProp<ViewStyle>;
+  cardTitle: StyleProp<ViewStyle>;
+  body: StyleProp<ViewStyle>;
+}
+
+export function FieldGroupCard({ fieldGroupId, observation }: ObservationFieldGroupCardProps): JSX.Element {
+  const styles: StyleProps = useStyles();
   const ObservationFieldGroupQuery = useObservationFieldGroup({ observationId: observation.id, fieldGroupId });
-  const fieldGroup = ObservationFieldGroupQuery.data;
+  const fieldGroup: FieldGroup | undefined = ObservationFieldGroupQuery.data;
 
   const fieldGroupDeleteMutation = useDeleteObservationFieldGroup({
     observationId: observation.id,
@@ -28,17 +38,35 @@ export function FieldGroupCard({ fieldGroupId, observation }: ObservationFieldGr
   };
 
   return (
-    <View style={{ margin: 10 }}>
-      <Card>
+    <Card containerStyle={styles.container}>
+      <FloatingButtonStack>
         <DeleteButton callBack={onDeleteSubmit} />
-        <Card.Title>Groupe: {fieldGroup?.name}</Card.Title>
-        <Text>Type: {fieldGroup?.type}</Text>
-        <Text>Opérateur logique: {fieldGroup?.logical_operator}</Text>
-        {/* <FieldsAdd observation={observation} fieldGroup={fieldGroup} />
-        {fieldGroup?.fields?.map((field) => (
-          <FieldCard fieldId={field?.id} observationId={observationId} fieldGroupId={field?.field_group_id} key={field?.id} />
-        ))} */}
-      </Card>
-    </View>
+      </FloatingButtonStack>
+      <Card.FeaturedTitle style={styles.cardTitle}>Questionnaire: {fieldGroup?.name}</Card.FeaturedTitle>
+      <Card.FeaturedSubtitle style={styles.cardTitle}>{fieldGroup?.description}</Card.FeaturedSubtitle>
+
+      {fieldGroup?.fields?.map(
+        (field: Field): JSX.Element => (
+          <FieldCard field={field} observationId={observation.id} fieldGroupId={fieldGroup.id} key={field?.id} />
+        )
+      )}
+
+      {fieldGroup?.fields.length === 0 && <Card.Title>Aucune question définie actuellement</Card.Title>}
+
+      {fieldGroup && <FieldsAdd observation={observation} fieldGroup={fieldGroup} />}
+    </Card>
   );
 }
+
+const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+  container: {
+    backgroundColor: theme.colors?.grey5,
+  },
+  cardTitle: {
+    alignSelf: "stretch",
+    padding: 2,
+    marginBottom: 0,
+    backgroundColor: theme.colors?.primary,
+  },
+  body: {},
+}));

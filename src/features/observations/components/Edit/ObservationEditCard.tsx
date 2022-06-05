@@ -1,3 +1,4 @@
+import { FloatingButtonStack } from "@/components/Elements/Buttons/ButtonStack";
 import FormBuilder from "@/components/Elements/FormBuilder/FormBuilder";
 import DateText from "@/components/Elements/Text/DateText";
 import { Observation } from "@/types";
@@ -6,20 +7,25 @@ import { getCodexesOptions, getObservationTypesOptions } from "@/utils/getOption
 import { AxiosError } from "axios";
 import React from "react";
 import { SubmitHandler } from "react-hook-form";
-import { ScrollView, View } from "react-native";
+import { StyleProp, View, ViewStyle } from "react-native";
 import { Card, FullTheme, makeStyles } from "react-native-elements";
 import { UseMutationResult } from "react-query";
 import * as yup from "yup";
 import { UpdateObservationOptions } from "../../api";
 import { useUpdateObservation } from "../../hooks/useUpdateObservation";
-import { FieldGroupsPart } from "../../subfeatures/fieldgroups/components/FieldGroupsPart";
 
-type ObservationEditCardProps = {
+interface ObservationEditCardProps {
   observation: Observation;
-};
+}
+
+interface StyleProps {
+  container: StyleProp<ViewStyle>;
+  cardTitle: StyleProp<ViewStyle>;
+  body: StyleProp<ViewStyle>;
+}
 
 export function ObservationEditCard({ observation }: ObservationEditCardProps): JSX.Element {
-  const styles = useStyles();
+  const styles: StyleProps = useStyles();
 
   const updateObservationMutation: UseMutationResult<Observation, AxiosError<any, any>, UpdateObservationOptions, any> = useUpdateObservation();
 
@@ -88,36 +94,34 @@ export function ObservationEditCard({ observation }: ObservationEditCardProps): 
     });
   };
   return (
-    <ScrollView style={styles.container}>
-      <Card>
-        <Card.Title h2>Observation n°{observation.id}</Card.Title>
-        <View style={styles.dateContainer}>
-          <DateText boldText="Création" date={observation.created_at} />
-          <DateText boldText="Dernière Modification" date={observation.updated_at} />
-        </View>
+    <Card containerStyle={styles.container}>
+      <FloatingButtonStack>
+        {/* <EditButton callBack={() => navigation.navigate("Edition", { observationId: observation?.id })}></EditButton>
+        <DetailsButton callBack={() => navigation.navigate("Details", { observationId: observation?.id })}></DetailsButton> */}
+      </FloatingButtonStack>
+      {/* <Card.FeaturedTitle style={styles.cardTitle}>Observation</Card.FeaturedTitle> */}
 
-        <Card.Divider />
+      <View style={styles.body}>
+        <DateText boldText="Création" date={observation.created_at} />
+        <DateText boldText="Dernière Modification" date={observation.created_at} />
+      </View>
 
-        <FormBuilder title="Première étape" description="Remplissez les informations requises avant de poursuivre la paramétrisation de cette observation" fields={observationForm} onSubmit={onSubmit} />
+      <Card.Divider />
 
-        <Card.Divider />
-        <FieldGroupsPart observation={observation}></FieldGroupsPart>
-        {/* <FormBuilder title="Images" description="Quelles photos doivent être inclues dans cette observation" schema={schema} fields={imagesForm} onSubmit={onSubmit} /> */}
-      </Card>
-    </ScrollView>
+      <FormBuilder title="Informations administratives" description="Informations minimales pour la rédaction d'une observation" fields={observationForm} onSubmit={onSubmit} />
+    </Card>
   );
 }
 
 const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
-  container: {},
-  dateContainer: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-around",
-    alignItems: "flex-end",
+  container: {
+    backgroundColor: theme.colors?.grey5,
+  },
+  cardTitle: {
+    alignSelf: "stretch",
+    padding: 2,
+    marginBottom: 0,
+    backgroundColor: theme.colors?.primary,
   },
   body: {},
-  images: {},
-  localization: {},
-  fields: {},
 }));

@@ -2,8 +2,8 @@ import OpenCoords from "@/components/Address/OpenCoordsLink";
 import AddressText from "@/components/Elements/Text/AddressText";
 import { Localization } from "@/types";
 import React from "react";
-import { View } from "react-native";
-import { FullTheme, makeStyles } from "react-native-elements";
+import { StyleProp, ViewStyle } from "react-native";
+import { Card, FullTheme, makeStyles } from "react-native-elements";
 
 type ConstatationAddressProps = {
   localization: Localization;
@@ -11,19 +11,25 @@ type ConstatationAddressProps = {
 
 //TODO : implement addresss functionnality
 //Create, add, delete, link
+interface StyleProps {
+  container: StyleProp<ViewStyle>;
+}
 
-export default function ConstatationAddress(props: ConstatationAddressProps) {
+export default function ConstatationAddress(props: ConstatationAddressProps): JSX.Element {
   const { localization } = props;
-  const styles = useStyles();
+  const styles: StyleProps = useStyles();
 
   return (
-    <View style={styles.container}>
+    <Card containerStyle={styles.container}>
       <AddressText address={localization?.formatted_address} />
       {localization && localization.latitude && localization.longitude && <OpenCoords latitude={localization.latitude} longitude={localization.longitude} />}
-    </View>
+    </Card>
   );
 }
 
 const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
-  container: {},
+  container: {
+    padding: 3,
+    margin: 3,
+  },
 }));

@@ -1,29 +1,37 @@
 import LongText from "@/components/Elements/Text/LongText";
-import Title from "@/components/Elements/Text/Title";
+import NormalText from "@/components/Elements/Text/NormalText";
 import React from "react";
-import { View } from "react-native";
-import { makeStyles } from "react-native-elements";
+import { StyleProp, ViewStyle } from "react-native";
+import { Card, FullTheme, makeStyles } from "react-native-elements";
 
 type ConstatationDescriptionProps = {
   description: string;
 };
 
+interface StyleProps {
+  container: StyleProp<ViewStyle>;
+}
+
 export default function ConstatationDescription(props: ConstatationDescriptionProps) {
   const { description = "" } = props;
-  const styles = useStyles();
+  const styles: StyleProps = useStyles();
 
   return (
     <>
       {description && (
-        <View style={styles.container}>
-          <Title title="Description" />
+        <Card containerStyle={styles.container}>
+          <NormalText boldText="Description" boldTextStyle={{ fontSize: 18 }}></NormalText>
           <LongText text={description} />
-        </View>
+        </Card>
       )}
     </>
   );
 }
 
 const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
-  container: {},
+  container: {
+    padding: 3,
+    margin: 3,
+    // backgroundColor: theme.colors?.grey5,
+  },
 }));

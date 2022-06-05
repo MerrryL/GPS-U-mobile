@@ -1,31 +1,29 @@
+import AddButton from "@/components/Elements/Buttons/AddButton";
+import { FloatingButtonStack } from "@/components/Elements/Buttons/ButtonStack";
+import CollapseButton from "@/components/Elements/Buttons/CollapseButton";
 import FormBuilder from "@/components/Elements/FormBuilder/FormBuilder";
 import { Observation } from "@/types";
 import { InputedField, InputType, yupPickerItem } from "@/types/utilityTypes";
-import React from "react";
-import { ScrollView } from "react-native";
+import React, { useState } from "react";
+import { StyleProp, View, ViewStyle } from "react-native";
 import { Card, FullTheme, makeStyles } from "react-native-elements";
 import * as yup from "yup";
 import { useCreateObservationFieldGroup } from "../hooks/useCreateObservationFieldGroup";
-
-type FieldGroupsValues = {
-  name: string;
-  type: string;
-  logical_operator: string;
-};
-
-const schema = yup.object().shape({
-  name: yup.string().required(),
-  type: yup.string().required(),
-  logical_operator: yup.string().required(),
-});
 
 interface FieldGroupAddProps {
   observation: Observation;
 }
 
+interface StyleProps {
+  container: StyleProp<ViewStyle>;
+  children: StyleProp<ViewStyle>;
+}
+
 export function FieldGroupsAdd({ observation }: FieldGroupAddProps): JSX.Element {
   const fieldGroupCreateMutation = useCreateObservationFieldGroup();
-  const styles = useStyles();
+  const styles: StyleProps = useStyles();
+
+  const [isExpanded, toggle] = useState<boolean>(false);
 
   const newFieldGroupForm: InputedField[] = [
     {
@@ -63,24 +61,33 @@ export function FieldGroupsAdd({ observation }: FieldGroupAddProps): JSX.Element
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <Card>
-        <FormBuilder title="Nouveau questionnaire" description="Crée un nouveau questionnaire à populer de questions" fields={newFieldGroupForm} onSubmit={onSubmit} />
-      </Card>
-    </ScrollView>
+    <Card containerStyle={styles.container}>
+      {isExpanded ? (
+        <>
+          <FloatingButtonStack>
+            <CollapseButton callBack={() => toggle((prevState: boolean): boolean => !prevState)}></CollapseButton>
+          </FloatingButtonStack>
+          <View style={styles.children}>
+            <FormBuilder title="Nouveau questionnaire" description="Crée un nouveau questionnaire à populer de questions" fields={newFieldGroupForm} onSubmit={onSubmit} />
+          </View>
+        </>
+      ) : (
+        <AddButton callBack={() => toggle((prevState: boolean): boolean => !prevState)}></AddButton>
+      )}
+    </Card>
   );
 }
 
 const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
-  container: {},
-  dateContainer: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-around",
-    alignItems: "flex-end",
+  container: {
+    minHeight: "50px",
+    padding: 3,
+    margin: 3,
   },
-  body: {},
-  images: {},
-  localization: {},
-  fields: {},
+  children: {
+    minHeight: "50px",
+    padding: 0,
+    margin: 0,
+    marginTop: "50px",
+  },
 }));

@@ -3,14 +3,7 @@ import { MutationConfig, queryClient } from "@/lib/react-query";
 import { useMutation } from "react-query";
 import { createObservationFieldGroup } from "../api";
 
-
-
-
 export interface UseCreateObservationFieldGroupOptions {
-  // observationId: number;
-  // name: string;
-  // type: string;
-  // logical_operator: string;
   config?: MutationConfig<typeof createObservationFieldGroup>;
 };
 

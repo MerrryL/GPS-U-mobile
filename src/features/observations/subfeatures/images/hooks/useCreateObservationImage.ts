@@ -1,17 +1,13 @@
-import { useMutation } from "react-query";
-
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { MutationConfig, queryClient } from "@/lib/react-query";
+import { useMutation } from "react-query";
+import { createObservationImageRequest } from "../api";
 
-import { createObservationImage } from "../api";
-import { Observation, Image } from "@/types";
-
-type UseCreateObservationImageOptions = {
-  observationId: string;
-  config?: MutationConfig<typeof createObservationImage>;
+export interface  UseCreateObservationImageOptions {
+  config?: MutationConfig<typeof createObservationImageRequest>;
 };
 
-export const useCreateObservationImage = ({ observationId, config }: UseCreateObservationImageOptions) => {
+export const useCreateObservationImage = ({config }: UseCreateObservationImageOptions = {}) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {
@@ -24,6 +20,6 @@ export const useCreateObservationImage = ({ observationId, config }: UseCreateOb
       });
     },
     ...config,
-    mutationFn: createObservationImage,
+    mutationFn: createObservationImageRequest,
   });
 };

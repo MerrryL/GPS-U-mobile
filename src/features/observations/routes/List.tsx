@@ -39,7 +39,7 @@ export default function List({ route, navigation }: ObservationListProps) {
           <ObservationCard observation={observation} key={index} />
         ))}
       </ScrollView>
-      <FAB title="+" placement="right" size="large" onPress={() => handleCreation()} />
+      <FAB title="+" placement="right" color="#2ECC71" size="large" onPress={() => handleCreation()} />
     </>
   );
 }

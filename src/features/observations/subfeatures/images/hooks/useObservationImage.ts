@@ -1,19 +1,19 @@
-import { useQuery } from "react-query";
-
 import { QueryConfig } from "@/lib/react-query";
+import { useQuery } from "react-query";
+import { getObservationImageRequest } from "../api";
 
-import { getObservationImage } from "../api";
+
 
 type UseObservationImageOptions = {
-  imageId: string;
-  observationId: string;
-  config?: QueryConfig<typeof getObservationImage>;
+  imageRequestId: number;
+  observationId: number;
+  config?: QueryConfig<typeof getObservationImageRequest>;
 };
 
-export const useObservationImage = ({ imageId, observationId, config }: UseObservationImageOptions) => {
+export const useObservationImage = ({ imageRequestId, observationId, config }: UseObservationImageOptions) => {
   return useQuery({
+    queryKey: ["image_requests", imageRequestId],
+    queryFn: () => getObservationImageRequest({ observationId: observationId, imageRequestId: imageRequestId }),
     ...config,
-    queryKey: ["images", imageId],
-    queryFn: () => getObservationImage({ observationId: observationId, imageId: imageId }),
   });
 };

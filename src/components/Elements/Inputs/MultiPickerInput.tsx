@@ -1,29 +1,25 @@
-import { PickerItem, RHFField, RHFFormState, RHFieldState } from "@/types/utilityTypes";
+import { PickerItem } from "@/types/utilityTypes";
 import { xorBy } from "lodash";
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
-import { FullTheme, makeStyles, Text } from "react-native-elements";
+import { ControllerFieldState, ControllerRenderProps, FieldValues, UseFormStateReturn } from "react-hook-form";
 import SelectBox from "react-native-multi-selectbox-typescript";
-import NormalText from "../Text/NormalText";
 
-type MultiPickerInputProps = {
-  field: RHFField;
-  fieldState: RHFieldState;
-  formState: RHFFormState;
-  label?: string;
+interface MultiPickerInputProps {
+  field: ControllerRenderProps<FieldValues>;
+  fieldState: ControllerFieldState;
+  formState: UseFormStateReturn<FieldValues>;
   defaultValue?: PickerItem[];
   options: PickerItem[];
-};
+  label: string;
+}
 
-export default function MultiPickerInput({ field, fieldState, label = field.name, defaultValue = [], options }: MultiPickerInputProps):JSX.Element {
-  const { ref, ...rest } = field;
+export default function MultiPickerInput(props: MultiPickerInputProps): JSX.Element {
+  const { ref, ...rest } = props.field;
 
-  const styles = useStyles();
-
-  const [currentSelection, setCurrentSelection] = useState(field?.value || []);
+  const [currentSelection, setCurrentSelection] = useState(props.field?.value || []);
 
   useEffect((): void => {
-    field.onChange(currentSelection);
+    props.field.onChange(currentSelection);
   }, [currentSelection]);
 
   const containerStyle = {};
@@ -43,11 +39,11 @@ export default function MultiPickerInput({ field, fieldState, label = field.name
   const inputConfig = {
     ...rest,
     label: "",
-    options: options,
-    selectedValues: currentSelection ?? defaultValue,
+    options: props.options,
+    selectedValues: currentSelection ?? props.defaultValue,
     onMultiSelect: onMultiChange(),
     onTapClose: onMultiChange(),
-    inputPlaceholder: "Choisissez une/des " + label?.toLowerCase(),
+    inputPlaceholder: "Choisissez une/des " + props.label?.toLowerCase(),
     listEmptyText: "Pas de résultats",
     isMulti: true,
     listOptionProps: listOptionProps,
@@ -55,35 +51,11 @@ export default function MultiPickerInput({ field, fieldState, label = field.name
     multiSelectInputFieldProps: multiSelectInputFieldProps,
   };
 
-  return (
-    <View style={styles.container}>
-      <NormalText boldText={label} />
-      <SelectBox {...inputConfig} multiListEmptyLabelStyle={{ flexDirection: "column" }} />
-      <Text>{fieldState?.error?.message}</Text>
-      <Text style={styles.border}></Text>
-    </View>
-  );
+  return <SelectBox {...inputConfig} multiListEmptyLabelStyle={{ flexDirection: "column" }} />;
 
-  function onMultiChange():(item:PickerItem)=> void {
-    return (item: PickerItem): void => {
+  function onMultiChange(): (item: { id: number | string; item: string }) => void {
+    return (item: { id: number | string; item: string }): void => {
       setCurrentSelection(xorBy(currentSelection, [item], "id"));
     };
   }
 }
-
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
-  container: {
-    paddingRight: "10px",
-    paddingLeft: "10px",
-    marginBottom: "10px",
-    flex: 1,
-    flexDirection: "column",
-    flexBasis: "auto",
-  },
-  label: { fontSize: 16, fontWeight: "bold", color: theme?.colors?.grey3 },
-  border: {
-    marginTop: "10px",
-    borderBottomColor: theme?.colors?.grey3,
-    borderBottomWidth: 1,
-  },
-}));

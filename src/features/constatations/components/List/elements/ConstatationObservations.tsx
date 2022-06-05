@@ -1,13 +1,12 @@
 import NormalText from "@/components/Elements/Text/NormalText";
-import Title from "@/components/Elements/Text/Title";
 import { Observation } from "@/types";
 import React from "react";
-import { View } from "react-native";
-import { FullTheme, makeStyles } from "react-native-elements";
+import { StyleProp, ViewStyle } from "react-native";
+import { Card, FullTheme, makeStyles } from "react-native-elements";
 
-type ConstatationObservationsProps = {
+interface ConstatationObservationsProps {
   observations: Observation[];
-};
+}
 
 // name: string;
 // code: string;
@@ -18,25 +17,30 @@ type ConstatationObservationsProps = {
 // observation_type: ObservationType;
 // field_groups: FieldGroup[];
 // images
-
+interface StyleProps {
+  container: StyleProp<ViewStyle>;
+}
 //TODO: add link and other functionnalities + extra checking etc
 
-export default function ConstatationObservations(props: ConstatationObservationsProps) {
-  const { observations } = props;
-  const styles = useStyles();
+export default function ConstatationObservations({ observations }: ConstatationObservationsProps): JSX.Element {
+  const styles: StyleProps = useStyles();
 
   return (
-    <View style={styles.container}>
-      <Title title="Observations" />
+    <Card containerStyle={styles.container}>
+      <NormalText boldText="Observations" boldTextStyle={{ fontSize: 18 }}></NormalText>
 
       {observations &&
-        observations.map((observation: Observation, index) => {
+        observations.map((observation: Observation, index): JSX.Element => {
           return <NormalText key={index} boldText={observation?.codex?.precode + " " + observation?.code + " du " + observation.codex.name} text={observation?.name} />;
         })}
-    </View>
+    </Card>
   );
 }
 
 const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
-  container: {},
+  container: {
+    padding: 3,
+    margin: 3,
+    // backgroundColor: theme.colors?.grey5,
+  },
 }));

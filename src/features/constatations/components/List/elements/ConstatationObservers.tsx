@@ -1,33 +1,43 @@
-import Title from "@/components/Elements/Text/Title";
-import UserShort from "@/components/Elements/User/UserShort";
-import { Observer } from "@/types";
+import NormalText from "@/components/Elements/Text/NormalText";
+import { Observer, User } from "@/types";
+import { capitalize } from "lodash";
 import React from "react";
-import { View } from "react-native";
-import { makeStyles } from "react-native-elements";
+import { StyleProp, ViewStyle } from "react-native";
+import { Card, FullTheme, makeStyles } from "react-native-elements";
 
-type ConstatationObserversProps = {
+interface StyleProps {
+  container: StyleProp<ViewStyle>;
+}
+
+interface ConstatationObserversProps {
   observers: Observer[];
-};
+}
 
 //TODO : implement observers functionnality
 //Create, add, delete, link
 
-export default function ConstatationObservers(props: ConstatationObserversProps) {
+export default function ConstatationObservers(props: ConstatationObserversProps): JSX.Element {
   const { observers } = props;
-  const styles = useStyles();
+  const styles: StyleProps = useStyles();
+
+  const getName = (user: User): string => capitalize(user?.lastName) + " " + capitalize(user?.firstName);
 
   return (
-    <View style={styles.container}>
-      <Title title="Constatateurs" />
+    <Card containerStyle={styles.container}>
+      <NormalText boldText="Constatateurs" boldTextStyle={{ fontSize: 18 }}></NormalText>
 
       {observers &&
-        observers.map((observer: Observer, index) => {
-          return <UserShort key={index} user={observer} />;
+        observers.map((observer: Observer, index: number): JSX.Element => {
+          return <NormalText key={index} text={getName(observer)} />;
         })}
-    </View>
+    </Card>
   );
 }
 
 const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
-  container: {},
+  container: {
+    padding: 3,
+    margin: 3,
+    // backgroundColor: theme.colors?.grey5,
+  },
 }));

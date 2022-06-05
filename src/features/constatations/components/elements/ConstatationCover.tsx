@@ -1,13 +1,22 @@
 import NormalText from "@/components/Elements/Text/NormalText";
 import imageURL from "@/features/constatations/utils/ImageURL";
+import { Image as MyImage, Media } from "@/types";
 import React from "react";
-import { View } from "react-native";
-import { Image, makeStyles } from "react-native-elements";
+import { ImageStyle, StyleProp, View, ViewStyle } from "react-native";
+import { FullTheme, Image, makeStyles } from "react-native-elements";
 
-export default function ConstatationCover(props) {
-  const { cover, images } = props;
+interface StyleProps {
+  container: StyleProp<ViewStyle>;
+  cover: StyleProp<ImageStyle>;
+}
 
-  const styles = useStyles();
+interface ConstatationCoverProps {
+  cover?: Media;
+  images: MyImage[];
+}
+
+export default function ConstatationCover({ cover, images }: ConstatationCoverProps): JSX.Element {
+  const styles: StyleProps = useStyles();
 
   const url = imageURL({ image: cover });
 
@@ -16,7 +25,7 @@ export default function ConstatationCover(props) {
 
   return (
     <View style={styles.container}>
-      <Image source={url} resizeMode="cover" style={styles.cover} />
+      <Image source={url} resizeMode="cover" style={styles.cover} width={undefined} height={undefined} />
       <NormalText text={photoAmount} />
     </View>
   );
@@ -27,11 +36,14 @@ const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
     flexDirection: "column",
   },
   cover: {
-    width: 150,
-    height: 150,
+    width: 180,
+    height: 180,
     borderRadius: 20,
     overflow: "hidden",
     borderWidth: 3,
+    padding: 5,
+    margin: 5,
+    marginRight: 15,
     borderColor: "black",
   },
 }));

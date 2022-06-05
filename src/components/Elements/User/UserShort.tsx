@@ -2,7 +2,8 @@ import { User } from "@/types";
 import { capitalize } from "lodash";
 import React from "react";
 import { View } from "react-native";
-import { FullTheme, makeStyles, Text } from "react-native-elements";
+import { FullTheme, makeStyles } from "react-native-elements";
+import NormalText from "../Text/NormalText";
 
 type UserShortProps = {
   user: User;
@@ -18,7 +19,7 @@ type UserShortProps = {
 // bio: string;
 
 //Todo: add functionnalities
-export default function UserShort(props: UserShortProps):JSX.Element {
+export default function UserShort(props: UserShortProps): JSX.Element {
   const { user, containerStyle, userNameStyle } = props;
   const styles = useStyles();
 
@@ -27,16 +28,9 @@ export default function UserShort(props: UserShortProps):JSX.Element {
     ...containerStyle,
   };
 
-  const kUserNameStyle = {
-    ...styles.userNameStyle,
-    ...userNameStyle,
-  };
-
-  const name = capitalize(user?.lastName) + " " + capitalize(user?.firstName);
-
   return (
     <View style={kContainerStyle}>
-      <Text style={kUserNameStyle}>{name}</Text>
+      <NormalText boldText={name} />
     </View>
   );
 }

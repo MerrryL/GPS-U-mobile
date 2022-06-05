@@ -1,29 +1,26 @@
-import React, { useState } from "react";
-import { StyleSheet, ScrollView, View, SafeAreaView, Dimensions } from "react-native";
-
-import { Button, Card, Chip, Input, ListItem, Text, Tile } from "react-native-elements";
-
+import { ImageRequest, Observation } from "@/types";
+import React from "react";
+import { useImages } from "../hooks/useObservationImages";
 import ImagesPartAdd from "./ImagesPartAdd";
 import ImagesPartView from "./ImagesPartView";
-import { useImages } from "../hooks/useObservationImages";
 
-type ImagesPartProps = {
-  observationId: string;
-};
+interface ImagesPartProps {
+  observation: Observation;
+}
 
-export function ImagesPart({ observationId }: ImagesPartProps) {
-  const ImagesQuery = useImages({
-    observationId: observationId,
+export function ImagesPart({ observation }: ImagesPartProps): JSX.Element {
+  const ImageRequestsQuery = useImages({
+    observationId: observation.id,
   });
 
   return (
-    <View>
-      <View>
-        <ImagesPartAdd observationId={observationId} />
-      </View>
-      {ImagesQuery?.data?.map((image, index) => (
-        <ImagesPartView observationId={observationId} imageId={image.id} key={index} />
-      ))}
-    </View>
+    <>
+      {ImageRequestsQuery?.data?.map(
+        (imageRequest: ImageRequest, index: number): JSX.Element => (
+          <ImagesPartView observation={observation} imageRequest={imageRequest} key={index} />
+        )
+      )}
+      <ImagesPartAdd observation={observation} />
+    </>
   );
 }
