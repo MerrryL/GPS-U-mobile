@@ -69,7 +69,7 @@ export const uploadConstatationImage = ({ image, constatationId, imageId }: Uplo
 };
 
 type DeletePictureConstatationImageOptions = {
-  imageId: string;
+  imageId: number;
   constatationId: number;
 };
 
@@ -79,7 +79,7 @@ export const deletePictureConstatationImage = ({ imageId, constatationId }: Dele
 
 type DefineAsThumbOptions = {
   constatationId: number;
-  imageId: string;
+  imageId: number;
 };
 
 export const defineAsThumbConstatationImage = ({ constatationId, imageId }: DefineAsThumbOptions): Promise<Constatation> => {

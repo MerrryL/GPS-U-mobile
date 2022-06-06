@@ -1,9 +1,9 @@
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { Card } from "@rneui/base";
 import React, { useState } from "react";
 import { ScrollView } from "react-native";
 import Accordion from "react-native-collapsible/Accordion";
-import { Card } from "react-native-elements";
 import { ObservationStackParamList } from "..";
 import { CardHeader } from "../components/Edit/CardHeader";
 import { useObservation } from "../hooks/useObservation";
@@ -14,7 +14,7 @@ import { ImagesPart } from "../subfeatures/images/components/ImagesPart";
 interface ObservationEditProps {
   navigation: StackNavigationProp<ObservationStackParamList, "Edition">;
   route: RouteProp<ObservationStackParamList, "Edition">;
-};
+}
 
 export default function Edit(props: ObservationEditProps) {
   const observationId = props.route.params.observationId;
@@ -23,7 +23,7 @@ export default function Edit(props: ObservationEditProps) {
     observationId: observationId,
   });
   const observation = observationQuery?.data;
-  
+
   const [activeSections, setActiveSections] = useState([0]);
 
   const sections = [
@@ -89,7 +89,6 @@ export default function Edit(props: ObservationEditProps) {
 
         <Accordion activeSections={activeSections} sections={sections} renderSectionTitle={_renderSectionTitle} renderHeader={_renderHeader} renderContent={_renderContent} onChange={_updateSections} />
 
-        {/* Actions, dossier */}
         {/* Suivis */}
       </Card>
     </ScrollView>

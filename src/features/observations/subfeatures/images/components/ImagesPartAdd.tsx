@@ -4,9 +4,10 @@ import CollapseButton from "@/components/Elements/Buttons/CollapseButton";
 import FormBuilder from "@/components/Elements/FormBuilder/FormBuilder";
 import { Observation } from "@/types";
 import { InputedField, InputType } from "@/types/utilityTypes";
+import { Card, Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React, { useState } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
-import { Card, FullTheme, makeStyles } from "react-native-elements";
 import * as yup from "yup";
 import { useCreateObservationImage } from "../hooks/useCreateObservationImage";
 import ImagePartSelector from "./ImagePartSelector";
@@ -72,7 +73,7 @@ export default function ImagesPartAdd({ observation }: ImagesPartAddProps): JSX.
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
     minHeight: "50px",
     padding: 3,

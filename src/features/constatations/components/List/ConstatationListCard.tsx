@@ -5,9 +5,10 @@ import DateText from "@/components/Elements/Text/DateText";
 import { Constatation } from "@/types";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { Card, Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React from "react";
 import { StyleProp, TextStyle, View, ViewStyle } from "react-native";
-import { Card, FullTheme, makeStyles } from "react-native-elements";
 import { ConstatationStackParamList } from "../..";
 import ConstatationCover from "../elements/ConstatationCover";
 import ConstatationAddress from "./elements/ConstatationAddress";
@@ -31,7 +32,7 @@ export function ConstatationListCard({ constatation }: ConstatationCardProps): J
   const styles: StyleProps = useStyles({ isValidated: constatation.isValidated, requiresValidation: constatation.requiresValidation });
   const navigation: StackNavigationProp<ConstatationStackParamList, keyof ConstatationStackParamList, undefined> = useNavigation<StackNavigationProp<ConstatationStackParamList>>();
 
-  const { actions, created_at, description, dossiers, field_groups, id, images, isValidated, localization, media, modelType, observations, observers, requiresValidation, requiresValidationDate, updated_at, validationDate } = constatation || {};
+  const { created_at, description, field_groups, id, images, isValidated, localization, media, modelType, observations, observers, requiresValidation, requiresValidationDate, updated_at, validationDate } = constatation || {};
 
   const statusText = isValidated == 1 ? "Validée" : requiresValidation == 1 ? "A valider" : "Brouillon";
 
@@ -63,9 +64,9 @@ export function ConstatationListCard({ constatation }: ConstatationCardProps): J
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>, props: { isValidated: number; requiresValidation: number }) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme, props: { isValidated: number; requiresValidation: number }) => ({
   container: {
-    backgroundColor: theme.colors?.grey5,
+    backgroundColor: theme?.colors?.grey5,
   },
   header: {
     flexWrap: "wrap",
@@ -77,7 +78,7 @@ const useStyles = makeStyles((theme: Partial<FullTheme>, props: { isValidated: n
     alignSelf: "stretch",
     padding: 2,
     marginBottom: 0,
-    backgroundColor: props.isValidated == 1 ? theme.colors?.success : props.requiresValidation == 1 ? theme.colors?.warning : theme.colors?.primary,
+    backgroundColor: props.isValidated == 1 ? theme?.colors?.success : props.requiresValidation == 1 ? theme?.colors?.warning : theme?.colors?.primary,
   },
   buttonContainer: {
     flex: 1,
@@ -101,7 +102,7 @@ const useStyles = makeStyles((theme: Partial<FullTheme>, props: { isValidated: n
   },
   headerInfos: {
     flexDirection: "column",
-    alignItems: "flex-start",
+    alignItems: "stretch",
   },
   cover: {
     alignSelf: "flex-start",

@@ -9,8 +9,8 @@ type UseObservationOptions = {
 
 export const useObservation = ({ observationId, config }: UseObservationOptions) => {
   return useQuery({
-    ...config,
     queryKey: ["observations", observationId],
     queryFn: () => getObservation({ observationId }),
+    ...config,
   });
 };

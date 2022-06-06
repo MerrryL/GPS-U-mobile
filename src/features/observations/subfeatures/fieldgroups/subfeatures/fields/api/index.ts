@@ -1,7 +1,7 @@
 import { axios } from "@/lib/axios";
 import { Field } from "@/types";
 
-type GetFieldsOptions = {
+interface GetFieldsOptions {
   observationId: number;
   fieldGroupId: number;
 };
@@ -11,7 +11,7 @@ export const getFields = ({ observationId, fieldGroupId }: GetFieldsOptions): Pr
   return axios.get(`/observations/${observationId}/field_groups/${fieldGroupId}/fields`);
 };
 
-type GetFieldOptions = {
+interface GetFieldOptions {
   observationId: number;
   fieldGroupId: number;
   fieldId: number;
@@ -25,16 +25,15 @@ interface CreateFieldOptions {
   observationId: number;
   fieldGroupId: number;
   name: string;
-  field_type_id: number;
   defaultValue: string;
   isRequired: boolean;
 };
 
-export const createField = ({ observationId, fieldGroupId, name, field_type_id, defaultValue, isRequired }: CreateFieldOptions): Promise<Field> => {
-  return axios.post(`/observations/${observationId}/field_groups/${fieldGroupId}/fields/`, { name, field_type_id, defaultValue, isRequired });
+export const createField = ({ observationId, fieldGroupId, name, defaultValue, isRequired }: CreateFieldOptions): Promise<Field> => {
+  return axios.post(`/observations/${observationId}/field_groups/${fieldGroupId}/fields/`, { name, defaultValue, isRequired });
 };
 
-type DeleteFieldOptions = {
+interface DeleteFieldOptions {
   fieldId: number;
   fieldGroupId: number;
   observationId: number;

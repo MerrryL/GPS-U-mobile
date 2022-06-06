@@ -1,5 +1,6 @@
+import { Colors, Text, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React from "react";
-import { FullTheme, makeStyles, Text } from "react-native-elements";
 import ConstatationRequireValidationButton from "../Buttons/ConstatationRequireValidationButton";
 
 export default function ConstatationIsDraft(props) {
@@ -14,6 +15,6 @@ export default function ConstatationIsDraft(props) {
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   text: { flex: 0.5, height: "auto", marginBottom: 10 },
 }));

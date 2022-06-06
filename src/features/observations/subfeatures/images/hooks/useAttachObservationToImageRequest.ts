@@ -15,6 +15,7 @@ export const useAttachObservationToImageRequest = ({config,observationId }: UseA
       queryClient.refetchQueries(["observations"]);
       queryClient.refetchQueries(["observations", observationId]);
       queryClient.refetchQueries(["image_requests"]);
+      queryClient.refetchQueries(["observations",observationId, "image_requests"])
 
       addNotification({
         type: "success",

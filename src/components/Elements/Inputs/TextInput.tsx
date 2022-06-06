@@ -1,6 +1,6 @@
+import { Input } from "@rneui/base";
 import React from "react";
 import { ControllerFieldState, ControllerRenderProps, FieldValues, UseFormStateReturn } from "react-hook-form";
-import { Input } from "react-native-elements";
 
 interface TextInputProps {
   field: ControllerRenderProps<FieldValues>;

@@ -1,8 +1,9 @@
 import NormalText from "@/components/Elements/Text/NormalText";
 import { Observation } from "@/types";
+import { Card, Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React from "react";
 import { StyleProp, ViewStyle } from "react-native";
-import { Card, FullTheme, makeStyles } from "react-native-elements";
 
 interface ConstatationObservationsProps {
   observations: Observation[];
@@ -37,10 +38,10 @@ export default function ConstatationObservations({ observations }: ConstatationO
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
     padding: 3,
     margin: 3,
-    // backgroundColor: theme.colors?.grey5,
+    // backgroundColor: theme?.colors?.grey5,
   },
 }));

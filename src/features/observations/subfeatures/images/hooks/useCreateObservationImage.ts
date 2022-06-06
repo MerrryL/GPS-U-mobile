@@ -12,7 +12,7 @@ export const useCreateObservationImage = ({config }: UseCreateObservationImageOp
   return useMutation({
     onSuccess: async (data) => {
       queryClient.refetchQueries(["observations"]);
-      queryClient.refetchQueries(["images"]);
+      queryClient.refetchQueries(["image_requests"]);
 
       addNotification({
         type: "success",

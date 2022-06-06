@@ -1,9 +1,10 @@
 import NormalText from "@/components/Elements/Text/NormalText";
 import { Observer, User } from "@/types";
+import { Card, Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import { capitalize } from "lodash";
 import React from "react";
 import { StyleProp, ViewStyle } from "react-native";
-import { Card, FullTheme, makeStyles } from "react-native-elements";
 
 interface StyleProps {
   container: StyleProp<ViewStyle>;
@@ -34,10 +35,10 @@ export default function ConstatationObservers(props: ConstatationObserversProps)
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
     padding: 3,
     margin: 3,
-    // backgroundColor: theme.colors?.grey5,
+    // backgroundColor: theme?.colors?.grey5,
   },
 }));

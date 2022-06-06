@@ -22,28 +22,25 @@ export const getObservationFieldGroup = ({ observationId, fieldGroupId }: GetObs
 export interface CreateObservationFieldGroupOptions  {
   observationId: number;
   name: string;
-  logical_operator: string;
-  type: string;
+  description: string;
 };
 
-export const createObservationFieldGroup: (data: CreateObservationFieldGroupOptions) => Promise<FieldGroup> = ({observationId, name, type, logical_operator }:CreateObservationFieldGroupOptions):Promise<FieldGroup> =>{
+export const createObservationFieldGroup: (data: CreateObservationFieldGroupOptions) => Promise<FieldGroup> = ({observationId, name, description }:CreateObservationFieldGroupOptions):Promise<FieldGroup> =>{
   return axios.post(`/observations/${observationId}/field_groups`, {
     name,
-    type,
-    logical_operator,
+    description,
   });
 };
 
 export interface UpdateObservationFieldGroupOptions  {
   observationId: number;
   fieldGroupId: number;
-  logical_operator: string;
   name: string;
-  type: string;
+  description: string;
 };
 
-export const updateObservationFieldGroup = ({ observationId, fieldGroupId, name, type, logical_operator }: UpdateObservationFieldGroupOptions): Promise<FieldGroup> => {
-  return axios.post(`/observations/${observationId}/field_groups/${fieldGroupId}`, { name, type, logical_operator });
+export const updateObservationFieldGroup = ({ observationId, fieldGroupId, name, description }: UpdateObservationFieldGroupOptions): Promise<FieldGroup> => {
+  return axios.post(`/observations/${observationId}/field_groups/${fieldGroupId}`, { name, description });
 };
 
 export interface DeleteObservationFieldGroupOptions  {

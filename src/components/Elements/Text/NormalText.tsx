@@ -1,7 +1,7 @@
+import { Text } from "@rneui/base";
 import { capitalize } from "lodash";
 import React from "react";
 import { StyleProp, TextStyle, View, ViewStyle } from "react-native";
-import { FullTheme, makeStyles, Text } from "react-native-elements";
 
 interface NormalTextProps {
   boldText?: string;
@@ -32,7 +32,7 @@ export default function NormalText({ boldText = undefined, text = undefined, con
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>, { containerStyle, boldTextStyle, textStyle }: any) => ({
+const useStyles = ({ containerStyle, boldTextStyle, textStyle }: any) => ({
   container: {
     alignItems: "baseline",
     paddingLeft: "10px",
@@ -50,4 +50,4 @@ const useStyles = makeStyles((theme: Partial<FullTheme>, { containerStyle, boldT
     marginBottom: "5px",
     textStyle,
   },
-}));
+});

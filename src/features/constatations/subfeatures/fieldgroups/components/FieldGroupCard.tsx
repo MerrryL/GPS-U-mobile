@@ -1,7 +1,7 @@
 import { FieldGroup } from "@/types";
+import { Button, Card, Text } from "@rneui/base";
 import React from "react";
 import { View } from "react-native";
-import { Button, Card, Text } from "react-native-elements";
 import { FieldsAdd } from "../../fields/components/FieldAdd";
 import { FieldCard } from "../../fields/components/FieldCard";
 import { useFields } from "../../fields/hooks/useFields";

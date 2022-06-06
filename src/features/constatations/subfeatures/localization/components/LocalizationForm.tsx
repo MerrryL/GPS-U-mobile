@@ -1,8 +1,9 @@
 import FormBuilder from "@/components/Elements/FormBuilder/FormBuilder";
 import { Localization } from "@/types";
 import { InputedField, InputType } from "@/types/utilityTypes";
+import { Card, Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React from "react";
-import { Card, FullTheme, makeStyles } from "react-native-elements";
 import * as yup from "yup";
 
 interface LocalizationValues {
@@ -71,7 +72,7 @@ export default function LocalizationForm({ coords, onSubmit }: LocalizationFormP
     </Card>
   );
 }
-const useStyles = makeStyles((theme: Partial<FullTheme>, props) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
     minHeight: "50px",
     padding: 3,

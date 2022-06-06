@@ -1,10 +1,11 @@
 import imageURL from "@/features/constatations/utils/ImageURL";
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { ImageToSend } from "@/types";
+import { Chip, Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import * as ExpoImagePicker from "expo-image-picker";
 import React, { useEffect } from "react";
 import { Image, Platform, useWindowDimensions, View } from "react-native";
-import { Chip, FullTheme, makeStyles } from "react-native-elements";
 
 type ImagePickerProps = {
   image: ImageToSend | null;
@@ -18,15 +19,15 @@ type PickerStyleProps = {
   height: number;
 };
 
-export default function ImagePicker({ image, onChange, onSubmit, displayPlaceholder = true }: ImagePickerProps):JSX.Element {
+export default function ImagePicker({ image, onChange, onSubmit, displayPlaceholder = true }: ImagePickerProps): JSX.Element {
   const { addNotification } = useNotificationStore();
 
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   const styles = useStyles({ width: windowWidth, height: windowHeight });
 
-  useEffect(():void => {
-    (async ():Promise<void> => {
+  useEffect((): void => {
+    (async (): Promise<void> => {
       if (Platform.OS !== "web") {
         const { status } = await ExpoImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== "granted") {
@@ -39,7 +40,7 @@ export default function ImagePicker({ image, onChange, onSubmit, displayPlacehol
     })();
   }, []);
 
-  const pickImage:() => Promise<void> = async ():Promise<void> => {
+  const pickImage: () => Promise<void> = async (): Promise<void> => {
     const result: ExpoImagePicker.ImagePickerResult = await ExpoImagePicker.launchImageLibraryAsync({
       mediaTypes: ExpoImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
@@ -87,7 +88,7 @@ export default function ImagePicker({ image, onChange, onSubmit, displayPlacehol
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>, props: PickerStyleProps) => ({
+const useStyles = makeStyles((theme:{ colors: Colors; } & Theme, props: PickerStyleProps) => ({
   container: {},
   buttonContainer: {
     flexDirection: "row",
@@ -99,4 +100,4 @@ const useStyles = makeStyles((theme: Partial<FullTheme>, props: PickerStyleProps
     width: props.width * 0.8,
     height: props.width * 0.8,
   },
-}));
+});

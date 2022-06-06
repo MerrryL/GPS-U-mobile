@@ -1,8 +1,9 @@
 import { PickerItem } from "@/types/utilityTypes";
+import { CheckBox, Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React, { useEffect, useState } from "react";
 import { ControllerFieldState, ControllerRenderProps, FieldValues, UseFormStateReturn } from "react-hook-form";
 import { StyleProp, ViewStyle } from "react-native";
-import { CheckBox, FullTheme, makeStyles } from "react-native-elements";
 
 interface CheckBoxInputProps {
   field: ControllerRenderProps<FieldValues>;
@@ -27,6 +28,6 @@ export default function CheckBoxInput(props: CheckBoxInputProps): JSX.Element {
 
   return <CheckBox checked={isChecked} style={styles.checkbox} onPress={() => toggle((prevState: boolean): boolean => !prevState)} />;
 }
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   checkbox: {},
 }));

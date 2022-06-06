@@ -12,7 +12,7 @@ type UseObservationImageOptions = {
 
 export const useObservationImage = ({ imageRequestId, observationId, config }: UseObservationImageOptions) => {
   return useQuery({
-    queryKey: ["image_requests", imageRequestId],
+    queryKey: [  "observations",observationId, "image_requests", imageRequestId],
     queryFn: () => getObservationImageRequest({ observationId: observationId, imageRequestId: imageRequestId }),
     ...config,
   });

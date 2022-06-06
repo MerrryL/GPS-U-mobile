@@ -1,6 +1,6 @@
 import { ImageRequest, Observation } from "@/types";
 import React from "react";
-import { useImages } from "../hooks/useObservationImages";
+import { useObservationImageRequests } from "../hooks/useObservationImageRequests";
 import ImagesPartAdd from "./ImagesPartAdd";
 import ImagesPartView from "./ImagesPartView";
 
@@ -9,7 +9,7 @@ interface ImagesPartProps {
 }
 
 export function ImagesPart({ observation }: ImagesPartProps): JSX.Element {
-  const ImageRequestsQuery = useImages({
+  const ImageRequestsQuery = useObservationImageRequests({
     observationId: observation.id,
   });
 

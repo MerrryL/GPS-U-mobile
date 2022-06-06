@@ -14,7 +14,8 @@ export const useDeleteObservationImage = ({ imageRequestId, observationId, confi
   return useMutation({
     onSuccess: async (data) => {
       queryClient.refetchQueries(["observations"]);
-      queryClient.refetchQueries(["images"]);
+      queryClient.refetchQueries(["image_requests"]);
+      queryClient.refetchQueries(["observations",observationId, "image_requests"])
 
       addNotification({
         type: "success",

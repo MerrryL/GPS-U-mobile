@@ -1,9 +1,9 @@
 import { PickerItem } from "@/types/utilityTypes";
 import { Picker } from "@react-native-picker/picker";
+import {} from "@rneui/base";
 import React, { useEffect, useState } from "react";
 import { ControllerFieldState, ControllerRenderProps, FieldValues, UseFormStateReturn } from "react-hook-form";
 import { StyleProp, TextStyle } from "react-native";
-import { FullTheme, makeStyles } from "react-native-elements";
 
 interface PickerInputProps {
   field: ControllerRenderProps<FieldValues>;
@@ -37,7 +37,7 @@ export default function PickerInput(props: PickerInputProps): JSX.Element {
   );
 }
 
-const useStyles: (props?: unknown) => StyleProps = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles: (props?: unknown) => StyleProps = (theme: { colors: Colors } & Theme) => ({
   picker: {
     fontSize: 14,
     minHeight: "32px",
@@ -46,4 +46,4 @@ const useStyles: (props?: unknown) => StyleProps = makeStyles((theme: Partial<Fu
     marginTop: "6px",
   },
   pickerItem: { fontSize: 14, minHeight: "32px" },
-}));
+});

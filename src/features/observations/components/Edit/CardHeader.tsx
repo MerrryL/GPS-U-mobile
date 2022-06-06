@@ -3,10 +3,10 @@ import { Observation } from "@/types";
 import { InputedField, InputType } from "@/types/utilityTypes";
 import { AntDesign } from "@expo/vector-icons";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Button, makeStyles, Text } from "@rneui/base";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { View } from "react-native";
-import { Button, FullTheme, makeStyles, Text } from "react-native-elements";
 import * as yup from "yup";
 import { useCodexes } from "../../hooks/useCodexes";
 import { useObservation } from "../../hooks/useObservation";
@@ -113,6 +113,6 @@ export function CardHeader({ observationId }: CardHeaderProps) {
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme:{ colors: Colors; } & Theme) => ({
   container: {},
-}));
+});

@@ -1,9 +1,10 @@
 import LongText from "@/components/Elements/Text/LongText";
 import imageURL from "@/features/constatations/utils/ImageURL";
 import { Image as ImageType } from "@/types";
+import { Chip, Colors, Image, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React from "react";
 import { useWindowDimensions, View } from "react-native";
-import { Chip, FullTheme, Image, makeStyles } from "react-native-elements";
 import { useDefineAsThumbConstatationImage } from "../../hooks/useDefineAsThumbConstatationImage";
 import { useDeletePictureConstatationImage } from "../../hooks/useDeletePictureConstatationsImage";
 
@@ -25,11 +26,11 @@ export default function TabImage(props: ConstatationGalleryImageProps) {
   const styles = useStyles({ width: windowWidth, height: windowHeight });
 
   const useDefineAsThumbMutation = useDefineAsThumbConstatationImage({
-    imageId: image.id as string,
+    imageId: image.id,
     constatationId: image.constatation_id,
   });
   const useDeletePictureMutation = useDeletePictureConstatationImage({
-    imageId: image.id as string,
+    imageId: image.id,
     constatationId: image.constatation_id,
   });
 
@@ -39,7 +40,7 @@ export default function TabImage(props: ConstatationGalleryImageProps) {
 
   const defineAsThumb = async ({ image: image }: DefineAsThumbProps) => {
     await useDefineAsThumbMutation.mutateAsync({
-      imageId: image.id as string,
+      imageId: image.id,
       constatationId: image.constatation_id,
     });
   };
@@ -50,7 +51,7 @@ export default function TabImage(props: ConstatationGalleryImageProps) {
 
   const deletePicture = async ({ image: image }: DeletePictureProps) => {
     await useDeletePictureMutation.mutateAsync({
-      imageId: image.id as string,
+      imageId: image.id,
       constatationId: image.constatation_id,
     });
   };
@@ -87,7 +88,7 @@ export default function TabImage(props: ConstatationGalleryImageProps) {
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>, props: ConstatationGalleryImagePropsStyle) => ({
+const useStyles = makeStyles((theme:{ colors: Colors; } & Theme, props: ConstatationGalleryImagePropsStyle) => ({
   container: {
     minHeight: 150,
   },
@@ -102,4 +103,4 @@ const useStyles = makeStyles((theme: Partial<FullTheme>, props: ConstatationGall
     width: props.width * 0.8,
     height: props.width * 0.8,
   },
-}));
+});

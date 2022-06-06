@@ -1,8 +1,9 @@
 import { Constatation } from "@/types";
 import { RouteProp } from "@react-navigation/native";
 import type { StackNavigationProp } from "@react-navigation/stack";
+import { Text } from "@rneui/base";
+import { FAB } from "@rneui/themed";
 import React from "react";
-import { FAB, Text } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
 import { UseMutationResult, UseQueryResult } from "react-query";
 import { ConstatationStackParamList } from "..";

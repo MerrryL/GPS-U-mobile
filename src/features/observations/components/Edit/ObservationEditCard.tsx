@@ -4,11 +4,12 @@ import DateText from "@/components/Elements/Text/DateText";
 import { Observation } from "@/types";
 import { InputedField, InputType, yupPickerItem } from "@/types/utilityTypes";
 import { getCodexesOptions, getObservationTypesOptions } from "@/utils/getOptions";
+import { Card, Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import { AxiosError } from "axios";
 import React from "react";
-import { SubmitHandler } from "react-hook-form";
+import { SubmitHandler, UnpackNestedValue } from "react-hook-form";
 import { StyleProp, View, ViewStyle } from "react-native";
-import { Card, FullTheme, makeStyles } from "react-native-elements";
 import { UseMutationResult } from "react-query";
 import * as yup from "yup";
 import { UpdateObservationOptions } from "../../api";
@@ -87,7 +88,7 @@ export function ObservationEditCard({ observation }: ObservationEditCardProps): 
     },
   ];
 
-  const onSubmit: SubmitHandler<Observation> = async (data: Observation): Promise<void> => {
+  const onSubmit: SubmitHandler<Observation> = async (data: UnpackNestedValue<Observation>): Promise<void> => {
     await updateObservationMutation.mutateAsync({
       data: { ...data, codex_id: data.codex.id, observation_type_id: data.observation_type.id },
       observationId: observation.id,
@@ -113,15 +114,15 @@ export function ObservationEditCard({ observation }: ObservationEditCardProps): 
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
-    backgroundColor: theme.colors?.grey5,
+    backgroundColor: theme?.colors?.grey5,
   },
   cardTitle: {
     alignSelf: "stretch",
     padding: 2,
     marginBottom: 0,
-    backgroundColor: theme.colors?.primary,
+    backgroundColor: theme?.colors?.primary,
   },
   body: {},
 }));

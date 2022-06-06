@@ -1,6 +1,7 @@
+import { Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React, { useEffect, useState } from "react";
 import { Dimensions, View } from "react-native";
-import { FullTheme, makeStyles } from "react-native-elements";
 import { LatLng, Region } from "react-native-maps";
 import MapView from "react-native-web-maps";
 
@@ -61,7 +62,7 @@ export default function MapForWeb({ markers, onChange }: MapProps): JSX.Element 
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>, props) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
     flex: 1,
     backgroundColor: "#fff",

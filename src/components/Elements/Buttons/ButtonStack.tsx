@@ -1,6 +1,7 @@
+import { Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
-import { FullTheme, makeStyles } from "react-native-elements";
 
 interface StyleProps {
   container: StyleProp<ViewStyle>;
@@ -16,7 +17,7 @@ export const FloatingButtonStack = (props: FloatingButtonStackProps): JSX.Elemen
   return <View style={styles.container}>{props.children && props.children}</View>;
 };
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
     position: "absolute",
     top: 10,

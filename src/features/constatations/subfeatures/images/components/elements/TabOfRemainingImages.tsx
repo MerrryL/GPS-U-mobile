@@ -1,8 +1,8 @@
 import NormalText from "@/components/Elements/Text/NormalText";
 import { Image as ImageType } from "@/types";
+import { makeStyles, Tab, TabView, Text } from "@rneui/base";
 import React, { useState } from "react";
 import { View } from "react-native";
-import { makeStyles, Tab, TabView, Text } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import TabRemainingImage from "./TabRemainingImage";
 
@@ -48,7 +48,7 @@ export default function TabOfRemainingImages(props: ImagesTabsProps) {
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme:{ colors: Colors; } & Theme) => ({
   container: {
     marginTop: "10px",
   },
@@ -61,4 +61,4 @@ const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
     backgroundColor: "#aaa",
     minHeight: "300px",
   },
-}));
+});

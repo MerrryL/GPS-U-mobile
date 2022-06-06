@@ -1,7 +1,7 @@
+import { Card } from "@rneui/base";
 import React, { useState } from "react";
 import { ScrollView } from "react-native";
 import Accordion from "react-native-collapsible/Accordion";
-import { Card } from "react-native-elements";
 //import { FieldGroup } from "../components/Edit/FieldGroup";
 import { CardHeader } from "../components/Edit/ConstatationEditCard";
 import { useConstatation } from "../hooks/useConstatation";
@@ -111,7 +111,6 @@ export default function Edit(props: EditProps) {
 
         <Accordion activeSections={activeSections} sections={sections} renderSectionTitle={_renderSectionTitle} renderHeader={_renderHeader} renderContent={_renderContent} onChange={_updateSections} />
 
-        {/* Actions, dossier */}
         {/* Suivis */}
       </Card>
     </ScrollView>

@@ -1,9 +1,10 @@
 import OpenCoords from "@/components/Address/OpenCoordsLink";
 import AddressText from "@/components/Elements/Text/AddressText";
 import { Localization } from "@/types";
+import { Card, Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React from "react";
 import { StyleProp, ViewStyle } from "react-native";
-import { Card, FullTheme, makeStyles } from "react-native-elements";
 
 type ConstatationAddressProps = {
   localization: Localization;
@@ -27,7 +28,7 @@ export default function ConstatationAddress(props: ConstatationAddressProps): JS
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
     padding: 3,
     margin: 3,

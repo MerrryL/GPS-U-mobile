@@ -1,7 +1,8 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Colors, Text, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React from "react";
 import { Linking } from "react-native";
-import { FullTheme, makeStyles, Text } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 type OpenCoordsProps = {
@@ -11,7 +12,7 @@ type OpenCoordsProps = {
   coordsStyle?: any;
 };
 
-export default function OpenCoords(props: OpenCoordsProps):JSX.Element {
+export default function OpenCoords(props: OpenCoordsProps): JSX.Element {
   const { latitude, longitude, containerStyle = null, coordsStyle = null } = props;
 
   const url = "https://www.google.com/maps/place/" + latitude + "," + longitude;
@@ -38,7 +39,7 @@ export default function OpenCoords(props: OpenCoordsProps):JSX.Element {
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {},
   coords: {
     color: "blue",

@@ -2,9 +2,9 @@ import NormalText from "@/components/Elements/Text/NormalText";
 import ConstatationCover from "@/features/constatations/components/elements/ConstatationCover";
 import TabOfImages from "@/features/constatations/subfeatures/images/components/elements/TabOfImages";
 import { Image, Media } from "@/types";
+import { Colors, makeStyles, Theme } from "@rneui/themed";
 import React from "react";
 import { View } from "react-native";
-import { makeStyles } from "react-native-elements";
 import AddAnotherImage from "./elements/AddAnotherImage";
 import TabOfRemainingImages from "./elements/TabOfRemainingImages";
 
@@ -51,7 +51,7 @@ export default function ImagesPart(props: ImagesPartProps) {
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>, props: StyleProps) => ({
+const useStyles = makeStyles((theme:{ colors: Colors; } & Theme, props: StyleProps) => ({
   container: {
     alignItems: "baseline",
     ...props.container,
@@ -74,4 +74,4 @@ const useStyles = makeStyles((theme: Partial<FullTheme>, props: StyleProps) => (
     borderWidth: 3,
     borderColor: "black",
   },
-}));
+});

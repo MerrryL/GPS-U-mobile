@@ -1,7 +1,7 @@
+import { makeStyles, Text } from "@rneui/base";
 import { capitalize } from "lodash";
 import React from "react";
 import { StyleProp, TextStyle, View, ViewStyle } from "react-native";
-import { FullTheme, makeStyles, Text } from "react-native-elements";
 
 type TitleProps = {
   title?: string;
@@ -12,8 +12,7 @@ type StyleProps = {
   titleStyle?: StyleProp<TextStyle>;
 };
 
-
-export default function Title({ title=undefined, containerStyle=undefined, titleStyle=undefined }: TitleProps & StyleProps):JSX.Element {
+export default function Title({ title = undefined, containerStyle = undefined, titleStyle = undefined }: TitleProps & StyleProps): JSX.Element {
   const styles = useStyles({ containerStyle: containerStyle, titleStyle: titleStyle });
 
   return (
@@ -25,7 +24,7 @@ export default function Title({ title=undefined, containerStyle=undefined, title
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>, { containerStyle, titleStyle }: StyleProps) => ({
+const useStyles = makeStyles((theme:{ colors: Colors; } & Theme, { containerStyle, titleStyle }: StyleProps) => ({
   container: {
     paddingLeft: "10px",
     containerStyle,
@@ -35,4 +34,4 @@ const useStyles = makeStyles((theme: Partial<FullTheme>, { containerStyle, title
     color: theme?.colors?.grey2,
     titleStyle,
   },
-}));
+});

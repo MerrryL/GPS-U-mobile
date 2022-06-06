@@ -1,9 +1,10 @@
 import NormalText from "@/components/Elements/Text/NormalText";
 import imageURL from "@/features/constatations/utils/ImageURL";
 import { Image as MyImage, Media } from "@/types";
+import { Colors, Image, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React from "react";
 import { ImageStyle, StyleProp, View, ViewStyle } from "react-native";
-import { FullTheme, Image, makeStyles } from "react-native-elements";
 
 interface StyleProps {
   container: StyleProp<ViewStyle>;
@@ -31,7 +32,7 @@ export default function ConstatationCover({ cover, images }: ConstatationCoverPr
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
     flexDirection: "column",
   },

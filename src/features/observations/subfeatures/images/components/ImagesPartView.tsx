@@ -1,9 +1,10 @@
 import { FloatingButtonStack } from "@/components/Elements/Buttons/ButtonStack";
 import DeleteButton from "@/components/Elements/Buttons/DeleteButton";
 import { ImageRequest, Observation } from "@/types";
+import { Card, Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React from "react";
 import { StyleProp, ViewStyle } from "react-native";
-import { Card, FullTheme, makeStyles } from "react-native-elements";
 import { useDeleteObservationImage } from "../hooks/useDeleteObservationImage";
 
 interface ImagesPartViewProps {
@@ -43,15 +44,15 @@ export default function ImagesPartView({ observation, imageRequest }: ImagesPart
     </Card>
   );
 }
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
-    backgroundColor: theme.colors?.grey5,
+    backgroundColor: theme?.colors?.grey5,
   },
   cardTitle: {
     alignSelf: "stretch",
     padding: 2,
     marginBottom: 0,
-    backgroundColor: theme.colors?.primary,
+    backgroundColor: theme?.colors?.primary,
   },
   body: {},
 }));

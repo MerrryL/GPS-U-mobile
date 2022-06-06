@@ -1,8 +1,7 @@
-import { useValidateConstatation } from "@/features/constatations/hooks/useValidateConstatation";
-import React from "react";
-import { Button, makeStyles } from "react-native-elements";
-import { AntDesign, Entypo, FontAwesome, FontAwesome5, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRefuseValidationConstatation } from "@/features/constatations/hooks/useRefuseValidationConstatation";
+import { Ionicons } from "@expo/vector-icons";
+import { Button } from "@rneui/base";
+import React from "react";
 
 export default function ConstatationRefusalButton(props) {
   const { id } = props;

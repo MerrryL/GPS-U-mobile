@@ -1,13 +1,13 @@
+import { Header } from "@rneui/base";
 import * as React from "react";
 import { View } from "react-native";
-import { Header } from "react-native-elements";
 
 type LayoutProps = {
   children: React.ReactNode;
   title: string;
 };
 
-export const Layout = ({ children, title }: LayoutProps):JSX.Element => {
+export const Layout = ({ children, title }: LayoutProps): JSX.Element => {
   return (
     <>
       <Header

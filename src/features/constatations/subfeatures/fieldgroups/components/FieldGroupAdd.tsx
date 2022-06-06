@@ -1,12 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Button, Input, Text } from "@rneui/base";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { View } from "react-native";
-import { Button, Input, Text } from "react-native-elements";
 import * as yup from "yup";
 import { useCreateFieldGroup } from "../hooks/useCreateFieldGroup";
-
-
 
 type FieldGroupsValues = {
   name: string;

@@ -10,8 +10,8 @@ type UseObservationTypesOptions = {
 
 export const useObservationTypes = ({ config }: UseObservationTypesOptions = {}) => {
   return useQuery({
-    ...config,
     queryKey: ["observation_types"],
     queryFn: () => getObservationTypes(),
+    ...config,
   });
 };

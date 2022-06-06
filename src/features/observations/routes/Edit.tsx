@@ -2,9 +2,9 @@ import { ImagesPart } from "@/features/observations/subfeatures/images/component
 import { Fontisto, MaterialCommunityIcons } from "@expo/vector-icons";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { Card, Tab, TabView } from "@rneui/base";
 import React from "react";
 import { ScrollView } from "react-native";
-import { Card, Tab, TabView } from "react-native-elements";
 import { ObservationStackParamList } from "..";
 import { ObservationEditCard } from "../components/Edit/ObservationEditCard";
 import { useObservation } from "../hooks/useObservation";
@@ -49,7 +49,7 @@ export default function Edit(props: ObservationEditProps) {
         </TabView.Item>
         <TabView.Item style={{ width: "100%" }}>
           <ScrollView>
-            <ImagesPart observation={observation}></ImagesPart>
+            <ImagesPart observation={observation} />
           </ScrollView>
         </TabView.Item>
         <TabView.Item style={{ width: "100%" }}>

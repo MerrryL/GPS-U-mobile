@@ -9,7 +9,7 @@ import { defineAsThumbConstatationImage } from "../api";
 
 type UseDefineAsThumbConstatationImageOptions = {
   constatationId: number;
-  imageId: string;
+  imageId: number;
   config?: MutationConfig<typeof defineAsThumbConstatationImage>;
 };
 

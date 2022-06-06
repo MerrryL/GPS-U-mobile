@@ -1,7 +1,7 @@
 import { Field } from "@/types";
+import { Button, Card, Text } from "@rneui/base";
 import React from "react";
 import { View } from "react-native";
-import { Button, Card, Text } from "react-native-elements";
 import { useDeleteField } from "../hooks/useDeleteField";
 import { useField } from "../hooks/useField";
 

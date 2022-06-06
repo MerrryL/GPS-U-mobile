@@ -2,11 +2,11 @@ import FormBuilder from "@/components/Elements/FormBuilder/FormBuilder";
 import { Field, FieldGroup } from "@/types";
 import { ConstatationValues } from "@/types/utilityTypes";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Colors, makeStyles, Theme } from "@rneui/themed";
 import React from "react";
 import { useForm } from "react-hook-form";
 // import { useUpdateField } from "../hooks/useUpdateField";
 import { View } from "react-native";
-import { FullTheme, makeStyles } from "react-native-elements";
 import * as yup from "yup";
 import useFieldGroupBy from "../utils/useFieldGroupBy";
 
@@ -66,7 +66,7 @@ export function FieldPart(props: FieldPartProps) {
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme:{ colors: Colors; } & Theme) => ({
   container: {},
   groupedField: {},
-}));
+});

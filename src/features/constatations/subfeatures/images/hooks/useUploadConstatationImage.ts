@@ -17,7 +17,7 @@ type ImageToSend = {
 };
 
 type UseUploadConstatationImageOptions = {
-  imageId: string;
+  imageId: number;
   constatationId: number;
   image: ImageToSend;
   config?: MutationConfig<typeof uploadConstatationImage>;

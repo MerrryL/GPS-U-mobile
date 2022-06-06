@@ -1,7 +1,5 @@
-import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-
-import ListDossiers from "@/features/dossiers/routes/List";
+import React from "react";
 
 const ParametersStack = createStackNavigator();
 

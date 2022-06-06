@@ -1,5 +1,5 @@
+import { Header } from "@rneui/base";
 import * as React from "react";
-import { Header } from "react-native-elements";
 
 type LayoutProps = {
   children: React.ReactNode;

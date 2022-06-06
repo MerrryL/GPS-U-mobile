@@ -1,7 +1,8 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Button, Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React from "react";
 import { StyleProp, ViewStyle } from "react-native";
-import { Button, FullTheme, makeStyles } from "react-native-elements";
 
 interface RefreshButtonProps {
   callBack: () => void;
@@ -16,7 +17,7 @@ export default function RefreshButton({ callBack }: RefreshButtonProps): JSX.Ele
   return <Button icon={<MaterialCommunityIcons name="web-refresh" size={18} color="blue" />} type="outline" buttonStyle={styles.button} onPress={() => callBack()} />;
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   button: {
     marginRight: "10px",
     borderColor: "blue",

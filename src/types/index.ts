@@ -44,7 +44,7 @@ export type Field = {
   field_group: FieldGroup;
   isRequired: boolean;
   name: string;
-  options: string;
+  description: string;
   pivot: ConstFieldPivot;
 } & BaseEntity;
 

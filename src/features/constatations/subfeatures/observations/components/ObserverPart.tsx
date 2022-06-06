@@ -1,8 +1,8 @@
 import MultiPickerInput from "@/components/Elements/Inputs/MultiPickerInput";
+import { Button, Card } from "@rneui/base";
 import { xorBy } from "lodash";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Card } from "react-native-elements";
 import { useConstatationObservations } from "../hooks/useConstatationObservations";
 import { useObservations } from "../hooks/useObservations";
 import { useUpdateConstatationObservations } from "../hooks/useUpdateConstatationObservations";

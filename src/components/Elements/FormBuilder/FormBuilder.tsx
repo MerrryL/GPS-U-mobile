@@ -1,9 +1,10 @@
 import { InputedField } from "@/types/utilityTypes";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Card, Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React from "react";
 import { SubmitHandler, useForm, UseFormReturn } from "react-hook-form";
 import { ScrollView, StyleProp, TextStyle, ViewStyle } from "react-native";
-import { Card, FullTheme, makeStyles } from "react-native-elements";
 import * as yup from "yup";
 import { FloatingButtonStack } from "../Buttons/ButtonStack";
 import SaveButton from "../Buttons/SaveButton";
@@ -41,7 +42,7 @@ export default function FormBuilder<TFieldValues>({ title, description, fields, 
   return (
     <ScrollView>
       <FloatingButtonStack>
-        <SaveButton callBack={handleSubmit(onSubmit)}></SaveButton>
+        <SaveButton callBack={handleSubmit<TFieldValues>(onSubmit)}></SaveButton>
         {/* <Button title="Enregistrer " onPress={handleSubmit(onSubmit)} icon={<AntDesign name="cloudupload" size={24} color="white" />} iconRight={true} /> */}
       </FloatingButtonStack>
       <Card containerStyle={styles.container}>
@@ -54,9 +55,9 @@ export default function FormBuilder<TFieldValues>({ title, description, fields, 
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
-    backgroundColor: theme.colors?.white,
+    backgroundColor: theme?.colors?.white,
     padding: 3,
     margin: 3,
   },
@@ -70,7 +71,7 @@ const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
     alignSelf: "stretch",
     padding: 2,
     marginBottom: 0,
-    backgroundColor: theme.colors?.primary,
+    backgroundColor: theme?.colors?.primary,
   },
   buttonContainer: {
     flex: 1,

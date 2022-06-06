@@ -1,8 +1,9 @@
 import LongText from "@/components/Elements/Text/LongText";
 import NormalText from "@/components/Elements/Text/NormalText";
+import { Card, Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React from "react";
 import { StyleProp, ViewStyle } from "react-native";
-import { Card, FullTheme, makeStyles } from "react-native-elements";
 
 type ConstatationDescriptionProps = {
   description: string;
@@ -28,10 +29,10 @@ export default function ConstatationDescription(props: ConstatationDescriptionPr
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
     padding: 3,
     margin: 3,
-    // backgroundColor: theme.colors?.grey5,
+    // backgroundColor: theme?.colors?.grey5,
   },
 }));

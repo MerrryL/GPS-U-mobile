@@ -4,10 +4,10 @@ import { Notifications } from "@/components/Notifications";
 import { AuthProvider } from "@/lib/auth";
 import { queryClient } from "@/lib/react-query";
 import { NavigationContainer } from "@react-navigation/native";
+import { createTheme, Text, ThemeProvider } from "@rneui/themed";
 import * as React from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { View } from "react-native";
-import { Text, ThemeProvider } from "react-native-elements";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { QueryClientProvider } from "react-query";
 
@@ -28,19 +28,11 @@ type AppProviderProps = {
 };
 
 export const AppProvider: ({ children }: AppProviderProps) => JSX.Element = ({ children }: AppProviderProps): JSX.Element => {
-  const theme = {
-    colors: {
-      tifannyBlue: "#A0E7E5",
-      mint: "#B4F8C8",
-      hotPink: "#FFAEBC",
-      yellow: "#FBE7C6",
-      ivory: "#EEEDE7",
-    },
-  };
+  const theme = createTheme();
 
   return (
     // <ThemeProvider theme={theme} useDark={colorScheme === "dark"}>
-    <ThemeProvider theme={theme} useDark={false}>
+    <ThemeProvider theme={theme}>
       <React.Suspense fallback={<Spinner />}>
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <QueryClientProvider client={queryClient}>

@@ -1,9 +1,9 @@
 import ImagePicker from "@/components/Elements/Images/ImagePicker";
 import LongText from "@/components/Elements/Text/LongText";
 import { Image as ImageType } from "@/types";
+import { Colors, makeStyles, Theme } from "@rneui/themed";
 import React, { useState } from "react";
 import { View } from "react-native";
-import { makeStyles } from "react-native-elements";
 import { useDeleteConstatationImage } from "../../hooks/useDeleteConstatationImage";
 import { useUploadConstatationImage } from "../../hooks/useUploadConstatationImage";
 
@@ -49,6 +49,6 @@ export default function TabRemainingImages({ myImage }: TabRemainingImagesProps)
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>, props) => ({
+const useStyles = makeStyles((theme:{ colors: Colors; } & Theme) => ({
   container: {},
-}));
+});

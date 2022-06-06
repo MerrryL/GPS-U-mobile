@@ -1,9 +1,11 @@
 import { FloatingButtonStack } from "@/components/Elements/Buttons/ButtonStack";
 import DeleteButton from "@/components/Elements/Buttons/DeleteButton";
+import NormalText from "@/components/Elements/Text/NormalText";
 import { Field, FieldGroup, Observation } from "@/types";
+import { Card, Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React from "react";
 import { StyleProp, ViewStyle } from "react-native";
-import { Card, FullTheme, makeStyles } from "react-native-elements";
 import { useDeleteObservationFieldGroup } from "../hooks/useDeleteObservationFieldGroups";
 import { useObservationFieldGroup } from "../hooks/useObservationFieldGroup";
 import { FieldsAdd } from "../subfeatures/fields/components/FieldAdd";
@@ -43,7 +45,7 @@ export function FieldGroupCard({ fieldGroupId, observation }: ObservationFieldGr
         <DeleteButton callBack={onDeleteSubmit} />
       </FloatingButtonStack>
       <Card.FeaturedTitle style={styles.cardTitle}>Questionnaire: {fieldGroup?.name}</Card.FeaturedTitle>
-      <Card.FeaturedSubtitle style={styles.cardTitle}>{fieldGroup?.description}</Card.FeaturedSubtitle>
+      <NormalText text={fieldGroup?.description} />
 
       {fieldGroup?.fields?.map(
         (field: Field): JSX.Element => (
@@ -58,15 +60,15 @@ export function FieldGroupCard({ fieldGroupId, observation }: ObservationFieldGr
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
-    backgroundColor: theme.colors?.grey5,
+    backgroundColor: theme?.colors?.grey5,
   },
   cardTitle: {
     alignSelf: "stretch",
-    padding: 2,
+    padding: 8,
     marginBottom: 0,
-    backgroundColor: theme.colors?.primary,
+    backgroundColor: theme?.colors?.primary,
   },
   body: {},
 }));

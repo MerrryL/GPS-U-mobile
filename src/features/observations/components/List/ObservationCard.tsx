@@ -6,9 +6,10 @@ import NormalText from "@/components/Elements/Text/NormalText";
 import { Observation } from "@/types";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { Card, Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React from "react";
 import { StyleProp, TextStyle, View, ViewStyle } from "react-native";
-import { Card, FullTheme, makeStyles } from "react-native-elements";
 import { ObservationStackParamList } from "../..";
 
 interface ObservationCardProps {
@@ -18,6 +19,7 @@ interface ObservationCardProps {
 interface StyleProps {
   cardTitle: StyleProp<TextStyle>;
   container: StyleProp<ViewStyle>;
+  summary: StyleProp<ViewStyle>;
   description: StyleProp<ViewStyle>;
   body: StyleProp<ViewStyle>;
   fineAmount: StyleProp<ViewStyle>;
@@ -43,7 +45,7 @@ export function ObservationCard({ observation }: ObservationCardProps) {
       <Card.FeaturedSubtitle style={styles.cardTitle}>{name}</Card.FeaturedSubtitle>
 
       <View style={styles.body}>
-        <Card containerStyle={styles.description}>
+        <Card containerStyle={styles.summary}>
           <NormalText boldText="Résumé" text={short_description}></NormalText>
         </Card>
         <View style={styles.headerInfos}>
@@ -54,7 +56,7 @@ export function ObservationCard({ observation }: ObservationCardProps) {
           {/* <ConstatationAddress localization={localization} /> */}
           <DateText boldText="Dernière m-a-j" date={updated_at} dateStyle={{ alignSelf: "flex-end" }} containerStyle={{ flexDirection: "column", alignItems: "flex-end" }} />
         </View>
-        <Card containerStyle={styles.fineAmount}>
+        <Card containerStyle={styles.description}>
           <NormalText boldText="Description" text={description}></NormalText>
         </Card>
         {/* <Text>Codex: TODO{codex}</Text> */}
@@ -65,62 +67,82 @@ export function ObservationCard({ observation }: ObservationCardProps) {
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
-  container: {
-    backgroundColor: theme.colors?.grey5,
-  },
-  description: {
-    width: 180,
-    height: 180,
-    borderRadius: 20,
-    overflow: "hidden",
-    borderWidth: 3,
-    padding: 5,
-    margin: 5,
-    marginRight: 15,
-    borderColor: "black",
-  },
-  header: {
-    flexWrap: "wrap",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    height: "auto",
-  },
-  cardTitle: {
-    alignSelf: "stretch",
-    padding: 2,
-    marginBottom: 0,
-    backgroundColor: theme.colors?.primary,
-  },
-  fineAmount: {
-    padding: 3,
-    margin: 3,
-  },
-  buttonContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignSelf: "center",
-  },
-  body: {
-    flex: 1,
-    flexWrap: "wrap",
-    flexDirection: "row",
-    height: "auto",
-    marginTop: 5,
-  },
-  details: {
-    display: "flex",
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "stretch",
-  },
-  headerInfos: {
-    flexDirection: "column",
-    alignItems: "flex-start",
-  },
-  cover: {
-    alignSelf: "flex-start",
-  },
-}));
+const useStyles = makeStyles(
+  (
+    theme: {
+      colors: Colors;
+    } & Theme
+  ) => ({
+    container: {
+      backgroundColor: theme?.colors?.grey5,
+      display: "flex",
+      alignItems: "stretch",
+    },
+    summary: {
+      width: 180,
+      height: 180,
+      borderRadius: 20,
+      overflow: "hidden",
+      borderWidth: 3,
+      padding: 5,
+      margin: 5,
+      paddingTop: 15,
+      marginRight: 15,
+      borderColor: "black",
+      flexGrow: 1,
+    },
+    header: {
+      flexWrap: "wrap",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      height: "auto",
+    },
+    cardTitle: {
+      alignSelf: "stretch",
+      padding: 2,
+      marginBottom: 0,
+      backgroundColor: theme?.colors?.primary,
+    },
+    fineAmount: {
+      padding: 3,
+      margin: 3,
+    },
+    buttonContainer: {
+      flex: 1,
+      flexDirection: "row",
+      justifyContent: "flex-end",
+      alignSelf: "center",
+    },
+    body: {
+      flex: 1,
+      flexWrap: "wrap",
+      flexDirection: "row",
+      alignItems: "stretch",
+      height: "auto",
+      marginTop: 5,
+    },
+    details: {
+      display: "flex",
+      flex: 1,
+      flexDirection: "column",
+      justifyContent: "space-between",
+      alignItems: "stretch",
+    },
+    headerInfos: {
+      flexDirection: "column",
+      alignItems: "stretch",
+      flexGrow: 1,
+    },
+    description: {
+      flexDirection: "column",
+      alignItems: "stretch",
+      flexGrow: 1,
+      // padding: 0,
+      margin: 0,
+      marginTop: 8,
+    },
+    cover: {
+      alignSelf: "flex-start",
+    },
+  })
+);

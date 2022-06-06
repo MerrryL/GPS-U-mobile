@@ -3,10 +3,11 @@ import { FloatingButtonStack } from "@/components/Elements/Buttons/ButtonStack";
 import CollapseButton from "@/components/Elements/Buttons/CollapseButton";
 import FormBuilder from "@/components/Elements/FormBuilder/FormBuilder";
 import { Observation } from "@/types";
-import { InputedField, InputType, yupPickerItem } from "@/types/utilityTypes";
+import { InputedField, InputType } from "@/types/utilityTypes";
+import { Card, Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React, { useState } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
-import { Card, FullTheme, makeStyles } from "react-native-elements";
 import * as yup from "yup";
 import { useCreateObservationFieldGroup } from "../hooks/useCreateObservationFieldGroup";
 
@@ -34,26 +35,18 @@ export function FieldGroupsAdd({ observation }: FieldGroupAddProps): JSX.Element
       defaultValue: "",
     },
     {
-      name: "type",
+      name: "description",
       label: "description du questionnaire",
       type: InputType.Text,
       schema: yup.string().min(5).defined(),
       defaultValue: "",
-    },
-    {
-      name: "logical_operator",
-      label: "Conditions",
-      type: InputType.Select,
-      schema: yupPickerItem(),
-      options: [{ id: 1, item: "Ou" }],
     },
   ];
 
   const onSubmit = async (values: any) => {
     await fieldGroupCreateMutation.mutateAsync({
       name: values.name,
-      type: values.type,
-      logical_operator: values.logical_operator.item,
+      description: values.description,
       observationId: observation.id,
     });
 
@@ -78,7 +71,7 @@ export function FieldGroupsAdd({ observation }: FieldGroupAddProps): JSX.Element
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
     minHeight: "50px",
     padding: 3,

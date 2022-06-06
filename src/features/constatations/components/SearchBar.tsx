@@ -1,5 +1,5 @@
+import { SearchBar as Bar } from "@rneui/base";
 import React from "react";
-import { Text, SearchBar as Bar } from "react-native-elements";
 
 export function SearchBar() {
   return (

@@ -4,11 +4,12 @@ import DateText from "@/components/Elements/Text/DateText";
 import { Constatation, Observation, User } from "@/types";
 import { InputedField, InputType, PickerItem } from "@/types/utilityTypes";
 import { getObservationsOptions, getObserversOptions } from "@/utils/getOptions";
+import { Card, Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import { AxiosError } from "axios";
 import React from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { StyleProp, View, ViewStyle } from "react-native";
-import { Card, FullTheme, makeStyles } from "react-native-elements";
 import { UseMutationResult } from "react-query";
 import * as yup from "yup";
 import { UpdateConstatationOptions } from "../../api";
@@ -28,7 +29,7 @@ interface StyleProps {
 export function ConstatationEditCard({ constatation }: ConstatationEditCardProps): JSX.Element {
   const styles: StyleProps = useStyles();
 
-  const { actions, created_at, description, dossiers, field_groups, id, images, isValidated, localization, media, modelType, observations, observers, requiresValidation, requiresValidationDate, updated_at, validationDate } = constatation;
+  const { created_at, description, field_groups, id, images, isValidated, localization, media, modelType, observations, observers, requiresValidation, requiresValidationDate, updated_at, validationDate } = constatation;
 
   const updateConstatationMutation: UseMutationResult<Constatation, AxiosError<any, any>, UpdateConstatationOptions, any> = useUpdateConstatation();
 
@@ -119,15 +120,15 @@ export function ConstatationEditCard({ constatation }: ConstatationEditCardProps
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
-    backgroundColor: theme.colors?.grey5,
+    backgroundColor: theme?.colors?.grey5,
   },
   cardTitle: {
     alignSelf: "stretch",
     padding: 2,
     marginBottom: 0,
-    backgroundColor: theme.colors?.primary,
+    backgroundColor: theme?.colors?.primary,
   },
   body: {},
 }));

@@ -1,8 +1,7 @@
 import { User } from "@/types";
-import { capitalize } from "lodash";
+import { Colors, makeStyles, Theme } from "@rneui/themed";
 import React from "react";
 import { View } from "react-native";
-import { FullTheme, makeStyles } from "react-native-elements";
 import NormalText from "../Text/NormalText";
 
 type UserShortProps = {
@@ -35,7 +34,7 @@ export default function UserShort(props: UserShortProps): JSX.Element {
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme:{ colors: Colors; } & Theme) => ({
   container: {},
   userNameStyle: {},
-}));
+});

@@ -1,8 +1,8 @@
 import ImagePicker from "@/components/Elements/Images/ImagePicker";
 import NormalText from "@/components/Elements/Text/NormalText";
+import { Colors, makeStyles, Theme } from "@rneui/themed";
 import React, { useState } from "react";
 import { View } from "react-native";
-import { makeStyles } from "react-native-elements";
 import { useUploadConstatationOtherImage } from "../../hooks/useUploadConstatationOtherImage";
 
 type AddAnotherImageProps = {
@@ -38,6 +38,6 @@ export default function AddAnotherImage({ constatationId }: AddAnotherImageProps
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>, props) => ({
+const useStyles = makeStyles((theme:{ colors: Colors; } & Theme) => ({
   container: {},
-}));
+});

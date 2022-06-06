@@ -1,9 +1,6 @@
-import React from "react";
 import { useNavigation } from "@react-navigation/native";
-
-import { FlatList, View } from "react-native";
-import { Card, Button, Icon, Text, Input } from "react-native-elements";
-
+import { Card } from "@rneui/base";
+import React from "react";
 import { useObservation } from "../hooks/useObservation";
 
 type Params = {

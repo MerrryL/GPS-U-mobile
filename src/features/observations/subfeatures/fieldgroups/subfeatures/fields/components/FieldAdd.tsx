@@ -3,11 +3,11 @@ import { FloatingButtonStack } from "@/components/Elements/Buttons/ButtonStack";
 import CollapseButton from "@/components/Elements/Buttons/CollapseButton";
 import FormBuilder from "@/components/Elements/FormBuilder/FormBuilder";
 import { FieldGroup, Observation } from "@/types";
-import { InputedField, InputType, yupPickerItem } from "@/types/utilityTypes";
-import { getFieldTypesOptions } from "@/utils/getOptions";
+import { InputedField, InputType } from "@/types/utilityTypes";
+import { Card, Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React, { useState } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
-import { Card, FullTheme, makeStyles } from "react-native-elements";
 import * as yup from "yup";
 import { useCreateField } from "../hooks/useCreateField";
 
@@ -36,14 +36,6 @@ export function FieldsAdd({ fieldGroup, observation }: FieldsAddProps) {
       defaultValue: "",
     },
     {
-      name: "type",
-      label: "type",
-      type: InputType.Select,
-      schema: yupPickerItem(),
-      defaultValue: undefined,
-      options: getFieldTypesOptions() || [],
-    },
-    {
       name: "defaultValue",
       label: "Valeur par défaut",
       type: InputType.Text,
@@ -63,8 +55,6 @@ export function FieldsAdd({ fieldGroup, observation }: FieldsAddProps) {
     console.log("values", values);
     await fieldCreateMutation.mutateAsync({
       name: values.name,
-      field_type_id: values.type.id,
-      // options: values.options,
       defaultValue: values.defaultValue,
       isRequired: values.isRequired,
       observationId: observation.id,
@@ -90,7 +80,7 @@ export function FieldsAdd({ fieldGroup, observation }: FieldsAddProps) {
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
     minHeight: "50px",
     padding: 3,

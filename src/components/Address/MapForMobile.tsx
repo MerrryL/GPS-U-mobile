@@ -1,12 +1,14 @@
+import { Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React from "react";
 import { Dimensions, View } from "react-native";
-import { FullTheme, makeStyles } from "react-native-elements";
 import MapView, { LatLng, MapEvent, Marker, Region } from "react-native-maps";
 
-type MapProps = {
+interface MapProps {
   markers?: LatLng[];
   onChange: (coords: LatLng) => void;
-};
+}
+
 export default function MapForMobile({ markers, onChange }: MapProps): JSX.Element {
   const styles = useStyles();
 
@@ -54,7 +56,7 @@ export default function MapForMobile({ markers, onChange }: MapProps): JSX.Eleme
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>, props) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
     flex: 1,
     backgroundColor: "#fff",

@@ -1,9 +1,10 @@
 import AddButton from "@/components/Elements/Buttons/AddButton";
 import { FloatingButtonStack } from "@/components/Elements/Buttons/ButtonStack";
 import { ImageRequest, Observation } from "@/types";
+import { Card, Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React from "react";
 import { StyleProp, ViewStyle } from "react-native";
-import { Card, FullTheme, makeStyles } from "react-native-elements";
 import { useAttachObservationToImageRequest } from "../hooks/useAttachObservationToImageRequest";
 import { useImageRequests } from "../hooks/useImageRequests";
 
@@ -52,15 +53,15 @@ export default function ImagesPartSelector({ observation }: ImageRequestPartView
     </>
   );
 }
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
-    backgroundColor: theme.colors?.grey5,
+    backgroundColor: theme?.colors?.grey5,
   },
   cardTitle: {
     alignSelf: "stretch",
     padding: 2,
     marginBottom: 0,
-    backgroundColor: theme.colors?.primary,
+    backgroundColor: theme?.colors?.primary,
   },
   body: {},
 }));

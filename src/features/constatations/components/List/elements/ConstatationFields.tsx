@@ -1,9 +1,9 @@
 import LongText from "@/components/Elements/Text/LongText";
 import Title from "@/components/Elements/Text/Title";
 import { Field } from "@/types";
+import { Colors, makeStyles, Theme } from "@rneui/themed";
 import React from "react";
 import { View } from "react-native";
-import { makeStyles } from "react-native-elements";
 
 type ConstatationFieldsProps = {
   fields: Field[];
@@ -30,6 +30,6 @@ export default function ConstatationFields(props: ConstatationFieldsProps) {
   );
 }
 
-const useStyles = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles = makeStyles((theme:{ colors: Colors; } & Theme) => ({
   container: {},
-}));
+});

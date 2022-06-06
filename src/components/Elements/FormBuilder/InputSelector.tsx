@@ -5,9 +5,9 @@ import MultiPickerInput from "@/components/Elements/Inputs/MultiPickerInput";
 import PickerInput from "@/components/Elements/Inputs/PickerInput";
 import TextInput from "@/components/Elements/Inputs/TextInput";
 import { InputedField, InputType } from "@/types/utilityTypes";
+import { Card, Text } from "@rneui/base";
 import React from "react";
 import { Control, useController } from "react-hook-form";
-import { Card, FullTheme, makeStyles, Text } from "react-native-elements";
 import NormalText from "../Text/NormalText";
 
 interface InputFromFieldProps<TFieldValues> {
@@ -51,14 +51,14 @@ export default function InputSelector<TFieldValues>({ f, control }: InputFromFie
     </Card>
   );
 }
-const useStyles: (props?: unknown) => StyleProps = makeStyles((theme: Partial<FullTheme>) => ({
+const useStyles: (props?: unknown) => StyleProps = (theme: { colors: Colors } & Theme) => ({
   container: {
-    backgroundColor: theme.colors?.white,
+    backgroundColor: theme?.colors?.white,
     marginBottom: "6px",
     padding: 3,
     margin: 3,
   },
   errorText: {
-    color: theme.colors.error,
+    color: theme?.colors.error,
   },
-}));
+});
