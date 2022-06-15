@@ -1,3 +1,4 @@
+import { ParamListBase, RouteProp } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import Create from "./Create";
@@ -14,9 +15,16 @@ export type ConstatationStackParamList = {
 
 const ConstatationsStack = createStackNavigator<ConstatationStackParamList>();
 
-export default function ConstatationStackScreen():JSX.Element {
+export default function ConstatationStackScreen(): JSX.Element {
   return (
-    <ConstatationsStack.Navigator>
+    <ConstatationsStack.Navigator
+      screenOptions={({ route }: { route: RouteProp<ParamListBase> }) => ({
+        tabBarHideOnKeyboard: true,
+        headerStyle: {
+          height: "40px",
+        },
+      })}
+    >
       <ConstatationsStack.Screen name="Liste" component={List} />
       <ConstatationsStack.Screen name="Details" component={Details} />
       <ConstatationsStack.Screen name="Edition" component={Edit} />

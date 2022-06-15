@@ -6,8 +6,8 @@ import { deleteConstatationImage } from "../api";
 
 
 
-type UseDeleteConstatationImageOptions = {
-  imageId: string;
+interface UseDeleteConstatationImageOptions {
+  imageId: number;
   constatationId: number;
   config?: MutationConfig<typeof deleteConstatationImage>;
 };

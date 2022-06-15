@@ -7,7 +7,7 @@ import MapForWeb from "./MapForWeb";
 //TODO: add type
 type MapProps = {
   markers: LatLng[];
-  onChange: any;
+  onChange: (coords: LatLng) => void;
 };
 
 export default function Map({ markers, onChange }: MapProps): JSX.Element {

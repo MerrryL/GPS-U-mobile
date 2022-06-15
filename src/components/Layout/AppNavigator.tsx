@@ -31,6 +31,10 @@ function AppNavigator(): JSX.Element {
       initialRouteName="AppNavigator"
       screenOptions={({ route }: { route: RouteProp<ParamListBase> }) => ({
         tabBarActiveTintColor: "#e91e63",
+        tabBarHideOnKeyboard: true,
+        headerStyle: {
+          height: "40px",
+        },
       })}
     >
       <Tab.Screen

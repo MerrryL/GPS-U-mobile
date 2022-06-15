@@ -15,7 +15,9 @@ export default function ConstatationRequireValidationButton(props) {
 
   return (
     <>
-      <Button title="Valider " onPress={() => onRequireValidation()} icon={<Ionicons name="thumbs-up" size={24} color="white" />} iconRight={true} />
+      <Button onPress={() => onRequireValidation()} iconRight={true} color="success">
+        <Ionicons name="thumbs-up" size={12} color="white" />
+      </Button>
     </>
   );
 }

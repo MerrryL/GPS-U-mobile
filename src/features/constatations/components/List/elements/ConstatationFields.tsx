@@ -30,6 +30,6 @@ export default function ConstatationFields(props: ConstatationFieldsProps) {
   );
 }
 
-const useStyles = makeStyles((theme:{ colors: Colors; } & Theme) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {},
-});
+}));

@@ -14,11 +14,6 @@ type UseDefineAsThumbConstatationImageOptions = {
 };
 
 export const useDefineAsThumbConstatationImage = ({ constatationId, imageId, config }: UseDefineAsThumbConstatationImageOptions) => {
-  console.log("g,", {
-    constatationId,
-    imageId,
-    config,
-  });
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (updatingConstatation: Constatation) => {
@@ -26,7 +21,7 @@ export const useDefineAsThumbConstatationImage = ({ constatationId, imageId, con
 
       const previousConstatations = queryClient.getQueryData<Constatation[]>(["constatations"]);
 
-      const index = previousConstatations.findIndex((obj) => obj.id == constatationId);
+      const index = previousConstatations?.findIndex((obj) => obj.id == constatationId);
 
       previousConstatations[index].media = updatingConstatation.media;
 

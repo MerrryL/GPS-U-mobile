@@ -13,7 +13,7 @@ type ObserverPartProps = {
 };
 
 type ObserverToSend = {
-  id: string | number;
+  id: number;
   item: string;
 };
 

@@ -7,12 +7,11 @@ export type BaseEntity = {
 
 export type Constatation = {
   description: string;
-  field_groups: FieldGroup[];
+  fields: Field[];
   images: Image[];
   isValidated: number;
   localization: Localization;
   media: Media[];
-  modelType: null;
   observations: Observation[];
   observers: User[];
   requiresValidation: number;
@@ -24,14 +23,14 @@ export type Constatation = {
 export type ImageToSend = {
   base64: string;
   height: number;
-  name: string;
   type: string;
   uri: string;
   width: number;
 } & BaseEntity;
 
 export type FieldGroup = {
-  constatation_id: string;
+  observation: Observation;
+  observation_id: number;
   description: string;
   fields: Field[];
   name: string;
@@ -40,7 +39,7 @@ export type FieldGroup = {
 
 export type Field = {
   defaultValue: string;
-  field_group_id: string;
+  field_group_id: number;
   field_group: FieldGroup;
   isRequired: boolean;
   name: string;
@@ -54,16 +53,15 @@ export type FieldType = {
 } & BaseEntity;
 
 export type ConstFieldPivot = {
-  constatation_id: string | number | null;
-  field_id: string | number | null;
-  value: string | number | null;
+  constatation_id: number;
+  field_id: number;
+  value: string;
 };
 
 export type Image = {
-  constatation_id: string;
-  name: string;
-  description: string;
+  constatation_id: number;
   media: Media[];
+  image_request?: ImageRequest
 } & BaseEntity;
 
 export type Media = {
@@ -72,13 +70,13 @@ export type Media = {
   generated_conversions: GeneratedConversions;
   manipulations: any[];
   mime_type: string;
-  model_id: string;
+  model_id: number;
   model_type: string;
   name: string;
   order_column: string;
   responsive_images: any[];
   size: string;
-  uuid: string;
+  uuid: number;
 } & BaseEntity;
 
 export interface GeneratedConversions {
@@ -115,8 +113,8 @@ export type Localization = {
   formatted_address?: string;
   given_name?: string;
   heading?: number | null;
-  latitude?: number | null;
-  longitude?: number | null;
+  latitude?: number;
+  longitude?: number;
   place_id?: number;
   speed?: number | null;
   viewport?: Viewport;

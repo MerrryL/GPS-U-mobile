@@ -3,6 +3,7 @@ import * as yup from "yup";
 
 export enum InputType {
   Text = "text",
+  Number="number",
   Password = "password",
   Email = "email",
   Select = "select",
@@ -22,6 +23,12 @@ export interface TextInputedField extends BaseInputField {
   multiline?: boolean;
   defaultValue?: string;
   schema:  yup.SchemaOf<string>;
+}
+export interface NumberInputedField extends BaseInputField {
+  type: InputType.Text;
+  value?: number;
+  defaultValue?: number;
+  schema:  yup.SchemaOf<number>;
 }
 export interface SelectInputedField extends BaseInputField {
   type: InputType.Select;
@@ -46,7 +53,7 @@ export interface CheckBoxInputedField extends BaseInputField {
   schema:   yup.BooleanSchema
 }
 
-export type InputedField = MultiSelectInputedField | SelectInputedField | TextInputedField |  CheckBoxInputedField;
+export type InputedField = MultiSelectInputedField | SelectInputedField | TextInputedField |  NumberInputedField | CheckBoxInputedField;
 
 export interface ConstatationValues extends FieldValues {
   description: string;

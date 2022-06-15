@@ -1,5 +1,6 @@
 import OpenCoords from "@/components/Address/OpenCoordsLink";
-import AddressText from "@/components/Elements/Text/AddressText";
+import { FloatingButtonStack } from "@/components/Elements/Buttons/ButtonStack";
+import NormalText from "@/components/Elements/Text/NormalText";
 import { Localization } from "@/types";
 import { Card, Colors, Theme } from "@rneui/base";
 import { makeStyles } from "@rneui/themed";
@@ -22,8 +23,13 @@ export default function ConstatationAddress(props: ConstatationAddressProps): JS
 
   return (
     <Card containerStyle={styles.container}>
-      <AddressText address={localization?.formatted_address} />
-      {localization && localization.latitude && localization.longitude && <OpenCoords latitude={localization.latitude} longitude={localization.longitude} />}
+      {localization && localization.latitude && localization.longitude && (
+        <FloatingButtonStack>
+          <OpenCoords latitude={localization.latitude} longitude={localization.longitude} />
+        </FloatingButtonStack>
+      )}
+      <NormalText boldText="Adresse" text={localization?.formatted_address ?? "Non renseigné"} />
+      <NormalText boldText="Lieu-dit" text={localization?.given_name ?? "Non renseigné"} />
     </Card>
   );
 }

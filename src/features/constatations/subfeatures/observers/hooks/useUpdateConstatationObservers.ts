@@ -6,7 +6,7 @@ import { updateConstatationObservers } from "../api";
 
 
 type ObserverToSend = {
-  id: string | number;
+  id: number;
   item: string;
 };
 

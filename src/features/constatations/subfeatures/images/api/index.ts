@@ -1,17 +1,7 @@
 import { axios } from "@/lib/axios";
-import { Constatation, Image } from "@/types";
+import { Constatation, Image, ImageToSend } from "@/types";
 
-
-type ImageToSend = {
-  name: string;
-  height: number;
-  width: number;
-  type: string;
-  uri: string;
-  base64: string;
-};
-
-type GetConstatationImagesOptions = {
+interface GetConstatationImagesOptions {
   constatationId: number;
 };
 
@@ -19,7 +9,7 @@ export const getConstatationImages = ({ constatationId }: GetConstatationImagesO
   return axios.get(`/constatations/${constatationId}/images`);
 };
 
-type GetConstatationImageOptions = {
+interface GetConstatationImageOptions {
   constatationId: number;
   imageId: string;
 };
@@ -28,7 +18,7 @@ export const getConstatationImage = ({ constatationId, imageId }: GetConstatatio
   return axios.get(`/constatations/${constatationId}/images/${imageId}`);
 };
 
-type CreateConstatationImageOptions = {
+interface CreateConstatationImageOptions {
   constatationId: number;
   name: string;
 };
@@ -38,8 +28,8 @@ export const createConstatationImage = ({ constatationId, name }: CreateConstata
   return axios.post(`/constatations/${constatationId}/images`, { name });
 };
 
-type DeleteConstatationImageOptions = {
-  imageId: string;
+interface DeleteConstatationImageOptions {
+  imageId: number;
   constatationId: number;
 };
 
@@ -47,7 +37,7 @@ export const deleteConstatationImage = ({ imageId, constatationId }: DeleteConst
   return axios.delete(`/constatations/${constatationId}/images/${imageId}`);
 };
 
-type UploadConstatationOtherImageOptions = {
+interface UploadConstatationOtherImageOptions {
   constatationId: number;
   image: ImageToSend;
 };
@@ -58,8 +48,8 @@ export const uploadConstatationOtherImage = ({ image, constatationId }: UploadCo
   });
 };
 
-type UploadConstatationImageOptions = {
-  imageId?: string;
+interface UploadConstatationImageOptions {
+  imageId?: number;
   constatationId: number;
   image: ImageToSend;
 };
@@ -68,7 +58,7 @@ export const uploadConstatationImage = ({ image, constatationId, imageId }: Uplo
   return axios.post(`/constatations/${constatationId}/images/${imageId}/upload`, { image });
 };
 
-type DeletePictureConstatationImageOptions = {
+interface DeletePictureConstatationImageOptions {
   imageId: number;
   constatationId: number;
 };
@@ -77,7 +67,7 @@ export const deletePictureConstatationImage = ({ imageId, constatationId }: Dele
   return axios.delete(`/constatations/${constatationId}/images/${imageId}/remove`);
 };
 
-type DefineAsThumbOptions = {
+interface DefineAsThumbOptions {
   constatationId: number;
   imageId: number;
 };

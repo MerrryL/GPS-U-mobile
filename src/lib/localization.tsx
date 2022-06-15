@@ -6,11 +6,11 @@ import * as Location from "expo-location";
 export async function getCurrentLocationFromSensors(): Promise<Location.LocationObject | undefined> {
   const { status } = await Location.requestForegroundPermissionsAsync();
   if (status !== "granted") {
-    //setErrorMsg("Permission to access location was denied");
     return;
   } else {
     const location: Location.LocationObject = await Location.getCurrentPositionAsync({
       accuracy: Location.Accuracy.BestForNavigation,
+      mayShowUserSettingsDialog: true,
     });
     return location;
   }

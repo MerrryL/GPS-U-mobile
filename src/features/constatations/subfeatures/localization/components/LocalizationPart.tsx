@@ -1,27 +1,40 @@
 import Map from "@/components/Address/Map";
 import { FloatingButtonStack } from "@/components/Elements/Buttons/ButtonStack";
 import RefreshButton from "@/components/Elements/Buttons/RefreshButton";
-import SaveButton from "@/components/Elements/Buttons/SaveButton";
+import FormBuilder from "@/components/Elements/FormBuilder/FormBuilder";
 import { getAddressForCoordinates, getCoordinatesForAddress, getCurrentLocationFromSensors } from "@/lib/localization";
 import { Constatation, Localization } from "@/types";
-import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
-import { Button, Card, Text } from "@rneui/base";
+import { InputedField, InputType } from "@/types/utilityTypes";
+import { Card, Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import { AxiosResponse } from "axios";
 import { LocationObject } from "expo-location";
 import React, { useState } from "react";
-import { Dimensions, Linking, StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleProp, ViewStyle } from "react-native";
 import { LatLng } from "react-native-maps";
+import * as yup from "yup";
 import { useUpdateLocalization } from "../hooks/useUpdateLocalization";
-import LocalizationForm from "./LocalizationForm";
 
 interface LocalizationPartProps {
-  // localization?: Localization;
   constatation: Constatation;
 }
 
+interface StyleProps {
+  container: StyleProp<ViewStyle>;
+}
+
 export default function LocalizationPart({ constatation }: LocalizationPartProps): JSX.Element {
-  console.dir(constatation.localization);
-  const [coords, setCoords] = useState<Localization | undefined>(constatation.localization);
+  const styles: StyleProps = useStyles();
+  const updateLocalizationMutation = useUpdateLocalization();
+  const [coords, setCoords] = useState<Localization>(constatation.localization);
+
+  const updateCoords = (newCoords: Localization): void =>
+    setCoords(
+      (prevCoords: Localization): Localization => ({
+        ...prevCoords,
+        ...newCoords,
+      })
+    );
 
   // useEffect(() => {
   //   setCoords((prevCoords: Localization | undefined): Localization | undefined => (prevCoords ? { ...prevCoords, ...localization } : localization ? { ...localization } : undefined));
@@ -31,22 +44,9 @@ export default function LocalizationPart({ constatation }: LocalizationPartProps
   const updateCoordsFromSensors = async () => {
     const updatedCoords: LocationObject | undefined = await getCurrentLocationFromSensors();
 
-    setCoords((oldCoords: Localization | undefined): Localization | undefined => ({
-      ...oldCoords,
-      ...updatedCoords?.coords,
-    }));
-
     if (updatedCoords) {
+      updateCoords(updatedCoords.coords);
       updateAddressFromCoords(updatedCoords.coords);
-      // getAddressForCoordinates({
-      //   latitude: updatedCoords.coords.latitude,
-      //   longitude: updatedCoords.coords.longitude,
-      // }).then((newCoords) =>
-      //   setCoords((prevCoords: Localization | undefined): Localization | undefined => ({
-      //     ...prevCoords,
-      //     ...newCoords,
-      //   }))
-      // );
     }
   };
 
@@ -54,85 +54,89 @@ export default function LocalizationPart({ constatation }: LocalizationPartProps
     getAddressForCoordinates({
       latitude: coords.latitude,
       longitude: coords.longitude,
-    }).then((newCoords: AxiosResponse<Localization>) =>
-      setCoords((prevCoords: Localization | undefined): Localization | undefined => ({
-        ...prevCoords,
-        ...newCoords,
-      }))
-    );
+    }).then((response: AxiosResponse<Localization>) => updateCoords(response.data));
   };
 
   const updateCoordsFromAddress = async () => {
     if (coords && coords.formatted_address) {
-      await getCoordinatesForAddress(coords.formatted_address).then((newCoords) =>
-        setCoords((prevCoords: Localization | undefined): Localization | undefined => ({
-          ...prevCoords,
-          ...newCoords,
-        }))
-      );
+      await getCoordinatesForAddress(coords.formatted_address).then((response: AxiosResponse<LatLng>) => updateCoords(response.data));
     }
   };
 
-  const updateLocalizationMutation = useUpdateLocalization();
-
-  async function onSubmit() {
-    console.dir("here", coords);
-    if (coords) {
-      updateLocalizationMutation.mutateAsync({
-        localization: coords,
-        constatationId: constatation.id,
-      });
-    }
-  }
-
-  const onChange = (marker: LatLng) => {
-    setCoords((prevCoords: Localization | undefined): Localization => ({ ...prevCoords, latitude: marker.latitude, longitude: marker.longitude }));
+  const onSubmit = async (data: any) => {
+    console.dir("here", data);
+    await updateLocalizationMutation.mutateAsync({
+      localization: data,
+      constatationId: constatation.id,
+    });
   };
+
+  const newLocalizationForm: InputedField[] = [
+    {
+      name: "given_name",
+      label: "Lieu-dit",
+      type: InputType.Text,
+      schema: yup.string().min(5).defined(),
+      value: coords.given_name,
+    },
+    {
+      name: "formatted_address",
+      label: "Adresse",
+      type: InputType.Text,
+      schema: yup.string().min(5).defined(),
+      value: coords.formatted_address,
+    },
+    {
+      name: "latitude",
+      label: "latitude",
+      type: InputType.Text,
+      schema: yup.number().defined(),
+      value: coords.latitude,
+    },
+    {
+      name: "longitude",
+      label: "longitude",
+      type: InputType.Text,
+      schema: yup.number().defined(),
+      value: coords.longitude,
+    },
+  ];
 
   return (
     <Card containerStyle={styles.container}>
       <FloatingButtonStack>
         <RefreshButton callBack={updateCoordsFromSensors}></RefreshButton>
-        <SaveButton callBack={onSubmit}></SaveButton>
-
-        {/* <Button title="Génerer par l'appareil " onPress={() => updateCoordsFromSensors()} icon={<MaterialCommunityIcons name="cog-refresh" size={24} color="white" />} iconRight={true} /> */}
-        {/* <Button title="Enregistrer " onPress={() => onSubmit()} icon={<AntDesign name="cloudupload" size={24} color="white" />} iconRight={true} /> */}
+        {/* <SaveButton callBack={onSubmit}></SaveButton> */}
       </FloatingButtonStack>
 
-      <View style={styles.form}>{coords && <LocalizationForm coords={coords} onSubmit={onSubmit} />}</View>
-
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+      {/* <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <Button style={{ width: 200 }} icon={<FontAwesome name="hand-o-up" size={24} color="white" />} iconRight={true} disabled={coords?.latitude && coords?.longitude ? false : true} title="Maj adresse " onPress={() => updateAddressFromCoords({ latitude: coords?.latitude!, longitude: coords?.longitude! })} />
         <Button style={{ width: 200 }} icon={<FontAwesome name="hand-o-down" size={24} color="white" />} disabled={coords?.formatted_address ? false : true} title=" Maj coords" onPress={() => updateCoordsFromAddress()} />
-      </View>
+      </View> */}
 
-      {coords && coords.latitude && coords.longitude && (
+      <Map
+        markers={coords && coords.latitude && coords.longitude ? [{ latitude: +coords.latitude, longitude: +coords.longitude }] : []}
+        onChange={(coords) => {
+          console.log(coords);
+          updateCoords(coords);
+        }}
+      />
+
+      {/* {coords && coords.latitude && coords.longitude && (
         <TouchableOpacity onPress={() => Linking.openURL("https://www.google.com/maps/place/" + coords.latitude + "," + coords.longitude)}>
           <Text style={{ color: "blue", alignSelf: "center" }}>
             Ouvrir sur maps <MaterialCommunityIcons name="google-maps" size={24} color="blue" />
           </Text>
         </TouchableOpacity>
-      )}
+      )} */}
 
-      {/* <MapInfos /> */}
-      <Map markers={coords && coords.latitude && coords.longitude ? [{ latitude: coords.latitude, longitude: coords.longitude }] : []} onChange={onChange} />
+      <FormBuilder title="Localisation" description="Où la constatation a eu lieu" fields={newLocalizationForm} onSubmit={onSubmit} />
     </Card>
   );
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 10,
+    backgroundColor: theme?.colors?.grey5,
   },
-  form: {
-    marginTop: "60px",
-  },
-  map: {
-    width: 0.8 * Dimensions.get("window").width,
-    height: 0.8 * Dimensions.get("window").width,
-  },
-});
+}));

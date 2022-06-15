@@ -12,7 +12,7 @@ import React from "react";
 import { StyleProp, TextStyle, View, ViewStyle } from "react-native";
 import { ObservationStackParamList } from "../..";
 
-interface ObservationCardProps {
+interface ObservationListCardProps {
   observation: Observation;
 }
 
@@ -27,7 +27,7 @@ interface StyleProps {
   details: StyleProp<ViewStyle>;
 }
 
-export function ObservationCard({ observation }: ObservationCardProps) {
+export function ObservationListCard({ observation }: ObservationListCardProps): JSX.Element {
   const styles: StyleProps = useStyles();
 
   const navigation: StackNavigationProp<ObservationStackParamList, keyof ObservationStackParamList, undefined> = useNavigation<StackNavigationProp<ObservationStackParamList, "Liste">>();
@@ -53,7 +53,6 @@ export function ObservationCard({ observation }: ObservationCardProps) {
           <Card containerStyle={styles.fineAmount}>
             <NormalText boldText="Montant de l'amende" text={fine_amount}></NormalText>
           </Card>
-          {/* <ConstatationAddress localization={localization} /> */}
           <DateText boldText="Dernière m-a-j" date={updated_at} dateStyle={{ alignSelf: "flex-end" }} containerStyle={{ flexDirection: "column", alignItems: "flex-end" }} />
         </View>
         <Card containerStyle={styles.description}>
@@ -81,7 +80,7 @@ const useStyles = makeStyles(
     summary: {
       width: 180,
       height: 180,
-      borderRadius: 20,
+      // borderRadius: 20,
       overflow: "hidden",
       borderWidth: 3,
       padding: 5,

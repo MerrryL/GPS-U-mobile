@@ -3,8 +3,11 @@ import { Ionicons } from "@expo/vector-icons";
 import { Button } from "@rneui/base";
 import React from "react";
 
-export default function ConstatationValidationButton(props) {
-  const { id } = props;
+interface ConstatationValidationButtonProps {
+  id: number;
+}
+
+export default function ConstatationValidationButton({ id }: ConstatationValidationButtonProps) {
   const validateMutation = useValidateConstatation();
 
   const onValidation = async () => {
@@ -15,7 +18,10 @@ export default function ConstatationValidationButton(props) {
 
   return (
     <>
-      <Button title="Valider " onPress={() => onValidation()} icon={<Ionicons name="thumbs-up" size={24} color="white" />} iconRight={true} />
+      <Button onPress={() => onValidation()} iconRight={true} color="success">
+        <Ionicons name="thumbs-up" size={12} color="white" />
+      </Button>
+      {/* <Button title="Valider " onPress={() => onValidation()} icon={<Ionicons name="thumbs-up" size={24} color="white" />} iconRight={true} /> */}
     </>
   );
 }

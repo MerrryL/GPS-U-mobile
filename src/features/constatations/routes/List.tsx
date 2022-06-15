@@ -2,7 +2,7 @@ import { Constatation } from "@/types";
 import { RouteProp } from "@react-navigation/native";
 import type { StackNavigationProp } from "@react-navigation/stack";
 import { Text } from "@rneui/base";
-import { FAB } from "@rneui/themed";
+import { FAB, useTheme } from "@rneui/themed";
 import React from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { UseMutationResult, UseQueryResult } from "react-query";
@@ -18,6 +18,7 @@ type ConstatationListProps = {
 
 export default function List({ route, navigation }: ConstatationListProps): JSX.Element {
   const constatationsQuery: UseQueryResult<Constatation[], unknown> = useConstatations();
+  const { theme } = useTheme();
 
   const createConstatationMutation: UseMutationResult<Constatation, unknown, void, void> = useCreateConstatation();
 
@@ -49,7 +50,7 @@ export default function List({ route, navigation }: ConstatationListProps): JSX.
           )
         )}
       </ScrollView>
-      <FAB title="+" placement="right" size="large" color="#2ECC71" onPress={(): Promise<void> => handleCreation()} />
+      <FAB title="+" placement="right" size="large" color={theme.colors.success} onPress={(): Promise<void> => handleCreation()} />
     </>
   );
 }

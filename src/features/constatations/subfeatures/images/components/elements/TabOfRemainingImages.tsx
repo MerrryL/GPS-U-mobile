@@ -1,54 +1,44 @@
 import NormalText from "@/components/Elements/Text/NormalText";
 import { Image as ImageType } from "@/types";
-import { makeStyles, Tab, TabView, Text } from "@rneui/base";
+import { Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React, { useState } from "react";
 import { View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import TabRemainingImage from "./TabRemainingImage";
 
-type ImagesTabsProps = {
+interface ImagesTabsProps {
   images: ImageType[];
-};
+}
 
-export default function TabOfRemainingImages(props: ImagesTabsProps) {
+export default function TabOfRemainingImages(props: ImagesTabsProps): JSX.Element {
   const { images } = props;
   const [index, setIndex] = useState(0);
 
-  const [isVisible, setVisibility] = useState(true);
-
-  const boldText = images?.length === 1 ? "Une photo est requise" : images?.length + " photo(s) sont requises";
-  const text = "Pour compléter les observations";
+  const boldText = images?.length === 1 ? "Une photo supplémentaire est requise" : images?.length + " photos supplémentaires sont requises";
+  const text = "Pour compléter la constatation";
 
   const styles = useStyles();
 
   return (
     <View style={styles.container}>
       <NormalText boldText={boldText} text={text} />
+      {/* <Tab value={index} onChange={setIndex} indicatorStyle={styles.indicatorStyle}> */}
+      {/* {images && images.map((image, key) => <Tab.Item key={key} title={image.image_request?.name ?? "Autre"} titleStyle={styles.tabItem} />)} */}
+      {/* </Tab> */}
 
-      <TouchableOpacity onPress={() => setVisibility(!isVisible)}>
-        <Text style={{ alignSelf: "flex-end", fontStyle: "italic", color: "blue" }}>{isVisible ? "Cacher les photos requises" : "Prendre les photos requises"}</Text>
-      </TouchableOpacity>
-      {isVisible && (
-        <>
-          <Tab value={index} onChange={setIndex} indicatorStyle={styles.indicatorStyle}>
-            {images && images.map((image, key) => <Tab.Item key={key} title={image.name} titleStyle={styles.tabItem} />)}
-          </Tab>
-
-          <TabView value={index} onChange={setIndex}>
-            {images &&
-              images.map((image, key) => (
-                <TabView.Item key={key}>
-                  <TabRemainingImage myImage={image} />
-                </TabView.Item>
-              ))}
-          </TabView>
-        </>
-      )}
+      {/* <TabView value={index} onChange={setIndex}> */}
+      {images &&
+        images.map((image, key) => (
+          // <TabView.Item key={key}>
+          <TabRemainingImage myImage={image} key={key} />
+          // </TabView.Item>
+        ))}
+      {/* </TabView> */}
     </View>
   );
 }
 
-const useStyles = makeStyles((theme:{ colors: Colors; } & Theme) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
     marginTop: "10px",
   },
@@ -61,4 +51,4 @@ const useStyles = makeStyles((theme:{ colors: Colors; } & Theme) => ({
     backgroundColor: "#aaa",
     minHeight: "300px",
   },
-});
+}));

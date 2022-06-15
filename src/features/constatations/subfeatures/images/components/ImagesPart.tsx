@@ -1,71 +1,51 @@
 import NormalText from "@/components/Elements/Text/NormalText";
 import ConstatationCover from "@/features/constatations/components/elements/ConstatationCover";
 import TabOfImages from "@/features/constatations/subfeatures/images/components/elements/TabOfImages";
-import { Image, Media } from "@/types";
-import { Colors, makeStyles, Theme } from "@rneui/themed";
+import { Constatation, Image } from "@/types";
+import { Card, Colors, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React from "react";
-import { View } from "react-native";
+import { StyleProp, ViewStyle } from "react-native";
 import AddAnotherImage from "./elements/AddAnotherImage";
 import TabOfRemainingImages from "./elements/TabOfRemainingImages";
 
-type ImagesPartProps = {
-  cover: Media;
-  images: Image[];
-  constatationId: number;
-};
+interface ImagesPartProps {
+  constatation: Constatation;
+}
 
-export default function ImagesPart(props: ImagesPartProps) {
-  const { cover, images, constatationId } = props;
-  const styles = useStyles();
+interface StyleProps {
+  container: StyleProp<ViewStyle>;
+}
 
-  const ImagesWithMedia: Image[] = [];
-  const ImagesWithoutMedia: Image[] = [];
+export default function ImagesPart({ constatation }: ImagesPartProps): JSX.Element {
+  const styles: StyleProps = useStyles();
 
-  images.map((image) => {
-    if (image?.media?.length > 0) {
-      ImagesWithMedia.push(image);
-    } else {
-      ImagesWithoutMedia.push(image);
-    }
-  });
+  const ImagesWithMedia: Image[] = constatation.images.filter((image: Image) => image.media.length > 0);
+  const ImagesWithoutMedia: Image[] = constatation.images.filter((image: Image) => image.media.length === 0);
 
   return (
-    <View>
-      <NormalText boldText="Photo de couverture actuelle" />
-      <ConstatationCover cover={cover} images={images} style={styles.cover} />
-
+    <Card containerStyle={styles.container}>
+      <Card>
+        <NormalText boldText="Photo de couverture actuelle" />
+        <ConstatationCover cover={constatation.media[0]} images={constatation.images} />
+      </Card>
+      <Card>{ImagesWithoutMedia.length > 0 ? <TabOfRemainingImages images={ImagesWithoutMedia} /> : <NormalText boldText="Aucune autre photo n'est requise pour l'instant" text="Mais n'hésitez pas à rajouter d'autres photographies" />}</Card>
+      <AddAnotherImage constatation={constatation} />
       {ImagesWithMedia.length > 0 ? <TabOfImages images={ImagesWithMedia} /> : <NormalText boldText="Aucune photo n'a été prise pour l'instant" text="N'hésitez pas à compléter les demandes de photographies spécifiques aux observations ou à rajouter d'autres photographies" />}
-
-      {ImagesWithoutMedia.length > 0 ? <TabOfRemainingImages images={ImagesWithoutMedia} /> : <NormalText boldText="Aucune autre photo n'est requise pour l'instant" text="Mais n'hésitez pas à rajouter d'autres photographies" />}
-
-      <AddAnotherImage constatationId={constatationId} />
-
-      {/* <ScrollView >
-        {ImagesWithoutMedia.map((image, index) => (
-          <ImagesPartView constatationId={constatationId} myImage={image} key={index}/>
-        ))}
-      </ScrollView> */}
-
-      <View>{/* <ImagesPartAdd constatationId={constatationId}/> */}</View>
-    </View>
+    </Card>
   );
 }
 
-const useStyles = makeStyles((theme:{ colors: Colors; } & Theme, props: StyleProps) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
-    alignItems: "baseline",
-    ...props.container,
+    backgroundColor: theme?.colors?.grey5,
+    alignContent: "stretch",
   },
   boldText: {
-    fontSize: "16px",
+    fontSize: 16,
     fontWeight: "bold",
-    color: theme?.colors?.grey3,
-    ...props.boldText,
+    color: theme.colors.grey3,
   },
-  text: {
-    ...props.text,
-  },
-
   cover: {
     width: 150,
     height: 150,
@@ -74,4 +54,4 @@ const useStyles = makeStyles((theme:{ colors: Colors; } & Theme, props: StylePro
     borderWidth: 3,
     borderColor: "black",
   },
-});
+}));

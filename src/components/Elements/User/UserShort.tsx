@@ -34,7 +34,7 @@ export default function UserShort(props: UserShortProps): JSX.Element {
   );
 }
 
-const useStyles = makeStyles((theme:{ colors: Colors; } & Theme) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {},
   userNameStyle: {},
-});
+}));

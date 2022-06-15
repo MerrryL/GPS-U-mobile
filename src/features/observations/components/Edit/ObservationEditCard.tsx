@@ -9,7 +9,7 @@ import { makeStyles } from "@rneui/themed";
 import { AxiosError } from "axios";
 import React from "react";
 import { SubmitHandler, UnpackNestedValue } from "react-hook-form";
-import { StyleProp, View, ViewStyle } from "react-native";
+import { StyleProp, ViewStyle } from "react-native";
 import { UseMutationResult } from "react-query";
 import * as yup from "yup";
 import { UpdateObservationOptions } from "../../api";
@@ -101,13 +101,12 @@ export function ObservationEditCard({ observation }: ObservationEditCardProps): 
         <DetailsButton callBack={() => navigation.navigate("Details", { observationId: observation?.id })}></DetailsButton> */}
       </FloatingButtonStack>
       {/* <Card.FeaturedTitle style={styles.cardTitle}>Observation</Card.FeaturedTitle> */}
+      <Card.FeaturedTitle style={styles.cardTitle}>Observation</Card.FeaturedTitle>
 
-      <View style={styles.body}>
+      <Card containerStyle={styles.body}>
         <DateText boldText="Création" date={observation.created_at} />
         <DateText boldText="Dernière Modification" date={observation.created_at} />
-      </View>
-
-      <Card.Divider />
+      </Card>
 
       <FormBuilder title="Informations administratives" description="Informations minimales pour la rédaction d'une observation" fields={observationForm} onSubmit={onSubmit} />
     </Card>
@@ -118,11 +117,15 @@ const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
     backgroundColor: theme?.colors?.grey5,
   },
+  body: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "stretch",
+  },
   cardTitle: {
     alignSelf: "stretch",
     padding: 2,
     marginBottom: 0,
     backgroundColor: theme?.colors?.primary,
   },
-  body: {},
 }));

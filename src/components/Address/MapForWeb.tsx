@@ -1,7 +1,7 @@
-import { Colors, Theme } from "@rneui/base";
+import { Card, Colors, Theme } from "@rneui/base";
 import { makeStyles } from "@rneui/themed";
 import React, { useEffect, useState } from "react";
-import { Dimensions, View } from "react-native";
+import { GestureResponderEvent } from "react-native";
 import { LatLng, Region } from "react-native-maps";
 import MapView from "react-native-web-maps";
 
@@ -31,6 +31,7 @@ export default function MapForWeb({ markers, onChange }: MapProps): JSX.Element 
   };
 
   const onDragEnd = (marker: any) => {
+    console.warn(marker);
     onChange({
       latitude: marker.latLng.lat() as number,
       longitude: marker.latLng.lng() as number,
@@ -38,40 +39,50 @@ export default function MapForWeb({ markers, onChange }: MapProps): JSX.Element 
   };
 
   return (
-    <View style={styles.container}>
-      {/* {JSON.stringify(markers)} */}
-      <MapView style={styles.map} initialRegion={initialRegion} key={markers}>
-        {markersState?.map((marker: LatLng, index: number): JSX.Element => {
-          // console.warn("here", marker);
-          return (
+    <Card containerStyle={styles.container}>
+      <MapView
+        style={styles.map}
+        initialRegion={initialRegion}
+        key={markers}
+        onStartShouldSetResponder={(event: GestureResponderEvent) => true}
+        onMoveShouldSetResponder={(event: GestureResponderEvent) => true}
+        onTouchEnd={(event: GestureResponderEvent) => {
+          event.stopPropagation();
+        }}
+        onPress={(event: PointerEvent) => event.stopPropagation()}
+      >
+        {markersState?.map(
+          (marker: LatLng, index: number): JSX.Element => (
             <MapView.Marker
               key={index}
-              coordinate={{
-                latitude: marker.latitude,
-                longitude: marker.longitude,
-              }}
+              coordinate={marker}
               draggable
+              onStartShouldSetPanResponder={(event: GestureResponderEvent) => true}
+              onMoveShouldSetResponder={(event: GestureResponderEvent) => true}
+              onTouchEnd={(event: GestureResponderEvent) => {
+                event.stopPropagation();
+              }}
+              onPress={(event: PointerEvent) => event.stopPropagation()}
               onDragEnd={onDragEnd}
               title="Ici"
               description="Vous êtes ici"
             />
-          );
-        })}
+          )
+        )}
       </MapView>
-    </View>
+    </Card>
   );
 }
 
 const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 10,
+    // margin: 10,
+    display: "flex",
+    alignItems: "stretch",
   },
   map: {
-    width: 0.8 * Dimensions.get("window").width,
-    height: 0.8 * Dimensions.get("window").width,
+    aspectRatio: 1 / 1,
+    // width: 0.8 * Dimensions.get("window").width,
+    // height: 0.8 * Dimensions.get("window").width,
   },
 }));

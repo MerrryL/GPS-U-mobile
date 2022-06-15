@@ -1,10 +1,10 @@
 import NormalText from "@/components/Elements/Text/NormalText";
 import imageURL from "@/features/constatations/utils/ImageURL";
 import { Image as MyImage, Media } from "@/types";
-import { Colors, Image, Theme } from "@rneui/base";
+import { Card, Colors, Image, Theme } from "@rneui/base";
 import { makeStyles } from "@rneui/themed";
 import React from "react";
-import { ImageStyle, StyleProp, View, ViewStyle } from "react-native";
+import { ImageStyle, StyleProp, ViewStyle } from "react-native";
 
 interface StyleProps {
   container: StyleProp<ViewStyle>;
@@ -25,16 +25,20 @@ export default function ConstatationCover({ cover, images }: ConstatationCoverPr
   const photoAmount = length > 1 ? length + " photos" : length > 0 ? "Une photo" : "Pas de photo";
 
   return (
-    <View style={styles.container}>
-      <Image source={url} resizeMode="cover" style={styles.cover} width={undefined} height={undefined} />
+    <Card containerStyle={styles.container}>
+      <Image source={url} resizeMode="cover" style={styles.cover} />
       <NormalText text={photoAmount} />
-    </View>
+    </Card>
   );
 }
 
 const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
     flexDirection: "column",
+    flexGrow: 1,
+    padding: 5,
+    margin: 5,
+    alignItems: "center",
   },
   cover: {
     width: 180,

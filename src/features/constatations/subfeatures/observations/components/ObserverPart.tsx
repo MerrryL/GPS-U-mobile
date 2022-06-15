@@ -12,7 +12,7 @@ type ObservationPartProps = {
 };
 
 type ObservationToSend = {
-  id: string | number;
+  id: number;
   item: string;
 };
 

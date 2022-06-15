@@ -30,9 +30,10 @@ interface StyleProps {
 
 export function ConstatationListCard({ constatation }: ConstatationCardProps): JSX.Element {
   const styles: StyleProps = useStyles({ isValidated: constatation.isValidated, requiresValidation: constatation.requiresValidation });
+
   const navigation: StackNavigationProp<ConstatationStackParamList, keyof ConstatationStackParamList, undefined> = useNavigation<StackNavigationProp<ConstatationStackParamList>>();
 
-  const { created_at, description, field_groups, id, images, isValidated, localization, media, modelType, observations, observers, requiresValidation, requiresValidationDate, updated_at, validationDate } = constatation || {};
+  const { created_at, description, id, images, isValidated, localization, media, observations, observers, requiresValidation, requiresValidationDate, updated_at, validationDate } = constatation || {};
 
   const statusText = isValidated == 1 ? "Validée" : requiresValidation == 1 ? "A valider" : "Brouillon";
 
@@ -42,6 +43,7 @@ export function ConstatationListCard({ constatation }: ConstatationCardProps): J
         <EditButton callBack={() => navigation.navigate("Edition", { constatationId: constatation.id })} />
         <DetailsButton callBack={() => navigation.navigate("Details", { constatationId: constatation.id })} />
       </FloatingButtonStack>
+
       <Card.FeaturedTitle style={styles.cardTitle}>Constatation n°{id}</Card.FeaturedTitle>
       <Card.FeaturedSubtitle style={styles.cardTitle}>{statusText}</Card.FeaturedSubtitle>
 
@@ -67,6 +69,8 @@ export function ConstatationListCard({ constatation }: ConstatationCardProps): J
 const useStyles = makeStyles((theme: { colors: Colors } & Theme, props: { isValidated: number; requiresValidation: number }) => ({
   container: {
     backgroundColor: theme?.colors?.grey5,
+    display: "flex",
+    alignItems: "stretch",
   },
   header: {
     flexWrap: "wrap",
@@ -90,6 +94,7 @@ const useStyles = makeStyles((theme: { colors: Colors } & Theme, props: { isVali
     flex: 1,
     flexWrap: "wrap",
     flexDirection: "row",
+    alignItems: "stretch",
     height: "auto",
     marginTop: 5,
   },
@@ -103,6 +108,7 @@ const useStyles = makeStyles((theme: { colors: Colors } & Theme, props: { isVali
   headerInfos: {
     flexDirection: "column",
     alignItems: "stretch",
+    flexGrow: 1,
   },
   cover: {
     alignSelf: "flex-start",

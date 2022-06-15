@@ -1,43 +1,47 @@
 import ImagePicker from "@/components/Elements/Images/ImagePicker";
 import NormalText from "@/components/Elements/Text/NormalText";
-import { Colors, makeStyles, Theme } from "@rneui/themed";
+import { Constatation, ImageToSend } from "@/types";
+import { Card, Colors, makeStyles, Theme } from "@rneui/themed";
 import React, { useState } from "react";
-import { View } from "react-native";
+import { StyleProp, ViewStyle } from "react-native";
 import { useUploadConstatationOtherImage } from "../../hooks/useUploadConstatationOtherImage";
 
-type AddAnotherImageProps = {
-  constatationId: number;
-};
+interface AddAnotherImageProps {
+  constatation: Constatation;
+}
 
-export default function AddAnotherImage({ constatationId }: AddAnotherImageProps) {
-  console.log("props", constatationId);
+interface StyleProps {
+  container: StyleProp<ViewStyle>;
+}
 
-  const [image, setImage] = useState(null);
+export default function AddAnotherImage({ constatation }: AddAnotherImageProps): JSX.Element {
+  const [image, setImage] = useState<ImageToSend | undefined>(undefined);
 
-  const styles = useStyles();
+  const styles: StyleProps = useStyles();
 
   const uploadMutation = useUploadConstatationOtherImage({
-    constatationId: constatationId,
+    constatationId: constatation.id,
     image: image,
   });
 
   const onSubmit = async () => {
     image &&
-      (await uploadMutation.mutateAsync({
-        constatationId: constatationId,
-        image: image,
-      }));
-    setImage(null);
+      (await uploadMutation
+        .mutateAsync({
+          constatationId: constatation.id,
+          image: image,
+        })
+        .then(() => setImage(undefined)));
   };
 
   return (
-    <View style={styles.container}>
-      <NormalText boldText="Prenez d'autres photographies" />
+    <Card containerStyle={styles.container}>
+      <NormalText boldText="Photographies complémentaires" text="N'hésitez pas à rajouter plus de photographies." />
       <ImagePicker image={image} onChange={setImage} onSubmit={onSubmit} displayPlaceholder={false} />
-    </View>
+    </Card>
   );
 }
 
-const useStyles = makeStyles((theme:{ colors: Colors; } & Theme) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {},
-});
+}));

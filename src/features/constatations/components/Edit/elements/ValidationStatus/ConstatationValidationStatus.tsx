@@ -14,6 +14,8 @@ export default function ConstatationValidationStatus(props) {
 }
 
 const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
-  container: {},
+  container: {
+    marginRight: 8,
+  },
   text: { flex: 0.5, height: "auto", marginBottom: 10 },
 }));

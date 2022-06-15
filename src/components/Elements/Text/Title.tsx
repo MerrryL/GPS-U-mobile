@@ -1,4 +1,5 @@
-import { makeStyles, Text } from "@rneui/base";
+import { Colors, Text, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import { capitalize } from "lodash";
 import React from "react";
 import { StyleProp, TextStyle, View, ViewStyle } from "react-native";
@@ -24,7 +25,7 @@ export default function Title({ title = undefined, containerStyle = undefined, t
   );
 }
 
-const useStyles = makeStyles((theme:{ colors: Colors; } & Theme, { containerStyle, titleStyle }: StyleProps) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme, { containerStyle, titleStyle }: StyleProps) => ({
   container: {
     paddingLeft: "10px",
     containerStyle,
@@ -34,4 +35,4 @@ const useStyles = makeStyles((theme:{ colors: Colors; } & Theme, { containerStyl
     color: theme?.colors?.grey2,
     titleStyle,
   },
-});
+}));

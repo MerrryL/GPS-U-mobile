@@ -14,12 +14,11 @@ interface StyleProps {
 export default function RefreshButton({ callBack }: RefreshButtonProps): JSX.Element {
   const styles: StyleProps = useStyles();
 
-  return <Button icon={<MaterialCommunityIcons name="web-refresh" size={18} color="blue" />} type="outline" buttonStyle={styles.button} onPress={() => callBack()} />;
+  return <Button icon={<MaterialCommunityIcons name="web-refresh" size={20} color="white" />} color="primary" buttonStyle={styles.button} onPress={() => callBack()} />;
 }
 
 const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   button: {
-    marginRight: "10px",
-    borderColor: "blue",
+    marginRight: 4,
   },
 }));

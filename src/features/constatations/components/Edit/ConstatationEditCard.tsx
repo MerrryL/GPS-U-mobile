@@ -9,7 +9,7 @@ import { makeStyles } from "@rneui/themed";
 import { AxiosError } from "axios";
 import React from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import { StyleProp, View, ViewStyle } from "react-native";
+import { StyleProp, ViewStyle } from "react-native";
 import { UseMutationResult } from "react-query";
 import * as yup from "yup";
 import { UpdateConstatationOptions } from "../../api";
@@ -17,19 +17,20 @@ import { useUpdateConstatation } from "../../hooks/useUpdateConstatation";
 import ConstatationValidationStatus from "./elements/ValidationStatus/ConstatationValidationStatus";
 
 interface ConstatationEditCardProps {
-  constatation: Constatation;
+  constatation?: Constatation;
 }
 
 interface StyleProps {
   container: StyleProp<ViewStyle>;
   cardTitle: StyleProp<ViewStyle>;
+  header: StyleProp<ViewStyle>;
   body: StyleProp<ViewStyle>;
 }
 
 export function ConstatationEditCard({ constatation }: ConstatationEditCardProps): JSX.Element {
   const styles: StyleProps = useStyles();
 
-  const { created_at, description, field_groups, id, images, isValidated, localization, media, modelType, observations, observers, requiresValidation, requiresValidationDate, updated_at, validationDate } = constatation;
+  const { created_at, description, fields, id, images, isValidated, localization, media, observations, observers, requiresValidation, requiresValidationDate, updated_at, validationDate } = constatation;
 
   const updateConstatationMutation: UseMutationResult<Constatation, AxiosError<any, any>, UpdateConstatationOptions, any> = useUpdateConstatation();
 
@@ -38,6 +39,7 @@ export function ConstatationEditCard({ constatation }: ConstatationEditCardProps
   const constatationForm: InputedField[] = [
     {
       name: "description",
+      label: "Description",
       type: InputType.Text,
       value: constatation?.description,
       schema: yup.string().min(50).defined(),
@@ -45,6 +47,7 @@ export function ConstatationEditCard({ constatation }: ConstatationEditCardProps
     },
     {
       name: "observations",
+      label: "observations",
       type: InputType.Multiselect,
       schema: yup
         .array()
@@ -64,6 +67,7 @@ export function ConstatationEditCard({ constatation }: ConstatationEditCardProps
     },
     {
       name: "observers",
+      label: "témoins",
       type: InputType.Multiselect,
       value: constatation?.observers?.map((obs: User): PickerItem => {
         return { id: obs.id, item: obs.lastName + " " + obs.firstName };
@@ -100,12 +104,10 @@ export function ConstatationEditCard({ constatation }: ConstatationEditCardProps
       <Card.FeaturedTitle style={styles.cardTitle}>Constatation n°{id}</Card.FeaturedTitle>
       <Card.FeaturedSubtitle style={styles.cardTitle}>{statusText}</Card.FeaturedSubtitle>
 
-      <View style={styles.body}>
+      <Card containerStyle={styles.body}>
         <DateText boldText="Création" date={created_at} />
         <DateText boldText="Dernière Modification" date={created_at} />
-      </View>
-
-      <Card.Divider />
+      </Card>
 
       <FormBuilder title="Informations administratives" description="Informations minimales pour la rédaction d'une constatation" fields={constatationForm} onSubmit={onSubmit} />
 
@@ -124,11 +126,16 @@ const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
     backgroundColor: theme?.colors?.grey5,
   },
+  body: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "stretch",
+  },
+  header: {},
   cardTitle: {
     alignSelf: "stretch",
     padding: 2,
     marginBottom: 0,
     backgroundColor: theme?.colors?.primary,
   },
-  body: {},
 }));

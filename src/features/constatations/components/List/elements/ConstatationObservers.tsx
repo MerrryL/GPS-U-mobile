@@ -25,12 +25,13 @@ export default function ConstatationObservers(props: ConstatationObserversProps)
 
   return (
     <Card containerStyle={styles.container}>
-      <NormalText boldText="Constatateurs" boldTextStyle={{ fontSize: 18 }}></NormalText>
+      <NormalText boldText="Constatateurs"></NormalText>
 
       {observers &&
         observers.map((observer: Observer, index: number): JSX.Element => {
           return <NormalText key={index} text={getName(observer)} />;
         })}
+      {observers.length === 0 && <NormalText text="Aucun constatateur renseigné." />}
     </Card>
   );
 }

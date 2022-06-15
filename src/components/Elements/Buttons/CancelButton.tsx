@@ -4,17 +4,23 @@ import { makeStyles } from "@rneui/themed";
 import React from "react";
 import { StyleProp, ViewStyle } from "react-native";
 
-interface AddButtonProps {
+interface CancelButtonProps {
   callBack: () => void;
+  title?: string;
 }
 
 interface StyleProps {
   button: StyleProp<ViewStyle>;
 }
-export default function AddButton({ callBack }: AddButtonProps): JSX.Element {
+export default function CancelButton({ callBack, title }: CancelButtonProps): JSX.Element {
   const styles: StyleProps = useStyles();
 
-  return <Button icon={<MaterialIcons name="playlist-add" size={20} color="white" />} color="success" buttonStyle={styles.button} onPress={() => callBack()} />;
+  return (
+    <Button color="warning" buttonStyle={styles.button} onPress={() => callBack()} titleStyle={{ marginRight: 4 }}>
+      {title}
+      <MaterialIcons name="cancel" size={title ? 24 : 20} color="white" />
+    </Button>
+  );
 }
 
 const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({

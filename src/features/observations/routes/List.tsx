@@ -2,21 +2,22 @@ import { Observation } from "@/types";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Text } from "@rneui/base";
-import { FAB } from "@rneui/themed";
+import { FAB, useTheme } from "@rneui/themed";
 import React from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { ObservationStackParamList } from ".";
-import { ObservationCard } from "../components/List/ObservationCard";
+import { ObservationListCard } from "../components/List/ObservationCard";
 import { useCreateObservation } from "../hooks/useCreateObservation";
 import { useObservations } from "../hooks/useObservations";
 
-type ObservationListProps = {
+interface ObservationListProps {
   navigation: StackNavigationProp<ObservationStackParamList, "Liste">;
   route: RouteProp<ObservationStackParamList, "Liste">;
-};
+}
 
 export default function List({ route, navigation }: ObservationListProps) {
   const observationsQuery = useObservations();
+  const { theme } = useTheme();
 
   const createObservationMutation = useCreateObservation();
 
@@ -37,10 +38,10 @@ export default function List({ route, navigation }: ObservationListProps) {
     <>
       <ScrollView>
         {observationsQuery?.data?.map((observation, index) => (
-          <ObservationCard observation={observation} key={index} />
+          <ObservationListCard observation={observation} key={index} />
         ))}
       </ScrollView>
-      <FAB title="+" placement="right" color="#2ECC71" size="large" onPress={() => handleCreation()} />
+      <FAB title="+" placement="right" color={theme.colors.success} size="large" onPress={() => handleCreation()} />
     </>
   );
 }

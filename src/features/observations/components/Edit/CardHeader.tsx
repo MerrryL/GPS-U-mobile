@@ -3,7 +3,8 @@ import { Observation } from "@/types";
 import { InputedField, InputType } from "@/types/utilityTypes";
 import { AntDesign } from "@expo/vector-icons";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, makeStyles, Text } from "@rneui/base";
+import { Button, Colors, Text, Theme } from "@rneui/base";
+import { makeStyles } from "@rneui/themed";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { View } from "react-native";
@@ -17,7 +18,7 @@ type ObservationValues = {
   short_description: string;
   description: string;
   fine_amount: string;
-  codex_id: string;
+  codex_id: number;
 };
 
 const schema = yup.object().shape({
@@ -113,6 +114,6 @@ export function CardHeader({ observationId }: CardHeaderProps) {
   );
 }
 
-const useStyles = makeStyles((theme:{ colors: Colors; } & Theme) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {},
-});
+}));

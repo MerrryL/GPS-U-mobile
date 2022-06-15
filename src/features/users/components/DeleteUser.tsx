@@ -1,10 +1,9 @@
 import { Button, ConfirmationDialog } from "@/components/Elements";
 import { useAuth } from "@/lib/auth";
-
 import { useDeleteUser } from "../hooks/useDeleteUser";
 
 type DeleteUserProps = {
-  id: string;
+  id: number;
 };
 
 export const DeleteUser = ({ id }: DeleteUserProps) => {

@@ -2,11 +2,11 @@ import { InputedField } from "@/types/utilityTypes";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Card, Colors, Theme } from "@rneui/base";
 import { makeStyles } from "@rneui/themed";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm, UseFormReturn } from "react-hook-form";
 import { ScrollView, StyleProp, TextStyle, ViewStyle } from "react-native";
 import * as yup from "yup";
-import { FloatingButtonStack } from "../Buttons/ButtonStack";
+import CancelButton from "../Buttons/CancelButton";
 import SaveButton from "../Buttons/SaveButton";
 import NormalText from "../Text/NormalText";
 import InputSelector from "./InputSelector";
@@ -16,6 +16,7 @@ interface FormBuilderProps<TFieldValues> {
   description: string;
   fields: InputedField[];
   onSubmit: SubmitHandler<TFieldValues>;
+  onCancel?: () => void;
 }
 
 interface StyleProps {
@@ -26,7 +27,9 @@ interface StyleProps {
   details: StyleProp<ViewStyle>;
 }
 //TODO:LATER
-export default function FormBuilder<TFieldValues>({ title, description, fields, onSubmit }: FormBuilderProps<TFieldValues>): JSX.Element {
+export default function FormBuilder<TFieldValues>({ title, description, fields, onSubmit, onCancel }: FormBuilderProps<TFieldValues>): JSX.Element {
+  const [formFields, updateForm] = useState<InputedField[]>(fields);
+  useEffect(() => updateForm(fields), [fields]);
   const styles: StyleProps = useStyles();
 
   const schema = yup.object().shape(fields.reduce((a, iField: InputedField) => ({ ...a, [iField.name]: iField.schema }), {}));
@@ -41,15 +44,14 @@ export default function FormBuilder<TFieldValues>({ title, description, fields, 
 
   return (
     <ScrollView>
-      <FloatingButtonStack>
-        <SaveButton callBack={handleSubmit<TFieldValues>(onSubmit)}></SaveButton>
-        {/* <Button title="Enregistrer " onPress={handleSubmit(onSubmit)} icon={<AntDesign name="cloudupload" size={24} color="white" />} iconRight={true} /> */}
-      </FloatingButtonStack>
       <Card containerStyle={styles.container}>
         <NormalText boldText={title} text={description} />
 
-        {fields && fields.map((field: InputedField, index: React.Key): JSX.Element => <InputSelector f={field} key={index} control={control} />)}
+        {formFields && formFields.map((field: InputedField, index: React.Key): JSX.Element => <InputSelector f={field} key={index} control={control} />)}
         {/* <NormalText text={JSON.stringify(errors)}></NormalText> */}
+
+        <SaveButton callBack={handleSubmit<TFieldValues>(onSubmit)} title="Sauvegarder" />
+        {onCancel && <CancelButton callBack={onCancel} title="Annuler" />}
       </Card>
     </ScrollView>
   );
@@ -58,8 +60,8 @@ export default function FormBuilder<TFieldValues>({ title, description, fields, 
 const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
     backgroundColor: theme?.colors?.white,
-    padding: 3,
-    margin: 3,
+    // padding: 0,
+    // margin: 0,
   },
   header: {
     flexWrap: "wrap",

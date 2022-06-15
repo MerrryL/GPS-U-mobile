@@ -15,11 +15,11 @@ interface StyleProps {
 export default function CollapseButton({ callBack }: CollapseButtonProps): JSX.Element {
   const styles: StyleProps = useStyles();
 
-  return <Button icon={<MaterialCommunityIcons name="arrow-collapse" size={12} color="blue" />} type="outline" buttonStyle={styles.button} onPress={() => callBack()} />;
+  return <Button icon={<MaterialCommunityIcons name="arrow-collapse" size={20} color="white" />} color="primary" buttonStyle={styles.button} onPress={() => callBack()} />;
 }
 
 const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   button: {
-    marginRight: "10px",
+    marginRight: 4,
   },
 }));

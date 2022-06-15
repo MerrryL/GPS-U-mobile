@@ -1,6 +1,7 @@
 import { PickerItem } from "@/types/utilityTypes";
 import { Picker } from "@react-native-picker/picker";
-import {} from "@rneui/base";
+import { Colors, Theme } from "@rneui/base";
+import { useTheme } from "@rneui/themed";
 import React, { useEffect, useState } from "react";
 import { ControllerFieldState, ControllerRenderProps, FieldValues, UseFormStateReturn } from "react-hook-form";
 import { StyleProp, TextStyle } from "react-native";
@@ -19,6 +20,7 @@ interface StyleProps {
 }
 export default function PickerInput(props: PickerInputProps): JSX.Element {
   const [currentSelection, setCurrentSelection] = useState(props.field.value ?? props.defaultValue ?? props.options[0]);
+  const { theme } = useTheme();
 
   useEffect((): void => {
     props.field.onChange(currentSelection);
@@ -29,11 +31,13 @@ export default function PickerInput(props: PickerInputProps): JSX.Element {
   const styles: StyleProps = useStyles();
 
   return (
-    <Picker style={styles.picker} selectedValue={currentSelection?.id} onValueChange={(itemValue: unknown, itemIndex: number) => setCurrentSelection(props.options.find((option: PickerItem): boolean => option.id == itemValue))}>
-      {props.options?.map((option: PickerItem): JSX.Element => {
-        return <Picker.Item label={option.item} value={option.id} key={option.id} />;
-      })}
-    </Picker>
+    <>
+      <Picker style={styles.picker} dropdownIconColor="blue" selectedValue={currentSelection?.id} onValueChange={(itemValue: unknown, itemIndex: number) => setCurrentSelection(props.options.find((option: PickerItem): boolean => option.id == itemValue))}>
+        {props.options?.map((option: PickerItem): JSX.Element => {
+          return <Picker.Item label={option.item} value={option.id} key={option.id} />;
+        })}
+      </Picker>
+    </>
   );
 }
 
@@ -41,9 +45,15 @@ const useStyles: (props?: unknown) => StyleProps = (theme: { colors: Colors } & 
   picker: {
     fontSize: 14,
     minHeight: "32px",
-    borderColor: theme?.colors?.grey3,
-    borderRadius: 10,
+    // borderColor: theme?.colors?.grey3,
+    // borderRadius: 10,
+    border: 0,
+    marginLeft: 10,
+    marginRight: 10,
     marginTop: "6px",
+    borderBottomWidth: "1px",
+    borderBottomColor: "#869E93",
+    borderBottomStyle: "solid",
   },
   pickerItem: { fontSize: 14, minHeight: "32px" },
 });

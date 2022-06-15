@@ -1,29 +1,26 @@
-import LongText from "@/components/Elements/Text/LongText";
+import { FloatingButtonStack } from "@/components/Elements/Buttons/ButtonStack";
+import DeleteButton from "@/components/Elements/Buttons/DeleteButton";
+import StarButton from "@/components/Elements/Buttons/StarButton";
 import imageURL from "@/features/constatations/utils/ImageURL";
 import { Image as ImageType } from "@/types";
-import { Chip, Colors, Image, Theme } from "@rneui/base";
+import { Card, Colors, Image, Theme } from "@rneui/base";
 import { makeStyles } from "@rneui/themed";
 import React from "react";
-import { useWindowDimensions, View } from "react-native";
+import { ImageStyle, StyleProp, ViewStyle } from "react-native";
 import { useDefineAsThumbConstatationImage } from "../../hooks/useDefineAsThumbConstatationImage";
 import { useDeletePictureConstatationImage } from "../../hooks/useDeletePictureConstatationsImage";
 
-type ConstatationGalleryImageProps = {
+interface ConstatationGalleryImageProps {
   image: ImageType;
-};
+}
 
-type ConstatationGalleryImagePropsStyle = {
-  width: number;
-  height: number;
-};
-
-export default function TabImage(props: ConstatationGalleryImageProps) {
-  const { image } = props;
-
-  const windowWidth = useWindowDimensions().width;
-  const windowHeight = useWindowDimensions().height;
-
-  const styles = useStyles({ width: windowWidth, height: windowHeight });
+interface StyleProps {
+  container: StyleProp<ViewStyle>;
+  image: StyleProp<ImageStyle>;
+  buttonContainer: StyleProp<ViewStyle>;
+}
+export default function TabImage({ image }: ConstatationGalleryImageProps): JSX.Element {
+  const styles: StyleProps = useStyles();
 
   const useDefineAsThumbMutation = useDefineAsThumbConstatationImage({
     imageId: image.id,
@@ -34,22 +31,14 @@ export default function TabImage(props: ConstatationGalleryImageProps) {
     constatationId: image.constatation_id,
   });
 
-  type DefineAsThumbProps = {
-    image: ImageType;
-  };
-
-  const defineAsThumb = async ({ image: image }: DefineAsThumbProps) => {
+  const defineAsThumb = async () => {
     await useDefineAsThumbMutation.mutateAsync({
       imageId: image.id,
       constatationId: image.constatation_id,
     });
   };
 
-  type DeletePictureProps = {
-    image: ImageType;
-  };
-
-  const deletePicture = async ({ image: image }: DeletePictureProps) => {
+  const deletePicture = async () => {
     await useDeletePictureMutation.mutateAsync({
       imageId: image.id,
       constatationId: image.constatation_id,
@@ -57,50 +46,28 @@ export default function TabImage(props: ConstatationGalleryImageProps) {
   };
 
   return (
-    <View style={styles.container}>
-      <LongText containerStyle={{ margin: "20px" }} boldText={image.name} text={image.description} />
+    <Card containerStyle={styles.container}>
+      <FloatingButtonStack>
+        <StarButton callBack={defineAsThumb} />
+        {/* <SaveButton callBack={deletePicture} /> */}
+        <DeleteButton callBack={deletePicture} />
+      </FloatingButtonStack>
       <Image style={styles.image} resizeMode="cover" source={imageURL({ image: image.media[0] })} />
-      <View style={styles.buttonContainer}>
-        <Chip
-          title="Définir comme image par défaut"
-          onPress={() => defineAsThumb({ image: image })}
-          icon={{
-            name: "file-image-o",
-            type: "font-awesome",
-            size: 20,
-            color: "white",
-          }}
-          iconRight
-        />
-        <Chip
-          title="Supprimer cette image"
-          onPress={() => deletePicture({ image: image })}
-          icon={{
-            name: "close",
-            type: "font-awesome",
-            size: 20,
-            color: "white",
-          }}
-          iconRight
-        />
-      </View>
-    </View>
+    </Card>
   );
 }
 
-const useStyles = makeStyles((theme:{ colors: Colors; } & Theme, props: ConstatationGalleryImagePropsStyle) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
     minHeight: 150,
+    display: "flex",
+    alignItems: "stretch",
   },
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "flex-end",
   },
   image: {
-    alignSelf: "center",
-    margin: "auto",
-
-    width: props.width * 0.8,
-    height: props.width * 0.8,
+    aspectRatio: 1 / 1,
   },
-});
+}));

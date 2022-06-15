@@ -1,5 +1,6 @@
 import AddButton from "@/components/Elements/Buttons/AddButton";
 import { FloatingButtonStack } from "@/components/Elements/Buttons/ButtonStack";
+import NormalText from "@/components/Elements/Text/NormalText";
 import { ImageRequest, Observation } from "@/types";
 import { Card, Colors, Theme } from "@rneui/base";
 import { makeStyles } from "@rneui/themed";
@@ -14,8 +15,6 @@ interface ImageRequestPartViewProps {
 
 interface StyleProps {
   container: StyleProp<ViewStyle>;
-  cardTitle: StyleProp<ViewStyle>;
-  body: StyleProp<ViewStyle>;
 }
 
 export default function ImagesPartSelector({ observation }: ImageRequestPartViewProps): JSX.Element {
@@ -45,8 +44,7 @@ export default function ImagesPartSelector({ observation }: ImageRequestPartView
               <FloatingButtonStack>
                 <AddButton callBack={() => onAttach(imageRequest)} />
               </FloatingButtonStack>
-              <Card.FeaturedTitle style={styles.cardTitle}>{imageRequest.name}</Card.FeaturedTitle>
-              <Card.FeaturedSubtitle style={styles.cardTitle}>Description: {imageRequest.description}</Card.FeaturedSubtitle>
+              <NormalText boldText={imageRequest.name} text={imageRequest.description} />
             </Card>
           )
         )}
@@ -55,13 +53,6 @@ export default function ImagesPartSelector({ observation }: ImageRequestPartView
 }
 const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
-    backgroundColor: theme?.colors?.grey5,
+    backgroundColor: theme?.colors?.white,
   },
-  cardTitle: {
-    alignSelf: "stretch",
-    padding: 2,
-    marginBottom: 0,
-    backgroundColor: theme?.colors?.primary,
-  },
-  body: {},
 }));

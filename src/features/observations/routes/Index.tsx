@@ -1,3 +1,4 @@
+import { ParamListBase, RouteProp } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import Create from "./Create";
@@ -16,7 +17,14 @@ const ObservationsStack = createStackNavigator<ObservationStackParamList>();
 
 export default function ObservationStackScreen() {
   return (
-    <ObservationsStack.Navigator>
+    <ObservationsStack.Navigator
+      screenOptions={({ route }: { route: RouteProp<ParamListBase> }) => ({
+        tabBarHideOnKeyboard: true,
+        headerStyle: {
+          height: "40px",
+        },
+      })}
+    >
       <ObservationsStack.Screen name="Liste" component={List} />
       <ObservationsStack.Screen name="Details" component={Details} />
       <ObservationsStack.Screen name="Edition" component={Edit} />

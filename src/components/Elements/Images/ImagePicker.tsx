@@ -1,23 +1,27 @@
 import imageURL from "@/features/constatations/utils/ImageURL";
 import { useNotificationStore } from "@/hooks/useNotificationStore";
 import { ImageToSend } from "@/types";
-import { Chip, Colors, Theme } from "@rneui/base";
+import { Colors, Theme } from "@rneui/base";
 import { makeStyles } from "@rneui/themed";
 import * as ExpoImagePicker from "expo-image-picker";
 import React, { useEffect } from "react";
 import { Image, Platform, useWindowDimensions, View } from "react-native";
+import AddPhotoButton from "../Buttons/AddPhotoButton";
+import { FloatingButtonStack } from "../Buttons/ButtonStack";
+import EditButton from "../Buttons/EditButton";
+import SaveButton from "../Buttons/SaveButton";
 
-type ImagePickerProps = {
-  image: ImageToSend | null;
-  onChange: any;
-  onSubmit: any;
+interface ImagePickerProps {
+  image?: ImageToSend;
+  onChange: (e: any) => void;
+  onSubmit: () => void;
   displayPlaceholder?: boolean;
-};
+}
 
-type PickerStyleProps = {
+interface PickerStyleProps {
   width: number;
   height: number;
-};
+}
 
 export default function ImagePicker({ image, onChange, onSubmit, displayPlaceholder = true }: ImagePickerProps): JSX.Element {
   const { addNotification } = useNotificationStore();
@@ -56,40 +60,18 @@ export default function ImagePicker({ image, onChange, onSubmit, displayPlacehol
   };
 
   return (
-    <View style={styles.container}>
-      {image ? <Image source={{ uri: image.uri }} style={styles.image} resizeMode="cover" /> : displayPlaceholder == true && <Image source={imageURL({ image: null })} style={styles.image} resizeMode="cover" />}
-      <View style={styles.buttonContainer}>
-        <Chip
-          title={image ? "Reprendre la photo" : "Prendre une photo"}
-          onPress={pickImage}
-          icon={{
-            name: "file-image-o",
-            type: "font-awesome",
-            size: 20,
-            color: "white",
-          }}
-          iconRight
-        />
-        {image && (
-          <Chip
-            title="Sauvegarder cette photo"
-            onPress={onSubmit}
-            icon={{
-              name: "save",
-              type: "font-awesome",
-              size: 20,
-              color: "white",
-            }}
-            iconRight
-          />
-        )}
-      </View>
-    </View>
+    <>
+      <FloatingButtonStack>
+        {image ? <EditButton callBack={pickImage} /> : <AddPhotoButton callBack={pickImage} />}
+        {image && <SaveButton callBack={onSubmit} />}
+      </FloatingButtonStack>
+      {image ? <Image source={{ uri: image.uri }} style={styles.image} resizeMode="cover" /> : displayPlaceholder == true && <Image source={imageURL({ image: undefined })} style={styles.image} resizeMode="cover" />}
+      <View style={styles.buttonContainer}></View>
+    </>
   );
 }
 
-const useStyles = makeStyles((theme:{ colors: Colors; } & Theme, props: PickerStyleProps) => ({
-  container: {},
+const useStyles = makeStyles((theme: { colors: Colors } & Theme, props: PickerStyleProps) => ({
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "flex-end",
@@ -97,7 +79,7 @@ const useStyles = makeStyles((theme:{ colors: Colors; } & Theme, props: PickerSt
   image: {
     alignSelf: "center",
     margin: "auto",
-    width: props.width * 0.8,
-    height: props.width * 0.8,
+    width: "100%",
+    aspectRatio: 1 / 1,
   },
-});
+}));

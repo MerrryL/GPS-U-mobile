@@ -1,9 +1,8 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Colors, Text, Theme } from "@rneui/base";
+import { Button, Colors, Theme } from "@rneui/base";
 import { makeStyles } from "@rneui/themed";
 import React from "react";
 import { Linking } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 type OpenCoordsProps = {
   latitude: string | number;
@@ -31,11 +30,9 @@ export default function OpenCoords(props: OpenCoordsProps): JSX.Element {
   };
 
   return (
-    <TouchableOpacity onPress={() => Linking.openURL(url)}>
-      <Text style={{ color: "blue", alignSelf: "center" }}>
-        Ouvrir sur maps <MaterialCommunityIcons name="google-maps" size={24} color="blue" />
-      </Text>
-    </TouchableOpacity>
+    <Button onPress={() => Linking.openURL(url)} type="outline">
+      <MaterialCommunityIcons name="google-maps" size={24} color="blue" />
+    </Button>
   );
 }
 

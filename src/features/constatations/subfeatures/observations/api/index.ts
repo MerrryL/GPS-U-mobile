@@ -15,7 +15,7 @@ export const getConstatationObservations = ({ constatationId }: GetConstatationO
 };
 
 type ObservationToSend = {
-  id: string;
+  id: number;
 };
 
 type CreateObservationOptions = {

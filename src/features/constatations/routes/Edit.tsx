@@ -4,10 +4,12 @@ import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Card, Tab, TabView } from "@rneui/base";
 import React from "react";
-import { ScrollView } from "react-native";
+import { GestureResponderEvent, ScrollView } from "react-native";
 import { ConstatationStackParamList } from "..";
 import { ConstatationEditCard } from "../components/Edit/ConstatationEditCard";
 import { useConstatation } from "../hooks/useConstatation";
+import { FieldPart } from "../subfeatures/fields/components/FieldPart";
+import ImagesPart from "../subfeatures/images/components/ImagesPart";
 import LocalizationPart from "../subfeatures/localization/components/LocalizationPart";
 
 interface ConstatationEditProps {
@@ -16,7 +18,7 @@ interface ConstatationEditProps {
 }
 
 export default function Edit(props: ConstatationEditProps): JSX.Element {
-  const constatationId = props.route?.params?.constatationId;
+  const constatationId: number = props.route.params.constatationId;
 
   const constatation: Constatation | undefined = useConstatation({
     constatationId: constatationId,
@@ -47,18 +49,18 @@ export default function Edit(props: ConstatationEditProps): JSX.Element {
           </ScrollView>
         </TabView.Item>
         <TabView.Item style={{ width: "100%" }}>
-          <ScrollView>
+          <ScrollView onStartShouldSetResponder={(event: GestureResponderEvent) => true}>
             <LocalizationPart constatation={constatation} />
           </ScrollView>
         </TabView.Item>
         <TabView.Item style={{ width: "100%" }}>
           <ScrollView>
-            <ConstatationEditCard constatation={constatation} />
+            <ImagesPart constatation={constatation} />
           </ScrollView>
         </TabView.Item>
         <TabView.Item style={{ width: "100%" }}>
           <ScrollView>
-            <ConstatationEditCard constatation={constatation} />
+            <FieldPart constatation={constatation} />
           </ScrollView>
         </TabView.Item>
       </TabView>

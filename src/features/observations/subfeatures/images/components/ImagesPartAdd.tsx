@@ -1,13 +1,13 @@
 import AddButton from "@/components/Elements/Buttons/AddButton";
-import { FloatingButtonStack } from "@/components/Elements/Buttons/ButtonStack";
-import CollapseButton from "@/components/Elements/Buttons/CollapseButton";
+import CancelButton from "@/components/Elements/Buttons/CancelButton";
 import FormBuilder from "@/components/Elements/FormBuilder/FormBuilder";
+import NormalText from "@/components/Elements/Text/NormalText";
 import { Observation } from "@/types";
 import { InputedField, InputType } from "@/types/utilityTypes";
 import { Card, Colors, Theme } from "@rneui/base";
 import { makeStyles } from "@rneui/themed";
 import React, { useState } from "react";
-import { StyleProp, View, ViewStyle } from "react-native";
+import { StyleProp, ViewStyle } from "react-native";
 import * as yup from "yup";
 import { useCreateObservationImage } from "../hooks/useCreateObservationImage";
 import ImagePartSelector from "./ImagePartSelector";
@@ -58,13 +58,15 @@ export default function ImagesPartAdd({ observation }: ImagesPartAddProps): JSX.
     <Card containerStyle={styles.container}>
       {isExpanded ? (
         <>
-          <FloatingButtonStack>
-            <CollapseButton callBack={() => toggle((prevState: boolean): boolean => !prevState)}></CollapseButton>
-          </FloatingButtonStack>
-          <ImagePartSelector observation={observation}></ImagePartSelector>
-          <View style={styles.children}>
+          <Card containerStyle={styles.children}>
+            <NormalText boldText="Vous pouvez soit choisir une requète d'image déjà existante"></NormalText>
+            <ImagePartSelector observation={observation}></ImagePartSelector>
+          </Card>
+          <Card containerStyle={styles.children}>
+            <NormalText boldText="Soit en créer une nouvelle" />
             <FormBuilder title="Nouvelle image" description="Crée une nouvelle image d'illustration" fields={newImageForm} onSubmit={onSubmit} />
-          </View>
+          </Card>
+          <CancelButton callBack={() => toggle((prevState: boolean): boolean => !prevState)} title="Annuler" />
         </>
       ) : (
         <AddButton callBack={() => toggle((prevState: boolean): boolean => !prevState)}></AddButton>
@@ -78,11 +80,12 @@ const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
     minHeight: "50px",
     padding: 3,
     margin: 3,
+    marginTop: 10,
   },
   children: {
-    minHeight: "50px",
+    backgroundColor: theme?.colors?.grey5,
     padding: 0,
     margin: 0,
-    marginTop: "50px",
+    paddingTop: 8,
   },
 }));

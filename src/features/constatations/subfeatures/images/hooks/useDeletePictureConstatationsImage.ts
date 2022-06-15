@@ -7,7 +7,7 @@ import { deletePictureConstatationImage } from "../api/index";
 
 type UseDeletePictureConstatationImageOptions = {
   constatationId: number;
-  imageId: string;
+  imageId: number;
   config?: MutationConfig<typeof deletePictureConstatationImage>;
 };
 

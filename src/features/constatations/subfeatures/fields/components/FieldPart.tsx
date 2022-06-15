@@ -1,72 +1,66 @@
 import FormBuilder from "@/components/Elements/FormBuilder/FormBuilder";
-import { Field, FieldGroup } from "@/types";
-import { ConstatationValues } from "@/types/utilityTypes";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Colors, makeStyles, Theme } from "@rneui/themed";
-import React from "react";
-import { useForm } from "react-hook-form";
+import NormalText from "@/components/Elements/Text/NormalText";
+import { Constatation, Field, FieldGroup } from "@/types";
+import { InputedField, InputType } from "@/types/utilityTypes";
+import { Colors, makeStyles, Theme } from "@rneui/base";
+import React, { Fragment } from "react";
 // import { useUpdateField } from "../hooks/useUpdateField";
-import { View } from "react-native";
+import { StyleProp, View, ViewStyle } from "react-native";
 import * as yup from "yup";
-import useFieldGroupBy from "../utils/useFieldGroupBy";
 
-type FieldPartProps = {
-  fields: Field[];
-  constatationId: number;
-};
+interface FieldPartProps {
+  constatation: Constatation;
+}
 
-type Grouped = {
+interface Grouped {
   fieldGroup: FieldGroup;
   fields: Field[];
-};
+}
 
-type FieldValues = any;
+interface StyleProps {
+  container: StyleProp<ViewStyle>;
+  groupedField: StyleProp<ViewStyle>;
+}
 
-// type StyleProps = {};
+export function FieldPart({ constatation }: FieldPartProps): JSX.Element {
+  const styles: StyleProps = useStyles();
 
-const schema = yup.object().shape({});
-
-export function FieldPart(props: FieldPartProps) {
-  const { fields, constatationId } = props;
-
-  const styles = useStyles();
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FieldValues>({
-    resolver: yupResolver(schema),
-  });
-
-  const onSubmit = async (values: ConstatationValues) => {
+  const onSubmit = async (values: any) => {
     console.log("here");
   };
 
-  const groupedFields = useFieldGroupBy(fields);
+  const groupIds: number[] = [...new Set(constatation.fields.map((field: Field) => field.field_group_id))];
+  const groupedFields: Field[][] = groupIds.map((fieldGroupId: number): Field[] => constatation.fields.filter((field: Field) => field.field_group_id === fieldGroupId));
 
-  console.log("groups", groupedFields);
+  const fieldToInputedField = (fields: Field[]): InputedField[] => {
+    return fields.map((field: Field): InputedField => {
+      // console.log("field", field);
+      return {
+        name: field.name,
+        label: field.name,
+        type: InputType.Text,
+        value: field.pivot.value,
+        defaultValue: field.defaultValue,
+        schema: yup.string().min(3).defined(),
+      };
+    });
+  };
 
   return (
     <View style={styles.container}>
-      {groupedFields?.length > 0 && <FormBuilder schema={schema} fields={groupedFields} onSubmit={onSubmit} />}
-      {/* {
-        groupedFields.map( ( groupedField : Grouped, index ) => (
-          <View style={styles.groupedField} key={index}>
-            <NormalText boldText={groupedField.fieldGroup.name} />
-            { groupedField.fields.map( (field) => (
-              <InputFromField f={field} control={control} key={field.id}/>
-            ))}
-          </View>
-        ))
-
-        
-      } */}
+      {groupedFields.map(
+        (groupedField: Field[], key: number): JSX.Element => (
+          <Fragment key={key}>
+            <NormalText boldText={"Observation " + groupedField[0].field_group.observation.code + ": " + groupedField[0].field_group.observation.name} />
+            <FormBuilder title={groupedField[0].field_group.name} description={groupedField[0].field_group.description} fields={fieldToInputedField(groupedField)} onSubmit={onSubmit} />
+          </Fragment>
+        )
+      )}
     </View>
   );
 }
 
-const useStyles = makeStyles((theme:{ colors: Colors; } & Theme) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {},
   groupedField: {},
-});
+}));

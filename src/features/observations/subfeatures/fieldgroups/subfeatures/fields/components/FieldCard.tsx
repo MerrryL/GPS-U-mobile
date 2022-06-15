@@ -51,7 +51,7 @@ export function FieldCard({ field, fieldGroupId, observationId }: FieldCardProps
 
 const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
-    backgroundColor: theme?.colors?.grey5,
+    backgroundColor: theme?.colors?.white,
   },
   cardTitle: {
     alignSelf: "stretch",

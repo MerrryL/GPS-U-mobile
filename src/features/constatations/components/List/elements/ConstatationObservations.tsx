@@ -28,12 +28,13 @@ export default function ConstatationObservations({ observations }: ConstatationO
 
   return (
     <Card containerStyle={styles.container}>
-      <NormalText boldText="Observations" boldTextStyle={{ fontSize: 18 }}></NormalText>
+      <NormalText boldText="Observations"></NormalText>
 
       {observations &&
         observations.map((observation: Observation, index): JSX.Element => {
-          return <NormalText key={index} boldText={observation?.codex?.precode + " " + observation?.code + " du " + observation.codex.name} text={observation?.name} />;
+          return <NormalText key={index} boldText={observation?.codex?.precode + " " + observation?.code + " du " + observation?.codex?.name} text={observation?.name} />;
         })}
+      {observations.length === 0 && <NormalText text="Aucune observation renseignée." />}
     </Card>
   );
 }

@@ -8,7 +8,7 @@ interface StyleProps {
 }
 
 interface FloatingButtonStackProps {
-  children: JSX.Element[] | JSX.Element | undefined;
+  children: (JSX.Element | undefined)[] | JSX.Element | undefined;
 }
 
 export const FloatingButtonStack = (props: FloatingButtonStackProps): JSX.Element => {
@@ -20,8 +20,8 @@ export const FloatingButtonStack = (props: FloatingButtonStackProps): JSX.Elemen
 const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
     position: "absolute",
-    top: 10,
-    right: 10,
+    top: 4,
+    right: 0,
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-around",
