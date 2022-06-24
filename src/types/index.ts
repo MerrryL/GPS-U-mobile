@@ -5,20 +5,22 @@ export type BaseEntity = {
   updated_at: string;
 };
 
-export type Constatation = {
+export interface Constatation {
+  created_at: string;
+  updated_at: string;
   description: string;
   fields: Field[];
   images: Image[];
-  isValidated: number;
+  id: number;
+  is_validated: number;
   localization: Localization;
   media: Media[];
   observations: Observation[];
   observers: User[];
-  requiresValidation: number;
-  requiresValidationDate: string;
-  updated_at: string;
-  validationDate: string;
-} & BaseEntity;
+  requires_validation: number;
+  requires_validation_date: string;
+  validation_date: string;
+};
 
 export type ImageToSend = {
   base64: string;
@@ -38,10 +40,10 @@ export type FieldGroup = {
 } & BaseEntity;
 
 export type Field = {
-  defaultValue: string;
+  default_value: string;
   field_group_id: number;
   field_group: FieldGroup;
-  isRequired: boolean;
+  is_required: boolean;
   name: string;
   description: string;
   pivot: ConstFieldPivot;
@@ -123,8 +125,8 @@ export type Localization = {
 export type User = {
   bio: string;
   email: string;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   role: "ADMIN" | "USER";
   teamId: string;
 } & BaseEntity;

@@ -25,12 +25,12 @@ interface CreateFieldOptions {
   observationId: number;
   fieldGroupId: number;
   name: string;
-  defaultValue: string;
-  isRequired: boolean;
+  default_value: string;
+  is_required: boolean;
 };
 
-export const createField = ({ observationId, fieldGroupId, name, defaultValue, isRequired }: CreateFieldOptions): Promise<Field> => {
-  return axios.post(`/observations/${observationId}/field_groups/${fieldGroupId}/fields/`, { name, defaultValue, isRequired });
+export const createField = ({ observationId, fieldGroupId, name, default_value, is_required }: CreateFieldOptions): Promise<Field> => {
+  return axios.post(`/observations/${observationId}/field_groups/${fieldGroupId}/fields/`, { name, default_value, is_required });
 };
 
 interface DeleteFieldOptions {

@@ -10,16 +10,15 @@ export type LoginCredentials = {
 export type RegisterCredentials = {
   email: string;
   password: string;
-  firstName: string;
-  lastName: string;
-  token_name: string;
+  first_name: string;
+  last_name: string;
 };
 
 export type AuthUser = {
   id: number;
   email: string;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   bio: string;
   role: "ADMIN" | "USER";
 };

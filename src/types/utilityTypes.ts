@@ -13,7 +13,7 @@ export enum InputType {
 
 interface BaseInputField {
   name: string;
-  isRequired?: boolean;
+  is_required?: boolean;
   label?: string;
   schema?:  yup.AnySchema;
 }

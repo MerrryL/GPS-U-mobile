@@ -10,15 +10,3 @@ export const getLocalization = ({ constatationId }: GetLocalizationOptions): Pro
   return axios.get(`/constatations/${constatationId}/localization`);
 };
 
-type UpdateLocalizationOptions = {
-  localization: Localization;
-  constatationId: number;
-};
-
-export const updateLocalization = ({ localization, constatationId }: UpdateLocalizationOptions): Promise<Localization> => {
-  if (localization.id === undefined) {
-    return axios.post(`/constatations/${constatationId}/localization/`, localization);
-  } else {
-    return axios.patch(`/constatations/${constatationId}/localization/${localization.id}`, localization);
-  }
-};

@@ -1,4 +1,5 @@
 import { useNotificationStore } from "@/hooks/useNotificationStore";
+import { QueryKeys } from "@/lib/query-keys";
 import { MutationConfig, queryClient } from "@/lib/react-query";
 import { Constatation } from "@/types";
 import { useMutation } from "react-query";
@@ -15,11 +16,11 @@ export const useUpdateConstatation = ({ config }: UseUpdateConstatationOptions =
 
   return useMutation({
     onMutate: async (updatingConstatation: any) => {
-      await queryClient.cancelQueries(["constatations", updatingConstatation?.constatationId]);
+      await queryClient.cancelQueries([QueryKeys.Constatations, updatingConstatation?.constatationId]);
 
-      const previousConstatation = queryClient.getQueryData<Constatation>(["constatations", updatingConstatation?.constatationId]);
+      const previousConstatation = queryClient.getQueryData<Constatation>([QueryKeys.Constatations, updatingConstatation?.constatationId]);
 
-      queryClient.setQueryData(["constatations", updatingConstatation?.constatationId], {
+      queryClient.setQueryData([QueryKeys.Constatations, updatingConstatation?.constatationId], {
         ...previousConstatation,
         ...updatingConstatation.data,
         id: updatingConstatation.constatationId,
@@ -29,12 +30,12 @@ export const useUpdateConstatation = ({ config }: UseUpdateConstatationOptions =
     },
     onError: (_, __, context: any) => {
       if (context?.previousConstatation) {
-        queryClient.setQueryData(["constatations", context.previousConstatation.id], context.previousConstatation);
+        queryClient.setQueryData([QueryKeys.Constatations, context.previousConstatation.id], context.previousConstatation);
       }
     },
     onSuccess: (data) => {
-      queryClient.refetchQueries(["constatations"]);
-      queryClient.refetchQueries(["constatations", data.id]);
+      queryClient.refetchQueries([QueryKeys.Constatations]);
+      queryClient.refetchQueries([QueryKeys.Constatations, data.id]);
       addNotification({
         type: "success",
         title: "Constatation Mise-à-jour",

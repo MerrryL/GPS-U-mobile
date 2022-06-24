@@ -9,5 +9,6 @@ const { PublicRoutes } = lazyImport(() => import("./PublicRoutes"), "PublicRoute
 
 export const AppRoutes:()=>JSX.Element = ():JSX.Element => {
   const auth: AuthContextValue<AuthUser | null, unknown, LoginCredentials, RegisterCredentials> = useAuth();
+  return <ProtectedRoutes />;
   return auth.user && auth.user !== null ? <ProtectedRoutes /> : <PublicRoutes />;
 };

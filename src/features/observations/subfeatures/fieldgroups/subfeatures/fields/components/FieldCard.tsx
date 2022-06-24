@@ -44,7 +44,7 @@ export function FieldCard({ field, fieldGroupId, observationId }: FieldCardProps
       <FloatingButtonStack>
         <DeleteButton callBack={onDeleteSubmit} />
       </FloatingButtonStack>
-      <NormalText boldText={fieldQuery?.data?.name} text={fieldQuery?.data?.isRequired ? "Champ obligatoire" : "Champ non obligatoire"} />
+      <NormalText boldText={fieldQuery?.data?.name} text={fieldQuery?.data?.is_required ? "Champ obligatoire" : "Champ non obligatoire"} />
     </Card>
   );
 }

@@ -1,7 +1,7 @@
 import { axios } from "@/lib/axios";
 import { Localization } from "@/types";
-import { AxiosResponse } from "axios";
 import * as Location from "expo-location";
+import { LatLng } from "react-native-maps";
 
 export async function getCurrentLocationFromSensors(): Promise<Location.LocationObject | undefined> {
   const { status } = await Location.requestForegroundPermissionsAsync();
@@ -16,20 +16,15 @@ export async function getCurrentLocationFromSensors(): Promise<Location.Location
   }
 }
 
-interface LatLng {
-  latitude: number;
-  longitude: number;
-}
-
-export async function getAddressForCoordinates({ latitude, longitude }: LatLng) {
-  return await axios.post<Localization>("/getAddressForCoordinates", {
+export async function getAddressForCoordinates({ latitude, longitude }: LatLng):Promise<Localization> {
+  return await axios.post("/getAddressForCoordinates", {
     lat: latitude,
     lng: longitude,
   });
 }
 
-export async function getCoordinatesForAddress(formatted_address: string): Promise<AxiosResponse<LatLng, any>> {
-  return await axios.post<LatLng>("/getCoordinatesForAddress", {
+export async function getCoordinatesForAddress(formatted_address: string): Promise<LatLng> {
+  return await axios.post("/getCoordinatesForAddress", {
     formatted_address: formatted_address,
   });
 }

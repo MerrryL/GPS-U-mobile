@@ -26,7 +26,7 @@ export function FieldPart({ constatation }: FieldPartProps): JSX.Element {
   const styles: StyleProps = useStyles();
 
   const onSubmit = async (values: any) => {
-    console.log("here");
+    console.log("here", values);
   };
 
   const groupIds: number[] = [...new Set(constatation.fields.map((field: Field) => field.field_group_id))];
@@ -34,14 +34,13 @@ export function FieldPart({ constatation }: FieldPartProps): JSX.Element {
 
   const fieldToInputedField = (fields: Field[]): InputedField[] => {
     return fields.map((field: Field): InputedField => {
-      // console.log("field", field);
       return {
-        name: field.name,
+        name: field.id + "",
         label: field.name,
         type: InputType.Text,
         value: field.pivot.value,
-        defaultValue: field.defaultValue,
-        schema: yup.string().min(3).defined(),
+        defaultValue: field.default_value,
+        schema: field.is_required ? yup.string().min(3).defined() : yup.string().defined(),
       };
     });
   };

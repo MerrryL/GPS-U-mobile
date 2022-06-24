@@ -17,7 +17,7 @@ import { useUpdateConstatation } from "../../hooks/useUpdateConstatation";
 import ConstatationValidationStatus from "./elements/ValidationStatus/ConstatationValidationStatus";
 
 interface ConstatationEditCardProps {
-  constatation?: Constatation;
+  constatation: Constatation;
 }
 
 interface StyleProps {
@@ -30,11 +30,11 @@ interface StyleProps {
 export function ConstatationEditCard({ constatation }: ConstatationEditCardProps): JSX.Element {
   const styles: StyleProps = useStyles();
 
-  const { created_at, description, fields, id, images, isValidated, localization, media, observations, observers, requiresValidation, requiresValidationDate, updated_at, validationDate } = constatation;
+  const { created_at, description, fields, id, images, is_validated, localization, media, observations, observers, requires_validation, requires_validation_date, updated_at, validation_date } = constatation;
 
   const updateConstatationMutation: UseMutationResult<Constatation, AxiosError<any, any>, UpdateConstatationOptions, any> = useUpdateConstatation();
 
-  const statusText = isValidated == 1 ? "Validée" : requiresValidation == 1 ? "A valider" : "Brouillon";
+  const statusText = is_validated == 1 ? "Validée" : requires_validation == 1 ? "A valider" : "Brouillon";
 
   const constatationForm: InputedField[] = [
     {
@@ -42,7 +42,7 @@ export function ConstatationEditCard({ constatation }: ConstatationEditCardProps
       label: "Description",
       type: InputType.Text,
       value: constatation?.description,
-      schema: yup.string().min(50).defined(),
+      schema: yup.string().min(10, "Minimum 10 caractères.").defined(),
       defaultValue: "",
     },
     {
@@ -57,7 +57,7 @@ export function ConstatationEditCard({ constatation }: ConstatationEditCardProps
             item: yup.string().required(),
           })
         )
-        .min(1)
+        .min(1, "Merci de choisir au moins une observation.")
         .defined(),
       value: constatation?.observations?.map((obs: Observation): PickerItem => {
         return { id: obs.id, item: obs.name };
@@ -70,7 +70,7 @@ export function ConstatationEditCard({ constatation }: ConstatationEditCardProps
       label: "témoins",
       type: InputType.Multiselect,
       value: constatation?.observers?.map((obs: User): PickerItem => {
-        return { id: obs.id, item: obs.lastName + " " + obs.firstName };
+        return { id: obs.id, item: obs.last_name + " " + obs.first_name };
       }),
       schema: yup
         .array()
@@ -80,7 +80,7 @@ export function ConstatationEditCard({ constatation }: ConstatationEditCardProps
             item: yup.string().required(),
           })
         )
-        .min(1)
+        .min(1, "Merci de choisir au moins un témoin.")
         .defined(),
       options: getObserversOptions() || [],
     },
@@ -98,8 +98,8 @@ export function ConstatationEditCard({ constatation }: ConstatationEditCardProps
     <Card containerStyle={styles.container}>
       <FloatingButtonStack>
         {/* <EditButton callBack={() => navigation.navigate("Edition", { observationId: observation?.id })}></EditButton>
-          <DetailsButton callBack={() => navigation.navigate("Details", { observationId: observation?.id })}></DetailsButton> */}
-        <ConstatationValidationStatus id={id} isValidated={isValidated} validationDate={validationDate} requiresValidation={requiresValidation} requiresValidationDate={requiresValidationDate} />
+          <DetailsButton callBack={() => navigation.navigate("Détails", { observationId: observation?.id })}></DetailsButton> */}
+        <ConstatationValidationStatus id={id} is_validated={is_validated} validation_date={validation_date} requires_validation={requires_validation} requires_validation_date={requires_validation_date} />
       </FloatingButtonStack>
       <Card.FeaturedTitle style={styles.cardTitle}>Constatation n°{id}</Card.FeaturedTitle>
       <Card.FeaturedSubtitle style={styles.cardTitle}>{statusText}</Card.FeaturedSubtitle>

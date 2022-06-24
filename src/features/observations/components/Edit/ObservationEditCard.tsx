@@ -98,7 +98,7 @@ export function ObservationEditCard({ observation }: ObservationEditCardProps): 
     <Card containerStyle={styles.container}>
       <FloatingButtonStack>
         {/* <EditButton callBack={() => navigation.navigate("Edition", { observationId: observation?.id })}></EditButton>
-        <DetailsButton callBack={() => navigation.navigate("Details", { observationId: observation?.id })}></DetailsButton> */}
+        <DetailsButton callBack={() => navigation.navigate("Détails", { observationId: observation?.id })}></DetailsButton> */}
       </FloatingButtonStack>
       {/* <Card.FeaturedTitle style={styles.cardTitle}>Observation</Card.FeaturedTitle> */}
       <Card.FeaturedTitle style={styles.cardTitle}>Observation</Card.FeaturedTitle>

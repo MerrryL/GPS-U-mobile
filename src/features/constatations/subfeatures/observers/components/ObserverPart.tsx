@@ -24,13 +24,13 @@ export function ObserverPart({ constatationId }: ObserverPartProps) {
 
   const allObserversQuery = useObservers();
   const options = allObserversQuery?.data?.map((observer) => ({
-    item: observer?.lastName?.toUpperCase() + " " + observer?.firstName,
+    item: observer?.last_name?.toUpperCase() + " " + observer?.first_name,
     id: observer.id,
   }));
 
   const initialObserversQuery = useConstatationObservers({ constatationId });
   const initialObservers = initialObserversQuery?.data?.map((observer) => ({
-    item: observer?.lastName?.toUpperCase() + " " + observer?.firstName,
+    item: observer?.last_name?.toUpperCase() + " " + observer?.first_name,
     id: observer.id,
   }));
 

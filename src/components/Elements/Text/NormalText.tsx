@@ -1,14 +1,12 @@
-import { Text } from "@rneui/base";
+import { Colors, Text, Theme } from "@rneui/base";
 import { capitalize } from "lodash";
 import React from "react";
 import { StyleProp, TextStyle, View, ViewStyle } from "react-native";
+import { makeStyles } from "@rneui/themed";
 
 interface NormalTextProps {
   boldText?: string;
   text?: string;
-  containerStyle?: StyleProp<ViewStyle>;
-  boldTextStyle?: StyleProp<TextStyle>;
-  textStyle?: StyleProp<TextStyle>;
 }
 
 interface StyleProps {
@@ -17,12 +15,8 @@ interface StyleProps {
   text: StyleProp<TextStyle>;
 }
 
-export default function NormalText({ boldText = undefined, text = undefined, containerStyle = undefined, boldTextStyle, textStyle = undefined }: NormalTextProps): JSX.Element {
-  const styles: StyleProps = useStyles({
-    containerStyle: containerStyle,
-    textStyle: textStyle,
-    boldTextStyle: boldTextStyle,
-  });
+export default function NormalText({ boldText = undefined, text = undefined }: NormalTextProps): JSX.Element {
+  const styles: StyleProps = useStyles();
 
   return (
     <View style={styles.container}>
@@ -32,22 +26,20 @@ export default function NormalText({ boldText = undefined, text = undefined, con
   );
 }
 
-const useStyles = ({ containerStyle, boldTextStyle, textStyle }: any) => ({
+const useStyles =makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
     alignItems: "baseline",
-    paddingLeft: "10px",
-    paddingRight: "10px",
-    containerStyle,
+    paddingLeft: "8px",
+    paddingRight: "8px",
+    paddingBottom: "8px"
   },
   boldText: {
     fontSize: 14,
     fontWeight: "bold",
-    marginBottom: "5px",
+    marginBottom: "4px",
     // color: theme?.colors?.grey3,
-    ...boldTextStyle,
   },
   text: {
-    marginBottom: "5px",
-    textStyle,
+    marginBottom: "4px",
   },
-});
+}));

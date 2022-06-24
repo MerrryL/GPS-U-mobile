@@ -7,7 +7,7 @@ import { createFieldGroup } from "../api";
 
 
 
-type UseCreateFieldGroupOptions = {
+interface UseCreateFieldGroupOptions {
   constatationId: number;
   name: string;
   type: string;
@@ -27,12 +27,9 @@ export const useCreateFieldGroup = ({ constatationId, config }: UseCreateFieldGr
 
       const previousConstatations = queryClient.getQueryData<Constatation[]>(["constatations"]);
 
-      //console.log(queryClient.getQueryData<Constatation[]>(["constatations", 100]));
-      const index = previousConstatations.findIndex((obj) => obj.id.toString() == constatationId);
-
-      previousConstatations[index].field_groups.push(data);
-
-      queryClient.setQueryData(["constatations"], [...previousConstatations]);
+      const index = previousConstatations?.findIndex((obj: Constatation) => obj.id === constatationId);
+      previousConstatations && index && previousConstatations[index].field_groups.push(data);
+      queryClient.setQueryData(["constatations"], previousConstatations);
 
       addNotification({
         type: "success",

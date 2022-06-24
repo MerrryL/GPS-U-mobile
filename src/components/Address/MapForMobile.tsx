@@ -1,7 +1,6 @@
-import { Colors, Theme } from "@rneui/base";
+import { Card, Colors, Theme } from "@rneui/base";
 import { makeStyles } from "@rneui/themed";
 import React from "react";
-import { Dimensions, View } from "react-native";
 import MapView, { LatLng, MapEvent, Marker, Region } from "react-native-maps";
 
 interface MapProps {
@@ -19,8 +18,8 @@ export default function MapForMobile({ markers, onChange }: MapProps): JSX.Eleme
   };
 
   const initialRegion: Region = {
-    latitude: defaultCoords.latitude,
-    longitude: defaultCoords.longitude,
+    latitude: markers ? markers.reduce((a, b) => a + b.latitude, 0) / markers.length : defaultCoords.latitude,
+    longitude: markers ? markers.reduce((a, b) => a + b.longitude, 0) / markers.length : defaultCoords.longitude,
     latitudeDelta: 0.002,
     longitudeDelta: 0.001,
   };
@@ -33,7 +32,7 @@ export default function MapForMobile({ markers, onChange }: MapProps): JSX.Eleme
   };
 
   return (
-    <View style={styles.container}>
+    <Card containerStyle={styles.container}>
       <MapView style={styles.map} initialRegion={initialRegion}>
         {markers &&
           markers.map(
@@ -52,20 +51,19 @@ export default function MapForMobile({ markers, onChange }: MapProps): JSX.Eleme
             )
           )}
       </MapView>
-    </View>
+    </Card>
   );
 }
 
 const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 10,
+    // margin: 10,
+    display: "flex",
+    alignItems: "stretch",
   },
   map: {
-    width: 0.8 * Dimensions.get("window").width,
-    height: 0.8 * Dimensions.get("window").width,
+    aspectRatio: 1 / 1,
+    // width: 0.8 * Dimensions.get("window").width,
+    // height: 0.8 * Dimensions.get("window").width,
   },
 }));

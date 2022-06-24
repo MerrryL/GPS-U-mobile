@@ -5,7 +5,7 @@ import React from "react";
 import { StyleProp, TextStyle, ViewStyle } from "react-native";
 
 interface SaveButtonProps {
-  callBack: () => void;
+  callBack: (data?:any) => void | Promise<void>;
   title?: string;
 }
 

@@ -36,14 +36,14 @@ export function FieldsAdd({ fieldGroup, observation }: FieldsAddProps) {
       defaultValue: "",
     },
     {
-      name: "defaultValue",
+      name: "default_value",
       label: "Valeur par défaut",
       type: InputType.Text,
       schema: yup.string().min(0).defined(),
       defaultValue: "",
     },
     {
-      name: "isRequired",
+      name: "is_required",
       label: "Champ obligatoire?",
       type: InputType.CheckBox,
       schema: yup.boolean().defined(),
@@ -55,8 +55,8 @@ export function FieldsAdd({ fieldGroup, observation }: FieldsAddProps) {
     console.log("values", values);
     await fieldCreateMutation.mutateAsync({
       name: values.name,
-      defaultValue: values.defaultValue,
-      isRequired: values.isRequired,
+      default_value: values.default_value,
+      is_required: values.is_required,
       observationId: observation.id,
       fieldGroupId: fieldGroup.id,
     });

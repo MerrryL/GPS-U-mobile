@@ -3,9 +3,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Card, Colors, Theme } from "@rneui/base";
 import { makeStyles } from "@rneui/themed";
 import React, { useEffect, useState } from "react";
-import { SubmitHandler, useForm, UseFormReturn } from "react-hook-form";
+import { SubmitHandler, useForm, UseFormReturn, UseFormWatch } from "react-hook-form";
 import { ScrollView, StyleProp, TextStyle, ViewStyle } from "react-native";
 import * as yup from "yup";
+import { fr } from "yup-locales";
 import CancelButton from "../Buttons/CancelButton";
 import SaveButton from "../Buttons/SaveButton";
 import NormalText from "../Text/NormalText";
@@ -17,6 +18,8 @@ interface FormBuilderProps<TFieldValues> {
   fields: InputedField[];
   onSubmit: SubmitHandler<TFieldValues>;
   onCancel?: () => void;
+  onWatch?: (watch: UseFormWatch<TFieldValues>) => void;
+  setValue?: any
 }
 
 interface StyleProps {
@@ -27,10 +30,9 @@ interface StyleProps {
   details: StyleProp<ViewStyle>;
 }
 //TODO:LATER
-export default function FormBuilder<TFieldValues>({ title, description, fields, onSubmit, onCancel }: FormBuilderProps<TFieldValues>): JSX.Element {
-  const [formFields, updateForm] = useState<InputedField[]>(fields);
-  useEffect(() => updateForm(fields), [fields]);
+export default function FormBuilder<TFieldValues>({ title, description, fields, onSubmit, onCancel, onWatch, setValue }: FormBuilderProps<TFieldValues>): JSX.Element {
   const styles: StyleProps = useStyles();
+  yup.setLocale(fr);
 
   const schema = yup.object().shape(fields.reduce((a, iField: InputedField) => ({ ...a, [iField.name]: iField.schema }), {}));
 
@@ -38,16 +40,19 @@ export default function FormBuilder<TFieldValues>({ title, description, fields, 
     control,
     handleSubmit,
     formState: { errors },
+    watch
   }: UseFormReturn<TFieldValues> = useForm<TFieldValues>({
     resolver: yupResolver(schema),
   });
+  
+  onWatch && onWatch(watch);
 
   return (
     <ScrollView>
       <Card containerStyle={styles.container}>
         <NormalText boldText={title} text={description} />
 
-        {formFields && formFields.map((field: InputedField, index: React.Key): JSX.Element => <InputSelector f={field} key={index} control={control} />)}
+        {fields && fields.map((field: InputedField, index: React.Key): JSX.Element => <InputSelector f={field} key={index} control={control} />)}
         {/* <NormalText text={JSON.stringify(errors)}></NormalText> */}
 
         <SaveButton callBack={handleSubmit<TFieldValues>(onSubmit)} title="Sauvegarder" />

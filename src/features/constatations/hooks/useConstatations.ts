@@ -1,18 +1,21 @@
+import { QueryKeys } from "@/lib/query-keys";
 import { QueryConfig } from "@/lib/react-query";
 import { Constatation } from "@/types";
-import { useQuery } from "react-query";
-import { getConstatations } from "../api";
+import { axios } from "@/lib/axios";
+import { useQuery, UseQueryResult } from "react-query";
 
 
+export const getConstatations: () => Promise<Constatation[]> = (): Promise<Constatation[]> => {
+  return axios.get("constatations");
+};
 
-type UseConstatationsOptions = {
+interface UseConstatationsOptions {
   config?: QueryConfig<typeof getConstatations>;
 };
 
-export const useConstatations = ({ config }: UseConstatationsOptions = {}) => {
+export const useConstatations = ({ config }: UseConstatationsOptions = {}): UseQueryResult<Constatation[]> => {
   return useQuery<Constatation[], Error>({
-    // ...config,
-    queryKey: ["constatations"],
-    queryFn: () => getConstatations(),
+    queryKey: [QueryKeys.Constatations],
+    queryFn: (): Promise<Constatation[]> => getConstatations(),
   });
 };

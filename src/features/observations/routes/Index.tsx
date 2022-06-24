@@ -8,7 +8,7 @@ import List from "./List";
 
 export type ObservationStackParamList = {
   Liste: undefined;
-  Details: { observationId: number };
+  Détails: { observationId: number };
   Edition: { observationId: number };
   Nouvelle: undefined;
 };
@@ -26,7 +26,7 @@ export default function ObservationStackScreen() {
       })}
     >
       <ObservationsStack.Screen name="Liste" component={List} />
-      <ObservationsStack.Screen name="Details" component={Details} />
+      <ObservationsStack.Screen name="Détails" component={Details} />
       <ObservationsStack.Screen name="Edition" component={Edit} />
       <ObservationsStack.Screen name="Nouvelle" component={Create} />
     </ObservationsStack.Navigator>

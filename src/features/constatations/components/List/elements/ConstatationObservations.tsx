@@ -29,10 +29,11 @@ export default function ConstatationObservations({ observations }: ConstatationO
   return (
     <Card containerStyle={styles.container}>
       <NormalText boldText="Observations"></NormalText>
+      <Card.Divider></Card.Divider>
 
       {observations &&
         observations.map((observation: Observation, index): JSX.Element => {
-          return <NormalText key={index} boldText={observation?.codex?.precode + " " + observation?.code + " du " + observation?.codex?.name} text={observation?.name} />;
+          return (<NormalText key={index} boldText={observation?.codex?.precode + " " + observation?.code + " du " + observation?.codex?.name} text={observation?.name} />);
         })}
       {observations.length === 0 && <NormalText text="Aucune observation renseignée." />}
     </Card>
@@ -41,8 +42,6 @@ export default function ConstatationObservations({ observations }: ConstatationO
 
 const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
-    padding: 3,
-    margin: 3,
-    // backgroundColor: theme?.colors?.grey5,
+
   },
 }));

@@ -7,13 +7,13 @@ import ConstatationValidationButton from "../Buttons/ConstatationValidationButto
 
 interface ConstatationHasRequiredValidationPropsType {
   id: number;
-  requiresValidationDate?: string;
+  requires_validation_date?: string;
 }
-export default function ConstatationHasRequiredValidation({ id, requiresValidationDate = "Inconnue" }: ConstatationHasRequiredValidationPropsType) {
+export default function ConstatationHasRequiredValidation({ id, requires_validation_date = "Inconnue" }: ConstatationHasRequiredValidationPropsType) {
   const styles = useStyles();
   return (
     <>
-      <DateText boldText="Validation possible depuis le" date={requiresValidationDate} />
+      <DateText boldText="Validation possible depuis le" date={requires_validation_date} />
       <ConstatationValidationButton id={id} />
       <ConstatationRefusalButton id={id} />
     </>

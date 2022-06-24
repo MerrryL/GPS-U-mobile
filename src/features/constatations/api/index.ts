@@ -6,27 +6,7 @@ export const getObservations: () => Promise<Observation[]> = (): Promise<Observa
   return axios.get("observations");
 };
 
-//Constatations part
-export const getConstatations: () => Promise<Constatation[]> = (): Promise<Constatation[]> => {
-  return axios.get("constatations");
-};
 
-type GetConstatationOptions = {
-  constatationId: number;
-};
-
-export const getConstatation: (data: GetConstatationOptions) => Promise<Constatation> = ({ constatationId }: GetConstatationOptions): Promise<Constatation> => {
-  return axios.get(`/constatations/${constatationId}`);
-};
-
-// type CreateConstatationOptions = {
-//   //localization: Localization;
-//   data: Partial<Constatation>;
-// };
-
-export const createConstatation: () => Promise<Constatation> = (): Promise<Constatation> => {
-  return axios.post("constatations");
-};
 
 export interface UpdateConstatationOptions {
   constatationId: number;
@@ -43,29 +23,10 @@ export const updateConstatation:(data:UpdateConstatationOptions)=> Promise<Const
   });
 };
 
-type RequireValidationOptions = {
-  constatationId: number;
-};
 
-export const requireValidation: (data: RequireValidationOptions) => Promise<Constatation> = ({ constatationId }: RequireValidationOptions): Promise<Constatation> => {
-  return axios.post(`constatations/${constatationId}/require_validation`);
-};
 
-type RefuseValidationOptions = {
-  constatationId: number;
-};
 
-export const refuseValidation: (data: RefuseValidationOptions) => Promise<Constatation> = ({ constatationId }: RefuseValidationOptions): Promise<Constatation> => {
-  return axios.post(`constatations/${constatationId}/refuse_validation`);
-};
 
-type ValidateConstatationOptions = {
-  constatationId: number;
-};
-
-export const validateConstatation: (data: ValidateConstatationOptions) => Promise<Constatation> = ({ constatationId }: ValidateConstatationOptions): Promise<Constatation> => {
-  return axios.post(`constatations/${constatationId}/validate_constatation`);
-};
 
 type DeleteConstatationOptions = {
   constatationId: number;

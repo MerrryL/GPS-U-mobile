@@ -12,6 +12,7 @@ import { StyleProp, TextStyle, View, ViewStyle } from "react-native";
 import { ConstatationStackParamList } from "../..";
 import ConstatationCover from "../elements/ConstatationCover";
 import ConstatationAddress from "./elements/ConstatationAddress";
+import ConstatationDates from "./elements/ConstatationDates";
 import ConstatationDescription from "./elements/ConstatationDescription";
 import ConstatationObservations from "./elements/ConstatationObservations";
 import ConstatationObservers from "./elements/ConstatationObservers";
@@ -29,19 +30,19 @@ interface StyleProps {
 }
 
 export function ConstatationListCard({ constatation }: ConstatationCardProps): JSX.Element {
-  const styles: StyleProps = useStyles({ isValidated: constatation.isValidated, requiresValidation: constatation.requiresValidation });
+  const styles: StyleProps = useStyles({ is_validated: constatation.is_validated, requires_validation: constatation.requires_validation });
 
   const navigation: StackNavigationProp<ConstatationStackParamList, keyof ConstatationStackParamList, undefined> = useNavigation<StackNavigationProp<ConstatationStackParamList>>();
 
-  const { created_at, description, id, images, isValidated, localization, media, observations, observers, requiresValidation, requiresValidationDate, updated_at, validationDate } = constatation || {};
+  const { created_at, description, id, images, is_validated, localization, media, observations, observers, requires_validation, requires_validation_date, updated_at, validation_date } = constatation;
 
-  const statusText = isValidated == 1 ? "Validée" : requiresValidation == 1 ? "A valider" : "Brouillon";
+  const statusText = is_validated == 1 ? "Validée" : requires_validation == 1 ? "A valider" : "Brouillon";
 
   return (
     <Card containerStyle={styles.container}>
       <FloatingButtonStack>
         <EditButton callBack={() => navigation.navigate("Edition", { constatationId: constatation.id })} />
-        <DetailsButton callBack={() => navigation.navigate("Details", { constatationId: constatation.id })} />
+        <DetailsButton callBack={() => navigation.navigate("Détails", { constatationId: constatation.id })} />
       </FloatingButtonStack>
 
       <Card.FeaturedTitle style={styles.cardTitle}>Constatation n°{id}</Card.FeaturedTitle>
@@ -50,23 +51,18 @@ export function ConstatationListCard({ constatation }: ConstatationCardProps): J
       <View style={styles.body}>
         <ConstatationCover cover={media?.[0]} images={images} />
         <View style={styles.headerInfos}>
-          <DateText date={created_at} />
+          <ConstatationDates createdAt={created_at} updatedAt={updated_at}></ConstatationDates>
           <ConstatationAddress localization={localization} />
-          <DateText boldText="Dernière m-a-j" date={updated_at} dateStyle={{ alignSelf: "flex-end" }} containerStyle={{ flexDirection: "column", alignItems: "flex-end" }} />
         </View>
       </View>
       <ConstatationDescription description={description} />
-
-      {/* <View style={styles.details}> */}
       <ConstatationObservations observations={observations} />
       <ConstatationObservers observers={observers} />
-      {/* <ConstatationFields field_groups={field_groups} /> */}
-      {/* </View> */}
     </Card>
   );
 }
 
-const useStyles = makeStyles((theme: { colors: Colors } & Theme, props: { isValidated: number; requiresValidation: number }) => ({
+const useStyles = makeStyles((theme: { colors: Colors } & Theme, props: { is_validated: number; requires_validation: number }) => ({
   container: {
     backgroundColor: theme?.colors?.grey5,
     display: "flex",
@@ -82,7 +78,7 @@ const useStyles = makeStyles((theme: { colors: Colors } & Theme, props: { isVali
     alignSelf: "stretch",
     padding: 2,
     marginBottom: 0,
-    backgroundColor: props.isValidated == 1 ? theme?.colors?.success : props.requiresValidation == 1 ? theme?.colors?.warning : theme?.colors?.primary,
+    backgroundColor: props.is_validated == 1 ? theme?.colors?.success : props.requires_validation == 1 ? theme?.colors?.warning : theme?.colors?.primary,
   },
   buttonContainer: {
     flex: 1,
@@ -95,6 +91,7 @@ const useStyles = makeStyles((theme: { colors: Colors } & Theme, props: { isVali
     flexWrap: "wrap",
     flexDirection: "row",
     alignItems: "stretch",
+    alignContent: "stretch",
     height: "auto",
     marginTop: 5,
   },
@@ -104,6 +101,7 @@ const useStyles = makeStyles((theme: { colors: Colors } & Theme, props: { isVali
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "stretch",
+    alignContent: "stretch",
   },
   headerInfos: {
     flexDirection: "column",

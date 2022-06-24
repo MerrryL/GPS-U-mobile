@@ -5,7 +5,7 @@ import { makeStyles } from "@rneui/themed";
 import React from "react";
 import { StyleProp, ViewStyle } from "react-native";
 
-type ConstatationDescriptionProps = {
+interface ConstatationDescriptionProps {
   description: string;
 };
 
@@ -21,7 +21,8 @@ export default function ConstatationDescription(props: ConstatationDescriptionPr
     <>
       {description && (
         <Card containerStyle={styles.container}>
-          <NormalText boldText="Description" boldTextStyle={{ fontSize: 18 }}></NormalText>
+          <NormalText boldText="Description"></NormalText>
+          <Card.Divider></Card.Divider>
           <LongText text={description} />
         </Card>
       )}
@@ -31,8 +32,7 @@ export default function ConstatationDescription(props: ConstatationDescriptionPr
 
 const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
-    padding: 3,
-    margin: 3,
+
     // backgroundColor: theme?.colors?.grey5,
   },
 }));

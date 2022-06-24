@@ -21,11 +21,12 @@ export default function ConstatationObservers(props: ConstatationObserversProps)
   const { observers } = props;
   const styles: StyleProps = useStyles();
 
-  const getName = (user: User): string => capitalize(user?.lastName) + " " + capitalize(user?.firstName);
+  const getName = (user: User): string => capitalize(user?.last_name) + " " + capitalize(user?.first_name);
 
   return (
     <Card containerStyle={styles.container}>
       <NormalText boldText="Constatateurs"></NormalText>
+      <Card.Divider></Card.Divider>
 
       {observers &&
         observers.map((observer: Observer, index: number): JSX.Element => {
@@ -38,8 +39,6 @@ export default function ConstatationObservers(props: ConstatationObserversProps)
 
 const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   container: {
-    padding: 3,
-    margin: 3,
-    // backgroundColor: theme?.colors?.grey5,
+
   },
 }));

@@ -7,13 +7,12 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { ParamListBase, RouteProp } from "@react-navigation/native";
 import React from "react";
 
-export type RootStackParamList = {
-  Feed: undefined;
+export type AppStackParamList = {
   Constatations: undefined;
   Observations: undefined;
-  // Suivis: undefined;
+  Maps: undefined;
+  Parameters: undefined;
   // Tâches: undefined;
-  // Parameters: undefined;
   // About: undefined;
 };
 
@@ -23,12 +22,12 @@ interface TabBarIconProps {
   size?: number;
 }
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<AppStackParamList>();
 
 function AppNavigator(): JSX.Element {
   return (
     <Tab.Navigator
-      initialRouteName="AppNavigator"
+      initialRouteName="Constatations"
       screenOptions={({ route }: { route: RouteProp<ParamListBase> }) => ({
         tabBarActiveTintColor: "#e91e63",
         tabBarHideOnKeyboard: true,

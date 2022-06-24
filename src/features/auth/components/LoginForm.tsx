@@ -4,37 +4,29 @@ import { Button, Input, Text } from "@rneui/base";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { ActivityIndicator, View } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
 import * as yup from "yup";
+import { LoginCredentials } from "./api";
+import { Entypo } from "@expo/vector-icons";
 
 const schema = yup.object().shape({
-  email: yup.string().email().required(),
-  password: yup.string().required(),
+  email: yup.string().email().min(4).required(),
+  password: yup.string().min(4).required(),
 });
 
-type LoginValues = {
-  email: string;
-  password: string;
-};
 
-type LoginFormProps = {
-  onSuccess: () => void;
-};
-
-export const LoginForm = ({ onSuccess }: LoginFormProps): JSX.Element => {
+export const LoginForm = (): JSX.Element => {
   const { login, isLoggingIn } = useAuth();
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginValues>({
+  } = useForm<LoginCredentials>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: LoginCredentials) => {
     await login(values);
-    onSuccess();
   };
 
   return (
@@ -44,7 +36,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps): JSX.Element => {
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }): JSX.Element => <Input onBlur={onBlur} onChangeText={onChange} value={value} autoCompleteType="email" keyboardType="default" textContentType="emailAddress" leftIcon={<Icon name="at" size={24} color="black" />} placeholder="Adresse e-mail" />}
+        render={({ field: { onChange, onBlur, value } }): JSX.Element => <Input onBlur={onBlur} onChangeText={onChange} value={value} autoComplete="email" keyboardType="default" textContentType="emailAddress" leftIcon={<Entypo name="email" size={24} color="black" />} placeholder="Adresse e-mail" />}
         name="email"
         defaultValue=""
       />
@@ -55,7 +47,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps): JSX.Element => {
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }): JSX.Element => <Input onBlur={onBlur} onChangeText={onChange} value={value} autoCompleteType="password" keyboardType="email-address" textContentType="password" secureTextEntry={true} leftIcon={<Icon name="lock" size={24} color="black" />} placeholder="Mot de passe" />}
+        render={({ field: { onChange, onBlur, value } }): JSX.Element => <Input onBlur={onBlur} onChangeText={onChange} value={value} autoComplete="password" keyboardType="email-address" textContentType="password" secureTextEntry={true} leftIcon={<Entypo name="lock" size={24} color="black" />} placeholder="Mot de passe" />}
         name="password"
         defaultValue=""
       />

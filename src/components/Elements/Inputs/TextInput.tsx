@@ -1,4 +1,4 @@
-import { Input } from "@rneui/base";
+import { Input, InputProps } from "@rneui/base";
 import React from "react";
 import { ControllerFieldState, ControllerRenderProps, FieldValues, UseFormStateReturn } from "react-hook-form";
 
@@ -17,8 +17,7 @@ export default function TextInput(props: TextInputProps): JSX.Element {
     ...props.field,
     placeholder: label,
     inputStyle: { fontSize: 12 },
-    onChangeText: props.field.onChange,
-    autoCompleteType: "text",
+    onChangeText: props.field.onChange
   };
 
   //TODO: change style, definitely

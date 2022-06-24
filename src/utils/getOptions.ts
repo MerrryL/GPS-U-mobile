@@ -9,11 +9,15 @@ import { UseQueryResult } from "react-query";
 export function getObserversOptions():PickerItem[] | undefined {
   const allObserversQuery: UseQueryResult<User[], unknown> = useObservers();
   return allObserversQuery?.data?.map((observer: User):PickerItem => ({
-    item: observer?.lastName?.toUpperCase() + " " + observer?.firstName,
+    item: observer?.last_name?.toUpperCase() + " " + observer?.first_name,
     id: observer.id,
   }));
 }
 
+export function getCurrentUserAsObserver():PickerItem[] {
+  const user: PickerItem | undefined= getObserversOptions()?.find( (observer) => observer.id === 1);
+  return user ? [user] : [];
+}
 export function getObservationsOptions(): PickerItem[] | undefined {
   const allObservationsQuery: UseQueryResult<Observation[], unknown> = useObservations();
   return allObservationsQuery?.data?.map(

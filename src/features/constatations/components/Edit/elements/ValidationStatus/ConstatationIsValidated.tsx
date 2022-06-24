@@ -4,11 +4,11 @@ import { makeStyles } from "@rneui/themed";
 import React from "react";
 
 export default function ConstatationIsValidated(props) {
-  const { validationDate } = props;
+  const { validation_date } = props;
 
   const styles = useStyles();
 
-  return <DateText boldText="Date de validation" date={validationDate} />;
+  return <DateText boldText="Date de validation" date={validation_date} />;
 }
 
 const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({

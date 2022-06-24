@@ -1,7 +1,6 @@
 import { Card, Colors, Theme } from "@rneui/base";
 import { makeStyles } from "@rneui/themed";
 import React, { useEffect, useState } from "react";
-import { GestureResponderEvent } from "react-native";
 import { LatLng, Region } from "react-native-maps";
 import MapView from "react-native-web-maps";
 
@@ -24,14 +23,13 @@ export default function MapForWeb({ markers, onChange }: MapProps): JSX.Element 
   };
 
   const initialRegion: Region = {
-    latitude: defaultCoords.latitude,
-    longitude: defaultCoords.longitude,
+    latitude: markers ? markers.reduce((a, b) => a + b.latitude, 0) / markers.length : defaultCoords.latitude,
+    longitude: markers ? markers.reduce((a, b) => a + b.longitude, 0) / markers.length : defaultCoords.longitude,
     latitudeDelta: 0.002,
     longitudeDelta: 0.001,
   };
 
   const onDragEnd = (marker: any) => {
-    console.warn(marker);
     onChange({
       latitude: marker.latLng.lat() as number,
       longitude: marker.latLng.lng() as number,
@@ -44,12 +42,6 @@ export default function MapForWeb({ markers, onChange }: MapProps): JSX.Element 
         style={styles.map}
         initialRegion={initialRegion}
         key={markers}
-        onStartShouldSetResponder={(event: GestureResponderEvent) => true}
-        onMoveShouldSetResponder={(event: GestureResponderEvent) => true}
-        onTouchEnd={(event: GestureResponderEvent) => {
-          event.stopPropagation();
-        }}
-        onPress={(event: PointerEvent) => event.stopPropagation()}
       >
         {markersState?.map(
           (marker: LatLng, index: number): JSX.Element => (
@@ -57,12 +49,6 @@ export default function MapForWeb({ markers, onChange }: MapProps): JSX.Element 
               key={index}
               coordinate={marker}
               draggable
-              onStartShouldSetPanResponder={(event: GestureResponderEvent) => true}
-              onMoveShouldSetResponder={(event: GestureResponderEvent) => true}
-              onTouchEnd={(event: GestureResponderEvent) => {
-                event.stopPropagation();
-              }}
-              onPress={(event: PointerEvent) => event.stopPropagation()}
               onDragEnd={onDragEnd}
               title="Ici"
               description="Vous êtes ici"

@@ -34,7 +34,7 @@ const notifyErrors = (error:any) => {
       useNotificationStore.getState().addNotification({
         type: "error",
         title: "Error " + key.toString(),
-        message: value.toString(),
+        message: value?.toString(),
       });
     }
   }

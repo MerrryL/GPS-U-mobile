@@ -1,14 +1,14 @@
 import { ParamListBase, RouteProp } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import Create from "./Create";
+import { Create } from "./Create";
 import Details from "./Details";
 import Edit from "./Edit";
 import List from "./List";
 
 export type ConstatationStackParamList = {
   Liste: undefined;
-  Details: { constatationId: number };
+  Détails: { constatationId: number };
   Edition: { constatationId: number };
   Nouvelle: undefined;
 };
@@ -26,7 +26,7 @@ export default function ConstatationStackScreen(): JSX.Element {
       })}
     >
       <ConstatationsStack.Screen name="Liste" component={List} />
-      <ConstatationsStack.Screen name="Details" component={Details} />
+      <ConstatationsStack.Screen name="Détails" component={Details} />
       <ConstatationsStack.Screen name="Edition" component={Edit} />
       <ConstatationsStack.Screen name="Nouvelle" component={Create} />
     </ConstatationsStack.Navigator>

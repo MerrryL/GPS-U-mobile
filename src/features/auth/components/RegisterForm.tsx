@@ -6,41 +6,30 @@ import { Controller, useForm } from "react-hook-form";
 import { ActivityIndicator, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as yup from "yup";
+import { RegisterCredentials } from "./api";
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
-  firstName: yup.string().required(),
-  lastName: yup.string().required(),
-  password: yup.string().required(),
+  first_name: yup.string().required(),
+  last_name: yup.string().required(),
+  password: yup.string().min(4).required(),
 });
 
-type RegisterValues = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-};
-
-type RegisterFormProps = {
-  onSuccess: () => void;
-};
-
-export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
+export const RegisterForm = ():JSX.Element => {
   const { register, isRegistering } = useAuth();
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterValues>({
+  } = useForm<RegisterCredentials>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values:RegisterCredentials) => {
     await register(values);
-    onSuccess();
   };
-
+  
   return (
     <View>
       <Controller
@@ -49,10 +38,10 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
           required: true,
         }}
         render={({ field: { onChange, onBlur, value } }): JSX.Element => <Input onBlur={onBlur} onChangeText={onChange} value={value} leftIcon={<Icon name="user" size={24} color="black" />} placeholder="Prénom" textContentType="givenName" />}
-        name="firstName"
+        name="first_name"
         defaultValue=""
       />
-      <Text>{errors.firstName?.message}</Text>
+      <Text>{errors.first_name?.message}</Text>
 
       <Controller
         control={control}
@@ -60,17 +49,17 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
           required: true,
         }}
         render={({ field: { onChange, onBlur, value } }): JSX.Element => <Input onBlur={onBlur} onChangeText={onChange} value={value} leftIcon={<Icon name="user" size={24} color="black" />} placeholder="Nom" textContentType="familyName" />}
-        name="lastName"
+        name="last_name"
         defaultValue=""
       />
-      <Text>{errors.lastName?.message}</Text>
+      <Text>{errors.last_name?.message}</Text>
 
       <Controller
         control={control}
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }): JSX.Element => <Input onBlur={onBlur} onChangeText={onChange} value={value} leftIcon={<Icon name="at" size={24} color="black" />} placeholder="Adresse e-mail" autoCompleteType="email" keyboardType="email-address" textContentType="emailAddress" />}
+        render={({ field: { onChange, onBlur, value } }): JSX.Element => <Input onBlur={onBlur} onChangeText={onChange} value={value} leftIcon={<Icon name="at" size={24} color="black" />} placeholder="Adresse e-mail" autoComplete="email" keyboardType="email-address" textContentType="emailAddress" />}
         name="email"
         defaultValue=""
       />

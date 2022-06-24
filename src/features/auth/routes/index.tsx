@@ -11,13 +11,19 @@ interface TabBarIconProps {
   size?: number;
 }
 
-const Tab = createBottomTabNavigator();
+
+export type AuthRoutesTabParamList = {
+  Connection: undefined;
+  Inscription: undefined;
+};
+
+const Tab = createBottomTabNavigator<AuthRoutesTabParamList>();
 
 export const AuthRoutes: () => JSX.Element = (): JSX.Element => {
   return (
     <>
       <Tab.Navigator
-        initialRouteName="Feed"
+        initialRouteName="Connection"
         screenOptions={({ route }: { route: RouteProp<ParamListBase> }) => ({
           tabBarActiveTintColor: "#e91e63",
           tabBarHideOnKeyboard: true,
@@ -27,7 +33,7 @@ export const AuthRoutes: () => JSX.Element = (): JSX.Element => {
         })}
       >
         <Tab.Screen
-          name="Se connecter"
+          name="Connection"
           component={Login}
           options={{
             tabBarLabel: "Utilisateur",
@@ -35,7 +41,7 @@ export const AuthRoutes: () => JSX.Element = (): JSX.Element => {
           }}
         />
         <Tab.Screen
-          name="S'inscrire"
+          name="Inscription"
           component={Register}
           options={{
             tabBarLabel: "S'inscrire",

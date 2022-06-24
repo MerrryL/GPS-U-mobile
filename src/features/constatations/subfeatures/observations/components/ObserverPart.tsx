@@ -23,7 +23,7 @@ export function ObservationPart({ constatationId }: ObservationPartProps) {
 
   const allObservationsQuery = useObservations();
   const options = allObservationsQuery?.data?.map((Observation) => ({
-    item: Observation?.lastName?.toUpperCase() + " " + Observation?.firstName,
+    item: Observation?.last_name?.toUpperCase() + " " + Observation?.first_name,
     id: Observation.id,
   }));
 
@@ -31,7 +31,7 @@ export function ObservationPart({ constatationId }: ObservationPartProps) {
     constatationId,
   });
   const initialObservations = initialObservationsQuery?.data?.map((Observation) => ({
-    item: Observation?.lastName?.toUpperCase() + " " + Observation?.firstName,
+    item: Observation?.last_name?.toUpperCase() + " " + Observation?.first_name,
     id: Observation.id,
   }));
 

@@ -16,8 +16,8 @@ export const deleteUser = ({ userId }: DeleteUserOptions) => {
 
 type ProfileBody = {
   email: string;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   bio: string;
 };
 

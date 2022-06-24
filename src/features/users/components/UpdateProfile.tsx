@@ -10,14 +10,14 @@ import { useUpdateProfile } from "../hooks/useUpdateProfile";
 
 const schema = z.object({
   email: z.string().min(1, "Required"),
-  firstName: z.string().min(1, "Required"),
-  lastName: z.string().min(1, "Required"),
+  first_name: z.string().min(1, "Required"),
+  last_name: z.string().min(1, "Required"),
 });
 
 type ProfileValues = {
   email: string;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   bio: string;
 };
 
@@ -47,8 +47,8 @@ export const UpdateProfile = () => {
         }}
         options={{
           defaultValues: {
-            firstName: user?.firstName,
-            lastName: user?.lastName,
+            first_name: user?.first_name,
+            last_name: user?.last_name,
             email: user?.email,
             bio: user?.bio,
           },
@@ -57,8 +57,8 @@ export const UpdateProfile = () => {
       >
         {({ register, formState }) => (
           <>
-            <InputField label="First Name" error={formState.errors["firstName"]} registration={register("firstName")} />
-            <InputField label="Last Name" error={formState.errors["lastName"]} registration={register("lastName")} />
+            <InputField label="First Name" error={formState.errors["first_name"]} registration={register("first_name")} />
+            <InputField label="Last Name" error={formState.errors["last_name"]} registration={register("last_name")} />
             <InputField label="Email Address" type="email" error={formState.errors["email"]} registration={register("email")} />
 
             <TextAreaField label="Bio" error={formState.errors["bio"]} registration={register("bio")} />
