@@ -19,10 +19,7 @@ export default function AddAnotherImage({ constatation }: AddAnotherImageProps):
 
   const styles: StyleProps = useStyles();
 
-  const uploadMutation = useUploadConstatationOtherImage({
-    constatationId: constatation.id,
-    image: image,
-  });
+  const uploadMutation = useUploadConstatationOtherImage();
 
   const onSubmit = async () => {
     image &&

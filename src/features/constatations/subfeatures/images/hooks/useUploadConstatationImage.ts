@@ -1,14 +1,20 @@
 import { useNotificationStore } from "@/hooks/useNotificationStore";
+import { QueryKeys } from "@/lib/query-keys";
 import { MutationConfig, queryClient } from "@/lib/react-query";
 import { Constatation, Image, ImageToSend } from "@/types";
 import { useMutation } from "react-query";
-import { uploadConstatationImage } from "../api";
+import { axios } from "@/lib/axios";
 
-
-interface UseUploadConstatationImageOptions {
-  imageId: number;
+interface UploadConstatationImageOptions {
+  imageId?: number;
   constatationId: number;
-  image?: ImageToSend;
+  image: ImageToSend;
+};
+
+export const uploadConstatationImage = ({ image, constatationId, imageId }: UploadConstatationImageOptions): Promise<Image  |Constatation> => {
+  return axios.post(`/constatations/${constatationId}/images/${imageId}/upload`, { image });
+};
+interface UseUploadConstatationImageOptions {
   config?: MutationConfig<typeof uploadConstatationImage>;
 };
 
@@ -16,21 +22,20 @@ function isImage(data: Image | Constatation): data is Image {
   return (data as Image).constatation_id !== undefined;
 }
 
-export const useUploadConstatationImage = ({ constatationId, imageId, image, config }: UseUploadConstatationImageOptions) => {
+export const useUploadConstatationImage = ({ config }: UseUploadConstatationImageOptions = {}) => {
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {
       if (isImage(data)) {
-        queryClient.refetchQueries(["constatations"]);
-        queryClient.refetchQueries(["constatations", data.constatation_id]);
-        queryClient.refetchQueries(["images"]);
+        queryClient.invalidateQueries([QueryKeys.Constatations]);
+        queryClient.invalidateQueries([QueryKeys.Constatations, data.constatation_id]);
         addNotification({
           type: "success",
           title: "L'image a été téléchargée",
         });
       } else {
-        queryClient.refetchQueries(["constatations"]);
-        queryClient.refetchQueries(["constatations", data.id]);
+        queryClient.invalidateQueries([QueryKeys.Constatations]);
+        queryClient.invalidateQueries([QueryKeys.Constatations, data.id]);
 
         addNotification({
           type: "success",
@@ -38,7 +43,6 @@ export const useUploadConstatationImage = ({ constatationId, imageId, image, con
         });
       }
     },
-    ...config,
     mutationFn: uploadConstatationImage,
   });
 };

@@ -29,7 +29,7 @@ export default function InputSelector<TFieldValues>({ f, control }: InputFromFie
   const { field, fieldState, formState } = useController({
     control: control,
     name: f.name,
-    defaultValue: f.value ?? f.defaultValue,
+    defaultValue: f.value ? f.value : f.defaultValue,
   });
 
   const inputProps = {

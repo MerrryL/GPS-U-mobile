@@ -52,7 +52,6 @@ export function FieldsAdd({ fieldGroup, observation }: FieldsAddProps) {
   ];
 
   const onSubmit = async (values: any) => {
-    console.log("values", values);
     await fieldCreateMutation.mutateAsync({
       name: values.name,
       default_value: values.default_value,

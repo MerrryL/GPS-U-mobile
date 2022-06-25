@@ -5,7 +5,7 @@ import React from "react";
 import { StyleProp, ViewStyle } from "react-native";
 
 interface StarButtonProps {
-  callBack: () => void;
+  callBack:( () => void) | Promise<void> | (() =>Promise<void>);
   isFavorite?: true;
 }
 

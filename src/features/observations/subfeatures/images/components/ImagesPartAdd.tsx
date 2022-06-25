@@ -46,7 +46,6 @@ export default function ImagesPartAdd({ observation }: ImagesPartAddProps): JSX.
   ];
 
   const onSubmit = async (values: any) => {
-    console.log("values", values);
     await imageCreateMutation.mutateAsync({
       name: values.name,
       description: values.description,

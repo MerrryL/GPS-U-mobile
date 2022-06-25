@@ -42,14 +42,14 @@ export default function Edit(props: ConstatationEditProps): JSX.Element {
         <Tab.Item title="Questionnaires" titleStyle={{ fontSize: 12 }} icon={<MaterialCommunityIcons name="file-document-multiple-outline" size={16} color="white" />} />
       </Tab>
 
-      <TabView value={index} onChange={setIndex} animationType="spring" disableSwipe={index ===1}>
+      <TabView value={index} onChange={setIndex} animationType="spring" disableSwipe={index ===1 || index ===2}>
         <TabView.Item style={{ width: "100%" }}>
           <ScrollView>
             <ConstatationEditCard constatation={constatation} />
           </ScrollView>
         </TabView.Item>
         <TabView.Item style={{ width: "100%" }}>
-          <ScrollView onStartShouldSetResponder={(event: GestureResponderEvent) => true}>
+          <ScrollView>
             <LocalizationPart constatation={constatation} />
           </ScrollView>
         </TabView.Item>

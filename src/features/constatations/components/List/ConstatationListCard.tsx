@@ -2,6 +2,7 @@ import { FloatingButtonStack } from "@/components/Elements/Buttons/ButtonStack";
 import DetailsButton from "@/components/Elements/Buttons/DetailsButton";
 import EditButton from "@/components/Elements/Buttons/EditButton";
 import DateText from "@/components/Elements/Text/DateText";
+import { useAuth } from "@/lib/auth";
 import { Constatation } from "@/types";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -30,6 +31,7 @@ interface StyleProps {
 }
 
 export function ConstatationListCard({ constatation }: ConstatationCardProps): JSX.Element {
+  const { user } = useAuth();
   const styles: StyleProps = useStyles({ is_validated: constatation.is_validated, requires_validation: constatation.requires_validation });
 
   const navigation: StackNavigationProp<ConstatationStackParamList, keyof ConstatationStackParamList, undefined> = useNavigation<StackNavigationProp<ConstatationStackParamList>>();
@@ -41,8 +43,14 @@ export function ConstatationListCard({ constatation }: ConstatationCardProps): J
   return (
     <Card containerStyle={styles.container}>
       <FloatingButtonStack>
-        <EditButton callBack={() => navigation.navigate("Edition", { constatationId: constatation.id })} />
-        <DetailsButton callBack={() => navigation.navigate("Détails", { constatationId: constatation.id })} />
+        {user?.is_observer && constatation.observers.find( observer => observer.id === user.id) ? (
+          <>
+            <EditButton callBack={() => navigation.navigate("Edition", { constatationId: constatation.id })} />
+            <DetailsButton callBack={() => navigation.navigate("Détails", { constatationId: constatation.id })} />
+          </>
+        ) : (
+          <DetailsButton callBack={() => navigation.navigate("Détails", { constatationId: constatation.id })} />
+        )}
       </FloatingButtonStack>
 
       <Card.FeaturedTitle style={styles.cardTitle}>Constatation n°{id}</Card.FeaturedTitle>

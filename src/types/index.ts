@@ -7,11 +7,11 @@ export type BaseEntity = {
 
 export interface Constatation {
   created_at: string;
-  updated_at: string;
+  deleted_at: string;
   description: string;
   fields: Field[];
-  images: Image[];
   id: number;
+  images: Image[];
   is_validated: number;
   localization: Localization;
   media: Media[];
@@ -20,6 +20,7 @@ export interface Constatation {
   requires_validation: number;
   requires_validation_date: string;
   validation_date: string;
+  updated_at: string;
 };
 
 export type ImageToSend = {
@@ -58,6 +59,7 @@ export type ConstFieldPivot = {
   constatation_id: number;
   field_id: number;
   value: string;
+  id:number;
 };
 
 export type Image = {

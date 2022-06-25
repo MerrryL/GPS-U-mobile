@@ -5,7 +5,7 @@ import MapView, { LatLng, MapEvent, Marker, Region } from "react-native-maps";
 
 interface MapProps {
   markers?: LatLng[];
-  onChange: (coords: LatLng) => void;
+  onChange?: (coords: LatLng) => void;
 }
 
 export default function MapForMobile({ markers, onChange }: MapProps): JSX.Element {
@@ -25,10 +25,11 @@ export default function MapForMobile({ markers, onChange }: MapProps): JSX.Eleme
   };
 
   const onDragEnd: (event: MapEvent) => void = (event: MapEvent): void => {
-    onChange({
-      latitude: event.nativeEvent.coordinate.latitude,
-      longitude: event.nativeEvent.coordinate.longitude,
-    });
+   onChange &&
+     onChange({
+       latitude: event.nativeEvent.coordinate.latitude,
+       longitude: event.nativeEvent.coordinate.longitude,
+     });
   };
 
   return (
@@ -43,7 +44,7 @@ export default function MapForMobile({ markers, onChange }: MapProps): JSX.Eleme
                   latitude: marker.latitude != null ? marker.latitude : initialRegion.latitude,
                   longitude: marker.longitude != null ? marker.longitude : initialRegion.longitude,
                 }}
-                draggable
+                draggable={onChange ? true : false}
                 onDragEnd={onDragEnd}
                 title="Ici"
                 description="Vous êtes ici"

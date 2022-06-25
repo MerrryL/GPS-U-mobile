@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Card, Colors, Theme } from "@rneui/base";
 import { makeStyles } from "@rneui/themed";
 import React, { useEffect, useState } from "react";
-import { SubmitHandler, useForm, UseFormReturn, UseFormWatch } from "react-hook-form";
+import { SubmitHandler, useForm, UseFormGetValues, UseFormReturn, UseFormSetValue, UseFormWatch } from "react-hook-form";
 import { ScrollView, StyleProp, TextStyle, ViewStyle } from "react-native";
 import * as yup from "yup";
 import { fr } from "yup-locales";
@@ -18,8 +18,8 @@ interface FormBuilderProps<TFieldValues> {
   fields: InputedField[];
   onSubmit: SubmitHandler<TFieldValues>;
   onCancel?: () => void;
-  onWatch?: (watch: UseFormWatch<TFieldValues>) => void;
-  setValue?: any
+  read?: (watch: UseFormGetValues<TFieldValues>) => void;
+  update?: (setValue: UseFormSetValue<TFieldValues>) => void;
 }
 
 interface StyleProps {
@@ -30,7 +30,7 @@ interface StyleProps {
   details: StyleProp<ViewStyle>;
 }
 //TODO:LATER
-export default function FormBuilder<TFieldValues>({ title, description, fields, onSubmit, onCancel, onWatch, setValue }: FormBuilderProps<TFieldValues>): JSX.Element {
+export default function FormBuilder<TFieldValues>({ title, description, fields, onSubmit, onCancel, read, update }: FormBuilderProps<TFieldValues>): JSX.Element {
   const styles: StyleProps = useStyles();
   yup.setLocale(fr);
 
@@ -40,12 +40,15 @@ export default function FormBuilder<TFieldValues>({ title, description, fields, 
     control,
     handleSubmit,
     formState: { errors },
-    watch
+    watch,
+    getValues,
+    setValue
   }: UseFormReturn<TFieldValues> = useForm<TFieldValues>({
     resolver: yupResolver(schema),
   });
-  
-  onWatch && onWatch(watch);
+
+  read && read(getValues);
+  update && update(setValue);
 
   return (
     <ScrollView>
@@ -53,7 +56,6 @@ export default function FormBuilder<TFieldValues>({ title, description, fields, 
         <NormalText boldText={title} text={description} />
 
         {fields && fields.map((field: InputedField, index: React.Key): JSX.Element => <InputSelector f={field} key={index} control={control} />)}
-        {/* <NormalText text={JSON.stringify(errors)}></NormalText> */}
 
         <SaveButton callBack={handleSubmit<TFieldValues>(onSubmit)} title="Sauvegarder" />
         {onCancel && <CancelButton callBack={onCancel} title="Annuler" />}

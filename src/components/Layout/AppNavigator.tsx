@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import ConstatationStackScreen from "@/features/constatations/routes/Index";
 import ObservationStackScreen from "@/features/observations/routes";
-import { ParametersScreen } from "@/features/parameters";
+import { MapsScreen, ParametersScreen } from "@/features/parameters";
 import { AntDesign, Entypo, Fontisto, Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { ParamListBase, RouteProp } from "@react-navigation/native";
@@ -11,7 +11,7 @@ export type AppStackParamList = {
   Constatations: undefined;
   Observations: undefined;
   Maps: undefined;
-  Parameters: undefined;
+  // Parameters: undefined;
   // Tâches: undefined;
   // About: undefined;
 };
@@ -54,20 +54,20 @@ function AppNavigator(): JSX.Element {
       />
       <Tab.Screen
         name="Maps"
-        component={ObservationStackScreen}
+        component={MapsScreen}
         options={{
           tabBarLabel: "Maps",
           tabBarIcon: ({ color, focused, size }: TabBarIconProps): JSX.Element => <Fontisto name="map" color={color} focused={focused} size={size} />,
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Parameters"
         component={ParametersScreen}
         options={{
           tabBarLabel: "Paramètres",
           tabBarIcon: ({ color, focused, size }: TabBarIconProps): JSX.Element => <Ionicons name="settings" color={color} focused={focused} size={size} />,
         }}
-      />
+      /> */}
 
       {/* <Tab.Screen
         name="Home"

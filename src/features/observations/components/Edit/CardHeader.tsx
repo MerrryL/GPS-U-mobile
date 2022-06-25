@@ -88,8 +88,6 @@ export function CardHeader({ observationId }: CardHeaderProps) {
   ];
 
   const onSubmit = async (data: any) => {
-    console.log("data", JSON.stringify(data));
-
     await updateObservationMutation.mutateAsync({
       data,
       observationId,

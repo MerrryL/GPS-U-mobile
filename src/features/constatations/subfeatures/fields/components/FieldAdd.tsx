@@ -37,7 +37,6 @@ export function FieldsAdd({ fieldGroupId, constatationId }: FieldsAddProps) {
   });
 
   const onSubmit = async (values) => {
-    console.log("values", values);
     await fieldCreateMutation.mutateAsync({
       name: values.name,
       type: values.type,

@@ -20,8 +20,6 @@ export const useUpdateConstatationObservers = ({ constatationId, observers, conf
   const { addNotification } = useNotificationStore();
   return useMutation({
     onSuccess: async (data) => {
-      console.log("data", data);
-
       queryClient.refetchQueries(["constatations"]);
       queryClient.refetchQueries(["constatationObservers"]);
       queryClient.refetchQueries(["constatations", constatationId]);

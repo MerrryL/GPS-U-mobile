@@ -27,11 +27,20 @@ export default function ImagesPart({ constatation }: ImagesPartProps): JSX.Eleme
     <Card containerStyle={styles.container}>
       <Card>
         <NormalText boldText="Photo de couverture actuelle" />
+        <Card.Divider></Card.Divider>
         <ConstatationCover cover={constatation.media[0]} images={constatation.images} />
       </Card>
-      <Card>{ImagesWithoutMedia.length > 0 ? <TabOfRemainingImages images={ImagesWithoutMedia} /> : <NormalText boldText="Aucune autre photo n'est requise pour l'instant" text="Mais n'hésitez pas à rajouter d'autres photographies" />}</Card>
-      <AddAnotherImage constatation={constatation} />
-      {ImagesWithMedia.length > 0 ? <TabOfImages images={ImagesWithMedia} /> : <NormalText boldText="Aucune photo n'a été prise pour l'instant" text="N'hésitez pas à compléter les demandes de photographies spécifiques aux observations ou à rajouter d'autres photographies" />}
+      <Card>
+        <NormalText boldText="Photos requises selon les observations" />
+        <Card.Divider></Card.Divider>
+        {ImagesWithoutMedia.length > 0 ? <TabOfRemainingImages images={ImagesWithoutMedia} /> : <NormalText boldText="Aucune autre photo n'est requise pour l'instant" text="Mais n'hésitez pas à rajouter d'autres photographies" />}
+      </Card>
+      <Card>
+        <NormalText boldText="Gallerie" />
+        <Card.Divider></Card.Divider>
+        <AddAnotherImage constatation={constatation} />
+        {ImagesWithMedia.length > 0 ? <TabOfImages images={ImagesWithMedia} /> : <NormalText boldText="Aucune photo n'a été prise pour l'instant" text="N'hésitez pas à compléter les demandes de photographies spécifiques aux observations ou à rajouter d'autres photographies" />}
+      </Card>
     </Card>
   );
 }

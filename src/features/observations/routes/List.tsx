@@ -1,3 +1,4 @@
+import { useAuth } from "@/lib/auth";
 import { Observation } from "@/types";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -15,7 +16,8 @@ interface ObservationListProps {
   route: RouteProp<ObservationStackParamList, "Liste">;
 }
 
-export default function List({ route, navigation }: ObservationListProps) {
+export default function List({ route, navigation }: ObservationListProps): JSX.Element {
+    const { user } = useAuth();
   const observationsQuery = useObservations();
   const { theme } = useTheme();
 
@@ -41,7 +43,7 @@ export default function List({ route, navigation }: ObservationListProps) {
           <ObservationListCard observation={observation} key={index} />
         ))}
       </ScrollView>
-      <FAB title="+" placement="right" color={theme.colors.success} size="large" onPress={() => handleCreation()} />
+      {user?.is_responsible &&<FAB title="+" placement="right" color={theme.colors.success} size="large" onPress={() => handleCreation()} />}
     </>
   );
 }

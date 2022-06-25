@@ -11,6 +11,7 @@ import { makeStyles } from "@rneui/themed";
 import React from "react";
 import { StyleProp, TextStyle, View, ViewStyle } from "react-native";
 import { ObservationStackParamList } from "../..";
+import ObservationDates from "./ObservationDates";
 
 interface ObservationListCardProps {
   observation: Observation;
@@ -37,8 +38,8 @@ export function ObservationListCard({ observation }: ObservationListCardProps): 
   return (
     <Card containerStyle={styles.container}>
       <FloatingButtonStack>
-        <EditButton callBack={() => navigation.navigate("Edition", { observationId: observation?.id })}></EditButton>
-        <DetailsButton callBack={() => navigation.navigate("Détails", { observationId: observation?.id })}></DetailsButton>
+        <EditButton callBack={() => navigation.navigate("Edition", { observationId: observation.id })}></EditButton>
+        <DetailsButton callBack={() => navigation.navigate("Détails", { observationId: observation.id })}></DetailsButton>
       </FloatingButtonStack>
 
       <Card.FeaturedTitle style={styles.cardTitle}>Observation {code}</Card.FeaturedTitle>
@@ -46,22 +47,27 @@ export function ObservationListCard({ observation }: ObservationListCardProps): 
 
       <View style={styles.body}>
         <Card containerStyle={styles.summary}>
-          <NormalText boldText="Résumé" text={short_description}></NormalText>
+          <NormalText boldText="Résumé"></NormalText>
+          <Card.Divider></Card.Divider>
+          <NormalText text={short_description}></NormalText>
         </Card>
         <View style={styles.headerInfos}>
-          <DateText date={created_at} />
-          <Card containerStyle={styles.fineAmount}>
-            <NormalText boldText="Montant de l'amende" text={fine_amount}></NormalText>
-          </Card>
-          <DateText boldText="Dernière m-a-j" date={updated_at} dateStyle={{ alignSelf: "flex-end" }} containerStyle={{ flexDirection: "column", alignItems: "flex-end" }} />
+          <ObservationDates createdAt={created_at} updatedAt={updated_at} />
         </View>
-        <Card containerStyle={styles.description}>
-          <NormalText boldText="Description" text={description}></NormalText>
-        </Card>
-        {/* <Text>Codex: TODO{codex}</Text> */}
-        {/* <Text>Groupes de champs TODO{field_groups}</Text> */}
-        {/* <Text>Type d'observation TODO{observation_type}</Text> */}
       </View>
+      <Card>
+        <NormalText boldText="Montant de l'amende"></NormalText>
+        <Card.Divider></Card.Divider>
+        <NormalText text={fine_amount}></NormalText>
+      </Card>
+      <Card>
+        <NormalText boldText="Description"></NormalText>
+        <Card.Divider></Card.Divider>
+        <NormalText text={description}></NormalText>
+      </Card>
+      {/* <Text>Codex: TODO{codex}</Text> */}
+      {/* <Text>Groupes de champs TODO{field_groups}</Text> */}
+      {/* <Text>Type d'observation TODO{observation_type}</Text> */}
     </Card>
   );
 }
@@ -78,17 +84,14 @@ const useStyles = makeStyles(
       alignItems: "stretch",
     },
     summary: {
-      width: 180,
-      height: 180,
+      flexDirection: "column",
+      flexGrow: 1,
+      alignItems: "stretch",
+      display: "flex",
       // borderRadius: 20,
       overflow: "hidden",
       borderWidth: 3,
-      padding: 5,
-      margin: 5,
-      paddingTop: 15,
-      marginRight: 15,
       borderColor: "black",
-      flexGrow: 1,
     },
     header: {
       flexWrap: "wrap",
@@ -117,6 +120,7 @@ const useStyles = makeStyles(
       flexWrap: "wrap",
       flexDirection: "row",
       alignItems: "stretch",
+      alignContent: "stretch",
       height: "auto",
       marginTop: 5,
     },

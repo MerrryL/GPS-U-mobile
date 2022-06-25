@@ -1,18 +1,19 @@
-import Map from "@/components/Address/Map";
+import { FloatingButtonStack } from "@/components/Elements/Buttons/ButtonStack";
 import RefreshButton from "@/components/Elements/Buttons/RefreshButton";
 import FormBuilder from "@/components/Elements/FormBuilder/FormBuilder";
-import { getAddressForCoordinates, getCoordinatesForAddress, getCurrentLocationFromSensors } from "@/lib/localization";
+import { CoordsDTO, getAddressForCoordinates, getCoordinatesForAddress, getCurrentLocationFromSensors } from "@/lib/localization";
 import { Constatation, Localization } from "@/types";
 import { InputedField, InputType } from "@/types/utilityTypes";
 import { Button, Card, Colors, Input, Theme } from "@rneui/base";
 import { makeStyles } from "@rneui/themed";
 import { LocationObject } from "expo-location";
 import React, { useState } from "react";
-import { UseFormWatch } from "react-hook-form";
-import { StyleProp, TextStyle, View, ViewStyle } from "react-native";
+import { UseFormGetValues, UseFormSetValue } from "react-hook-form";
+import { StyleProp, TextStyle, ViewStyle } from "react-native";
 import { LatLng } from "react-native-maps";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import * as yup from "yup";
+import Map from "@/components/Address/Map";
 import { useUpdateLocalization } from "../hooks/useUpdateLocalization";
 
 interface LocalizationPartProps {
@@ -36,12 +37,9 @@ export default function LocalizationPart({ constatation }: LocalizationPartProps
   const styles: StyleProps = useStyles();
   const updateLocalizationMutation = useUpdateLocalization();
   const [coords, setCoords] = useState<Localization>(constatation.localization);
-  const [form, setForm] = useState<LocForm>({ given_name: constatation.localization.given_name ?? "", formatted_address: constatation.localization.formatted_address ?? "" });
 
-  const updateCoords = (newCoords: Localization): void =>{
-    console.warn(newCoords.formatted_address);
-    setCoords( (prevCoords: Localization): Localization => ( {...prevCoords, ...newCoords}));      
-      console.log("coords", coords.formatted_address);
+  const updateCoords = (newCoords: Localization): void => {
+    setCoords((prevCoords: Localization): Localization => ({ ...prevCoords, ...newCoords }));
   };
 
   const updateCoordsFromSensors = async () => {
@@ -49,28 +47,32 @@ export default function LocalizationPart({ constatation }: LocalizationPartProps
 
     if (updatedCoords) {
       updateCoords(updatedCoords.coords);
-      updateAddressFromCoords(updatedCoords.coords);
+      updateAddressFromCoords();
     }
   };
 
-  const updateAddressFromCoords = async (newCoords: LatLng) => {
-    getAddressForCoordinates({
-      latitude: newCoords.latitude,
-      longitude: newCoords.longitude,
-    }).then((response: Localization) => {
-      updateCoords(response);
-    });
+  let mySetValue: UseFormSetValue<LocForm> | undefined = undefined;
+  const updateAddressFromCoords = async () => {
+    if (mySetValue && coords.latitude && coords.longitude) {
+      getAddressForCoordinates({
+        latitude: coords.latitude,
+        longitude: coords.longitude,
+      }).then((response: Localization) => {
+        mySetValue && mySetValue('formatted_address', response.formatted_address ?? "");
+      });
+    }
   };
+  let myGetValues: UseFormGetValues<LocForm> | undefined = undefined;
 
   const updateCoordsFromAddress = async () => {
-    if (coords && coords.formatted_address) {
-      await getCoordinatesForAddress(coords.formatted_address).then((response: LatLng) => updateCoords(response));
+    if (myGetValues) {
+      await getCoordinatesForAddress(myGetValues()["formatted_address"]).then((response: CoordsDTO) => updateCoords({ ...response, latitude: response.lat, longitude: response.lng }));
     }
   };
 
   const onSubmit = async (data: LocForm) => {
     await updateLocalizationMutation.mutateAsync({
-      localization: data,
+      localization: {...coords, ...data},
       constatationId: constatation.id,
     });
   };
@@ -80,7 +82,7 @@ export default function LocalizationPart({ constatation }: LocalizationPartProps
       name: "given_name",
       label: "Lieu-dit",
       type: InputType.Text,
-      schema: yup.string().defined(),
+      schema: yup.string().min(1).defined(),
       value: coords.given_name,
     },
     {
@@ -92,27 +94,22 @@ export default function LocalizationPart({ constatation }: LocalizationPartProps
     },
   ];
 
-  const onWatch = (watch: UseFormWatch<LocForm>) => {
-    // setForm((previousValue) => ({...previousValue,...watch()}));
-    console.log("hey", watch());
-    // setForm(watch());
-  };
-
   return (
     <Card containerStyle={styles.container}>
-
-      <Card containerStyle={styles.buttons}>
+      <FloatingButtonStack>
         <RefreshButton callBack={updateCoordsFromSensors}></RefreshButton>
-        <Button icon={<FontAwesome name="hand-o-down" size={24} color="white" />} disabled={coords?.formatted_address ? false : true} title=" Maj coords" onPress={() => updateCoordsFromAddress()} />
-        <Button icon={<FontAwesome name="hand-o-up" size={24} color="white" />} iconRight={true} disabled={coords?.latitude && coords?.longitude ? false : true} title="Maj adresse " onPress={() => updateAddressFromCoords({ latitude: coords?.latitude!, longitude: coords?.longitude! })} />
-      </Card>
-
+      </FloatingButtonStack>
       <Card wrapperStyle={styles.coordsContainer}>
         <Input containerStyle={styles.coords} inputStyle={styles.input} label="Longitude" disabled value={coords.longitude?.toString()} />
         <Input containerStyle={styles.coords} inputStyle={styles.input} label="Latitude" disabled value={coords.latitude?.toString()} />
       </Card>
 
-      <FormBuilder title="Localisation" description="Où la constatation a eu lieu" fields={newLocalizationForm} onSubmit={onSubmit} onWatch={onWatch} />
+      <Card wrapperStyle={styles.buttons}>
+        <Button icon={<FontAwesome name="hand-o-up" size={24} color="white" />} disabled={coords?.formatted_address ? false : true} title=" Maj coords" onPress={updateCoordsFromAddress} />
+        <Button icon={<FontAwesome name="hand-o-down" size={24} color="white" />} iconRight={true} disabled={coords?.latitude && coords?.longitude ? false : true} title="Maj adresse " onPress={updateAddressFromCoords} />
+      </Card>
+
+      <FormBuilder title="Localisation" description="Où la constatation a eu lieu" fields={newLocalizationForm} onSubmit={onSubmit} read={(getValues) => (myGetValues = getValues)} update={(setValue) => (mySetValue = setValue)} />
 
       <Map
         markers={coords && coords.latitude && coords.longitude ? [{ latitude: +coords.latitude, longitude: +coords.longitude }] : []}
@@ -137,6 +134,8 @@ const useStyles = makeStyles((theme: { colors: Colors } & Theme) => ({
   buttons: {
     display: "flex",
     flexDirection: "row",
+    alignContent: "space-between",
+    justifyContent: "space-between",
     flexGrow: 1,
     backgroundColor: theme?.colors?.white,
   },

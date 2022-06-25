@@ -47,7 +47,6 @@ async function logoutFn() {
   try {
     await AsyncStorage.multiRemove(["user", "token"]);
   } catch (e) {
-    console.log("error", e);
     // remove error
   }
 }

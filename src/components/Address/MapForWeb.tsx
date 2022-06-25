@@ -6,7 +6,7 @@ import MapView from "react-native-web-maps";
 
 interface MapProps {
   markers?: LatLng[];
-  onChange: (coords: LatLng) => void;
+  onChange?: (coords: LatLng) => void;
 }
 export default function MapForWeb({ markers, onChange }: MapProps): JSX.Element {
   const styles = useStyles();
@@ -30,7 +30,7 @@ export default function MapForWeb({ markers, onChange }: MapProps): JSX.Element 
   };
 
   const onDragEnd = (marker: any) => {
-    onChange({
+   onChange && onChange({
       latitude: marker.latLng.lat() as number,
       longitude: marker.latLng.lng() as number,
     });
@@ -38,21 +38,10 @@ export default function MapForWeb({ markers, onChange }: MapProps): JSX.Element 
 
   return (
     <Card containerStyle={styles.container}>
-      <MapView
-        style={styles.map}
-        initialRegion={initialRegion}
-        key={markers}
-      >
+      <MapView style={styles.map} initialRegion={initialRegion} key={markers}>
         {markersState?.map(
           (marker: LatLng, index: number): JSX.Element => (
-            <MapView.Marker
-              key={index}
-              coordinate={marker}
-              draggable
-              onDragEnd={onDragEnd}
-              title="Ici"
-              description="Vous êtes ici"
-            />
+            <MapView.Marker key={index} coordinate={marker} draggable={onChange ? true : false} onDragEnd={onDragEnd} title="Ici" description="Vous êtes ici" />
           )
         )}
       </MapView>

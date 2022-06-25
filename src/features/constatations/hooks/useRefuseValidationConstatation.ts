@@ -48,7 +48,7 @@ export const useRefuseValidationConstatation = ({ config }: UseRefuseValidationC
         queryClient.setQueryData([QueryKeys.Constatations], context.previousConstatations);
       }
     },
-    onSuccess: (data) => {
+    onSuccess: (data: Constatation) => {
       queryClient.invalidateQueries([QueryKeys.Constatations]);
       queryClient.invalidateQueries([QueryKeys.Constatations, data.id]);
       addNotification({

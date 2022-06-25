@@ -1,26 +1,27 @@
-import { useNavigation } from "@react-navigation/native";
+import NormalText from "@/components/Elements/Text/NormalText";
+import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { Card } from "@rneui/base";
 import React from "react";
+import { ObservationStackParamList } from "..";
+import { ObservationListCard } from "../components/List/ObservationCard";
 import { useObservation } from "../hooks/useObservation";
 
-type Params = {
-  observationId: string;
-};
+interface DetailsProps {
+  navigation: StackNavigationProp<ObservationStackParamList, "Détails">;
+  route: RouteProp<ObservationStackParamList, "Détails">;
+}
 
-type DetailsProps = {
-  route: Route;
-};
-
-type Route = {
-  params: Params;
-};
-
-export default function Details({ route }: DetailsProps) {
+export default function Details({ route, navigation }: DetailsProps): JSX.Element {
   const observationQuery = useObservation({
     observationId: route.params.observationId,
   });
 
-  const navigation = useNavigation();
-
-  return <Card></Card>;
+  return observationQuery.data ? (
+    <ObservationListCard observation={observationQuery.data} />
+  ) : (
+    <Card>
+      <NormalText boldText="Erreur: il n'y a pas de constatation"></NormalText>
+    </Card>
+  );
 }

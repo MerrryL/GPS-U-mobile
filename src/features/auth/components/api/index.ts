@@ -19,6 +19,9 @@ export type AuthUser = {
   email: string;
   first_name: string;
   last_name: string;
+  is_user:boolean;
+  is_observer:boolean;
+  is_responsible:boolean;
   bio: string;
   role: "ADMIN" | "USER";
 };
